@@ -34,3 +34,8 @@ Unity Api가 활용되며 게임 로직이 동작하는 `main thread`
 네이티브 코드가 작동 중 gc의 메모리 압축 과정이 발생한다면 더 이상 메모리가 동기화 상태가 아니게 되는 셈
 
 참조 : https://forum.unity.com/threads/why-not-make-unity-monobehavior-thread-safe-for-c-jobs.538169/
+
+
+# 렌더링 파이프라인 관련참조
+
+https://learn.unity.com/tutorial/optimizing-graphics-in-unity
