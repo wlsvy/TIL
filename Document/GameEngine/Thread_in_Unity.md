@@ -36,6 +36,6 @@ Unity Api가 활용되며 게임 로직이 동작하는 `main thread`
 참조 : https://forum.unity.com/threads/why-not-make-unity-monobehavior-thread-safe-for-c-jobs.538169/
 
 
-# 렌더링 파이프라인 관련참조
+#### 렌더링 파이프라인 관련참조
 
 https://learn.unity.com/tutorial/optimizing-graphics-in-unity
