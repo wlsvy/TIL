@@ -31,7 +31,7 @@ int birthday(vector<int> s, int d, int m) {
 }
 ```
 
-다른 사람들은 이 방식을 활용했더라
+다른 사람들은 사용한 
 
 ```
 int birthday(vector<int> s, int d, int m) {
@@ -45,7 +45,7 @@ int birthday(vector<int> s, int d, int m) {
 
 	if (s[m - 1] == d) ans++;
 
-	for (int i = m; i < m; i++) {
+	for (int i = m; i < s.size(); i++) {
 		if (s[i] - s[i - m] == d) ans++;
 	}
 
