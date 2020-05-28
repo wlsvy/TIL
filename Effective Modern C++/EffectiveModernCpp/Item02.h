@@ -23,6 +23,7 @@ namespace Item02 {
 		auto x = 27;			//int
 		const auto cx = x;		//const int
 		const auto & rcx = x;	//const int&
+		auto x2 = cx;			//int
 
 		//universal reference
 		auto&& uref1 = x;		//int&

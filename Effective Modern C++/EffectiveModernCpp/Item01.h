@@ -69,9 +69,9 @@ namespace Item01 {
 			const int cx = x;
 			const int & rcx = x;
 
-			f(x);	//매개변수는 좌측값, T : int,			param 타입은 int &
-			f(cx);	//매개변수는 좌측값, T : const int,	param 타입은 cosnt int &
-			f(rcx);	//매개변수는 좌측값, T : const int,	param 타입은 const int &
+			f(x);	//매개변수는 좌측값, T : int&,			param 타입은 int &
+			f(cx);	//매개변수는 좌측값, T : const int&,	param 타입은 cosnt int &
+			f(rcx);	//매개변수는 좌측값, T : const int&,	param 타입은 const int &
 			f(27);	//매개변수는 우측값, T : int,			param 타입은 int&&
 		}
 	}
@@ -162,7 +162,7 @@ namespace Item01 {
 		inline void RunSample() {
 
 			f1(someFunc);	//값 전달, paramType 은 void(*)(int, double)
-			f2(someFunc);	//참조 전달, paramType 은 void(&)(int, double) 라고 책에 나오지만, 실제 실행시키면 void(*)(int, double)
+			f2(someFunc);	//참조 전달, paramType 은 void(&)(int, double)
 		}
 	}
 }
