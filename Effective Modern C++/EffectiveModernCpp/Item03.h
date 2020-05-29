@@ -91,6 +91,8 @@ namespace Item03 {
 			auto createDeque = []() {return std::deque<int>({ 0, 0, 0, 0, 0, 0 }); };
 
 			Access(createDeque(), 5) = 10;	//우측값 매개변수 적용
+
+			decltype(auto) rValue = forward<deque<int>>(d);	//std::deque<int> &&
 		}
 	}
 	
