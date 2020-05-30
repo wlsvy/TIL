@@ -12,7 +12,7 @@ int main() {
 	cout << "Hello world" << endl;
 
 	//Item01::ParamType_Function::RunSample();
-	Item05::WithAuto::RunSample();
+	Item05::WithAuto::TestLambda();
 
 	system("pause");
 	return 0;

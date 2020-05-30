@@ -93,5 +93,24 @@ namespace Item05 {
 			bool comp0 = derefUpLess(make_shared<Widget>(), make_shared<Widget>());
 			bool comp1 = derefUpLess(make_shared<int>(3), make_shared<int>(5));
 		}
+
+		auto compWidget = [](const shared_ptr<Widget>& p1, const shared_ptr<Widget>& p2) {
+			return *p1 < *p2;
+		};
+		auto compInt = [](const shared_ptr<int>& p1, const shared_ptr<int>& p2) {
+			return *p1 < *p2;
+		};
+
+		void TestLambda() {
+			bool v0 = compWidget(make_shared<Widget>(), make_shared<Widget>());
+			//bool v1 = compWidget(make_shared<int>(3), make_shared<int>(5)); //에러
+
+			bool v2 = compInt(make_shared<int>(3), make_shared<int>(5));
+			//bool v3 = compInt(make_shared<Widget>(), make_shared<Widget>());	//에러
+
+			bool v5 = derefUpLess(make_shared<Widget>(), make_shared<Widget>());
+			bool v6 = derefUpLess(make_shared<int>(3), make_shared<int>(5));
+
+		}
 	}
 }
