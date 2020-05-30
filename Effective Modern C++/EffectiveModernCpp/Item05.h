@@ -41,7 +41,7 @@ namespace Item05 {
 			for (const std::pair<string, int>& p : m) {
 				/*
 					이 경우, 원래 의도는 각 원소를 참조하는 것이지만
-					루프마다 임시객체가 생성되고, p는 임시객체를 참조하게 되다.
+					루프마다 임시객체가 생성되고, p는 임시객체를 참조한다.
 
 					실제 unordered_map<string, int> 의 원소 타입은 std::pair<const std::string, int> 이다. => key 타입에 해당하는 string에 const 가 붙는다.
 					즉 일반적으로 pair<const string, int> 에서 pair<string, int> 타입으로 변환시켜야 하기 때문에 컴파일러는 임시객체를 생성하게 된다.
@@ -76,12 +76,22 @@ namespace Item05 {
 		*/
 		auto sz = vector<int>(4).size();
 		
+
+		struct Widget {
+			bool operator<(const Widget& rhs) {
+				return false;
+			}
+		};
+
 		void RunSample() {
 			unordered_map<string, int> m;
 
 			for (const auto & p : m) {
 				//실제 원소의 참조값을 얻는다.
 			}
+
+			bool comp0 = derefUpLess(make_shared<Widget>(), make_shared<Widget>());
+			bool comp1 = derefUpLess(make_shared<int>(3), make_shared<int>(5));
 		}
 	}
 }
