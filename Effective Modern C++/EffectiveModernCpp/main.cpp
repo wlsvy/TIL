@@ -17,3 +17,12 @@ int main() {
 	system("pause");
 	return 0;
 }
+
+/*
+	namespace Item00{
+
+		inline void RunSample(){
+
+		}
+	}
+*/
