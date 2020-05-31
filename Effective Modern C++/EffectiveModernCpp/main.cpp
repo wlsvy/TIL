@@ -4,6 +4,7 @@
 //클래스 멤버함수를 헤더 파일에 선언/정의하면 암시적으로 inline 선언되기 때문에 inline 키워드가 없어도 문제는 없음
 
 #include "Item07.h"
+#include "Item08.h"
 
 using namespace std;
 
@@ -12,7 +13,8 @@ int main() {
 	cout << "Hello world" << endl;
 
 	//Item01::ParamType_Function::RunSample();
-	Item07::OtherCase::RunSample();
+	//Item07::OtherCase::RunSample();
+	Item08::RunSample();
 
 	system("pause");
 	return 0;
