@@ -6,6 +6,8 @@
 #include "Item07.h"
 #include "Item08.h"
 #include "Item09.h"
+#include "Item10.h"
+
 
 using namespace std;
 
@@ -15,7 +17,10 @@ int main() {
 
 	//Item01::ParamType_Function::RunSample();
 	//Item07::OtherCase::RunSample();
-	Item09::RunSample();
+	//Item09::RunSample();
+	Item10::RunSample();
+	Item10::Scoped::RunUserInfoSample();
+	Item10::Unscoped::RunUserInfoSample();
 
 	system("pause");
 	return 0;
