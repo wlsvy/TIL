@@ -30,15 +30,17 @@ namespace Item11 {
 				private 경우 접근 불가능하다고 오류를 보고하는 컴파일러가 있다.
 			*/
 		};
+	}
 
+	namespace Case3 {
 		//오버로딩에도 적용가능
-		bool IsLucky(int num) { return true; }
+		bool IsLucky(int) { return true; }
 		bool IsLucky(bool) = delete;
 		bool IsLucky(char) = delete;
 		bool IsLucky(double) = delete;	//double과 float(형 변환 시 double) 을 배제
 	}
 
-	namespace Case3{
+	namespace Case4{
 		//템플릿에도 적용가능
 		class Widget {
 		public:
@@ -65,14 +67,16 @@ namespace Item11 {
 	}
 
 	inline void RunSample() {
+		Case2::Widget w;
+		//Case2::Widget w2 = w;					//삭제된 함수는 호출 불가능
 
-		bool l0 = Case2::IsLucky(10);
-		//bool l1 = Case2::IsLucky(false);		//삭제된 함수는 호출 불가능
-		//bool l2 = Case2::IsLucky('A');		//삭제된 함수는 호출 불가능
-		//bool l3 = Case2::IsLucky(0.5f);		//삭제된 함수는 호출 불가능
-		//bool l4 = Case2::IsLucky(3.0);		//삭제된 함수는 호출 불가능
+		bool l0 = Case3::IsLucky(10);
+		//bool l1 = Case3::IsLucky(false);		//삭제된 함수는 호출 불가능
+		//bool l2 = Case3::IsLucky('A');		//삭제된 함수는 호출 불가능
+		//bool l3 = Case3::IsLucky(0.5f);		//삭제된 함수는 호출 불가능
+		//bool l4 = Case3::IsLucky(3.0);		//삭제된 함수는 호출 불가능
 
-		Case3::Widget g;
+		Case4::Widget g;
 		g.processPointer(static_cast<int*>(nullptr));
 		g.processPointer(static_cast<float*>(nullptr));
 		g.processPointer(static_cast<double*>(nullptr));
