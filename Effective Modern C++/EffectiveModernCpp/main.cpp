@@ -7,7 +7,7 @@
 #include "Item08.h"
 #include "Item09.h"
 #include "Item10.h"
-
+#include "Item11.h"
 
 using namespace std;
 
@@ -18,9 +18,10 @@ int main() {
 	//Item01::ParamType_Function::RunSample();
 	//Item07::OtherCase::RunSample();
 	//Item09::RunSample();
-	Item10::RunSample();
-	Item10::Scoped::RunUserInfoSample();
-	Item10::Unscoped::RunUserInfoSample();
+	//Item10::RunSample();
+	//Item10::Scoped::RunUserInfoSample();
+	//Item10::Unscoped::RunUserInfoSample();
+	Item11::RunSample();
 
 	system("pause");
 	return 0;
@@ -44,15 +45,21 @@ using namespace std;
 
 /*
 	class Widget {
-public:
-	Widget() { cout << "default ctor" << endl; }
-	Widget(const Widget& rhs) { cout << "copy ctor" << endl; }
-	Widget(Widget&& rhs) { cout << "move ctor" << endl; }
-	~Widget() {cout<<"dtor" << endl;}
+	public:
+		Widget() { cout << "default ctor" << endl; }
+		Widget(const Widget& rhs) { cout << "copy ctor" << endl; }
+		Widget(Widget&& rhs) { cout << "move ctor" << endl; }
+		~Widget() { cout << "dtor" << endl; }
 
-	Widget& operator=(const Widget& rhs) { *this = rhs; return *this; }
+		Widget& operator=(const Widget& rhs) 
+		{ 
+			*this = rhs; 
+			cout << "operator =" << endl;
 
-	//operator int() const { return 0; }
-	//operator float() const { return 0.0f; }
-};
+			return *this; 
+		}
+
+		//operator int() const { return 0; }
+		//operator float() const { return 0.0f; }
+	};
 */

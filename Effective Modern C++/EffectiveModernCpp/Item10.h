@@ -81,7 +81,7 @@ namespace Item10 {
 
 		void RunUserInfoSample() {
 			UserInfo uInfo;
-			auto name = std::get<uiName>(uInfo);
+			auto name = std::get<uiName>(uInfo);	//암시적으로 정수로 변환되는 특징 활용.(컴파일 시간에 변환되므로 get<size_t> 에 값을 넣을 수 있다.)
 			auto mail = std::get<uiEmail>(uInfo);
 			auto reputation = std::get<uiReputation>(uInfo);
 		}
@@ -100,7 +100,7 @@ namespace Item10 {
 
 		template<typename E>
 		constexpr auto toUTtype(E enumerator) noexcept {
-			return static_cast<std::underlying_type_t<E>>(enumerator);	//enum 값을 바꾸는 함수가 필요하다. tuple에 사용하기 위해서 constexpr 선언
+			return static_cast<std::underlying_type_t<E>>(enumerator);	//enum 값을 바꾸는 함수가 필요하다. 튜플의 값을 얻는 get 함수에 사용하기 위해서 constexpr 선언
 		}
 
 		using UserInfo = std::tuple<string, string, size_t>;
