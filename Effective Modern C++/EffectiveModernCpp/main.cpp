@@ -9,6 +9,8 @@
 #include "Item10.h"
 #include "Item11.h"
 #include "Item12.h"
+#include "Item13.h"
+
 
 using namespace std;
 
@@ -23,7 +25,8 @@ int main() {
 	//Item10::Scoped::RunUserInfoSample();
 	//Item10::Unscoped::RunUserInfoSample();
 	//Item11::RunSample();
-	Item12::RunSample();
+	//Item12::RunSample();
+	Item13::RunSample();
 
 	system("pause");
 	return 0;

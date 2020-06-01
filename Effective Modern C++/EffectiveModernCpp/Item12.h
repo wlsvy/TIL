@@ -95,7 +95,7 @@ namespace Item12 {
 
 	inline void RunSample() {
 		Widget w;
-		auto val1 = w.GetData();					//"Get lvalue Data"
-		auto val2 = Widget::MakeWidget().GetData();	//"Get rvalue Data"
+		decltype(auto) val1 = w.GetData();						//"Get lvalue Data"
+		decltype(auto) val2 = Widget::MakeWidget().GetData();	//"Get rvalue Data"
 	}
 }

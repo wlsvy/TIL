@@ -56,5 +56,8 @@
     <ClInclude Include="Item12.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="Item13.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
