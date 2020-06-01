@@ -83,4 +83,6 @@ namespace Item11 {
 		//g.processPointer(static_cast<char*>(nullptr));	//비공개 함수 호출 불가능
 		//g.processPointer(static_cast<void*>(nullptr));	//삭제된 함수는 호출 불가능
 	}
+	
+	
 }

@@ -2,6 +2,14 @@
 using namespace std;
 
 namespace ConstCast_Study {
+	/*
+		const_cast 역할은 크게 두 가지
+
+		1. 특정 라이브러리에서 값을 변경해선 안되지만 const가 아닌 객체를 다룰 때, const를 붙이는 용도
+		(C 라이브러리 중 const 키워드가 도입되기 전에 만들어진 라이브러리를 다룰 때 사용한다고 함)
+
+		2. const_cast는 일반 객체, const 객체에서 서로 다른 함수를 호출할 때 중복되는 코드 방지
+	*/
 	class ExternalClass
 	{
 	public:
@@ -17,9 +25,28 @@ namespace ConstCast_Study {
 		bool IsZero(const ExternalClass& _rObj) const
 		{
 			if (const_cast<ExternalClass&>(_rObj).GetValue() == 0) return true;
-			return false;	//_rObj 는 const 객체이므로, 클래스네 const 멤버함수만 호출 가능
+			return false;	//_rObj 는 const 객체이므로, 클래스 내부 const 멤버함수만 호출 가능
 							// non-const 멤버함수를 호출할려면 const를 떼어야한다.
 		}
+	};
+
+	//Effective C++ Item 03 참조
+	// + https://www.quora.com/In-C-what-is-the-proper-way-to-use-const_cast-so-that-it-does-not-result-in-undefined-behavior
+	class TextBlock {
+	public:
+		TextBlock(std::string str) : text(str) {}
+
+		//const char& operator[](std::size_t position) const { return text[position]; }	//상수 객체에 대한 operator[]
+		//char & operator[](std::size_t position) { return text[position]; }				//비상수 객체에 대한 operator[]
+		const char& operator[](std::size_t position) const { return text[position]; }
+		char & operator[] (std::size_t position) {				//코드 중복 대처 요령(비상수 버전이 상수 버전 호출)
+			return const_cast<char&>(							//c++ 에서 캐스팅은 썩 좋지 못한 아이디어지만, 코드 중복도 쉽게 넘길 순 없다.
+				static_cast<const TextBlock&>(*this)[position]	//상수 버전 operator[]를 호출, *this에 const를 붙이고, 반환 타입에서 const를 뗀다.
+				);												//operator[]속에서 operator[] 를 호출하면 재귀적으로 계속 호출하게 되니,
+		}														//const operator[]를 호출하기 위한 방법으로 *this 에 const 를 붙인다.(탁월한 방법은 아니지만 차선책)			
+
+	private:
+		std::string text;
 	};
 
 	int const_cast_test_main(int argc, char* argv[])
