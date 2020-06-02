@@ -13,8 +13,6 @@ namespace Item14 {
 		noexcept는 함수의 인터페이스의 일부이다. 이는 호출자가 noexcept 여부에 의존할 수 있음을 뜻한다.
 		즉 noexcept 함수 안에서도 구현이 잘못되었다면 오류는 발생할 수 있는 것.
 
-		
-
 		c++11에서 도입되었으며, c++ 98 의 throw() 보다 최적화 여지가 더 좋다.
 	*/
 
@@ -52,10 +50,8 @@ namespace Item14 {
 
 
 
-
+	//소멸자의 noexcept
 	/*
-		소멸자의 noexcept
-
 		noexcept로 선언하는 것이 아주 중요한 일부 함수들은 기본적으로 noexcept로 선언된다.
 		기본적으로 모든 메모리 해제 함수(operator delete와 operator delete[] 등)와 모든 소멸자는 암묵적으로 noexcept이다.
 

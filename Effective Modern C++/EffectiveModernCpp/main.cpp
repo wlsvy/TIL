@@ -11,6 +11,8 @@
 #include "Item12.h"
 #include "Item13.h"
 #include "Item14.h"
+#include "Item15.h"
+#include "Item16.h"
 
 using namespace std;
 
@@ -27,7 +29,11 @@ int main() {
 	//Item11::RunSample();
 	//Item12::RunSample();
 	//Item13::RunSample();
-	Item14::RunSample();
+	//Item14::RunSample();
+	//Item15::ConstexprFunc::RunSample();
+	Item16::UsingAtomic::RunSample();
+	cout << "==================" << endl;
+	Item16::UsingMutex::RunSample();
 
 	system("pause");
 	return 0;
@@ -39,7 +45,8 @@ int main() {
 #include <iostream>
 #include <vector>
 #include <string>
-using namespace std;
+#include <array>
+
 
 	namespace Item00{
 
@@ -52,18 +59,18 @@ using namespace std;
 /*
 	class Widget {
 	public:
-		Widget() { cout << "default ctor" << endl; }
-		Widget(const Widget& rhs) { cout << "copy ctor" << endl; }
-		Widget(Widget&& rhs) { cout << "move ctor" << endl; }
-		~Widget() { cout << "dtor" << endl; }
+		Widget() { std::cout << "default ctor" << std::endl; }
+			Widget(const Widget& rhs) { std::cout << "copy ctor" << std::endl; }
+			Widget(Widget&& rhs) { std::cout << "move ctor" << std::endl; }
+			~Widget() { std::cout << "dtor" << std::endl; }
 
-		Widget& operator=(const Widget& rhs) 
-		{ 
-			*this = rhs; 
-			cout << "operator =" << endl;
+			Widget& operator=(const Widget& rhs)
+			{
+				*this = rhs;
+				std::cout << "operator =" << std::endl;
 
-			return *this; 
-		}
+				return *this;
+			}
 
 		//operator int() const { return 0; }
 		//operator float() const { return 0.0f; }

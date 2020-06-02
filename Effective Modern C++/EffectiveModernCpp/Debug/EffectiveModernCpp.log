@@ -7,4 +7,6 @@ c:\users\user\documents\til\effective modern c++\effectivemoderncpp\item09.h(72)
 c:\users\user\documents\til\effective modern c++\effectivemoderncpp\item09.h(76): warning C4101: 'i3' :참조되지 않은 지역 변수입니다.
 c:\users\user\documents\til\effective modern c++\effectivemoderncpp\item09.h(75): warning C4101: 'i2' :참조되지 않은 지역 변수입니다.
 c:\users\user\documents\til\effective modern c++\effectivemoderncpp\item09.h(73): warning C4101: 'i1' :참조되지 않은 지역 변수입니다.
+c:\users\user\documents\til\effective modern c++\effectivemoderncpp\item15.h(21): warning C4101: 'arr1' :참조되지 않은 지역 변수입니다.
+c:\users\user\documents\til\effective modern c++\effectivemoderncpp\item15.h(28): warning C4101: 'arr3' :참조되지 않은 지역 변수입니다.
   EffectiveModernCpp.vcxproj -> C:\Users\USER\Documents\TIL\Effective Modern C++\Debug\EffectiveModernCpp.exe

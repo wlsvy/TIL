@@ -39,13 +39,6 @@ namespace Item15 {
 			return base;
 		}
 
-		constexpr int pow(int base, int exp) noexcept {
-			for (int i = 0; i < exp; ++i) {
-				base *= exp;
-			}
-			return base;
-		}
-
 		class Widget {
 		public:
 			Widget() { std::cout << "default ctor" << std::endl; }
