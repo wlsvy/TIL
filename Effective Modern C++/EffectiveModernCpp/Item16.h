@@ -11,32 +11,6 @@
 
 namespace Item16 {
 
-	class Polynomial {
-	public:
-		using RootsType = std::vector<double>;
-
-		Polynomial() { std::cout << "Default Ctor" << std::endl; }
-
-		RootsType roots(void) const	//공유 자원 접근
-		{
-			std::lock_guard<std::mutex> g(m);    
-
-			if (!rootsAreValid) {    
-				//캐시가 유효하지 않다면 근을 다시 계산
-				rootVals = RootsType(3, rootVals[0] + 1);
-				rootsAreValid = true;
-			}
-
-			std::cout << "Access To Shared Memory" << rootVals[0] << std::endl;
-			return rootVals;
-		}                                        
-
-	private:
-		mutable std::mutex m;
-		mutable bool rootsAreValid{ false };
-		mutable RootsType rootVals = {0, 0, 0};
-	};
-
 	inline int ExpensiveComputation(int seed) {
 		for (int i = 1; i < 100000; i++) {
 			seed += seed % i;
