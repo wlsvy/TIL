@@ -92,14 +92,14 @@ namespace Item14 {
 	inline void RunSample() {
 
 		vector<Widget> vw;
-		for (int i = 0; i < 7; i++) {
+		for (int i = 0; i < 3; i++) {
 			vw.push_back(Widget());
 		}
 
 		cout << "===============with noexcept=====================" << endl;
 
 		vector<Gadget> gv;
-		for (int i = 0; i < 7; i++) {
+		for (int i = 0; i < 3; i++) {
 			gv.push_back(Gadget());
 		}
 	}
