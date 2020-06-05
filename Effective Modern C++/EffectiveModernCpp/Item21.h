@@ -122,7 +122,7 @@ namespace Item21 {
 			auto initList = { 10, 20 };
 
 			// 그 std::initializer_list 객체를 이용해서 std::vector를 생성
-			auto spv = std::make_shared<std::vector<int> >(initList);
+			auto spv = std::make_shared<std::vector<int> >(initList);	//(10,20) -> 원소 2개 생성
 		}
 	}
 

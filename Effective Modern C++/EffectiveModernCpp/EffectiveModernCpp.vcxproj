@@ -135,6 +135,9 @@
     <ClInclude Include="Item15.h" />
     <ClInclude Include="Item16.h" />
     <ClInclude Include="Item17.h" />
+    <ClInclude Include="Item18.h" />
+    <ClInclude Include="Item19.h" />
+    <ClInclude Include="Item20.h" />
     <ClInclude Include="Item21.h" />
     <ClInclude Include="MemoyUsage.h" />
   </ItemGroup>
