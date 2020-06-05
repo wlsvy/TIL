@@ -68,5 +68,14 @@
     <ClInclude Include="Item16.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="Item17.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Item21.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="MemoyUsage.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

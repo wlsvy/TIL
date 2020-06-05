@@ -1,4 +1,7 @@
 #include <iostream>
+#include <memory>
+
+
 
 //헤더 파일에 전역함수 선언/정의를 동시에 하면 LNK2005 오류 발생 -> inline 키워드 삽입할 것.
 //클래스 멤버함수의 경우는 inline 필요없음. 헤더 파일에 선언/정의해도 암시적으로 inline 선언되기 때문
@@ -13,9 +16,9 @@
 #include "Item14.h"
 #include "Item15.h"
 #include "Item16.h"
+#include "Item21.h"
 
 using namespace std;
-
 
 int main() {
 	cout << "Hello EMC++" << endl;
@@ -31,12 +34,13 @@ int main() {
 	//Item13::RunSample();
 	//Item14::RunSample();
 	//Item15::ConstexprFunc::RunSample();
-	Item16::UsingAtomic::RunSample();
-	Item16::UsingMutex::RunSample();
-
+	//Item16::UsingAtomic::RunSample();
+	//Item16::UsingMutex::RunSample();
+	Item21::Make_Disadvantage::RunSample();
 	system("pause");
 	return 0;
 }
+
 
 /*
 
