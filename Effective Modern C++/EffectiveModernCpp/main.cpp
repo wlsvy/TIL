@@ -6,19 +6,21 @@
 //헤더 파일에 전역함수 선언/정의를 동시에 하면 LNK2005 오류 발생 -> inline 키워드 삽입할 것.
 //클래스 멤버함수의 경우는 inline 필요없음. 헤더 파일에 선언/정의해도 암시적으로 inline 선언되기 때문
 
-#include "Item07.h"
-#include "Item08.h"
-#include "Item09.h"
-#include "Item10.h"
-#include "Item11.h"
-#include "Item12.h"
-#include "Item13.h"
-#include "Item14.h"
-#include "Item15.h"
-#include "Item16.h"
-#include "Item19.h"
-#include "Item21.h"
-#include "Item22.h"
+//#include "Item07.h"
+//#include "Item08.h"
+//#include "Item09.h"
+//#include "Item10.h"
+//#include "Item11.h"
+//#include "Item12.h"
+//#include "Item13.h"
+//#include "Item14.h"
+//#include "Item15.h"
+//#include "Item16.h"
+//#include "Item19.h"
+//#include "Item21.h"
+//#include "Item22.h"
+#include "Item23.h"
+
 
 using namespace std;
 
@@ -40,7 +42,8 @@ int main() {
 	//Item16::UsingMutex::RunSample();
 	//Item19::RunSample();
 	//Item21::Make_Disadvantage::RunSample();
-	Item22::RunSample();
+	//Item22::RunSample();
+	Item23::RunSample();
 
 	system("pause");
 	return 0;

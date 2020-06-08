@@ -10,7 +10,7 @@ namespace Item22 {
 
 	Case1::Widget::~Widget() {}
 
-	Case2::Widget::Widget() : pImpl(std::make_unique<Impl>()) {}
+	Case2::Widget::Widget() : pImpl(std::unique_ptr<Impl>(new Impl())) {}
 		
 	Case2::Widget::~Widget() {}
 

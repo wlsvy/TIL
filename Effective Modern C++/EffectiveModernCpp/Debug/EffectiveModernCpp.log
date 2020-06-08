@@ -1,3 +1,2 @@
-﻿  Item22.cpp
-c:\users\user\documents\til\effective modern c++\effectivemoderncpp\item22.h(64): warning C4101: 'w0' :참조되지 않은 지역 변수입니다.
+﻿  main.cpp
   EffectiveModernCpp.vcxproj -> C:\Users\USER\Documents\TIL\Effective Modern C++\Debug\EffectiveModernCpp.exe
