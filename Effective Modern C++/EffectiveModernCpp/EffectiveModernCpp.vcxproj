@@ -116,6 +116,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Item01.h" />
+    <ClCompile Include="Item22.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -139,6 +140,7 @@
     <ClInclude Include="Item19.h" />
     <ClInclude Include="Item20.h" />
     <ClInclude Include="Item21.h" />
+    <ClInclude Include="Item22.h" />
     <ClInclude Include="MemoyUsage.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -18,6 +18,7 @@
 #include "Item16.h"
 #include "Item19.h"
 #include "Item21.h"
+#include "Item22.h"
 
 using namespace std;
 
@@ -37,14 +38,17 @@ int main() {
 	//Item15::ConstexprFunc::RunSample();
 	//Item16::UsingAtomic::RunSample();
 	//Item16::UsingMutex::RunSample();
-	Item19::RunSample();
+	//Item19::RunSample();
 	//Item21::Make_Disadvantage::RunSample();
+	Item22::RunSample();
+
 	system("pause");
 	return 0;
 }
 
 
 /*
+Item 파일 템플릿
 
 #pragma once
 #include <iostream>
@@ -53,15 +57,19 @@ int main() {
 #include <array>
 
 
-	namespace Item00{
+namespace Item00{
 
-		inline void RunSample(){
+	inline void RunSample(){
 
-		}
 	}
+}
+
 */
 
 /*
+Widget 클래스 템플릿
+
+
 	class Widget {
 	public:
 		Widget() { std::cout << "default ctor" << std::endl; }

@@ -76,7 +76,7 @@ namespace Item20 {
 
 			호출자가 캐싱된 객체를 가리키는 스마트 포인터를 받아야 한다는 점은 확실하며, 캐시에 있는 포인터들은 자신이 대상을 잃었음을 검출할 수 있어야 한다.
 			즉 std::weak_ptr이어야 한다.
-		*/
+	*/
 
 	std::shared_ptr<const Widget> loadWidget(int) {
 		return std::make_shared<Widget>();
