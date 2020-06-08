@@ -27,6 +27,7 @@ namespace Item23 {
 			Widget(const Widget& rhs) { std::cout << "copy ctor" << std::endl; }
 			Widget(const Widget&& rhs) { std::cout << "move ctor" << std::endl; }
 			~Widget() { }
+		private:
 		};
 	}
 
@@ -58,8 +59,8 @@ namespace Item23 {
 
 
 	inline void RunSample() {
-		Case0::Widget w0;
-		Case0::Widget w0_moveTest(std::move(w0));	//복사생성자 호출
+		const Case0::Widget w0;
+		Case0::Widget w0_moveTest(std::move(w0));
 
 		std::cout << "===================" << std::endl;
 
