@@ -19,7 +19,8 @@
 //#include "Item19.h"
 //#include "Item21.h"
 //#include "Item22.h"
-#include "Item23.h"
+//#include "Item23.h"
+#include "Item26.h"
 
 
 using namespace std;
@@ -43,7 +44,11 @@ int main() {
 	//Item19::RunSample();
 	//Item21::Make_Disadvantage::RunSample();
 	//Item22::RunSample();
-	Item23::RunSample();
+	//Item23::RunSample();
+	Item26::Case0::RunSample();
+	Item26::Case1::RunSample();
+	Item26::Case2::RunSample();
+	Item26::CaseConstructor::RunSample();
 
 	system("pause");
 	return 0;

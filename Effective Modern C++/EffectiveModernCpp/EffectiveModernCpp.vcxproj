@@ -144,6 +144,7 @@
     <ClInclude Include="Item23.h" />
     <ClInclude Include="Item24.h" />
     <ClInclude Include="Item25.h" />
+    <ClInclude Include="Item26.h" />
     <ClInclude Include="MemoyUsage.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
