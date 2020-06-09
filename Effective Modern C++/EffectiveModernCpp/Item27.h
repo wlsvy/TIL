@@ -243,6 +243,8 @@ namespace Item27 {
 			Person clone2(p2);					//copy
 			auto clone_moved(std::move(p));		//move
 			auto clone_moved2(std::move(p2));	//copy
+			
+			Person p3(10);
 
 			SpecialPerson sp0;
 			const SpecialPerson sp1;

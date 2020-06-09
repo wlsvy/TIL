@@ -8,6 +8,19 @@
 
 namespace Item24 {
 
+	/*
+		함수 템플릿 매개변수의 타입이 T&& 형태이고 T가 추론된다면, 
+		또는 객체를 auto&&로 선언한다면, 그 매개변수나 객체는 보편 참조(universal reference)이다.
+		**
+		보편 참조(universal reference)는 우측값, 좌측값은 물론 const 객체, 비const 객체, volatile 객체, 비volatile 객체, 
+		심지어 const이자 volatile인 객체에도 묶을 수 있다.
+
+		타입 선언의 형태가 정확히 타입&&가 아니면, 또는 타입 추론이 일어나지 않으면, 타입&&는 우측값 참조를 뜻한다.
+
+		우측값으로 초기화되는 보편 참조(universal reference)는 우측값 참조에 해당한다. 
+		좌측값으로 초기화되는 보편 참조(universal reference)는 좌측값 참조에 해당한다.
+	*/
+
 	class Widget {
 	public:
 		Widget() { }

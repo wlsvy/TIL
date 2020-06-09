@@ -1,5 +1,2 @@
 ﻿  main.cpp
-c:\users\user\documents\til\effective modern c++\effectivemoderncpp\item27.h(255): warning C4101: 'a' :참조되지 않은 지역 변수입니다.
-c:\users\user\documents\til\effective modern c++\effectivemoderncpp\item27.h(256): warning C4101: 'b' :참조되지 않은 지역 변수입니다.
-c:\users\user\documents\til\effective modern c++\effectivemoderncpp\item27.h(257): warning C4101: 'c' :참조되지 않은 지역 변수입니다.
   EffectiveModernCpp.vcxproj -> C:\Users\USER\Documents\TIL\Effective Modern C++\Debug\EffectiveModernCpp.exe

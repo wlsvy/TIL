@@ -6,6 +6,7 @@
 //헤더 파일에 전역함수 선언/정의를 동시에 하면 LNK2005 오류 발생 -> inline 키워드 삽입할 것.
 //클래스 멤버함수의 경우는 inline 필요없음. 헤더 파일에 선언/정의해도 암시적으로 inline 선언되기 때문
 
+//#include "Item04.h"
 //#include "Item07.h"
 //#include "Item08.h"
 //#include "Item09.h"
@@ -21,7 +22,8 @@
 //#include "Item22.h"
 //#include "Item23.h"
 //#include "Item26.h"
-#include "Item27.h"
+//#include "Item27.h"
+#include "Item28.h"
 
 using namespace std;
 
@@ -29,6 +31,7 @@ int main() {
 	cout << "Hello EMC++" << endl;
 
 	//Item01::ParamType_Function::RunSample();
+	//Item04::RunSample();
 	//Item07::OtherCase::RunSample();
 	//Item09::RunSample();
 	//Item10::RunSample();
@@ -51,7 +54,8 @@ int main() {
 	//Item26::CaseConstructor::RunSample();
 	//Item27::Case_Tag0::RunSample();
 	//Item27::Case_Tag1::RunSample();
-	Item27::Case_Constructor1::RunSample();
+	//Item27::Case_Constructor1::RunSample();
+	Item28::RunSample();
 
 	system("pause");
 	return 0;

@@ -87,4 +87,7 @@ namespace Item22 {
 		Case2::Widget w2;
 		Case2::Widget w2move(std::move(w2));
 	}
+
+	template<typename T>
+	void tf();
 }

@@ -153,6 +153,8 @@ namespace Item01 {
 			cout << i << " " << d << endl;
 		}
 
+		
+
 		template<typename T>
 		void f1(T param) { }
 
@@ -163,6 +165,9 @@ namespace Item01 {
 
 			f1(someFunc);	//값 전달, paramType 은 void(*)(int, double)
 			f2(someFunc);	//참조 전달, paramType 은 void(&)(int, double)
+
+			//f1({ 1, 2, 3 });	//컴파일 에러, 템플릿은 중괄호로 감싼 초기치의 타입을 추측하지 않는다.
+			//f2({ 1, 2, 3 });
 		}
 	}
 }
