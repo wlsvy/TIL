@@ -20,8 +20,8 @@
 //#include "Item21.h"
 //#include "Item22.h"
 //#include "Item23.h"
-#include "Item26.h"
-
+//#include "Item26.h"
+#include "Item27.h"
 
 using namespace std;
 
@@ -45,10 +45,13 @@ int main() {
 	//Item21::Make_Disadvantage::RunSample();
 	//Item22::RunSample();
 	//Item23::RunSample();
-	Item26::Case0::RunSample();
-	Item26::Case1::RunSample();
-	Item26::Case2::RunSample();
-	Item26::CaseConstructor::RunSample();
+	//Item26::Case0::RunSample();
+	//Item26::Case1::RunSample();
+	//Item26::Case2::RunSample();
+	//Item26::CaseConstructor::RunSample();
+	//Item27::Case_Tag0::RunSample();
+	//Item27::Case_Tag1::RunSample();
+	Item27::Case_Constructor1::RunSample();
 
 	system("pause");
 	return 0;
