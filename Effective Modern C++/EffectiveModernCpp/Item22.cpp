@@ -21,16 +21,6 @@ namespace Item22 {
 		pImpl = std::move(rhs.pImpl);
 		return *this;
 	}
-
-	template<typename T>
-	void tf() {
-		std::cout << "type : " << typeid(T).name() << std::endl;
-	}
-
-	void Temp() {
-		tf<int>();
-		tf<float>();
-	}
 }
 
 
