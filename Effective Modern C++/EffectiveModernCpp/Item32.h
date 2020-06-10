@@ -101,7 +101,7 @@ namespace Item32 {
 			auto val = std::vector<double>{ 1, 1, 1, 1, 1 };
 			auto func2 = std::bind
 			(
-				[](std::vector<double>& data)
+				[](std::vector<double>& data) mutable
 				{
 					for (int i = 0; i < data.size(); i++)
 					{

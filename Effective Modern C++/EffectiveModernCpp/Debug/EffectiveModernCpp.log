@@ -1,5 +1,2 @@
 ﻿  main.cpp
-c:\users\user\documents\til\effective modern c++\effectivemoderncpp\item32.h(78): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
-c:\users\user\documents\til\effective modern c++\effectivemoderncpp\item32.h(101): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
-c:\users\user\documents\til\effective modern c++\effectivemoderncpp\item32.h(105): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
   EffectiveModernCpp.vcxproj -> C:\Users\USER\Documents\TIL\Effective Modern C++\Debug\EffectiveModernCpp.exe
