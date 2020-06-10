@@ -13,7 +13,9 @@ namespace EffectiveCSharp
         {
             System.Console.WriteLine("Hello ECS");
 
-            ECSharp02.RunSample();
+            //ECSharp02.RunSample();
+            ECSharp15.Case0.RunSample0();
+            ECSharp15.Case0.RunSample1();
         }
     }
 }
@@ -32,6 +34,7 @@ namespace EffectiveCSharp
  * 12 : 할당 구무보다 멤버 초기화 구문이 좋다.
  * 13 : 정적 생성자 구문을 올바르게 초기화하라
  * 14 : 초기화 코드가 중복되는 것을 최소화하라
+ * 15 : 불필요한 객체를 만들지 말라.
  */
 
 /*
@@ -45,7 +48,10 @@ using System.Threading.Tasks;
 
 namespace EffectiveCSharp
 {
-    public static class ECSharp00
+    /// <summary>
+    /// 
+    /// </summary>
+    public static class ECSharp
     {
         public static void RunSample()
         {
@@ -61,6 +67,24 @@ namespace EffectiveCSharp
 public class Widget
 {
     Widget() { }
+}
+
+public struct MyValueType
+{
+    public int value;
+
+    public MyValueType(int val)
+    {
+        value = val;
+    }
+}
+
+public class MyRefType : IDisposable
+{
+    public void Dispose()
+    {
+        System.Console.WriteLine("On Dispose");
+    }
 }
 
 */
