@@ -1,5 +1,7 @@
 ﻿using System;
 
+//nameof() 연산자를 적극 활용하라
+
 namespace EffectiveCSharp
 {
     public class ECSharp06

@@ -1,5 +1,7 @@
 ﻿using System;
 
+//베이스 클래스가 업그레이드 된 경우에만 new 한정자를 사용하라
+
 namespace EffectiveCSharp
 {
     public class ECSharp10

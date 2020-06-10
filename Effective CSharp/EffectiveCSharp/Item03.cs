@@ -1,5 +1,7 @@
 ﻿using System;
 
+//캐스트보다는 is, as 가 좋다.
+
 namespace EffectiveCSharp
 {
     namespace ECSharp03

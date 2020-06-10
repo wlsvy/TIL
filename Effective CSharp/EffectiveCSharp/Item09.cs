@@ -1,5 +1,7 @@
 ﻿using System;
 
+//박싱과 언박싱을 최소화하라
+
 namespace EffectiveCSharp
 {
     public class ECSharp09
@@ -9,7 +11,7 @@ namespace EffectiveCSharp
             int firstNumber = 0, secondNumber = 1, thirdNumber = 2;
 
             Console.WriteLine($"A few numbers : {firstNumber}, {secondNumber}, {thirdNumber}");
-            //값 타입을 박싱해서 보간 문자열의 매개변수로 보낸다
+            //값 타입을 '박싱'해서 보간 문자열의 매개변수로 보낸다
         }
 
         public void DoSomething2()

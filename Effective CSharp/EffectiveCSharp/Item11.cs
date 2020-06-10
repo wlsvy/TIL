@@ -1,5 +1,7 @@
 ﻿using System;
 
+//.NET 리소스 관리에 대한 이해
+
 namespace EffectiveCSharp
 {
     public class ECSharp11

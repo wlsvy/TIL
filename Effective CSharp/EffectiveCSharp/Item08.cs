@@ -1,5 +1,7 @@
 ﻿using System;
 
+//이벤트 호출 시에는 null 조건 연산자를 사용하라
+
 namespace EffectiveCSharp
 {
     public class ECSharp08

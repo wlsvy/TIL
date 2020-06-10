@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 namespace EffectiveCSharp
 {
+    /// <summary>
+    /// 초기화 코드가 중복되는 것을 최소화하라
+    /// </summary>
     public class ECSharp14
     {
         public class MyClass
