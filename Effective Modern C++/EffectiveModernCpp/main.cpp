@@ -27,7 +27,8 @@
 //#include "Item30.h"
 //#include "Item31.h"
 //#include "Item32.h"
-#include "Item33.h"
+//#include "Item33.h"
+#include "Item34.h"
 
 using namespace std;
 
@@ -65,7 +66,11 @@ int main() {
 	//Item30::Case4::RunSample();
 	//Item31::Case1::RunSample();
 	//Item32::Case1::RunSample();
-	Item33::RunSample();
+	//Item33::RunSample();
+	Item34::Case0::RunSample();
+	Item34::Case1::RunSample();
+	Item34::Case2::RunSample();
+	Item34::Case3::RunSample();
 
 	system("pause");
 	return 0;
@@ -83,6 +88,7 @@ Item ∆ƒ¿œ ≈€«√∏¥
 
 
 namespace Item00{
+	using namespace std;
 
 	inline void RunSample(){
 

@@ -2,12 +2,12 @@
 #include <iostream>
 #include <vector>
 #include <string>
-using namespace std;
+
 
 //템플릿 형식 연역 규칙을 숙지하라
 
 namespace Item01 {
-
+	using namespace std;
 	/*
 		template<typename T>
 		void f(ParamType param);	//함수 선언

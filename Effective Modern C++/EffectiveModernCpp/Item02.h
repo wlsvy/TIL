@@ -2,11 +2,12 @@
 #include <iostream>
 #include <vector>
 #include <string>
-using namespace std;
+
 
 //auto 형식 연역 규칙을 숙지하라
 
 namespace Item02 {
+	using namespace std;
 
 	template<typename T>
 	void f(T param) {
