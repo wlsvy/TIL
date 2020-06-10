@@ -24,7 +24,8 @@
 //#include "Item26.h"
 //#include "Item27.h"
 //#include "Item28.h"
-#include "Item30.h"
+//#include "Item30.h"
+#include "Item31.h"
 
 using namespace std;
 
@@ -59,7 +60,8 @@ int main() {
 	//Item28::RunSample();
 	//Item30::Case0::RunSample();
 	//Item30::Case1::RunSample();
-	Item30::Case4::RunSample();
+	//Item30::Case4::RunSample();
+	Item31::Case1::RunSample();
 
 	system("pause");
 	return 0;
