@@ -1,4 +1,2 @@
 ﻿  main.cpp
-c:\users\user\documents\til\effective modern c++\effectivemoderncpp\main.cpp(35): warning C4200: 비표준 확장이 사용됨: 구조체/공용 구조체의 배열 크기가 0입니다.
-  c:\users\user\documents\til\effective modern c++\effectivemoderncpp\main.cpp(35): note: 이 멤버는 기본값으로 설정된 생성자 또는 복사/이동 대입 연산자에서 무시됩니다.
   EffectiveModernCpp.vcxproj -> C:\Users\USER\Documents\TIL\Effective Modern C++\Debug\EffectiveModernCpp.exe
