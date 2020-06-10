@@ -39,3 +39,12 @@ namespace EffectiveCSharp
 }
 
 */
+
+/*
+
+public class Widget
+{
+    Widget() { }
+}
+
+*/
