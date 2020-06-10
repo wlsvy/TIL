@@ -153,6 +153,8 @@
     <ClInclude Include="Item32.h" />
     <ClInclude Include="Item33.h" />
     <ClInclude Include="Item34.h" />
+    <ClInclude Include="Item35.h" />
+    <ClInclude Include="Item36.h" />
     <ClInclude Include="MemoyUsage.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
