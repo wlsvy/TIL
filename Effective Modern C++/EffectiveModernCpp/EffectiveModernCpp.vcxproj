@@ -150,6 +150,7 @@
     <ClInclude Include="Item29.h" />
     <ClInclude Include="Item30.h" />
     <ClInclude Include="Item31.h" />
+    <ClInclude Include="Item32.h" />
     <ClInclude Include="MemoyUsage.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
