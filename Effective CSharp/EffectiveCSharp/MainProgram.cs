@@ -38,7 +38,8 @@ namespace EffectiveCSharp
  */
 
 /*
-항목 Template
+ * 항목 Template
+ 
 
 using System;
 using System.Collections.Generic;
@@ -51,7 +52,7 @@ namespace EffectiveCSharp
     /// <summary>
     /// 
     /// </summary>
-    public static class ECSharp
+    public static class ECSharp00
     {
         public static void RunSample()
         {
@@ -63,6 +64,7 @@ namespace EffectiveCSharp
 */
 
 /*
+ * 클래스 템플릿
 
 public class Widget
 {
