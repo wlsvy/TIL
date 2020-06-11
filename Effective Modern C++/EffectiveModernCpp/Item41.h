@@ -142,7 +142,14 @@ namespace Item41 {
 		inline void RunSample() {
 			std::string initPwd("Supercalifragilisticexpialidocious");
 
-			Password p(initPwd);		//생성자에서 값 전달이 쓰이므로 std::string 이동 생성 1 회의 비용이 발생한다.
+			Password p(initPwd);		
+			/*
+				생성자에서 값 전달이 쓰이므로 복사생성 1회, 이동생성 1 회의 비용이 발생한다.
+
+				오버로딩이나 보편참조였으면 피할 수 있는 비용이다.
+			*/
+										
+										
 
 
 			//비밀번호 변경시
@@ -169,7 +176,4 @@ namespace Item41 {
 		}
 	}
 
-	inline void RunSample() {
-
-	}
 }

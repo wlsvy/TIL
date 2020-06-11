@@ -29,7 +29,8 @@
 //#include "Item32.h"
 //#include "Item33.h"
 //#include "Item34.h"
-#include "Item41.h"
+//#include "Item41.h"
+#include "Item42.h"
 
 using namespace std;
 
@@ -72,8 +73,11 @@ int main() {
 	//Item34::Case1::RunSample();
 	//Item34::Case2::RunSample();
 	//Item34::Case3::RunSample();
-	Item41::Case2::RunSample();
-	Item41::Case3::RunSample();
+	//Item41::Case2::RunSample();
+	//Item41::Case3::RunSample();
+	//Item42::Case1::RunSample();
+	//Item42::Case2::RunSample();
+	Item42::Case3::RunSample();
 
 	system("pause");
 	return 0;
@@ -113,9 +117,12 @@ Widget 클래스 템플릿
 
 			Widget& operator=(const Widget& rhs)
 			{
-				*this = rhs;
-				std::cout << "operator =" << std::endl;
-
+				std::cout << "copy operator =" << std::endl;
+				return *this;
+			}
+			Widget& operator=(Widget&& rhs) noexcept
+			{
+				std::cout << "move operator =" << std::endl;
 				return *this;
 			}
 

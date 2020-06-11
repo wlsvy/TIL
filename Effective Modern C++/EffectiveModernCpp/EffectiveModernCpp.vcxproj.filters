@@ -137,5 +137,8 @@
     <ClInclude Include="Item41.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="Item42.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
