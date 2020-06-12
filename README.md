@@ -19,3 +19,4 @@ Today I Learned
 문제 | 분류 | 설명 | 해답 코드  
 |---|---|---|---|
 [KnightL on a Chessboard](https://www.hackerrank.com/challenges/knightl-on-chessboard/problem) | BFS, 중급 | 체스판 한쪽 끝에서 반대편 끝까지 체스말(나이트Knight)를 최소 몇 번 안에 이동시킬 수 있는지 찾기 | [KnightL on a Chessboard](https://github.com/wlsvy/TIL/blob/master/Coding_Problem_Solving/KnightL%20on%20a%20Chessboard.md)
+[Friend Circle Queries](https://www.hackerrank.com/challenges/friend-circle-queries/problem) | UnionFind, 중급 | 여러 사람들 중 악수한 사람끼리 이어진 그룹의 크기 구하기 | [Friend Circle Queries](https://github.com/wlsvy/TIL/blob/master/Coding_Problem_Solving/Friend%20Circle%20Queries.cpp)
