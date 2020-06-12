@@ -1,18 +1,27 @@
+#include <algorithm>
 #include <iostream>
 #include <string>
+
 void PrintBit(int n) {
-	using namespace std;
 	if (n == 0) {
-		cout << '0' << endl;
+		std::cout << '0' << std::endl;
 		return;
 	}
-	string str = "";
+	std::string str = "";
 	while (n > 0) {
 		str += '0' + n % 2;
 		n = n >> 1;
 	}
-	for (auto iter = str.rbegin(); iter != str.rend(); iter++) {
-		cout << *iter;
-	}
-	cout << endl;
+	std::reverse(str.begin(), str.end());
+	std::cout << str << std::endl;
+}
+
+template<typename T, typename = std::enable_if_t<std::is_integral_v<T>>>
+bool GetBit(T x, unsigned int n) {
+	return x & (1 << n);
+}
+
+//컴파일러가 enable_if 지원하지 않을 때
+bool GetBit(int x, unsigned int n) {
+	return x & (1 << n);
 }
