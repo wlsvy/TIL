@@ -5,41 +5,9 @@
 #include <iostream>
 #include <algorithm>
 #include <list>
-#include <stack>
-#include <math.h>
 #include <map>
 #include <set>
 #include <unordered_map>
-#include <functional>
-#include <time.h>
-#include <chrono>
-
-#define FORI(n) for(int i = 0; i < (n); i++)
-#define FORJ(n) for(int j = 0; j < (n); j++)
-#define FORK(n) for(int k = 0; k < (n); k++)
-#define FORIR(n) for(int i = (n) - 1; i >= 0; i--)
-#define FORJR(n) for(int j = (n) - 1; j >= 0; j--)
-#define FORKR(n) for(int k = (n) - 1; k >= 0; k--)
-
-
-//SFINAE 예제 출처 : https://stackoverflow.com/questions/43992510/enable-if-to-check-if-value-type-of-iterator-is-a-pair
-template <typename T, typename = void>
-struct is_pair : std::false_type {};
-template <typename T>
-struct is_pair<T, std::void_t
-	<
-	decltype(std::declval<T>().first),
-	decltype(std::declval<T>().second)
-	>
-> : std::true_type {};
-
-template <typename T>
-constexpr bool is_pair_v = is_pair<T>::value;
-
-template<typename T, std::size_t N>
-constexpr std::size_t GetArraySize(T(&)[N]) noexcept {
-	return N;
-}
 
 template <class Element>
 std::ostream& operator<< (std::ostream& os, const std::vector<Element> & c);
@@ -52,8 +20,8 @@ std::ostream& operator<< (std::ostream& os, const std::unordered_map<Key, Value>
 template <class Key, class Value>
 std::ostream& operator<< (std::ostream& os, const std::map<Key, Value> & c);
 
-template <typename Pair, typename = std::enable_if_t<is_pair_v<Pair>>>
-std::ostream& operator<< (std::ostream& os, const Pair & p) {
+template<typename T, typename U>
+std::ostream& operator<< (std::ostream& os, const std::pair<T, U> & p) {
 	std::cout << "{ " << p.first << ", " << p.second << " }";
 	return os;
 }
