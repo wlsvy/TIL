@@ -28,7 +28,7 @@ std::ostream& operator<< (std::ostream& os, const std::pair<T, U> & p) {
 
 #define PRINT_CONTAINER(container)	\
 std::cout << "[ ";					\
-for (auto val : container) {		\
+for (auto& val : container) {		\
 	std::cout << val << " ";		\
 }									\
 std::cout << " ]" << std::endl;		\
