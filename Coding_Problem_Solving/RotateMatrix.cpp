@@ -1,6 +1,7 @@
 /*
 ============
   첫번째 방법
+  - vector에 테두리 원소들을 삽입하고 나머지 연산을 통해 R번째 회전시킨 자리의 원소를 찾는 방식
 ============
 */
 
@@ -85,7 +86,55 @@ int main() {
 
 /*
 ============
-  두번째 방법
+  두번째 방법 
+  - std::rotate 활용.
+  (첫번째와 main함수는 동일하므로 RotateLayer 함수만 작성)
+============
+*/
+
+void RotateLayer(int by, int bx, int row, int col) {
+	int y = 0;
+	int x = 0;
+	int layerSize = (row + col - 2) * 2;
+	vector<int> layer;
+
+	for (int i = 0; i < col - 1; i++) {
+		layer.push_back(y * col + x);
+		x++;
+	}
+	for (int i = 0; i < row - 1; i++) {
+		layer.push_back(y * col + x);
+		y++;
+	}
+	for (int i = 0; i < col - 1; i++) {
+		layer.push_back(y * col + x);
+		x--;
+	}
+	for (int i = 0; i < row - 1; i++) {
+		layer.push_back(y * col + x);
+		y--;
+	}
+	int r = w % layerSize;
+	r = r > 0 ? r : layerSize + r;
+
+	auto target = layer;
+	rotate(target.begin(), target.begin() + r, target.end());
+
+	for (int i = 0; i < layerSize; i++) {
+		y = layer[i] / col;
+		x = layer[i] % col;
+		int ny = target[i] / col;
+		int nx = target[i] % col;
+		output[by + ny][bx + nx] = input[by + y][bx + x];
+	}
+}
+
+
+/*
+============
+  세번째 방법
+  - Brute Force
+  - 원소들을 전부 한칸씩 이동시킨다.
 ============
 */
 
