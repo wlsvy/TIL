@@ -38,7 +38,7 @@ void RotateLayer(int by, int bx, int row, int col) {
 		layer.push_back(y * col + x);
 		y--;
 	}
-	int r = Rot % layerSize;
+	int r = w % layerSize;
 	r = r > 0 ? r : layerSize + r;
 
 	for (int i = 0; i < layerSize; i++) {
