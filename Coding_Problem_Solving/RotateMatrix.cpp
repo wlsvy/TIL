@@ -22,23 +22,23 @@ void RotateLayer(int by, int bx, int row, int col) {
 	int layerSize = (row + col - 2) * 2;
 	vector<int> layer;
 
-	for (int i = 0; i < row - 1; i++) {
+	for (int i = 0; i < col - 1; i++) {
 		layer.push_back(y * col + x);
 		x++;
 	}
-	for (int i = 0; i < col - 1; i++) {
+	for (int i = 0; i < row - 1; i++) {
 		layer.push_back(y * col + x);
 		y++;
 	}
-	for (int i = 0; i < row - 1; i++) {
+	for (int i = 0; i < col - 1; i++) {
 		layer.push_back(y * col + x);
 		x--;
 	}
-	for (int i = 0; i < col - 1; i++) {
+	for (int i = 0; i < row - 1; i++) {
 		layer.push_back(y * col + x);
 		y--;
 	}
-	int r = w % layerSize;
+	int r = Rot % layerSize;
 	r = r > 0 ? r : layerSize + r;
 
 	for (int i = 0; i < layerSize; i++) {
