@@ -30,8 +30,8 @@ Today I Learned
 [Prim's (MST) : Special Subtree](https://www.hackerrank.com/challenges/primsmstsub/problem) | Prim <br>그래프 | 최소 신장 트리를 구하는 prim 알고리즘 작성 | [Prim_MST](https://github.com/wlsvy/TIL/blob/master/Coding_Problem_Solving/Prim_MST.cpp)
 [Kruskal (MST): Really Special Subtree](https://www.hackerrank.com/challenges/kruskalmstrsub/problem) | Kruskal, <br>UnionFind, <br>그래프 | 최소 신장 트리를 구하는 kruskal 알고리즘 작성 | [Kruskal_MST](https://github.com/wlsvy/TIL/blob/master/Coding_Problem_Solving/Kruskal_MST.cpp)
 [Dijkstra: Shortest Reach 2](https://www.hackerrank.com/challenges/dijkstrashortreach/problem?h_r=next-challenge&h_v=zen&h_r=next-challenge&h_v=zen) | 다익스트라, <br>최소길이, <br>그래프 | 시작 노드를 기준으로 다른 노드까지 최소 거리를 구하는 다익스트라 알고리즘 작성 | [Dijkstra](https://github.com/wlsvy/TIL/blob/master/Coding_Problem_Solving/Dijkstra.cpp)
-[문자열 압축](https://programmers.co.kr/learn/courses/30/lessons/60057?language=cpp) | 문자열<br>카카오 | 문자열 압축 알고리즘 작성, 예외처리가 까다로운 문제<br>압축 숫자 자릿 수(0, 10 차이), 초기 위치 관련, 압축되지 않는 나머지 문자열 예외처리 | [StringCompression](https://github.com/wlsvy/TIL/blob/master/Coding_Problem_Solving/StringCompression.cpp)
-
+[문자열 압축](https://programmers.co.kr/learn/courses/30/lessons/60057?language=cpp) | 문자열<br>카카오 | 문자열 압축 알고리즘 작성, 예외처리가 까다로운 문제<br>압축 숫자 자릿 수(0, 10 차이), 초기 위치 관련, 압축되지 않는 나머지 문자열 예외처리 | [StringCompression](https://github.com/wlsvy/TIL/blob/master/Coding_Problem_Solving/KakaoBlind2020_StringCompression.cpp)
+[괄호 변환](https://programmers.co.kr/learn/courses/30/lessons/60058) | 문자열,<br>괄호처리,<br>카카오 | 괄호 처리 알고리즘 작성 + 괄호 유효성 검사 | [ChangeParenthesis](https://github.com/wlsvy/TIL/blob/master/Coding_Problem_Solving/KakaoBlind2020_ChangeParenthesis.cpp)
 
 
 ### Sub
