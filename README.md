@@ -29,6 +29,7 @@ Today I Learned
 [Short Palindrome](https://www.hackerrank.com/challenges/short-palindrome/problem) | DP <br>문자열 | (난이도 어려움) 특정 문자열에서 조건을 만족하는 경우의 수 찾기.<br> (0 <= a < b < c < d < 문자열 길이, str[a] == str[d] && str[b] == str[c]) | [Short Palindrome](https://github.com/wlsvy/TIL/blob/master/Coding_Problem_Solving/Short%20Palindrome.cpp)
 [Prim's (MST) : Special Subtree](https://www.hackerrank.com/challenges/primsmstsub/problem) | Prim <br>그래프 | 최소 신장 트리를 구하는 prim 알고리즘 작성 | [Prim_MST](https://github.com/wlsvy/TIL/blob/master/Coding_Problem_Solving/Prim_MST.cpp)
 [Kruskal (MST): Really Special Subtree](https://www.hackerrank.com/challenges/kruskalmstrsub/problem) | Kruskal, <br>UnionFind, <br>그래프 | 최소 신장 트리를 구하는 kruskal 알고리즘 작성 | [Kruskal_MST](https://github.com/wlsvy/TIL/blob/master/Coding_Problem_Solving/Kruskal_MST.cpp)
+[Dijkstra: Shortest Reach 2](https://www.hackerrank.com/challenges/dijkstrashortreach/problem?h_r=next-challenge&h_v=zen&h_r=next-challenge&h_v=zen) | 다익스트라, <br>최소길이, <br>그래프 | 시작 노드를 기준으로 다른 노드까지 최소 거리를 구하는 다익스트라 알고리즘 작성 | [Dijkstra](https://github.com/wlsvy/TIL/blob/master/Coding_Problem_Solving/Dijkstra.cpp)
 
 ### Sub
 - [TypeAliasing](https://github.com/wlsvy/TIL/blob/master/Coding_Problem_Solving/Helper/TypeAliasing.cpp)  
