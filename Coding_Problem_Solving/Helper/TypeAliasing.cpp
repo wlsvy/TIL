@@ -3,6 +3,7 @@
 #include <unordered_map>
 #include <map>
 
+using UCHAR = unsigned char;
 using UINT = unsigned int;
 using ULONG = unsigned long;
 using LL = long long;
