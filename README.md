@@ -27,8 +27,8 @@ Today I Learned
 [Snakes and Ladders](https://www.hackerrank.com/challenges/the-quickest-way-up/problem) | BFS | 뱀과 사다리 게임, 시작 지점에서 도착 지점에 도달하기 까지 주사위를 최소 몇 번 던져야 하는지 구하기, 주사위 면에 따른 BFS 분기를 활용하는 것이 포인트 | [Snakes and Ladders](https://github.com/wlsvy/TIL/blob/master/Coding_Problem_Solving/Snakes%20and%20Ladders_QuickWay.cpp)
 [Red Knight's Shortest Path](https://www.hackerrank.com/challenges/red-knights-shortest-path/problem) | BFS 응용 <br>경로 기록 <br>중복 경로 처리 <br>체스 | 체스말 옮기기, 시작 지점에서 도착 지점 까지 도달하기 위한 최소 이동 횟수 및 목적지까지 이동한 방향 출력, 그리고 중복되는 경로가 존재하면 규칙에 따라 우선순위에 높은 경로를 선택. | [Red Knight's Shortest Path](https://github.com/wlsvy/TIL/blob/master/Coding_Problem_Solving/Red%20Knight's%20Shortest%20Path.cpp)
 [Short Palindrome](https://www.hackerrank.com/challenges/short-palindrome/problem) | DP <br>문자열 | (난이도 어려움) 특정 문자열에서 조건을 만족하는 경우의 수 찾기.<br> (0 <= a < b < c < d < 문자열 길이, str[a] == str[d] && str[b] == str[c]) | [Short Palindrome](https://github.com/wlsvy/TIL/blob/master/Coding_Problem_Solving/Short%20Palindrome.cpp)
-[Prim's (MST) : Special Subtree](https://www.hackerrank.com/challenges/primsmstsub/problem) | Prim <br>그래프 | 최소 신장 트리를 구현하는 prim 알고리즘 작성 | [Prim_MST](https://github.com/wlsvy/TIL/blob/master/Coding_Problem_Solving/Prim_MST.cpp)
-
+[Prim's (MST) : Special Subtree](https://www.hackerrank.com/challenges/primsmstsub/problem) | Prim <br>그래프 | 최소 신장 트리를 구하는 prim 알고리즘 작성 | [Prim_MST](https://github.com/wlsvy/TIL/blob/master/Coding_Problem_Solving/Prim_MST.cpp)
+[Kruskal (MST): Really Special Subtree](https://www.hackerrank.com/challenges/kruskalmstrsub/problem) | Kruskal, <br>UnionFind, <br>그래프 | 최소 신장 트리를 구하는 kruskal 알고리즘 작성 | [Kruskal_MST](https://github.com/wlsvy/TIL/blob/master/Coding_Problem_Solving/Kruskal_MST.cpp)
 
 ### Sub
 - [TypeAliasing](https://github.com/wlsvy/TIL/blob/master/Coding_Problem_Solving/Helper/TypeAliasing.cpp)  
