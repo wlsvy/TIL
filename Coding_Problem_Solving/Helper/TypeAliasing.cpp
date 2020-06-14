@@ -16,6 +16,8 @@ using ULL = unsigned long long;
 #define FORJR(n) for(int j = (n) - 1; j >= 0; j--)
 #define FORKR(n) for(int k = (n) - 1; k >= 0; k--)
 
+using VC = std::vector<char>;
+using VVC = std::vector<std::vector<char>>;
 using VB = std::vector<bool>;
 using VVB = std::vector<std::vector<bool>>;
 using VI = std::vector<int>;
