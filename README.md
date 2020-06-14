@@ -1,8 +1,10 @@
 # TIL
 Today I Learned
 
-
 # Coding Problem Solving
+
+<details>
+<summary>Click to expand!</summary>
 
 #### 많은 풀이법을 보고 이해하는 것을 우선으로 합니다.
 
@@ -39,3 +41,5 @@ Today I Learned
 - [TypeAliasing](https://github.com/wlsvy/TIL/blob/master/Coding_Problem_Solving/Helper/TypeAliasing.cpp)  
 - [GetArraySize](https://github.com/wlsvy/TIL/blob/master/Coding_Problem_Solving/Helper/GetArraySize.cpp)  
 - [ContainerOutstream](https://github.com/wlsvy/TIL/blob/master/Coding_Problem_Solving/Helper/OutstreamHelper.cpp)  
+
+</details>
