@@ -1,5 +1,29 @@
 /*
 ============
+  가로세로 동일한 크기의 매트릭스 90도 회전
+============
+*/
+void RotateMatrix(std::vector<vector<int>> &matrix) {
+	auto size = matrix.size();
+	VVI tmp(size, vector<int>(size));
+
+	for (int j = size - 1; j >= 0; j--) {
+		for (int i = 0; i < size; i++) {
+			tmp[i][j] = matrix[size - j - 1][i];
+		}
+	}
+
+	matrix = tmp;
+}
+
+
+/*
+============
+  시계/반시계 방향으로 원소들을 한칸씩 회전시키는 방법
+============
+*/
+/*
+============
   첫번째 방법
   - vector에 테두리 원소들을 삽입하고 나머지 연산을 통해 R번째 회전시킨 자리의 원소를 찾는 방식
 ============
