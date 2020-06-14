@@ -3,8 +3,7 @@ Today I Learned
 
 # Coding Problem Solving
 
-<details>
-<summary>Click to expand!</summary>
+
 
 #### 많은 풀이법을 보고 이해하는 것을 우선으로 합니다.
 
@@ -14,7 +13,8 @@ Today I Learned
 - 단, 스스로 풀지 못한 경우! 여기 풀이법을 정리하고 나중에 다시 풀어볼 것!!!
 
 
-## List
+<details>
+<summary>List</summary>
 
 
 문제 | 분류 | 설명 | 해답 코드  
