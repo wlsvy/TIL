@@ -33,6 +33,7 @@ Today I Learned
 [문자열 압축](https://programmers.co.kr/learn/courses/30/lessons/60057?language=cpp) | 문자열<br>카카오 | 문자열 압축 알고리즘 작성, 예외처리가 까다로운 문제<br>압축 숫자 자릿 수(0, 10 차이), 초기 위치 관련, 압축되지 않는 나머지 문자열 예외처리 | [StringCompression](https://github.com/wlsvy/TIL/blob/master/Coding_Problem_Solving/KakaoBlind2020_StringCompression.cpp)
 [괄호 변환](https://programmers.co.kr/learn/courses/30/lessons/60058) | 문자열,<br>괄호처리,<br>카카오 | 괄호 처리 알고리즘 작성 + 괄호 유효성 검사 | [ChangeParenthesis](https://github.com/wlsvy/TIL/blob/master/Coding_Problem_Solving/KakaoBlind2020_ChangeParenthesis.cpp)
 [자물쇠와 열쇠](https://programmers.co.kr/learn/courses/30/lessons/60059) | 이중배열 회전,<br>카카오 | key 와 lock 이중배열에 대해서, key를 이동시키거나 회전시켜서 lock 에 딱 맞출 수 있는지 구하기 | [Lock](https://github.com/wlsvy/TIL/blob/master/Coding_Problem_Solving/KakaoBlind2020_Lock.cpp)
+[가사 검색](https://programmers.co.kr/learn/courses/30/lessons/60060) | 트라이(Trie),<br> 문자열 검색,<br>카카오 | 쿼리(ex : st????)에 대해서 조건을 만족하는 문자열 갯수 찾기<br> - 쿼리와 동일한 길이 <br> - 쿼리의 ?를 제외한 문자는 전부 동일 | [StringSearch](https://github.com/wlsvy/TIL/blob/master/Coding_Problem_Solving/KakaoBlind2020_StringSearch.cpp)
 
 ### Sub
 - [TypeAliasing](https://github.com/wlsvy/TIL/blob/master/Coding_Problem_Solving/Helper/TypeAliasing.cpp)  
