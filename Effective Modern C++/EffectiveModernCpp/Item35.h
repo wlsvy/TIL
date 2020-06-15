@@ -10,7 +10,7 @@
 //**이번 장은 설명이 많으니 자세한 사항은 직접 책을 봅시다.
 //혹은 http://ajwmain.iptime.org/programming/book_summary/%5B03%5Deffective_modern_cpp/effective_modern_cpp.html#I29
 
-namespace Item00 {
+namespace Item35 {
 	using namespace std;
 
 	/*

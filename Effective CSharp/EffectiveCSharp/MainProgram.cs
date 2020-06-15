@@ -14,8 +14,9 @@ namespace EffectiveCSharp
             System.Console.WriteLine("Hello ECS");
 
             //ECSharp02.RunSample();
-            ECSharp15.Case0.RunSample0();
-            ECSharp15.Case0.RunSample1();
+            //ECSharp15.Case0.RunSample0();
+            //ECSharp15.Case0.RunSample1();
+            ECSharp16.Case0.RunSample();
         }
     }
 }
@@ -35,6 +36,7 @@ namespace EffectiveCSharp
  * 13 : 정적 생성자 구문을 올바르게 초기화하라
  * 14 : 초기화 코드가 중복되는 것을 최소화하라
  * 15 : 불필요한 객체를 만들지 말라.
+ * 16 : 생성자 내에서는 절대로 가상 함수를 호출하지 말라
  */
 
 /*
