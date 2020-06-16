@@ -17,6 +17,7 @@ namespace EffectiveCSharp
             //ECSharp15.Case0.RunSample0();
             //ECSharp15.Case0.RunSample1();
             //ECSharp16.Case0.RunSample();
+            ECSharp18.RunSample();
         }
     }
 }
@@ -38,6 +39,7 @@ namespace EffectiveCSharp
  * 15 : 불필요한 객체를 만들지 말라.
  * 16 : 생성자 내에서는 절대로 가상 함수를 호출하지 말라
  * 17 : 표준 dispose 패턴을 구현하라
+ * 18 : 반드시 필요한 제약 조건만 설정하라
  */
 
 /*
