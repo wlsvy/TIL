@@ -9,13 +9,6 @@ using ULONG = unsigned long;
 using LL = long long;
 using ULL = unsigned long long;
 
-#define FORI(n) for(int i = 0; i < (n); i++)
-#define FORJ(n) for(int j = 0; j < (n); j++)
-#define FORK(n) for(int k = 0; k < (n); k++)
-#define FORIR(n) for(int i = (n) - 1; i >= 0; i--)
-#define FORJR(n) for(int j = (n) - 1; j >= 0; j--)
-#define FORKR(n) for(int k = (n) - 1; k >= 0; k--)
-
 using VC = std::vector<char>;
 using VVC = std::vector<std::vector<char>>;
 using VB = std::vector<bool>;
@@ -30,3 +23,10 @@ using MII = std::map<int, int>;
 using MIVI = std::map<int, std::vector<int>>;
 using PII = std::pair<int, int>;
 using PIVI = std::pair<int, std::vector<int>>;
+
+#define FORI(n) for(int i = 0; i < (n); i++)
+#define FORJ(n) for(int j = 0; j < (n); j++)
+#define FORK(n) for(int k = 0; k < (n); k++)
+#define FORIR(n) for(int i = (n) - 1; i >= 0; i--)
+#define FORJR(n) for(int j = (n) - 1; j >= 0; j--)
+#define FORKR(n) for(int k = (n) - 1; k >= 0; k--)
