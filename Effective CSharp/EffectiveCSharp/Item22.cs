@@ -20,7 +20,7 @@ namespace EffectiveCSharp
          * 제네릭은 모두 불변이었으며 타입 매개변수가 다른 경우 대체가 불가능했다. 
          * 하지만 C# 4.0 이후부터는 공변과 반공변을 통해서 제네릭 타입의 대체 가능성을 지정할 수 있도록 개선되었다.
          * 
-         * 공변성 -> 업캐스팅, 반공변성 -> 다운캐스팅
+         * 공변성 -> 업캐스팅, 반공변성 -> 타입 안전성
          */
          
         public abstract class CelestialBody
@@ -50,6 +50,10 @@ namespace EffectiveCSharp
         {
             baseItems[0] = new Asteroid { Name = "Hygiea", Mass = 8.85e19 };
         }
+
+        public delegate void DelegateNoDeco<T>(T arg);
+        public delegate void DelegateIn<in T>(T arg);
+        //public delegate void DelegateOut<out T>(T arg);
 
         public static void RunSample()
         {
@@ -127,6 +131,29 @@ namespace EffectiveCSharp
             void ActOnAnItem(T item);
             void GetAnItemLater(Func<T> item);
             Action<T> ActOnAnItemLater();           //인터페이스 입장에서 반공변
+        }
+
+        public class A { }
+        public class B : A { }
+        public class C : B { }
+
+        /// <summary>
+        /// 공변 반공변 예시
+        /// </summary>
+        static void Test()
+        {
+            Action<A> actionA = (A arg) => { };
+            Action<B> actionB = actionA;  //반공변성, 파생 타입 매개변수의 Action으로 대입 가능
+            Action<C> actionC = actionB;  //반공변성, 파생 타입 매개변수의 Action으로 대입 가능
+
+            //actionA = actionB;  //컴파일 오류, 기반 타입 매개변수의 Action에는 대입 불가능
+
+            Func<B> funcB = () => { return null; };
+            Func<A> funcA = funcB; //공변성, 기반 타입 매개변수의 Func에는 대입 가능
+            //Func<C> funcA = funcB; //컴파일 오류, 파생 타입 매개변수의 Func에는 대입 불가능
+
+            Func<B, B> funcBB = (B arg) => { return null; };
+            Func<C, A> funcCA = funcBB; //공변성, 반공변성 동시에 적용
         }
     }
 }
