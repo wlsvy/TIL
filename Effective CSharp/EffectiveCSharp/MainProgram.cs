@@ -42,6 +42,7 @@ namespace EffectiveCSharp
  * 17 : 표준 dispose 패턴을 구현하라
  * 18 : 반드시 필요한 제약 조건만 설정하라
  * 19 : 런타임에 타입을 확인하여 최적의 알고리즘을 사용하라
+ * 20 : IComparable<T> 와 IComparer<T>를 이용하여 객체의 선후 관계를 정의하라
  */
 
 /*
