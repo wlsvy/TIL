@@ -55,6 +55,7 @@
     <Compile Include="Item19.cs" />
     <Compile Include="Item20.cs" />
     <Compile Include="Item21.cs" />
+    <Compile Include="Item22.cs" />
     <Compile Include="MainProgram.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

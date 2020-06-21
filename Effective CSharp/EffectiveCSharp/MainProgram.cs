@@ -17,7 +17,8 @@ namespace EffectiveCSharp
             //ECSharp15.Case0.RunSample0();
             //ECSharp15.Case0.RunSample1();
             //ECSharp16.Case0.RunSample();
-            ECSharp18.RunSample();
+            //ECSharp18.RunSample();
+            ECSharp22.RunSample();
         }
     }
 }
@@ -44,6 +45,7 @@ namespace EffectiveCSharp
  * 19 : 런타임에 타입을 확인하여 최적의 알고리즘을 사용하라
  * 20 : IComparable<T> 와 IComparer<T>를 이용하여 객체의 선후 관계를 정의하라
  * 21 : 타입 매개변수가 IDisposable을 구현한 경우를 대비하여 제네릭 클래스를 작성하라
+ * 22 : 공변성과 반공변성을 지원하라
  */
 
 /*
