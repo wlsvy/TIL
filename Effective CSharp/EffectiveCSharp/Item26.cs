@@ -19,15 +19,15 @@ namespace EffectiveCSharp
          * 3. serialize 대상
          */
 
-        /// <summary>
-        /// IComparer<>
-        /// </summary>
         public class Name : IComparable<Name>, IEquatable<Name>, IComparable
         {
             public string First;
             public string Last;
             public string Middle;
 
+            /// <summary>
+            /// IComparer<>
+            /// </summary>
             public int CompareTo(Name other)
             {
                 if(object.ReferenceEquals(this, other))
@@ -92,7 +92,7 @@ namespace EffectiveCSharp
             /// </summary>
             public override bool Equals(object obj)
             {
-                /* if 문 내부에서 as 를 통해 형변환 하는데 typeof(Name)을 통해서 사전에 비교하는 이유
+                /* if 문 내부에서 as 를 통해 형변환 하는데 사전에 객체의 타입을 비교하는 이유
                  * 
                  * obj 객체가 Name을 상속한 파생클래스 타입인 경우, as 연산자는 객체에 대한 Name 타입의 참조를 반환한다.
                  * 이 경우 타입이 서로 다름에도 Name 타입 내에서 정의하고 있는 일부 값만 일치하다면 두 객체가 동일한 것으로 간주한다.

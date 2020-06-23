@@ -19,7 +19,8 @@ namespace EffectiveCSharp
             //ECSharp16.Case0.RunSample();
             //ECSharp18.RunSample();
             //ECSharp22.RunSample();
-            ECSharp24.RunSample();
+            //ECSharp24.RunSample();
+            ECSharp27.RunSample();
         }
     }
 }
@@ -51,6 +52,7 @@ namespace EffectiveCSharp
  * 24 : 베이스 클래스나 인터페이스에 대해서 제네릭을 특화하지 말라
  * 25 : 타입 매개변수로 인스턴스 필드를 만들 필요가 없다면 제네릭 메서드를 정의하라
  * 26 : 제네릭 인터페이스와 논 제네릭 인터페이스를 함께 구현하라
+ * 27 : 인터페이스는 간략히 정의하고 기능의 확장은 확장 메서드를 사용하라
  */
 
 /*
