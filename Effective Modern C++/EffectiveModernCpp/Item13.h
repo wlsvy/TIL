@@ -35,7 +35,7 @@ namespace Item13 {
 	/*
 		cbegin을 직접 구현한 예
 
-		return에서 std::begin을 활용한 이유는,
+		return에서 std::cbegin 이 아닌 std::begin을 활용한 이유는,
 		const C& 객체 (예를 들어, C : vector<int> 면 const C& : const vector<int> &)
 		에 대해서, begin 을 호출하면 const_iterator 형식의 반복자가 반환된다.
 	*/
