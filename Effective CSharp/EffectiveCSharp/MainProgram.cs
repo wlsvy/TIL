@@ -23,6 +23,7 @@ namespace EffectiveCSharp
             //ECSharp27.RunSample();
             //ECSharp30.RunSample();
             //ECSharp31.RunSample();
+            ECSharp34.RunSample();
 
         }
     }
@@ -62,6 +63,7 @@ namespace EffectiveCSharp
  * 31 : 시퀀스에 사용할 수 있는 조합 가능한 API를 작성하라
  * 32 : Action, Predicate, Function 과 순회 방식을 분리하라
  * 33 : 필요한 시점에 필요한 요소를 생성하라
+ * 34 : 함수를 매개변수로 사용하여 결합도를 낮춰라
  */
 
 /*
