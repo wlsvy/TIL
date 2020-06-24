@@ -22,7 +22,7 @@ namespace EffectiveCSharp
             //ECSharp24.RunSample();
             //ECSharp27.RunSample();
             //ECSharp30.RunSample();
-            ECSharp31.RunSample();
+            //ECSharp31.RunSample();
 
         }
     }
@@ -60,7 +60,8 @@ namespace EffectiveCSharp
  * 29 : 컬렉션을 반환하기보다 이터레이터를 반환하는 것이 낫다.
  * 30 : 루프보다 쿼리 구문이 낫다
  * 31 : 시퀀스에 사용할 수 있는 조합 가능한 API를 작성하라
- * 32 : 
+ * 32 : Action, Predicate, Function 과 순회 방식을 분리하라
+ * 33 : 필요한 시점에 필요한 요소를 생성하라
  */
 
 /*
