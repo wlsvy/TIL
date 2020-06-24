@@ -21,7 +21,9 @@ namespace EffectiveCSharp
             //ECSharp22.RunSample();
             //ECSharp24.RunSample();
             //ECSharp27.RunSample();
-            ECSharp30.RunSample();
+            //ECSharp30.RunSample();
+            ECSharp31.RunSample();
+
         }
     }
 }
@@ -57,6 +59,7 @@ namespace EffectiveCSharp
  * 28 : 확장 메서드를 이용하여 구제화된 제네릭 타입을 개선하라
  * 29 : 컬렉션을 반환하기보다 이터레이터를 반환하는 것이 낫다.
  * 30 : 루프보다 쿼리 구문이 낫다
+ * 31 :
  */
 
 /*
