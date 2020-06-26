@@ -23,7 +23,8 @@ namespace EffectiveCSharp
             //ECSharp27.RunSample();
             //ECSharp30.RunSample();
             //ECSharp31.RunSample();
-            ECSharp34.RunSample();
+            //ECSharp34.RunSample();
+            ECSharp36.RunSample();
 
         }
     }
@@ -65,6 +66,7 @@ namespace EffectiveCSharp
  * 33 : 필요한 시점에 필요한 요소를 생성하라
  * 34 : 함수를 매개변수로 사용하여 결합도를 낮춰라
  * 35 : 확장 메서드는 절대 오버로드하지 마라
+ * 36 : 쿼리 표현식과 메서드 호출 구문이 어떻게 대응되는지 이해하라
  */
 
 /*

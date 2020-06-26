@@ -23,12 +23,6 @@ namespace EffectiveCSharp
             public string LastName;
         }
 
-        
-
-        public static void RunSample()
-        {
-
-        }
     }
 
     //나쁜 예. 확장 메서드를 이용하여 클래스 확장
