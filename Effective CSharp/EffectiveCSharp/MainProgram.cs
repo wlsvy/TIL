@@ -25,7 +25,7 @@ namespace EffectiveCSharp
             //ECSharp31.RunSample();
             //ECSharp34.RunSample();
             //ECSharp36.RunSample();
-            ECSharp37.RunSample();
+            //ECSharp37.RunSample();
         }
     }
 }
@@ -69,7 +69,8 @@ namespace EffectiveCSharp
  * 36 : 쿼리 표현식과 메서드 호출 구문이 어떻게 대응되는지 이해하라
  * 37 : 쿼리를 사용할 때는 즉시 평가보다 지연 평가가 낫다
  * 38 : 메서드보다 람다 표현식이 낫다
- * 39 : 
+ * 39 : function 과 action 내에서는 예외가 발생하지 않도록 해라.
+ * 40 : 지연 수행과 즉시 수행을 구분하라
  */
 
 /*

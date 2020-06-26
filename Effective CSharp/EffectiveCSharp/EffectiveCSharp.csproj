@@ -73,6 +73,7 @@
     <Compile Include="Item37.cs" />
     <Compile Include="Item38.cs" />
     <Compile Include="Item39.cs" />
+    <Compile Include="Item40.cs" />
     <Compile Include="MainProgram.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
