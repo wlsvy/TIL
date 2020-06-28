@@ -249,7 +249,7 @@ ENIAC 개발 프로젝트의 고문 존 폰 노이만John von Neumann이 제안�
 
 </details>
 
-## 15장 병렬 
+## 15장 병렬 처리
 
 <details>
   <summary>접기/펼치기</summary>
