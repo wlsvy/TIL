@@ -1,6 +1,13 @@
 # TIL
 Today I Learned
 
+- [Effective C++](https://github.com/wlsvy/TIL/tree/master/Effective%20C%2B%2B/EffectiveCPP/EffectiveCPP/EffectiveC%2B%2B)
+- [Effective Modern C++](https://github.com/wlsvy/TIL/tree/master/Effective%20Modern%20C%2B%2B/EffectiveModernCpp)
+- [Effective C#](https://github.com/wlsvy/TIL/tree/master/Effective%20CSharp/EffectiveCSharp)
+
+- [컴퓨터 아키텍쳐](https://github.com/wlsvy/TIL/blob/master/Document/ComputerArchitecture.md)
+
+
 # Coding Problem Solving
 
 
