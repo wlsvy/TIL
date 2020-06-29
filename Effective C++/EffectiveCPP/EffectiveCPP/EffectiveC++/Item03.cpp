@@ -1,74 +1,134 @@
 #include <iostream>
 #include <vector>
 
-class Rational {};
+//낌새만 보이면 const를 들이대 보자!
+namespace Item03 {
+	using namespace std;
 
-const Rational operator* (const Rational& lhs, const Rational& rhs);	//반환 값을 const 로 선언한 이유는
+	/*
+		Const 는 상수 값을 선언하는 데 사용된다. 여러 가지 용도로 사용되는데,
+		상수 포인터
+		STL 의 const_iterator 
+		함수 선언
+	*/
 
-void DoSomething() {
-	Rational a, b, c;
+	class Rational {};
 
-	//(a * b) = c;	//여기서 a*b의 결과에 두고 operator = 을 호출하는 것을 막기 위해
-					//const 라서 값 변경 불가능
-}
+	//함수 반환 값을 상수로 정해 주면, 안전성이나 효율을 포기하지 않고도 사용자측의 에러 돌발 상황을 줄이는 효과를 꽤 자주 볼 수 있게 된다
+	const Rational operator* (const Rational& lhs, const Rational& rhs);
 
-class TextBlock {
-public:
-	TextBlock(std::string str) : text(str) {}
+	void DoSomething() {
+		Rational a, b, c;
 
-	//const char& operator[](std::size_t position) const { return text[position]; }	//상수 객체에 대한 operator[]
-	//char & operator[](std::size_t position) { return text[position]; }				//비상수 객체에 대한 operator[]
-	const char& operator[](std::size_t position) const { return text[position]; }
-	char & operator[] (std::size_t position) {				//코드 중복 대처 요령(비상수 버전이 상수 버전 호출)
-		return const_cast<char&>(							//c++ 에서 캐스팅은 썩 좋지 못한 아이디어지만, 코드 중복도 쉽게 넘길 순 없다.
-			static_cast<const TextBlock&>(*this)[position]	//상수 버전 operator[]를 호출, *this에 const를 붙이고, 반환 타입에서 const를 뗀다.
-			);												//operator[]속에서 operator[] 를 호출하면 재귀적으로 계속 호출하게 되니,
-	}														//const operator[]를 호출하기 위한 방법으로 *this 에 const 를 붙인다.(탁월한 방법은 아니지만 차선책)			
-
-private:
-	std::string text;
-};
-
-void DoSomething2() {
-	TextBlock tb("Hello");
-	std::cout << tb[0];	//비상수 멤버 호출
-
-	const TextBlock ctb("World");
-	std::cout << ctb[0];	//상수 멤버 호출
-
-	tb[0] = 'x'; //문제 없음
-	//ctb[0] = 'x'; // 컴파일 에러
-}
-
-void print(const TextBlock& ctb) {
-	std::cout << ctb[0];	//상수 멤버 호출
-}
-
-class CTextBlock {
-public:
-	CTextBlock(char * str) : pText(str) {}
-	char & operator[] (std::size_t position) const { return pText[position]; }	//부적절한 
-																				//(그러나 비트수준 상수성이 있어서 허용되는) -> 참조자를 반환하되 pText의 값을 고치는 부분이 없으니
-																				//operator[] 의 선언
-	std::size_t Length() const;
-private:
-	char *pText;
-	mutable std::size_t textLength;		//이 데이터 멤버들은 어떤 순간에도 수정 가능
-	mutable bool lengthIsValid;			//심지어 상수 멤버함수 안이라도 가능
-};
-
-void DoSomething3() {
-	const CTextBlock cctb((char*)"Hello");	//상수 객체 선언
-	char *pc = &cctb[0];					//상수 버전의 operator[]를 호출하여 cctb의
-											//내부 데이터에 대한 포인터를 얻습니다.
-	*pc = 'j';		//cctb는 이제 jello 라는 값을 갖습니다. -> 분명 상수 객체임에도 내부 멤버 변수가 변경되었다.
-}
-
-std::size_t CTextBlock::Length() const {
-	if (!lengthIsValid) {
-		textLength = std::strlen(pText);	//상수 멤버 함수안에서는 일반적으로 안되지만
-		lengthIsValid = true;				//mutable 키워드가 붙어서 가능
+		/*
+			여기서 a*b의 결과에 두고 operator = 을 호출하는 것을 방지.
+			const 객체는 값 변경이 불가능해서 아래 코드는 컴파일 오류
+		*/
+		//(a * b) = c;
 	}
 
-	return textLength;
+	class TextBlock {
+	public:
+		TextBlock(std::string str) : text(str) {}
+
+		//상수 객체에 대한 operator[]
+		//const char& operator[](std::size_t position) const { return text[position]; }	
+		
+		//비상수 객체에 대한 operator[]
+		//char & operator[](std::size_t position) { return text[position]; }				
+
+		//상수 멤버 및 비상수 멤버 함수에서 코드 중복을 피하는 방법.
+		/*
+			비상수 버전이 상수 버전을 호출한다.
+
+			c++ 에서 캐스팅은 썩 좋지 못한 아이디어지만, 코드 중복도 쉽게 넘길 순 없다.
+
+			상수 버전 operator[]를 호출, *this에 const를 붙이고, 반환 타입에서 const를 뗀다.
+			operator[]속에서 operator[] 를 호출하면 재귀적으로 계속 호출하게 되니,
+			const operator[]를 호출하기 위한 방법으로 *this 에 const 를 붙인다.(탁월한 방법은 아니지만 차선책)	
+		*/
+		const char& operator[](std::size_t position) const { return text[position]; }
+		char & operator[] (std::size_t position) {				
+			return const_cast<char&>(							
+				static_cast<const TextBlock&>(*this)[position]	
+				);												
+		}																
+
+	private:
+		std::string text;
+	};
+
+	void DoSomething2() {
+		TextBlock tb("Hello");
+		std::cout << tb[0];	//비상수 멤버 호출
+
+		const TextBlock ctb("World");
+		std::cout << ctb[0];	//상수 멤버 호출
+
+		tb[0] = 'x'; //문제 없음
+		//ctb[0] = 'x'; // 컴파일 에러
+	}
+
+	void print(const TextBlock& ctb) {
+		std::cout << ctb[0];	//상수 멤버 호출
+	}
+
+	/*
+		비트수준 상수성bitwise constness : 다른 말로 물리적 상수성이라고도 한다. 
+		
+		어떤 멤버 함수가 그 객체의 어떤 데이터 멤버도 건드리지 않아야(정적 멤버 제외) 그 멤버 함수가 'const' 임을 인정하는 개념. 
+		즉 그 객체를 구성하는 비트들 중 어떤 것도 바꾸면 안 된다는 것.
+
+		논리적 상수성이란 상수 멤버 함수라고 해서 객체의 한 비트도 수정할 수 없는 것이 아니라 일부 몇 비트 정도는 바꿀 수 있되, 
+		그것을 사용자측에서 알아채지 못하게만 하면 상수 멤버 자격이 있다는 것
+	*/
+
+	class CTextBlock {
+	public:
+		CTextBlock(char * str) : pText(str) {}
+
+		/*
+			부적절하지만 비트수준 상수성이 있어서 허용된다.
+			 -> 참조자를 반환하되 pText의 값을 고치는 부분은 없어서 가능하다.
+			operator[] 의 선언
+		*/
+		char & operator[] (std::size_t position) const { return pText[position]; }	
+																					
+																					
+		std::size_t Length() const;
+	private:
+		char *pText;
+		
+		//mutable 키워드가 붙은 멤버함수는 const 멤버 함수 내부에서도 수정이 가능하다.
+		mutable std::size_t textLength;	
+		mutable bool lengthIsValid;		
+	};
+
+	void DoSomething3() {
+		/*
+			상수 객체에 대해서 operator[]를 호출한 뒤 내부 데이터의 포인터를 획득한다.
+		*/
+		const CTextBlock cctb((char*)"Hello");
+		char *pc = &cctb[0];					
+		
+		//cctb는 이제 jello 라는 값을 갖는다. -> 분명 상수 객체임에도 내부 멤버 변수가 변경되었다.
+		*pc = 'j';		
+
+		/*
+			논리적 상수성이란 이런 황당한 상황을 보완하는 개념으로 등장하였다.
+
+			논리적 상수성이란 상수 멤버 함수라고 해서 객체의 한 비트도 수정할 수 없는 것이 아니라 일부 몇 비트 정도는 바꿀 수 있되,
+			그것을 사용자측에서 알아채지 못하게만 하면 상수 멤버 자격이 있다는 것
+		*/
+	}
+
+	std::size_t CTextBlock::Length() const {
+		//상수 멤버 함수 내부이지만 mutable 키워드가 붙은 멤버는 수정 가능
+		if (!lengthIsValid) {
+			textLength = std::strlen(pText);
+			lengthIsValid = true;			
+		}
+
+		return textLength;
+	}
 }
