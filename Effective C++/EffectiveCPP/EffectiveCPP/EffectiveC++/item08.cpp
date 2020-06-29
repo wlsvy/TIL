@@ -30,7 +30,7 @@ namespace Item08 {
 		static DBConnection create() { return DBConnection(); }
 
 		//데이터 베이스 연결 해제, 이때 동작이 실패하면 에러 발생
-		void close();	
+		void close() {}
 	};
 
 	class DBConn {

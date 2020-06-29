@@ -1,2 +1,3 @@
-﻿  item07.cpp
+﻿  item08.cpp
+c:\users\user\documents\til\effective c++\effectivecpp\effectivecpp\effectivec++\item08.cpp(55): warning C4101: 'e' :참조되지 않은 지역 변수입니다.
   EffectiveCPP.vcxproj -> C:\Users\USER\Documents\TIL\Effective C++\EffectiveCPP\Debug\EffectiveCPP.exe
