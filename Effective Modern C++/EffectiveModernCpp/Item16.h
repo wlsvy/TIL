@@ -45,7 +45,7 @@ namespace Item16 {
 
 		inline void RunSample() {
 			Widget w;
-			std::vector<thread> workers;
+			std::vector<std::thread> workers;
 
 			for (int i = 0; i < 1000; i++) {
 				workers.emplace_back(
@@ -96,15 +96,14 @@ namespace Item16 {
 
 		inline void RunSample() {
 			Widget w;
-			std::vector<thread> workers;
+			std::vector<std::thread> workers;
 
 			for (int i = 0; i < 1000; i++) {
 				workers.emplace_back(
 					[&w]()
 				{
 					w.magicValue();
-				}
-				);
+				});
 			}
 
 			for (auto& t : workers) {
