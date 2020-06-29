@@ -24,6 +24,9 @@
     <ClInclude Include="EffectiveC++\Item31.h">
       <Filter>소스 파일\ECPP</Filter>
     </ClInclude>
+    <ClInclude Include="EffectiveC++\Item02.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
