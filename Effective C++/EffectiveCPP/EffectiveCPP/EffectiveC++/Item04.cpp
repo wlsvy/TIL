@@ -72,6 +72,7 @@ namespace Item04 {
 		정적 객체는 main() 함수가 실행 종료되고 프로그램이 끝날 때 소멸자가 호출된다.
 	*/
 
+
 	namespace BadCase {
 		//특정 라이브러리에 포함된 클래스라 가정하자.
 		class FileSystem {
@@ -93,12 +94,11 @@ namespace Item04 {
 					다른 번역 단위에 정의된 비지역 정적 객체.
 				*/
 				std::size_t disks = tfs.numDisks();
-
-
 			}
 		};
 	}
 
+	//여러 번역 단위에 있는 비지역 정적 객체들의 초기화 순서 문제는 피해서 설계해야 합니다. 비지역 정적 객체를 지역 정적 객체로 바꾸면 됩니다.
 	namespace SolutionCase {
 		class FileSystem {
 		public:
