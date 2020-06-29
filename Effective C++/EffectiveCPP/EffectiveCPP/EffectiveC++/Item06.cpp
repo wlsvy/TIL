@@ -2,7 +2,7 @@
 #include <vector>
 #include <string>
 
-class Item04 {
+class Widget {
 public:
 
 };

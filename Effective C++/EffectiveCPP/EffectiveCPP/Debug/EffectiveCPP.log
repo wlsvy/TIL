@@ -1,5 +1,2 @@
-﻿  Item03.cpp
-c:\users\user\documents\til\effective c++\effectivecpp\effectivecpp\effectivec++\item03.cpp(21): warning C4101: 'a' :참조되지 않은 지역 변수입니다.
-c:\users\user\documents\til\effective c++\effectivecpp\effectivecpp\effectivec++\item03.cpp(21): warning C4101: 'b' :참조되지 않은 지역 변수입니다.
-c:\users\user\documents\til\effective c++\effectivecpp\effectivecpp\effectivec++\item03.cpp(21): warning C4101: 'c' :참조되지 않은 지역 변수입니다.
+﻿  Item04.cpp
   EffectiveCPP.vcxproj -> C:\Users\USER\Documents\TIL\Effective C++\EffectiveCPP\Debug\EffectiveCPP.exe

@@ -6,10 +6,17 @@ namespace Item03 {
 	using namespace std;
 
 	/*
-		Const 는 상수 값을 선언하는 데 사용된다. 여러 가지 용도로 사용되는데,
+		const를 붙여 선언하면 컴파일러가 사용상의 에러를 잡아내는 데 도움을 줍니다. 
+
+		const는 어떤 유효범위에 있는 객체에도 붙을 수 있으며, 
+		함수 매개변수 및 반환 타입에도 붙을 수 있으며, 
+		멤버 함수에도 붙을 수 있습니다.
+
+		const를 통해 상수 값을 선언할 수 있다.
+
 		상수 포인터
 		STL 의 const_iterator 
-		함수 선언
+		const 멤버 함수 선언
 	*/
 
 	class Rational {};
