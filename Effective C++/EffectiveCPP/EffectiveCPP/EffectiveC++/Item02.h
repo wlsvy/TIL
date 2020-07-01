@@ -37,7 +37,7 @@ namespace Item02 {
 
 		cout << a << " " << b << endl;
 
-		Max(a++, b);	//이상 없음
+		Max(a++, b);	//a 1번 증가, 이상 없음
 
 		cout << a << " " << b << endl;
 	}
