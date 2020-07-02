@@ -1,5 +1,8 @@
 # Effective C++
 
+- 3판 번역서 예제 코드 정리
+- 스콧 마이어스 지음
+
 ## 1. C++에 왔으면 C++의 법을 따릅시다.
 
 1. [C++를 언어들의 집합체로 바라보는 안목은 필수](https://github.com/wlsvy/TIL/blob/master/Effective%20C%2B%2B/EffectiveCPP/EffectiveCPP/EffectiveC%2B%2B/Item01.h)
