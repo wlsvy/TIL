@@ -5,14 +5,23 @@
 #include <thread>
 using namespace std;
 
+//자원 관리 클래스의 복사 동작에 대해 진지하게 고찰하자
 
 namespace Item14 {
 
-	//자원 관리 클래스의 복사 동작에 대해 진지하게 고찰하자
+	
 	class Lock {
 	public:
-		explicit Lock(mutex *pm) : mutexPtr(pm) { mutexPtr->lock(); }	//자원 획득 시 뮤텍스 잠금
-		~Lock() { mutexPtr->unlock(); }	//소멸 시 뮤텍스 잠금 해제
+		explicit Lock(mutex *pm) : mutexPtr(pm) 
+		{ 
+			//자원 획득 시 뮤텍스 잠금
+			mutexPtr->lock(); 
+		}	
+		~Lock() 
+		{ 
+			//소멸 시 뮤텍스 잠금 해제
+			mutexPtr->unlock(); 
+		}	
 	private:
 		mutex *mutexPtr;
 	};
@@ -20,15 +29,20 @@ namespace Item14 {
 	void doSomething() {
 		mutex m;
 
-		{					//활용 영역지정
-			Lock m1(&m);	//뮤텍스에 잠금 설정
-			//임계 영역에서 연산 수행
-		}					//블록을 벗어날 경우 뮤텍스 잠금 해제
+		//스코프를 통해 활용 영역지정
+		{	
+			//뮤텍스에 잠금 설정
+			Lock m1(&m);	
+
+			//... -> 임계 영역에서 연산 수행
+		}					
+		//블록을 벗어날 경우 뮤텍스 잠금 해제
 
 
 		{
+			//Lock 복사하는 경우는 어떻게 처리해야 하는지??
 			Lock m1(&m);
-			Lock m2(m1);	//Lock 복사하는 경우는 어떻게 처리해야 하는지??
+			Lock m2(m1);	
 
 			/*
 				1. 복사를 금지 : 
@@ -52,10 +66,17 @@ namespace Item14 {
 
 	class SharedLock {
 	public:
-		explicit SharedLock(mutex* pm) : mutexPtr(pm, SharedLock::Unlock) { mutexPtr->lock(); }	
-		//삭제자로 unlock 함수를 사용해서 mutex 객체를 반환하는 것이 아닌 다시 잠궈버리는 것으로 변경
+		//삭제자로 unlock 함수를 사용해서 mutex 객체를 반환하는 것이 아닌 다시 잠금해제하는 것으로 변경
+		explicit SharedLock(mutex* pm) : mutexPtr(pm, SharedLock::Unlock) 
+		{
+			mutexPtr->lock(); 
+		}	
+		
 	private:
-		static void Unlock(mutex* pm) { pm->unlock(); }	//삭제자(deleter) 로 사용할 함수
-		std::shared_ptr<mutex> mutexPtr;	//shared_ptr 사용
+		//삭제자(deleter) 로 사용할 함수
+		static void Unlock(mutex* pm) { pm->unlock(); }	
+
+		//shared_ptr 사용
+		std::shared_ptr<mutex> mutexPtr;	
 	};
 }

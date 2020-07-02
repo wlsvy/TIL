@@ -3,8 +3,8 @@
 #include <string>
 using namespace std;
 
+//자원 관리 클래스에서 관리되는 자원은 외부에서 접근할 수 있도록 하자
 namespace Item15 {
-	//자원 관리 클래스에서 관리되는 자원은 외부에서 접근할 수 있도록 하자
 
 	class Investment {};
 
@@ -18,19 +18,24 @@ namespace Item15 {
 
 	void func() {
 		std::auto_ptr<Investment> pInv(CreateInvestment());
-		//int days = daysHeld(pInv); <- 에러. 스마트 포인터 자체를 사용할 수는 없다
+
+		//int days = daysHeld(pInv); //컴파일 에러. 스마트 포인터 자체를 사용할 수는 없다
+
 		int days = daysHeld(pInv.get());	//get명령어로 pInv 안의 실제 포인터를 넘긴다
-		int days2 = daysHeld(*pInv);		//operator* 도 동일한 기능을 수행한다
+		int days2 = daysHeld(*pInv);	//operator* 도 동일한 기능을 수행한다
 	}
 
 
-
-	class FontHandle{};				//폰트 핸들. C API 사용되는 예시
+	//폰트 핸들. C API 사용되는 예시
+	class FontHandle{};				
 	void releaseFont(FontHandle fh) {};
 
-	class Font {		//RAII 클래스
+	//RAII 클래스
+	class Font {		
 	public:
-		explicit Font(FontHandle fh) : f(fh) {}		//C API로 하기때문에 참조전달이 아닌 값복사
+
+		//C API로 하기때문에 참조전달이 아닌 값복사
+		explicit Font(FontHandle fh) : f(fh) {}		
 		FontHandle get() const { return f; }
 		~Font() { releaseFont(f); }
 
@@ -46,11 +51,18 @@ namespace Item15 {
 		Font f(getFont());
 		int newFontSize = 0;
 
-		changeFontSize(f.get(), newFontSize); //Font에서 FontHandle로 바꾼후 넘긴다
-												//사용할때마다 명시적으로 변환(get())해야 하는 점이 번거로울 수 있다.
-
-		changeFontSize(f, newFontSize);		//클래스 안에 operator()가 구현되어 있다면 암시적 변환도 가능!(편리하다)
-											//하지만 암시적 변환은 실수를 저지를 여지를 만든다
+		/*
+			Font에서 FontHandle로 바꾼후 넘긴다
+			사용할때마다 명시적으로 변환(get())해야 하는 점이 번거로울 수 있다.
+		*/
+		changeFontSize(f.get(), newFontSize);	
+												
+		/*
+			클래스 안에 operator()가 구현되어 있다면 암시적 변환도 가능(편리하다)
+			하지만 암시적 변환은 실수를 저지를 여지를 만든다
+		*/
+		changeFontSize(f, newFontSize);
+									
 
 		//명시적/암시적 변환에 대해서는 클래스 설계 의도에 따라 달라질 수 있다.
 	}

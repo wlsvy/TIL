@@ -2,8 +2,16 @@
 #include <vector>
 #include <string>
 
+// 자원 관리에는 객체가 그만!
+
 namespace Item13 {
-	// 자원 관리에는 객체가 그만!
+	
+
+	/*
+		프로그래밍 분야에서 자원(Resource)이란,  사용을 일단 마치고 난 후엔 시스템에 돌려주어야 하는 모든 것을 일컫는다.
+
+		스마트 포인터 활용할 것. 자원 관리 객체를 활용하여 자원을 관리하는 것이 중요합니다.
+	*/
 
 	class Investment{};
 
@@ -12,18 +20,24 @@ namespace Item13 {
 	void f(){
 		Investment *pInv = CreateInvestment();
 
-		// 넘겨 받은 객체 사용
-		//만약 여기서 에러가 발생하거나, 
-		//goto, continue, break, return 등으로 인해 갑자기 스코프 밖으로 빠져나간다면
-		//그대로 메모리 누수로 이어진다
+		/*
+			생성한 Investment 객체를 사용하는 부분
+
+			만약 여기서 에러가 발생하거나, 
+			goto, continue, break, return 등으로 인해 갑자기 스코프 밖으로 빠져나간다면
+
+			그대로 메모리 누수로 이어진다
+		*/
 
 		delete pInv;
 	}
 
 	void f2() {
+		/*
+			프로그래머가 delete를 해줄 필요 없이 스코프를 빠져나갈때
+			자동으로 auto_ptr 소멸자에서 메모리 반환
+		*/
 		std::auto_ptr<Investment> pInv(CreateInvestment());
-		//프로그래머가 delete를 해줄 필요 없이 스코프를 빠져나갈때
-		//자동으로 auto_ptr 소멸자에서 메모리 반환
 	}
 
 	/*

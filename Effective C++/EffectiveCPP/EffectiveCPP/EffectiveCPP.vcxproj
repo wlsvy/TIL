@@ -153,6 +153,7 @@
   <ItemGroup>
     <ClInclude Include="EffectiveC++\Item01.h" />
     <ClInclude Include="EffectiveC++\Item05.h" />
+    <ClInclude Include="EffectiveC++\Item19.h" />
     <ClInclude Include="EffectiveC++\Item31.h" />
     <ClInclude Include="EffectiveC++\Item02.h" />
     <ClInclude Include="pch.h" />

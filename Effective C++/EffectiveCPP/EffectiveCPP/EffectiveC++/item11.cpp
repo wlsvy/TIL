@@ -2,8 +2,12 @@
 #include <vector>
 #include <string>
 
+//operator= 에서는 자기 대입에 대한 처리가 빠지지 않도록 하자.
 namespace Item11 {
-	//operator= 에서는 자기 대입에 대한 처리가 빠지지 않도록 하자.
+
+	/*
+		예를 들어 대입연산자 오버로딩으로 다른 객체의 값을 자신에게로 복사하는 클래스가 있다. 만일 여기에서 자기 자신을 대입하는 경우에 대해서 생각해둘 것
+	*/
 
 	class Bitmap {};
 	class Widget0 {
@@ -35,7 +39,7 @@ namespace Item11 {
 		Widget2& operator= (const Widget2& rhs) {	//new 명령어 에러 방지
 			if (this == &rhs) return *this;		// <== 자기 대입 검사는 코드가 늘어나고 오버헤드가 존재하는 점 주목.
 
-			Bitmap *pOrig = pb;			//pb 주솟값을 다른곳에 저장시켜놓고,
+			Bitmap *pOrig = pb;	//pb 주솟값을 다른곳에 저장시켜놓고,
 			pb = new Bitmap(*rhs.pb);	//pb의 사본을 생성한 뒤 기존값을 삭제
 			delete pOrig;
 			return *this;
@@ -44,6 +48,9 @@ namespace Item11 {
 		Bitmap *pb;
 	};
 
+
+	//copy and swap 기법을 통해 안정적으로 대입연산을 수행할 수 있다.
+	//-> 여기서 call by value 를 활용하는 경우도 있다
 	class Widget {
 	public:
 		void swap(Widget& rhs);	//*this 와 rhs의 데이터 교체

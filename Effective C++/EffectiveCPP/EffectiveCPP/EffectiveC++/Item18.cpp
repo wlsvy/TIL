@@ -3,8 +3,8 @@
 #include <string>
 using namespace std;
 
+//인터페이스 설계는 제대로 쓰기엔 쉽게, 엉터리로 쓰기엔 어렵게 하자
 namespace Item18 {
-	//인터페이스 설계는 제대로 쓰기엔 쉽게, 엉터리로 쓰기엔 어렵게 하자
 
 	//예시 1 : 날짜
 	struct Day {
@@ -14,11 +14,16 @@ namespace Item18 {
 
 	class Month {	//일년은 12개월이므로 이 점을 제약으로 활용할 수 있다.
 	public:
-		static Month Jan() { return Month(1); }	//static 함수로 미리 정의
+		/*
+			static 함수로 미리 정의하는 방식
+
+			정적객체가 아닌 정적함수로 정의한 것이 특징인데  
+			객체는 초기화 시점이 사용시점 보다 늦어지는 경우가 있다면 문제가 발생할 수 있기 때문(항목 4 참조)
+		*/
+		static Month Jan() { return Month(1); }	
 		static Month Fab() { return Month(2); }	
-		//정적객체가 아닌 정적함수로 정의한 것이 특징인데  
-		//객체는 초기화 시점이 사용시점 보다 늦어지는 경우가 있다면 문제가 발생할 수 있기 때문(항목 4 참조)
 		//....
+
 	private:
 		explicit Month(int m) : val(m) {}
 		int val;
@@ -31,18 +36,19 @@ namespace Item18 {
 
 	class Date {
 	public:
-		Date(int month, int day, int year) {}
 		/*
 			이 방식은 숫자를 직접 입력하는 과정에서 실수가 발생할 수 있다.
 			Date d(30, 3, 1995);	날짜에 월 값이 들어간다던지
 			Date d(3, 40, 1995);	3을 4로 잘못 눌러 최대 일수(31 & 30) 을 넘긴다던지
 		*/
-		Date(const Month& m, const Day& d, const Year& y) {}
+		Date(int month, int day, int year) {}
+
 		/*
 			사용하는 입장에서 실수를 줄일 수 있게 하는 방식
 			타입이 다를 경우 즉각 확인할 수 있게 구현되었다.
 			Date(Month::Jan(), Day(30), Year(1995));
 		*/
+		Date(const Month& m, const Day& d, const Year& y) {}
 	};
 
 	//예시 2 : 타입에 const제약 부여하기
@@ -56,8 +62,12 @@ namespace Item18 {
 
 	//Investment* createInvestment();	//포인터를 반환하는 팩토리 함수
 
-	std::shared_ptr<Investment> createInvestment(); //아예 스마트 포인터를 반환하게 만들어버릴 수도 있다
-													//사용자가 자원 반환을 깜빡하게 만드는 경우 방지
+	/*
+		아예 스마트 포인터를 반환하게 만들어버릴 수도 있다
+		사용자가 자원 반환을 깜빡하게 만드는 경우 방지
+	*/
+	std::shared_ptr<Investment> createInvestment();
+													
 
 	//추가적으로 스마트포인터의 삭제자 추가
 	void getRidOfInvestment(Investment* ptr) {}

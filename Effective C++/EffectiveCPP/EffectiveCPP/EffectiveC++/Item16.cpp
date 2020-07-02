@@ -3,8 +3,8 @@
 #include <string>
 using namespace std;
 
+//new 및 delete를 사용할 때는 형태를 반드시 맞추자
 namespace Item16 {
-	//new 및 delete를 사용할 때는 형태를 반드시 맞추자
 
 	void Func() {
 		std::string *stringArr = new std::string[100];
@@ -32,7 +32,12 @@ namespace Item16 {
 		//주의할 것
 		using AddressLines = std::string[4];
 
-		std::string *pal = new AddressLines;	//비록 배열 선언은 아니지만
-		delete[] pal;	//pal이 가리키는 객체는 배열객체이다.
+		/*
+			비록 배열 선언은 아니지만
+
+			pal이 가리키는 객체는 배열객체이다.
+		*/
+		std::string *pal = new AddressLines;
+		delete[] pal;
 	}
 }

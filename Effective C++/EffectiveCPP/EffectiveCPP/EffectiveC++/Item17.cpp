@@ -3,20 +3,29 @@
 #include <string>
 using namespace std;
 
+//new로 생성한 객체를 스마트 포인터에 저장하는 코드는 별도의 한 문장으로 만들자
 namespace Item17 {
-	//new로 생성한 객체를 스마트 포인터에 저장하는 코드는 별도의 한 문장으로 만들자
 
 	class Widget{};
 
-	void ProcessWidget(std::shared_ptr<Widget> pw, int priority) {}	//동적으로 생성된 Widget에 대해 우선순위에 따라 처리하는 함수
-	int priority(); //처리 우선순위를 알려주는 함수
+	//동적으로 생성된 Widget에 대해 우선순위에 따라 처리하는 함수
+	void ProcessWidget(std::shared_ptr<Widget> pw, int priority) {}	
+
+	//처리 우선순위를 알려주는 함수
+	int priority(); 
 
 	void Func() {
-		//ProcessWidget(new Widget, priority());	컴파일 X, 
-													//shared_ptr 생성자는 explicit 선언이 되어있어
-													//new Widget이 반환하는 포인터로 암시적 변환이 불가능하다.
 
-		ProcessWidget(std::shared_ptr<Widget>(new Widget), priority());	//이 문장은 자원을 흘릴 가능성이 있다
+		/*
+			아래문장은 컴파일 에러, 
+			shared_ptr 생성자는 explicit 선언이 되어있어
+			new Widget이 반환하는 포인터로 암시적 변환이 불가능하다.
+		*/
+		//ProcessWidget(new Widget, priority());	
+													
+													
+		//이 문장은 자원을 흘릴 가능성이 있다
+		ProcessWidget(std::shared_ptr<Widget>(new Widget), priority());	
 		/*
 			컴파일러는 ProcessWidget 호출 코드를 만들기 전에 매개변수로 넘겨지는 인자를 평가한다.
 
@@ -37,10 +46,13 @@ namespace Item17 {
 	}
 
 	void Func2() {
-		std::shared_ptr<Widget> pw(new Widget);	//문제를 피하기 위해서 
-												//new로 만든 객체를 스마트 포인터에 담는 과정을 따로 한 문장으로 만들 것 
-												//이 방식은 컴파일러의 재조정을 받을 여지가 적기 때문에 자원 누출 가능성을 차단한다.
 
+		/*
+			문제를 피하기 위해서 
+			new로 만든 객체를 스마트 포인터에 담는 과정을 따로 한 문장으로 만들 것 
+			이 방식은 컴파일러의 재조정을 받을 여지가 적기 때문에 자원 누출 가능성을 차단한다.
+		*/
+		std::shared_ptr<Widget> pw(new Widget);	
 		ProcessWidget(pw, priority());
 	}
 
