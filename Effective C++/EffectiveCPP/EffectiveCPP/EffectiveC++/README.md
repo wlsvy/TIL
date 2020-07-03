@@ -34,3 +34,16 @@
 18. [인터페이스 설계는 제대로 쓰기엔 쉽게, 엉터리로 쓰기엔 어렵게 하자](https://github.com/wlsvy/TIL/blob/master/Effective%20C%2B%2B/EffectiveCPP/EffectiveCPP/EffectiveC%2B%2B/Item18.cpp)
 19. [클래스 설계는 타입 설계와 똑같이 취급하자](https://github.com/wlsvy/TIL/blob/master/Effective%20C%2B%2B/EffectiveCPP/EffectiveCPP/EffectiveC%2B%2B/Item19.h)
 20. ['값에 의한 전달'보다는 '상수객체 참조자에 의한 전달' 방식을 택하는 편이 대개 낫다](https://github.com/wlsvy/TIL/blob/master/Effective%20C%2B%2B/EffectiveCPP/EffectiveCPP/EffectiveC%2B%2B/Item20.cpp)
+21. [함수에서 객체를 반환해야 할 경우에 참조자를 반환하려고 들지 말자](https://github.com/wlsvy/TIL/blob/master/Effective%20C%2B%2B/EffectiveCPP/EffectiveCPP/EffectiveC%2B%2B/Item21.cpp)
+22. [데이터 멤버가 선언될 곳은 private 영역임을 명심하자](https://github.com/wlsvy/TIL/blob/master/Effective%20C%2B%2B/EffectiveCPP/EffectiveCPP/EffectiveC%2B%2B/Item22.h)
+23. [멤버 함수보다는 비멤버 비프렌드 함수와 더 가까워지자](https://github.com/wlsvy/TIL/blob/master/Effective%20C%2B%2B/EffectiveCPP/EffectiveCPP/EffectiveC%2B%2B/Item23.cpp)
+24. [타입 변환이 모든 매개변수에 대해 적용되어야 한다면 비멤버 함수를 선언하자](https://github.com/wlsvy/TIL/blob/master/Effective%20C%2B%2B/EffectiveCPP/EffectiveCPP/EffectiveC%2B%2B/Item24.cpp)
+25. [예외를 던지지 않는 swap에 대한 지원도 생각해 보자](https://github.com/wlsvy/TIL/blob/master/Effective%20C%2B%2B/EffectiveCPP/EffectiveCPP/EffectiveC%2B%2B/Item25.cpp)
+
+## 5. 구현
+
+26. [변수 정의는 늦출 수 있는 데까지 늦추는 근성을 발휘하자](https://github.com/wlsvy/TIL/blob/master/Effective%20C%2B%2B/EffectiveCPP/EffectiveCPP/EffectiveC%2B%2B/Item26.cpp)
+27. [캐스팅은 절약, 또 절약! 잊지 말자](https://github.com/wlsvy/TIL/blob/master/Effective%20C%2B%2B/EffectiveCPP/EffectiveCPP/EffectiveC%2B%2B/Item27.cpp)
+28. [내부에서 사용하는 객체에 대한 "핸들"을 반환하는 코드는 되도록 피하자](https://github.com/wlsvy/TIL/blob/master/Effective%20C%2B%2B/EffectiveCPP/EffectiveCPP/EffectiveC%2B%2B/Item28.cpp)
+29. [예외 안전성이 확보되는 그날 위해 싸우고 또 싸우자!](https://github.com/wlsvy/TIL/blob/master/Effective%20C%2B%2B/EffectiveCPP/EffectiveCPP/EffectiveC%2B%2B/Item29.cpp)
+30. [인라인 함수는 미주알고주알 따져서 이해해 두자](https://github.com/wlsvy/TIL/blob/master/Effective%20C%2B%2B/EffectiveCPP/EffectiveCPP/EffectiveC%2B%2B/Item30.cpp)
