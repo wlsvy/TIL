@@ -3,9 +3,10 @@
 #include <string>
 using namespace std;
 
-namespace Item21 {
-	//함수에서 객체를 반환해야 할 경우에 참조자를 반환하려고 들지 말자
+//함수에서 객체를 반환해야 할 경우에 참조자를 반환하려고 들지 말자
 
+namespace Item21 {
+	
 	class Rational {
 	public:
 		Rational(int numerator = 0, int denominator = 1) : n(numerator), d(denominator) {}
@@ -28,8 +29,26 @@ namespace Item21 {
 		friend const Rational operator*(const Rational& rhs, const Rational& lhs) {
 			return Rational();
 		}
+
+		friend const Rational  operator* (const Rational& rhs, const Rational& lhs);
+
 	};
 
-	
+	/*
+		const Rational & operator* (const Rational & lhs, const Rational & rhs) {
+			Rational result(lhs.n * rhs.n, lhs.d * rhs.d); 
+			return result;
+
+			또는 
+
+			Rational *result = new Rational(...);
+			return *result;
+		}
+	*/
+	/*
+		위의 경우, 유리수 곱셈을 행하고 결과값을 나타내는 객체를 반환하려 할 때, 반환 객체를 스택에 할당하건, 힙에 할당하건 문제가 생긴다.
+		스택의 경우 지역변수기 때문에 함수를 빠져나오는 순간 사라져버리고,
+		힙 할당의 경우, new 로 할당할 메모리를 누가 delete 해줘야 할지 책임을 정할 수 없다.
+	*/
 
 }

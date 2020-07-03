@@ -13,9 +13,17 @@
 
 using namespace std;
 
+class Widget {
+public:
+	int a, b, c;
+};
 
 int main()
 {
-	Item02::RunSample();
+	Widget w{ 1, 2, 3 };
+
+	vector<Widget> v;
+	v.emplace_back(Widget{ 1, 2, 3 });
+
 	return 0;
 }

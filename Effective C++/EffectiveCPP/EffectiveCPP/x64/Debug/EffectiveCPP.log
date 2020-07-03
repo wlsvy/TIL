@@ -1,0 +1,4 @@
+﻿  EffectiveCPP.cpp
+c:\users\user\documents\til\effective c++\effectivecpp\effectivecpp\effectivecpp.cpp(26): warning C4228: 비표준 확장이 사용됨: 선언자 목록에서 쉼표 뒤의 한정자가 무시됩니다.
+c:\users\user\documents\til\effective c++\effectivecpp\effectivecpp\effectivecpp.cpp(28): warning C4228: 비표준 확장이 사용됨: 선언자 목록에서 쉼표 뒤의 한정자가 무시됩니다.
+  EffectiveCPP.vcxproj -> C:\Users\USER\Documents\TIL\Effective C++\EffectiveCPP\x64\Debug\EffectiveCPP.exe
