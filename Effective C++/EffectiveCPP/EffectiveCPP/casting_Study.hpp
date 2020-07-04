@@ -1,14 +1,26 @@
 #include <iostream>
+#include <vector>
 using namespace std;
 
 namespace ConstCast_Study {
 	/*
+		Converts between types with different cv-qualification.
+		const_cast는 서로 다른 cv 지정자를 가진 타입간의 변환을 수행한다. (const_cast 지만 volatile 속성도 변환 가능)
+		https://en.cppreference.com/w/cpp/language/const_cast
+
 		const_cast 역할은 크게 두 가지
 
 		1. 특정 라이브러리에서 값을 변경해선 안되지만 const가 아닌 객체를 다룰 때, const를 붙이는 용도
 		(C 라이브러리 중 const 키워드가 도입되기 전에 만들어진 라이브러리를 다룰 때 사용한다고 함)
 
 		2. const_cast는 일반 객체, const 객체에서 서로 다른 함수를 호출할 때 중복되는 코드 방지
+
+		const_cast 제약조건
+		1. 참조 타입에 대해서만 변환을 수행할 수 있다.
+		2. 참조하는 객체가 const 객체인 경우, 해당 포인터의 const 성을 제거하려는 시도는 미정의 동작을 유발할 수 있다.
+		-> 상수가 아닌 객체에 대해서만 const_cast를 수행하는 것이 안전하다.
+
+		3. 함수 포인터에 대해서는 동작하지 않는다.
 	*/
 	class ExternalClass
 	{
@@ -22,11 +34,14 @@ namespace ConstCast_Study {
 	class TestClass
 	{
 	public:
+
+		/*
+			_rObj 는 const 객체이므로, 클래스 내부 const 멤버함수만 호출 가능
+			 non-const 멤버함수를 호출할려면 const를 떼어야한다.
+		*/
 		bool IsZero(const ExternalClass& _rObj) const
 		{
-			if (const_cast<ExternalClass&>(_rObj).GetValue() == 0) return true;
-			return false;	//_rObj 는 const 객체이므로, 클래스 내부 const 멤버함수만 호출 가능
-							// non-const 멤버함수를 호출할려면 const를 떼어야한다.
+			return const_cast<ExternalClass&>(_rObj).GetValue() == 0;
 		}
 	};
 
@@ -36,20 +51,34 @@ namespace ConstCast_Study {
 	public:
 		TextBlock(std::string str) : text(str) {}
 
-		//const char& operator[](std::size_t position) const { return text[position]; }	//상수 객체에 대한 operator[]
-		//char & operator[](std::size_t position) { return text[position]; }				//비상수 객체에 대한 operator[]
+		//상수 객체에 대한 operator[]
+		//const char& operator[](std::size_t position) const { return text[position]; }	
+
+		//비상수 객체에 대한 operator[]
+		//char & operator[](std::size_t position) { return text[position]; }				
+
+		//상수 멤버 및 비상수 멤버 함수에서 코드 중복을 피하는 방법.
+		/*
+			비상수 버전이 상수 버전을 호출한다.
+
+			c++ 에서 캐스팅은 썩 좋지 못한 아이디어지만, 코드 중복도 쉽게 넘길 순 없다.
+
+			상수 버전 operator[]를 호출, *this에 const를 붙이고, 반환 타입에서 const를 뗀다.
+			operator[]속에서 operator[] 를 호출하면 재귀적으로 계속 호출하게 되니,
+			const operator[]를 호출하기 위한 방법으로 *this 에 const 를 붙인다.(탁월한 방법은 아니지만 차선책)
+		*/
 		const char& operator[](std::size_t position) const { return text[position]; }
-		char & operator[] (std::size_t position) {				//코드 중복 대처 요령(비상수 버전이 상수 버전 호출)
-			return const_cast<char&>(							//c++ 에서 캐스팅은 썩 좋지 못한 아이디어지만, 코드 중복도 쉽게 넘길 순 없다.
-				static_cast<const TextBlock&>(*this)[position]	//상수 버전 operator[]를 호출, *this에 const를 붙이고, 반환 타입에서 const를 뗀다.
-				);												//operator[]속에서 operator[] 를 호출하면 재귀적으로 계속 호출하게 되니,
-		}														//const operator[]를 호출하기 위한 방법으로 *this 에 const 를 붙인다.(탁월한 방법은 아니지만 차선책)			
+		char & operator[] (std::size_t position) {
+			return const_cast<char&>(
+				static_cast<const TextBlock&>(*this)[position]
+				);
+		}
 
 	private:
 		std::string text;
 	};
 
-	int const_cast_test_main(int argc, char* argv[])
+	inline void RunSample()
 	{
 		ExternalClass ValueObj;
 		ValueObj.SetValue(100);
@@ -64,8 +93,6 @@ namespace ConstCast_Study {
 		int* pInt = const_cast<int*>(&ConstInt);
 		*pInt = 200;
 		cout << ConstInt << endl;	//값 변하지 않음. const 값은 그대로
-
-		return 0;
 	}
 }
 
@@ -89,7 +116,7 @@ namespace DynamicCast_Study {
 		void Put(void) { cout << "Derived" << endl; }
 	};
 
-	void Dynamic_Cast_tmain(int argc, char* argv[])
+	inline void RunSample()
 	{
 		Base* pBase = new Base;
 		Base* pDerived1 = new Derived;
@@ -117,7 +144,47 @@ namespace DynamicCast_Study {
 	}
 }
 
-namespace StaticCastStudy {
+namespace StaticCast_Study {
+	/*
+		Converts between types using a combination of implicit and user-defined conversions.
+		타입간 암시적 변환 혹은 사용자 정의 형변환 함수를 통해 타입간 변환을 수행한다.
+
+		https://en.cppreference.com/w/cpp/language/static_cast
+
+		static_cast < new_type > ( expression )
+		- expression에서 new_type으로 변환하는 암시적 변환 혹은 expression에서 new_type 객체를 생성하는 생성자가 있을 경우,
+		이들 중 적합한 것을 찾아서 임시객체 생성하거나, (만약에 있다면)사용자 정의 형변환 함수를 호출한다.
+
+		struct B { };
+		struct D : B { };
+		D d;
+		B& br = d;
+		static_cast<D&>(br); // lvalue denoting the original d object
+		- 이 경우, 타입검사를 하지 않은채 형변환을 수행한다.
+
+		- 우측값으로 변환
+		- new_type 이 void 이면 static cast는 타입평가 이후 expression 값을 버린다
+		- 배열 참조값 타입을 업캐스트
+		- scoped enum을 int 로 변환
+		- enum 타입에서 다른 enum 타입으로 변환가능
+		- void* 다른 객체 포인터 타입으로 변환가능
+	*/
+
+	struct B {
+		int m = 0;
+		void hello() const {
+			std::cout << "Hello world, this is B!\n";
+		}
+	};
+	struct D : B {
+		void hello() const {
+			std::cout << "Hello world, this is D!\n";
+		}
+	};
+
+	enum class E { ONE = 1, TWO, THREE };
+	enum EU { ONE = 1, TWO, THREE };
+
 	class BaseOne
 	{
 	public:
@@ -136,7 +203,7 @@ namespace StaticCastStudy {
 		void Put(void) { cout << "Derived" << endl; }
 	};
 
-	int Static_Cast_main(int argc, char* argv[])
+	inline void RunSample()
 	{
 		int IntValue = 0;
 		double DoubleValue = 100.0;
@@ -160,10 +227,59 @@ namespace StaticCastStudy {
 		// 컴파일 성공 : 계층간 타입 변환이 가능 (타입 안전 검사는 안함)
 		pDerived = static_cast<Derived*>(pBaseTwo);
 
-		// 컴파일 오류 : 변환할 수 없는 타입 (dynamic_cast 필요)
+		// 컴파일 오류 : 변환할 수 없는 타입
 		//pBaseOne = static_cast<BaseOne*>( pBaseTwo );   
 
-		return 0;
+		//======================================
+		//cpp reference 예제 코드
+		//======================================
+
+		// 1: initializing conversion
+		int n = static_cast<int>(3.14);
+		std::cout << "n = " << n << '\n';
+		std::vector<int> v = static_cast<std::vector<int>>(10);
+		std::cout << "v.size() = " << v.size() << '\n';
+
+		// 2: static downcast
+		D d;
+		B& br = d; // upcast via implicit conversion
+		br.hello();
+		D& another_d = static_cast<D&>(br); // downcast
+		another_d.hello();
+
+		// 3: lvalue to xvalue
+		std::vector<int> v2 = static_cast<std::vector<int>&&>(v);
+		std::cout << "after move, v.size() = " << v.size() << '\n';
+
+		// 4: discarded-value expression
+		static_cast<void>(v2.size());
+
+		// 5. inverse of implicit conversion
+		void* nv = &n;
+		int* ni = static_cast<int*>(nv);
+		std::cout << "*ni = " << *ni << '\n';
+
+		// 6. array-to-pointer followed by upcast
+		D a[10];
+		B* dp = static_cast<B*>(a);
+
+		// 7. scoped enum to int or float
+		E e = E::ONE;
+		int one = static_cast<int>(e);
+		std::cout << one << '\n';
+
+		// 8. int to enum, enum to another enum
+		E e2 = static_cast<E>(one);
+		EU eu = static_cast<EU>(e2);
+
+		// 9. pointer to member upcast
+		int D::*pm = &D::m;
+		std::cout << br.*static_cast<int B::*>(pm) << '\n';
+
+		// 10. void* to any type
+		void* voidp = &e;
+		std::vector<int>* p = static_cast<std::vector<int>*>(voidp);
+
 	}
 	/*
 	'pDerived = static_cast<Derived*>( pBaseTwo );' 에서 타입 변환은 컴파일 타임에 끝난다.
@@ -176,7 +292,7 @@ namespace StaticCastStudy {
 	*/
 }
 
-namespace Rcast_Study {
+namespace Reinterpretcast_Study {
 	class BaseOne
 	{
 	public:
@@ -190,7 +306,7 @@ namespace Rcast_Study {
 		virtual void Put1(void) { cout << "BaseTwo 1" << endl; }
 	};
 
-	int Reinterpret_Cast_tmain(int argc, char* argv[])
+	inline void RunSample()
 	{
 		int IntValue = 1020;
 		char* pCharPtr1 = NULL;
@@ -228,7 +344,5 @@ namespace Rcast_Study {
 
 		// 컴파일 성공 : const_cast 의 고유 기능
 		pCharPtr = const_cast<char*>(pConstCharPtr);
-
-		return 0;
 	}
 }

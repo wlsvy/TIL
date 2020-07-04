@@ -10,20 +10,13 @@
 #include <math.h>
 
 #include "EffectiveC++/Item02.h"
+#include "casting_study.hpp"
 
 using namespace std;
 
-class Widget {
-public:
-	int a, b, c;
-};
-
 int main()
 {
-	Widget w{ 1, 2, 3 };
-
-	vector<Widget> v;
-	v.emplace_back(Widget{ 1, 2, 3 });
+	StaticCast_Study::RunSample();
 
 	return 0;
 }

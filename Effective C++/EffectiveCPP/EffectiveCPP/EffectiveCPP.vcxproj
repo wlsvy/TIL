@@ -164,7 +164,7 @@
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="casting_Study.cpp" />
+    <ClCompile Include="casting_Study.hpp" />
     <ClCompile Include="EffectiveCPP.cpp" />
     <ClCompile Include="EffectiveC++\Item03.cpp" />
     <ClCompile Include="EffectiveC++\Item04.cpp" />

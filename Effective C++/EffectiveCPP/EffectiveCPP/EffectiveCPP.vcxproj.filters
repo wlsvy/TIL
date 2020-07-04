@@ -56,9 +56,6 @@
     <ClCompile Include="pch.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="casting_Study.cpp">
-      <Filter>소스 파일\ECPP</Filter>
-    </ClCompile>
     <ClCompile Include="EffectiveCPP.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
@@ -189,6 +186,9 @@
       <Filter>소스 파일\ECPP</Filter>
     </ClCompile>
     <ClCompile Include="EffectiveC++\Item31_Impl.h">
+      <Filter>소스 파일\ECPP</Filter>
+    </ClCompile>
+    <ClCompile Include="casting_Study.hpp">
       <Filter>소스 파일\ECPP</Filter>
     </ClCompile>
   </ItemGroup>
