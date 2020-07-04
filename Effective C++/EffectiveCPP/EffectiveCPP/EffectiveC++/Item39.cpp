@@ -2,11 +2,11 @@
 #include <vector>
 #include <string>
 #include <functional>
-using namespace std;
 
 //private 상속은 심사숙고해서 구사하자
 
 namespace Item39 {
+	using namespace std;
 
 	class Person{};
 
@@ -27,6 +27,8 @@ namespace Item39 {
 		Private 상속은 기본적으로 is-implemented-in-terms-of 의 일종. 
 		기반 클래스에서 쓸 수 있는 기능들 몇 개를 활용할 목적으로 한 행동이지, 
 		기반 클래스와 파생 클래스 사이에 어떤 개념적 관계가 있어서 한 행동이 아니다.
+
+		※ 가급적이면 private 상속보다는 객체 합성을 사용하되 꼭 필요한 경우에만 private 상속을 사용합시다.
 	*/
 
 	class Timer {
@@ -58,7 +60,8 @@ namespace Item39 {
 			virtual void onTick() const {}
 		};
 
-		WidgetTimer timer;	//멤버 변수가 private 이니 파생클래스에서 접근 불가 -> onTick에 접근 불가능
+		//멤버 변수가 private 이므로 파생클래스에서 접근 불가 -> onTick에 접근 불가능
+		WidgetTimer timer;	
 	};
 
 	/*
@@ -68,21 +71,31 @@ namespace Item39 {
 	*/
 
 
-	//공백 기본 클래스 최적화(EBO : empty base optimization)
-	class Empty{};	//정의된 데이터가 없는 공백 클래스. 하지만 객체의 크기는 0이 아니다
-					//독립 구조(freestanding)의 객체는 반드시 크기가 0이 넘어야 한다 -> c++ 규칙
+	/*
+		공백 기본 클래스 최적화(EBO : empty base optimization)
 
-	class HoldsAnInt {	//이론적으로 int를 저장할 메모리만 있으면 충분하지만, 그보다 더 차지한다
+		정의된 데이터가 없는 공백 클래스. 하지만 객체의 크기는 0이 아니다
+		독립 구조(freestanding)의 객체는 반드시 크기가 0이 넘어야 한다 -> c++ 규칙
+	*/
+	class Empty{};
+
+	/*
+		이론적으로 int를 저장할 메모리만 있으면 충분하지만, 그보다 더 차지한다
+		sizeof(HoldsAnInt) > sizeof(int)
+	*/
+	class HoldsAnInt {	
 	private:
 		int x;
 		Empty e;
-	};	//sizeof(HoldsAnInt) > sizeof(int)
+	};	
 
+	/*
+		EBO 공백 기본 클래스 최적화란 공백 클래스가 상속되었을 시, 컴파일러가 공백 클래스 메모리를 최적화하는 기법
+		sizeof(HoldsAnInt2) = sizeof(int)
+	*/
 	class HoldsAnInt2 : private Empty {
 	private:
 		int x;
-	};	//sizeof(HoldsAnInt2) = sizeof(int)
-	/*
-		EBO 공백 기본 클래스 최적화란 공백 클래스가 상속되었을 시, 컴파일러가 공백 클래스 메모리를 최적화하는 기법
-	*/
+	};
+	
 }

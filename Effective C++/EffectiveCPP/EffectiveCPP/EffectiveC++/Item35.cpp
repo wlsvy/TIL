@@ -81,7 +81,10 @@ namespace Item35_3 {
 	class GameCharacter; //전방 선언
 
 	int defaultHealthCalc(const GameCharacter& gc) { return 1; }
-	short calcHealth(const GameCharacter& gc) { return 2; }//반환 타입이 int가 아닌 것에 주목 -> short은 int로 암시적 변환이 가능하기 때문에 호환가능한 함수호출성 개체
+
+	//반환 타입이 int가 아닌 것에 주목 -> short은 int로 암시적 변환이 가능하기 때문에 호환가능한 함수호출성 개체
+	short calcHealth(const GameCharacter& gc) { return 2; }
+
 	struct HealthCalculator {
 		int operator() (const GameCharacter&) const { return 3; }
 	};
@@ -115,6 +118,7 @@ namespace Item35_3 {
 namespace Item35_4 {
 	class GameCharacter;
 
+	//함수객체 : Operator() 함수를 구현한 클래스.함수 객체에 괄호 연산자를 활용하면 마치 함수를 호출할 때 처럼 사용할 수 있다.
 	class HealthCalcFunc {
 	public:
 		virtual int calc(const GameCharacter& gc) const { return 0; }

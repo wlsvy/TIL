@@ -2,11 +2,12 @@
 #include <vector>
 #include <string>
 #include <functional>
-using namespace std;
 
 //다중상속은 심사숙고해서 사용하자
 
 namespace Item40 {
+	using namespace std;
+
 	//소위 다중 상속의 문제점이라고 여겨지는 죽음의 마름모꼴 상속은 
 	//가상 기본 클래스(virtual base class) 상속 다른 말로 가상 상속(virtual inheritance)을 통해서 해결 가능하다.
 
@@ -24,7 +25,9 @@ namespace Item40 {
 
 		여기에 더해서 가상 기본 클래스에 관련된 규칙은 비가상 기본 클래스의 초기화보다 복잡하다.
 
-		여기에 대한 대안은 자바와 닷넷에서 활용하는 interace 개념 사용 
+
+		다중 상속을 적법하게 쓸 수 있는 경우가 있습니다. 
+		여러 시나리오 중 하나는, 인터페이스 클래스로부터 public 상속을 시킴과 동시에 구현을 돕는 클래스로부터 private 상속을 시키는 것입니다.
 	*/
 
 	class IPerson {
@@ -52,7 +55,8 @@ namespace Item40 {
 		std::string birthday;
 	};
 
-	class CPerson : public IPerson, private PersonInfo {	//인터페이스를 public 상속, PersonInfo를 private 상속
+	//인터페이스를 public 상속, PersonInfo를 private 상속
+	class CPerson : public IPerson, private PersonInfo {	
 	public:
 		explicit CPerson(DatabaseID pid) : PersonInfo(pid) {}
 

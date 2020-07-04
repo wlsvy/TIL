@@ -39,6 +39,18 @@
     <ClInclude Include="EffectiveC++\Item22.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="EffectiveC++\Item32.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="EffectiveC++\Item34.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="EffectiveC++\Item36.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="EffectiveC++\Item38.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -128,9 +140,6 @@
     <ClCompile Include="EffectiveC++\Item31.cpp">
       <Filter>소스 파일\ECPP</Filter>
     </ClCompile>
-    <ClCompile Include="EffectiveC++\Item31_Plus.h">
-      <Filter>소스 파일\ECPP</Filter>
-    </ClCompile>
     <ClCompile Include="EffectiveC++\Item33.cpp">
       <Filter>소스 파일\ECPP</Filter>
     </ClCompile>
@@ -177,6 +186,9 @@
       <Filter>소스 파일\ECPP</Filter>
     </ClCompile>
     <ClCompile Include="EffectiveC++\Item51.cpp">
+      <Filter>소스 파일\ECPP</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectiveC++\Item31_Impl.h">
       <Filter>소스 파일\ECPP</Filter>
     </ClCompile>
   </ItemGroup>

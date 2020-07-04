@@ -28,8 +28,11 @@ namespace Item37 {
 		Shape *pc = new Circle;
 		Shape *pr = new Rectangle;
 
-		pc->draw();	//Rectangle::draw(Shape::Red) 호출, Green 이 아니다!
-					//매개변수는 기본값은 정적으로 바인딩되기 때문
-					//가상함수는 동적 바인딩되기 때문에 Rectangle의 것을 사용하지만 기본 매개변수는 Shape의 것을 사용한다
+		/*
+			Rectangle::draw(Shape::Red) 호출, Green 이 아니다!
+			매개변수는 기본값은 정적으로 바인딩되기 때문
+			가상함수는 동적 바인딩되기 때문에 Rectangle의 것을 사용하지만 기본 매개변수는 Shape의 것을 사용한다
+		*/
+		pc->draw();
 	}
 }

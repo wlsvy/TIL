@@ -1,6 +1,6 @@
 #pragma once
 #include "Item31.h"
-#include "Item31_Plus.h"
+#include "Item31_Impl.h"
 
 namespace Item31 {
 	PersonHandle::PersonHandle(const std::string & name, const Date & birthday, const Address & addr)

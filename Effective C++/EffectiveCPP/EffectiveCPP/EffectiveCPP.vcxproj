@@ -157,6 +157,10 @@
     <ClInclude Include="EffectiveC++\Item22.h" />
     <ClInclude Include="EffectiveC++\Item31.h" />
     <ClInclude Include="EffectiveC++\Item02.h" />
+    <ClInclude Include="EffectiveC++\Item32.h" />
+    <ClInclude Include="EffectiveC++\Item34.h" />
+    <ClInclude Include="EffectiveC++\Item36.h" />
+    <ClInclude Include="EffectiveC++\Item38.h" />
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
@@ -188,7 +192,7 @@
     <ClCompile Include="EffectiveC++\Item29.cpp" />
     <ClCompile Include="EffectiveC++\Item30.cpp" />
     <ClCompile Include="EffectiveC++\Item31.cpp" />
-    <ClCompile Include="EffectiveC++\Item31_Plus.h" />
+    <ClCompile Include="EffectiveC++\Item31_Impl.h" />
     <ClCompile Include="EffectiveC++\Item33.cpp" />
     <ClCompile Include="EffectiveC++\Item35.cpp" />
     <ClCompile Include="EffectiveC++\Item37.cpp" />

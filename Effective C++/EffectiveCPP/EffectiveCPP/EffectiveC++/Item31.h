@@ -4,8 +4,9 @@
 #include <string>
 using namespace std;
 
+//파일 사이의 컴파일 의존성을 최대로 줄이자
+
 namespace Item31 {
-	//파일 사이의 컴파일 의존성을 최대로 줄이자
 
 	/*
 		위의 include 지시자에서 #include <string>, string 은 전방선언을 해선 안된다
@@ -13,7 +14,7 @@ namespace Item31 {
 		string은 사실 클래스가 아니라 typedef로 정의한 타입동의어 (basic_string<char>를 typedef 한 것)
 		string을 전방선언이 맞을 리가 없다.
 
-		표준 라이브러리 헤더는 어지간한 경우만 아니면 컴파일 시 병목요인이 되지 않는다. #include <string> 꼭 하자.
+		표준 라이브러리 헤더는 일반적인 경우 컴파일 시 병목요인이 되지 않는다. #include <string> 꼭 하자.
 	*/
 
 	class PersonImpl;	//전방선언
@@ -59,4 +60,8 @@ namespace Item31 {
 	
 	//사용자 측에서는 Item31.h 파일/ Date, Address 클래스 정보 만 포함시키면 내부 인터페이스들을 문제없이 사용가능하다.
 	void func0();
+
+	/*
+		라이브러리 헤더는 그 자체로 모든 것을 갖추어야 하며 선언부만 갖고 있는 형태여야 합니다. 이 규칙은 템플릿이 쓰이거나 쓰이지 않거나 동일하게 적용합시다.
+	*/
 }

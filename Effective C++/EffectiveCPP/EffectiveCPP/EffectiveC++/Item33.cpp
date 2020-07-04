@@ -3,8 +3,9 @@
 #include <string>
 using namespace std;
 
+//상속된 이름을 숨기는 일을 피하자
+
 namespace Item33 {
-	//상속된 이름을 숨기는 일을 피하자
 
 	int x = 0; //전역변수
 	void func() {
