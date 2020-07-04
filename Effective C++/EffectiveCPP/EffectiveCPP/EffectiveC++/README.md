@@ -47,3 +47,16 @@
 28. [내부에서 사용하는 객체에 대한 "핸들"을 반환하는 코드는 되도록 피하자](https://github.com/wlsvy/TIL/blob/master/Effective%20C%2B%2B/EffectiveCPP/EffectiveCPP/EffectiveC%2B%2B/Item28.cpp)
 29. [예외 안전성이 확보되는 그날 위해 싸우고 또 싸우자!](https://github.com/wlsvy/TIL/blob/master/Effective%20C%2B%2B/EffectiveCPP/EffectiveCPP/EffectiveC%2B%2B/Item29.cpp)
 30. [인라인 함수는 미주알고주알 따져서 이해해 두자](https://github.com/wlsvy/TIL/blob/master/Effective%20C%2B%2B/EffectiveCPP/EffectiveCPP/EffectiveC%2B%2B/Item30.cpp)
+31. [파일 사이의 컴파일 의존성을 최대로 줄이자](https://github.com/wlsvy/TIL/blob/master/Effective%20C%2B%2B/EffectiveCPP/EffectiveCPP/EffectiveC%2B%2B/Item31.h)
+
+## 6. 상속, 그리고 객체 지향 설계
+
+32. [public 상속 모형은 반드시 "is-a(...는 ...의 일종이다)"를 따르도록 만들자](https://github.com/wlsvy/TIL/blob/master/Effective%20C%2B%2B/EffectiveCPP/EffectiveCPP/EffectiveC%2B%2B/Item32.h)
+33. [상속된 이름을 숨기는 일은 피하자](https://github.com/wlsvy/TIL/blob/master/Effective%20C%2B%2B/EffectiveCPP/EffectiveCPP/EffectiveC%2B%2B/Item33.cpp)
+34. [인터페이스 상속과 구현 상속의 차이를 제대로 파악하고 구별하자](https://github.com/wlsvy/TIL/blob/master/Effective%20C%2B%2B/EffectiveCPP/EffectiveCPP/EffectiveC%2B%2B/Item34.h)
+35. [가상 함수 대신 쓸 것들도 생각해 두는 자세를 시시때때로 길러 두자](https://github.com/wlsvy/TIL/blob/master/Effective%20C%2B%2B/EffectiveCPP/EffectiveCPP/EffectiveC%2B%2B/Item35.cpp)
+36. [상속받은 비가상 함수를 파생 클래스에서 재정의하는 것은 절대 금물!](https://github.com/wlsvy/TIL/blob/master/Effective%20C%2B%2B/EffectiveCPP/EffectiveCPP/EffectiveC%2B%2B/Item36.h)
+37. [어떤 함수에 대해서도 상속받은 기본 매개변수 값은 절대로 재정의하지 말자](https://github.com/wlsvy/TIL/blob/master/Effective%20C%2B%2B/EffectiveCPP/EffectiveCPP/EffectiveC%2B%2B/Item37.cpp)
+38. ["has-a(...는 ...를 가짐)" 혹은 "is-implemented-in-terms-of(...는 ...를 써서 구현됨)"를 모형화할 때는 객체 합성을 사용하자](https://github.com/wlsvy/TIL/blob/master/Effective%20C%2B%2B/EffectiveCPP/EffectiveCPP/EffectiveC%2B%2B/Item38.h)
+39. [private 상속은 심사숙고해서 구사하자](https://github.com/wlsvy/TIL/blob/master/Effective%20C%2B%2B/EffectiveCPP/EffectiveCPP/EffectiveC%2B%2B/Item39.cpp)
+40. [다중 상속은 심사숙고해서 사용하자](https://github.com/wlsvy/TIL/blob/master/Effective%20C%2B%2B/EffectiveCPP/EffectiveCPP/EffectiveC%2B%2B/Item40.cpp)
