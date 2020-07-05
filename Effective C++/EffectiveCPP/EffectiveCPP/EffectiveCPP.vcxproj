@@ -161,6 +161,10 @@
     <ClInclude Include="EffectiveC++\Item34.h" />
     <ClInclude Include="EffectiveC++\Item36.h" />
     <ClInclude Include="EffectiveC++\Item38.h" />
+    <ClInclude Include="EffectiveC++\Item52.h" />
+    <ClInclude Include="EffectiveC++\Item53.h" />
+    <ClInclude Include="EffectiveC++\Item54.h" />
+    <ClInclude Include="EffectiveC++\Item55.h" />
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>

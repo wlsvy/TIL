@@ -60,3 +60,27 @@
 38. ["has-a(...는 ...를 가짐)" 혹은 "is-implemented-in-terms-of(...는 ...를 써서 구현됨)"를 모형화할 때는 객체 합성을 사용하자](https://github.com/wlsvy/TIL/blob/master/Effective%20C%2B%2B/EffectiveCPP/EffectiveCPP/EffectiveC%2B%2B/Item38.h)
 39. [private 상속은 심사숙고해서 구사하자](https://github.com/wlsvy/TIL/blob/master/Effective%20C%2B%2B/EffectiveCPP/EffectiveCPP/EffectiveC%2B%2B/Item39.cpp)
 40. [다중 상속은 심사숙고해서 사용하자](https://github.com/wlsvy/TIL/blob/master/Effective%20C%2B%2B/EffectiveCPP/EffectiveCPP/EffectiveC%2B%2B/Item40.cpp)
+
+## 7. 템플릿과 일반화 프로그래밍
+
+41. [템플릿 프로그래밍의 천릿길도 암시적 인터페이스와 컴파일 타임 다형성부터](https://github.com/wlsvy/TIL/blob/master/Effective%20C%2B%2B/EffectiveCPP/EffectiveCPP/EffectiveC%2B%2B/Item41.cpp)
+42. [typename의 두 가지 의미를 제대로 파악하자](https://github.com/wlsvy/TIL/blob/master/Effective%20C%2B%2B/EffectiveCPP/EffectiveCPP/EffectiveC%2B%2B/Item42.cpp)
+43. [템플릿으로 만들어진 기본 클래스 안의 이름에 접근하는 방법을 알아 두자](https://github.com/wlsvy/TIL/blob/master/Effective%20C%2B%2B/EffectiveCPP/EffectiveCPP/EffectiveC%2B%2B/Item43.cpp)
+44. [매개변수에 독립적인 코드는 템플릿으로부터 분리시키자](https://github.com/wlsvy/TIL/blob/master/Effective%20C%2B%2B/EffectiveCPP/EffectiveCPP/EffectiveC%2B%2B/Item44.cpp)
+45. ["호환되는 모든 타입"을 받아들이는 데는 멤버 함수 템플릿이 직방!](https://github.com/wlsvy/TIL/blob/master/Effective%20C%2B%2B/EffectiveCPP/EffectiveCPP/EffectiveC%2B%2B/Item45.cpp)
+46. [타입 변환이 바람직할 경우에는 비멤버 함수를 클래스 템플릿 안에 정의해 두자](https://github.com/wlsvy/TIL/blob/master/Effective%20C%2B%2B/EffectiveCPP/EffectiveCPP/EffectiveC%2B%2B/Item46.cpp)
+47. [타입에 대한 정보가 필요하다면 특성정보 클래스를 사용하자](https://github.com/wlsvy/TIL/blob/master/Effective%20C%2B%2B/EffectiveCPP/EffectiveCPP/EffectiveC%2B%2B/Item47.cpp)
+48. [템플릿 메타프로그래밍, 하지 않겠는가?](https://github.com/wlsvy/TIL/blob/master/Effective%20C%2B%2B/EffectiveCPP/EffectiveCPP/EffectiveC%2B%2B/Item48.cpp)
+
+## 8. new와 delete를 내 맘대로
+
+49. [new 처리자의 동작 원리를 제대로 이해하자](https://github.com/wlsvy/TIL/blob/master/Effective%20C%2B%2B/EffectiveCPP/EffectiveCPP/EffectiveC%2B%2B/Item49.cpp)
+50. [new 및 delete를 언제 바꿔야 좋은 소리를 들을지를 파악해 두자](https://github.com/wlsvy/TIL/blob/master/Effective%20C%2B%2B/EffectiveCPP/EffectiveCPP/EffectiveC%2B%2B/Item50.cpp)
+51. [new 및 delete를 작성할 때 따라야 할 기존의 관례를 잘 알아 두자](https://github.com/wlsvy/TIL/blob/master/Effective%20C%2B%2B/EffectiveCPP/EffectiveCPP/EffectiveC%2B%2B/Item51.cpp)
+52. [위치지정 new를 작성한다면 위치지정 delete도 같이 준비하자](https://github.com/wlsvy/TIL/blob/master/Effective%20C%2B%2B/EffectiveCPP/EffectiveCPP/EffectiveC%2B%2B/Item52.h)
+
+## 9. 그 밖의 이야기들
+
+53. [컴파일러 경고를 지나치지 말자](https://github.com/wlsvy/TIL/blob/master/Effective%20C%2B%2B/EffectiveCPP/EffectiveCPP/EffectiveC%2B%2B/Item53.h)
+54. [TR1을 포함한 표준 라이브러리 구성요소와 편안한 친구가 되자](https://github.com/wlsvy/TIL/blob/master/Effective%20C%2B%2B/EffectiveCPP/EffectiveCPP/EffectiveC%2B%2B/Item54.h)
+55. [Boo子有親(부자유친)! 부스트를 늘 여러분 가까이에](https://github.com/wlsvy/TIL/blob/master/Effective%20C%2B%2B/EffectiveCPP/EffectiveCPP/EffectiveC%2B%2B/Item55.h)

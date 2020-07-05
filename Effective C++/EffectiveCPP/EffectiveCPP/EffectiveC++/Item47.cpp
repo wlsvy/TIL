@@ -44,15 +44,15 @@ namespace Item47 {
 	//부분 템플릿 특수화
 	template<typename IterT>
 	struct iterator_traits<IterT*> {
-		typedef typename random_access_iterator_tag iterator_category;	
 		//임의 접근 반복자에 활용 -> 포인터의 동작원리는 임의접근 반복자와 똑같기 때문
+		typedef typename random_access_iterator_tag iterator_category;	
 	};
 
 	template<typename IterT, typename DistT>
 	void tempAdvance(IterT &iter, DistT d) {
+		//좋지 못한 방식. 특정정보는 컴파일 시간에 알 수 있는데 굳이 런타임 시간에 확인할 이유가 있다.
 		if (typeid(typename std::iterator_traits<IterT>::iterator_category) == typeid(std::random_access_iterator_tag))
 			;
-		//좋지 못한 방식. 특정정보는 컴파일 시간에 알 수 있는데 굳이 런타임 시간에 확인할 이유가 있다.
 	}
 
 	//오버로딩을 활용한 방법

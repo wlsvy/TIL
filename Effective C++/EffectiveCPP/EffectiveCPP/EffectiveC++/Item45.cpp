@@ -57,7 +57,7 @@ namespace Item45_2 {
 			위의 방식으로 SmartPtr<U> 로부터 SmartPtr<T>를 만들어 낼 수 있다.
 
 			문제는 모든 타입에 대해 변환이 가능해서 int* 가 double* 로 변환될 수 있고
-			SmartPtr<Bottom> 이 SmartPtr<Top> 으로 변환될 수 있다. (우리가 바랬던 건 Top -> Bottom 으로의 변환. 반대의 경우까진 필요가 없었다)
+			SmartPtr<Bottom> 이 SmartPtr<Top> 으로 변환될 수 있다. (우리가 바랬던 건 Top -> Bottom 으로의 변환. 반대의 경우까진 필요가 없다)
 		*/
 		
 

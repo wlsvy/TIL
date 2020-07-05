@@ -59,7 +59,8 @@ namespace Item43 {
 		void sendEncrypted(const std::string& msg) {}
 	};
 
-	template<>	//MsgSender의 완전 특수화 버전. sendClear 함수가 빠져있다.
+	//MsgSender의 완전 특수화 버전. sendClear 함수가 빠져있다.
+	template<>	
 	class MsgSender<CompanyZ> {
 	public:
 		void sendSecret(const MsgInfo& info) {}

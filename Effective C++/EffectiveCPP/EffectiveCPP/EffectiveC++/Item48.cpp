@@ -3,7 +3,7 @@
 #include <string>
 using namespace std;
 
-//템플릿 메타 프로그래밍 하지 않겠는가
+//템플릿 메타 프로그래밍, 하지 않겠는가
 
 namespace Item48 {
 

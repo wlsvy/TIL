@@ -9,13 +9,10 @@ namespace Item51 {
 	/*
 		operator new 구현 요구사항
 		
-		: 일단 반환 값이 제대로 되어 있어야 하고, 
-		
-		가용 메모리가 부족할 경우에는 new 처리자 함수를 호출해야 하며, 
-		
-		크기가 없는 메모리 요청에 대한 대비책을 갖춰두어야 한다. 
-		
-		끝으로 실수로 "기본(normal)" 형태의 new 가 가려지지 않도록 해야한다.
+		1. 일단 반환 값이 제대로 되어 있어야 하고, 
+		2. 가용 메모리가 부족할 경우에는 new 처리자 함수를 호출해야 하며, 
+		3. 크기가 없는 메모리 요청에 대한 대비책을 갖춰두어야 한다. 
+		4. 끝으로 실수로 "기본(normal)" 형태의 new 가 가려지지 않도록 해야한다.
 	*/
 
 	class Base {
@@ -38,8 +35,12 @@ namespace Item51 {
 				new_handler globalHandler = set_new_handler(0);
 				set_new_handler(globalHandler);
 
-				if (globalHandler) (*globalHandler)();
-				else throw std::bad_alloc();
+				if (globalHandler) {
+					(*globalHandler)();
+				}
+				else {
+					throw std::bad_alloc();
+				}
 			}
 		}
 	};

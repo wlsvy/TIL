@@ -29,7 +29,6 @@ namespace Item46 {
 	void func() {
 		Rational<int> oneHalf(1, 2);
 
-		//Rational<int> result = oneHalf * 2;
 		/*
 			컴파일 에러, Rational<T>를 매개변수로 갖는 operator* 에서
 			컴파일러는 T를 어떻게 인스턴스화해야 할 지 알 수 없다.
@@ -39,6 +38,7 @@ namespace Item46 {
 			일반 함수가 아닌 템플릿 함수에서는 템플릿 인자 추론(template argument deduction) 과정에 따르는데
 			여기서는 암시적 타입 변환이 고려되지 않는다.
 		*/
+		//Rational<int> result = oneHalf * 2;
 	}
 }
 
@@ -57,9 +57,6 @@ namespace Item46_2 {
 		T numerator;
 		T denominator;
 
-		friend const Rational operator*(const Rational<T> & lhs, const Rational<T> & rhs) {
-			return Rational(lhs.Numerator() * rhs.Numerator(), lhs.Denominator() * rhs.Denominator());
-		}
 		/*
 			friend 키워드를 붙일 시 해당 함수는 클래스 안에 선언되어 있어도 비멤버 함수가 된다.(접근지정자 public/private에 상관없이 외부에서도 접근가능)
 			위 방식으로 작성한다면 operator*는 템플릿 함수가 아니라 일반 함수로 여겨진다.
@@ -69,6 +66,9 @@ namespace Item46_2 {
 
 			* 그리고 선언과 정의를 따로 분리하지 말것. 정의가 다른곳에 있으면 컴파일은 가능해도 링킹이 안될 수 있다.
 		*/
+		friend const Rational operator*(const Rational<T> & lhs, const Rational<T> & rhs) {
+			return Rational(lhs.Numerator() * rhs.Numerator(), lhs.Denominator() * rhs.Denominator());
+		}
 	};
 
 	void func() {
@@ -94,12 +94,12 @@ namespace Item46_3 {
 		T denominator;
 
 		friend const Rational operator*(const Rational<T> & lhs, const Rational<T> & rhs) {
-			return doMultiply(lhs, rhs);	
 			/*
 				비멤버 함수에서는 도우미 함수 호출 
 				-> Rational<T>의 정체는 비멤버 함수가 추론하므로
 				내부에서 호출되는 템플릿 함수는 매개변수의 타입을 추측할 필요가 없다.
 			*/
+			return doMultiply(lhs, rhs);	
 		}
 	};
 
