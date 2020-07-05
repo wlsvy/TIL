@@ -49,7 +49,8 @@
 37. [쿼리를 사용할 때는 즉시 평가보다 지연 평가가 낫다](https://github.com/wlsvy/TIL/blob/master/Effective%20CSharp/EffectiveCSharp/Item37.cs)
 38. [메서드보다 람다 표현식이 낫다](https://github.com/wlsvy/TIL/blob/master/Effective%20CSharp/EffectiveCSharp/Item38.cs)
 39. [function 과 action 내에서는 예외가 발생하지 않도록 해라.](https://github.com/wlsvy/TIL/blob/master/Effective%20CSharp/EffectiveCSharp/Item39.cs)
-40. [지연 수행과 즉시 수행을 구분하라](https://github.com/wlsvy/TIL/blob/master/Effective%20CSharp/EffectiveCSharp/Item40.cs)  
+40. [지연 수행과 즉시 수행을 구분하라](https://github.com/wlsvy/TIL/blob/master/Effective%20CSharp/EffectiveCSharp/Item40.cs)
+
 41: 값비싼 리소스를 캡처하지 말라  
 42: IEnumerable[T] 데이터 소스와 IQueryable[T] 데이터 소스를 구분하라  
 43: 쿼리 결과의 의미를 명확히 강제하고, Single()과 First()를 사용하라  
