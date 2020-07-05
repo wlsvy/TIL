@@ -13,6 +13,9 @@ Today I Learned
 ## Computer Science
 - [컴퓨터 아키텍쳐](https://github.com/wlsvy/TIL/blob/master/Document/ComputerArchitecture.md)
 
+## Graphics
+- [2020 DirectX 개인 프로젝트 정리](https://github.com/wlsvy/TIL/blob/master/Document/Graphics/2020_DirectX_Project.md)
+- [DirectX OpenGL 차이점](https://github.com/wlsvy/TIL/blob/master/Document/Graphics/DirectX_OpenGL_Difference.md)
 
 # Coding Problem Solving
 
