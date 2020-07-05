@@ -47,6 +47,37 @@ Entity - Component System 으로 불리기도 합니다.
 
 </details>
 
+## DirectX 11 Rendering Pipeline
+
+<details>
+  <summary>접기/펼치기</summary>
+  
+![](https://docs.microsoft.com/en-us/windows/win32/direct3d11/images/d3d11-pipeline-stages.jpg)
+- DirectX 11의 렌더링 파이프라인은 shader를 활용한 programmable pipeline 입니다.
+
+- [Input-Assembler](https://docs.microsoft.com/en-us/windows/win32/direct3d11/d3d10-graphics-programming-guide-input-assembler-stage) : 파이프라인 진입 단계입니다. 사용자가 입력한 버퍼의 기하 물체의 기초primitive 데이터를 전달 받아 이후 단계에서 사용하기 적합한 형태로 조합합니다. 또한 입력 정보에 system-generated values를 적용하여 쉐이더가 효율적으로 데이터를 활용할 수 있도록 합니다.
+  - primitive topology에 정의된 primitive type에 따라 정점vertex 정보를 라인line 혹은 삼각형triangle 등의 형태로 조합할 수 있습니다.
+  - system-generated values 를 통해 데이터에 primitive id, instance id, vertex id 등을 적용시켜 특정 쉐이더 단계마다 필요한 데이터만을 처리할 수 있도록 오버헤드를 줄일 수 있습니다.
+- [Vertex Shader Stage](https://docs.microsoft.com/en-us/windows/win32/direct3d11/vertex-shader-stage) : IA 단계에서 버텍스 정보를 전달받아 각 정점에 대해 처리작업을 수행합니다.
+  - system generated values 중에서 VertexID, InstanceID 가 적용된 값을 처리합니다.
+- [Tessellation Stages](https://docs.microsoft.com/en-us/windows/win32/direct3d11/direct3d-11-advanced-stages-tessellation) : low-detail의 primitive를 high-detail의 primitive로 분할시키는 단계입니다.
+  - 테셀레이션의 경우, 디테일을 개선하는 작업을 렌더링 단계에서 수행하기 때문에, 애플리케이션은 높은 디테일의 모델 자원이 아닌 낮은 디테일의 자원을 활용할 수 있습니다. 이는 메모리 절약에 도움이 됩니다. 
+  - Level of detail 즉 카메라로 부터 거리에 따른 디테일 수준을 조정할 수 있습니다. 
+  - hull shader 단계 : programmable shader stage로서 입력 정보에 따라 제어점(patch constraint)을 
+  - tessellator 단계 : 프로그래밍이 불가능한 고정된 단계로서 hull shader로 부터 전달받은 정보를 활용해 입력 영역domain(line, triangle, quad 등)을 더 작은 영역으로 분할합니다.
+  - domain shader 단계 : tessellator 단계에서 분할된 기하정보를 넘겨받습니다. 전달받은 정보를 다루고 다음 파이프라인 단계로 넘깁니다.
+- [Geometry Shader Stage](https://docs.microsoft.com/en-us/windows/win32/direct3d11/geometry-shader-stage) : 정점 쉐이더가 입력정보로 하나의 정점을 받는다면 기하 쉐이더는 하나의 primitive를 이루는 다수의 정점을 입력정보로 받습니다. 이를 기반으로 해당 primitive를 다룰 수 있으며, 새로운 primitive를 만들어내거나 기존의 것을 파괴할 수도 있습니다.
+- [Stream-Output Stage](https://docs.microsoft.com/en-us/windows/win32/direct3d11/d3d10-graphics-programming-guide-output-stream-stage) : Rasterizer 단계 이전에 수행되며 현재 단계까지 처리되어진 정점 정보를 primitive topology에 맞게 묶어 메모리 버퍼로 출력합니다. SO 단계에서 메모리로 넘어간 데이터는 cpu혹은 이후 수행되는 렌더링 패스에서 읽어질 수 있습니다.
+- [Rasterizer Stage](https://docs.microsoft.com/en-us/windows/win32/direct3d11/d3d10-graphics-programming-guide-rasterizer-stage) : 입력받은 벡터 정보(primitive로 이루어진) 2d 스크린 상에 출력하기 위한 픽셀 정보로 변환합니다. 절단 작업, 2d 뷰 포트에 맞춰 픽셀에 사상하는 작업, 원근감을 위해 z값을 나누는 작업(절단 좌표계의 정점을 정규화 장치 좌표계로 변환) 등이 이루어집니다.
+- [Pixel Shader Stage](https://docs.microsoft.com/en-us/windows/win32/direct3d11/pixel-shader-stage) : 현재까지의 단계를 거친 정점의 속성값들이 픽셀의 위치에 맞게 보간되어 픽셀 쉐이더로 전달됩니다. 픽셀 쉐이더는 입력값을 다루어 최종적으로 화면상에 출력할 색상값을 전달합니다.
+- [Output-Merger Stage](https://docs.microsoft.com/en-us/windows/win32/direct3d11/d3d10-graphics-programming-guide-output-merger-stage) : 픽셀 쉐이더의 결과 색상값, 기존 렌더 타겟의 데이터, 뎁스/스텐실 버퍼 데이터를 종합해서 최종 결과물을 만들어내는 단계입니다.
+  - depth-stencil test, blending, multiple rendertarget 에 대한 처리가 이루어집니다.
+
+###### Reference
+- [MSDN reference](https://docs.microsoft.com/en-us/windows/win32/direct3d11/overviews-direct3d-11-graphics-pipeline)
+  
+</details>
+
 ## 조명
 
 <details>
@@ -84,6 +115,34 @@ Entity - Component System 으로 불리기도 합니다.
 - phong 방식이 정반사광을 원형으로 나타낸다면, blinn phong 방식은 보다 타원형으로 나타냅니다. 강이나 바다에 반사되는 햇빛이 완벽한 원형의 모습을 유지하기보다는 수직방향으로 좀더 늘어져 보이는 것을 떠올리시면 됩니다.
 - 조명이 굉장히 멀리 있는 경우(ex : Directional Light) 이면서 정사영orthographic/isometric 카메라를 활용하고 있을 때, halfway vector는 고정된 값으로 연산할 수 있기 때문에 phong 방식 보다 blinn-phong 방식이 더 빠를 수 있습니다.
 
+</details>
+
+## Deferred Rendering
+
+<details>
+  <summary>접기/펼치기</summary>
+  
+- 포워드 렌더링(forward rendering)과 지연 렌더링(deferred rendering)
+  - 포워드 렌더링은 한 단계의 pass를 거쳐 입력 정보가 곧장 최종 결과물에 해당하는 픽셀(혹은 프래그먼트)로 렌더링 됩니다.
+  - 지연 렌더링의 경우 렌더링하는 과정을 분리해 입력정보가 일반적으로 두 단계의 pass를 거치게 합니다. 먼저 첫 pass 에서는 입력된 기하정보(위치, 노말벡터 등)를 렌더타겟(G-buffer)에 저장하며 모든 렌더 대상에 대해 이 과정을 수행합니다. 그 후 통합된 물체들의 정보를 두 번째 pass를 통해 최종 결과물로 지연시켜(deferred) 렌더링합니다.
+  
+![](https://learnopengl.com/img/advanced-lighting/deferred_overview.png)
+
+- 지연렌더링의 장점
+  - `Deferred Lighting` 다수의 조명 연산을 효율적으로 수행할 수 있습니다. (`조명 개수 * 모델 개수` ==> `조명 개수 * 화면 픽셀 수`)
+    - 그러나 shadow mapping을 활용하는 경우, 쉐도우 맵을 렌더링 할 때 `조명 개수 * 모델 개수` 만큼 연산해야 하는 사실은 변하지 않습니다.
+- 지연렌더링의 단점
+  - 투명한 물체를 그리기에 적합한 방법이 아닙니다. 그래도 우회책이 있긴 합니다. 
+    - `투명성 알고리즘(Transparency Algorithm)` : Z-buffer 를 활성화한 상태에서 완전히 불투명한 물체를 먼저 그린다. 다음 깊이 버퍼를 비활성화하고 투명한 물체를 그린다. 이렇게 되면 깊이 비교 없이 반투명 물체의 컬러가 프레임 버퍼에 그대로 반영되므로 투명 효과를 줄 수 있다.
+  - 다수의 렌더 타겟을 활용하기 때문에 그 만큼 추가적인 메모리를 사용합니다. 경우에 따라서 높은 메모리 대역폭을 지원하지 않는 gpu의 경우 지연렌더링을 사용하지 못할 수 있습니다.
+  - 다수의 마테리얼material 정보를 활용할 때 지연렌더링은 한계점을 가집니다. gpu 내에 마테리얼 정보를 입력시키는 우회책이 있긴 하지만 추가적인 gpu 메모리를 사용하게 됩니다.
+  - 안티 얼라이징anti - aliasing을 활용하기 어렵습니다. 그러나 edge detection을 통한 대안이 있습니다.
+
+
+##### Reference
+- [gamedevelopment](https://gamedevelopment.tutsplus.com/articles/forward-rendering-vs-deferred-rendering--gamedev-12342)
+- [wiki](https://en.wikipedia.org/wiki/Deferred_shading)
+  
 </details>
 
 ## 주변광 차폐(SSAO Screen Space Ambient Occlusion)
@@ -262,42 +321,6 @@ void main()
 - [wiki](https://en.wikipedia.org/wiki/Skeletal_animation)
 - [openGlDev](http://ogldev.atspace.co.uk/www/tutorial38/tutorial38.html)
 
-</details>
-
-
-## DirectX 11 Rendering Pipeline
-
-<details>
-  <summary>접기/펼치기</summary>
-  
-</details>
-
-## Deferred Rendering
-
-<details>
-  <summary>접기/펼치기</summary>
-  
-- 포워드 렌더링(forward rendering)과 지연 렌더링(deferred rendering)
-  - 포워드 렌더링은 한 단계의 pass를 거쳐 입력 정보가 곧장 최종 결과물에 해당하는 픽셀(혹은 프래그먼트)로 렌더링 됩니다.
-  - 지연 렌더링의 경우 렌더링하는 과정을 분리해 입력정보가 일반적으로 두 단계의 pass를 거치게 합니다. 먼저 첫 pass 에서는 입력된 기하정보(위치, 노말벡터 등)를 렌더타겟(G-buffer)에 저장하며 모든 렌더 대상에 대해 이 과정을 수행합니다. 그 후 통합된 물체들의 정보를 두 번째 pass를 통해 최종 결과물로 지연시켜(deferred) 렌더링합니다.
-  
-![](https://learnopengl.com/img/advanced-lighting/deferred_overview.png)
-
-- 지연렌더링의 장점
-  - `Deferred Lighting` 다수의 조명 연산을 효율적으로 수행할 수 있습니다. (`조명 개수 * 모델 개수` ==> `조명 개수 * 화면 픽셀 수`)
-    - 그러나 shadow mapping을 활용하는 경우, 쉐도우 맵을 렌더링 할 때 `조명 개수 * 모델 개수` 만큼 연산해야 하는 사실은 변하지 않습니다.
-- 지연렌더링의 단점
-  - 투명한 물체를 그리기에 적합한 방법이 아닙니다. 그래도 우회책이 있긴 합니다. 
-    - `투명성 알고리즘(Transparency Algorithm)` : Z-buffer 를 활성화한 상태에서 완전히 불투명한 물체를 먼저 그린다. 다음 깊이 버퍼를 비활성화하고 투명한 물체를 그린다. 이렇게 되면 깊이 비교 없이 반투명 물체의 컬러가 프레임 버퍼에 그대로 반영되므로 투명 효과를 줄 수 있다.
-  - 다수의 렌더 타겟을 활용하기 때문에 그 만큼 추가적인 메모리를 사용합니다. 경우에 따라서 높은 메모리 대역폭을 지원하지 않는 gpu의 경우 지연렌더링을 사용하지 못할 수 있습니다.
-  - 다수의 마테리얼material 정보를 활용할 때 지연렌더링은 한계점을 가집니다. gpu 내에 마테리얼 정보를 입력시키는 우회책이 있긴 하지만 추가적인 gpu 메모리를 사용하게 됩니다.
-  - 안티 얼라이징anti - aliasing을 활용하기 어렵습니다. 그러나 edge detection을 통한 대안이 있습니다.
-
-
-##### Reference
-- [gamedevelopment](https://gamedevelopment.tutsplus.com/articles/forward-rendering-vs-deferred-rendering--gamedev-12342)
-- [wiki](https://en.wikipedia.org/wiki/Deferred_shading)
-  
 </details>
 
 ## Volumetric Lighting
