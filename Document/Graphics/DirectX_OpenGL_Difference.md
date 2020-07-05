@@ -23,3 +23,9 @@ Direct3D는 Microsoft Window 플렛폼에서만 작동합니다.
   - DirectX : 우측 좌표계(left handed coordinate system)
   - OpenGL : 좌측 좌표계(right handed coordinate system)
   - 행렬 연산 방식이 다릅니다.
+
+
+* 추가적으로도 다양한 차이점이 있는데, 렌더링 파이프라인, hardware resource 활용방식에서 나타난다.
+
+##### Reference
+- [gpututorial](https://gpututorial.blogspot.com/2018/01/opengl-vs-direct3d.html)
