@@ -49,16 +49,16 @@
 37. [쿼리를 사용할 때는 즉시 평가보다 지연 평가가 낫다](https://github.com/wlsvy/TIL/blob/master/Effective%20CSharp/EffectiveCSharp/Item37.cs)
 38. [메서드보다 람다 표현식이 낫다](https://github.com/wlsvy/TIL/blob/master/Effective%20CSharp/EffectiveCSharp/Item38.cs)
 39. [function 과 action 내에서는 예외가 발생하지 않도록 해라.](https://github.com/wlsvy/TIL/blob/master/Effective%20CSharp/EffectiveCSharp/Item39.cs)
-40. [지연 수행과 즉시 수행을 구분하라](https://github.com/wlsvy/TIL/blob/master/Effective%20CSharp/EffectiveCSharp/Item40.cs)
-41: 값비싼 리소스를 캡처하지 말라
-42: IEnumerable[T] 데이터 소스와 IQueryable[T] 데이터 소스를 구분하라
-43: 쿼리 결과의 의미를 명확히 강제하고, Single()과 First()를 사용하라
-44: 바인딩된 변수는 수정하지 말라
+40. [지연 수행과 즉시 수행을 구분하라](https://github.com/wlsvy/TIL/blob/master/Effective%20CSharp/EffectiveCSharp/Item40.cs)  
+41: 값비싼 리소스를 캡처하지 말라  
+42: IEnumerable[T] 데이터 소스와 IQueryable[T] 데이터 소스를 구분하라  
+43: 쿼리 결과의 의미를 명확히 강제하고, Single()과 First()를 사용하라  
+44: 바인딩된 변수는 수정하지 말라  
  
 ## CHAPTER 5 예외 처리
-45: 메서드가 실패했음을 알리기 위해서 예외를 이용하라
-46: 리소스 정리를 위해 using과 try/finally를 활용하라
-47: 사용자 지정 예외 클래스를 완벽하게 작성하라
-48: 강력한 예외 보증을 준수하는 것이 좋다
-49: catch 후 예외를 다시 발생시키는 것보다 예외 필터가 낫다
-50: 예외 필터의 다른 활용 예를 살펴보라
+45: 메서드가 실패했음을 알리기 위해서 예외를 이용하라  
+46: 리소스 정리를 위해 using과 try/finally를 활용하라  
+47: 사용자 지정 예외 클래스를 완벽하게 작성하라  
+48: 강력한 예외 보증을 준수하는 것이 좋다  
+49: catch 후 예외를 다시 발생시키는 것보다 예외 필터가 낫다  
+50: 예외 필터의 다른 활용 예를 살펴보라  
