@@ -263,3 +263,46 @@ void main()
 - [openGlDev](http://ogldev.atspace.co.uk/www/tutorial38/tutorial38.html)
 
 </details>
+
+
+## DirectX 11 Rendering Pipeline
+
+<details>
+  <summary>접기/펼치기</summary>
+  
+</details>
+
+## Deferred Rendering
+
+<details>
+  <summary>접기/펼치기</summary>
+  
+- 포워드 렌더링(forward rendering)과 지연 렌더링(deferred rendering)
+  - 포워드 렌더링은 한 단계의 pass를 거쳐 입력 정보가 곧장 최종 결과물에 해당하는 픽셀(혹은 프래그먼트)로 렌더링 됩니다.
+  - 지연 렌더링의 경우 렌더링하는 과정을 분리해 입력정보가 일반적으로 두 단계의 pass를 거치게 합니다. 먼저 첫 pass 에서는 입력된 기하정보(위치, 노말벡터 등)를 렌더타겟(G-buffer)에 저장하며 모든 렌더 대상에 대해 이 과정을 수행합니다. 그 후 통합된 물체들의 정보를 두 번째 pass를 통해 최종 결과물로 지연시켜(deferred) 렌더링합니다.
+  
+![](https://cdn.tutsplus.com/gamedev/uploads/2013/10/buffers.png)
+
+- 지연렌더링의 장점
+  - `Deferred Lighting` 다수의 조명 연산을 효율적으로 수행할 수 있습니다. (`조명 개수 * 모델 개수` ==> `조명 개수 * 화면 픽셀 수`)
+    - 그러나 shadow mapping을 활용하는 경우, 쉐도우 맵을 렌더링 할 때 `조명 개수 * 모델 개수` 만큼 연산해야 하는 사실은 변하지 않습니다.
+- 지연렌더링의 단점
+  - 투명한 물체를 그리기에 적합한 방법이 아닙니다. 그래도 우회책이 있긴 합니다. 
+    - `투명성 알고리즘(Transparency Algorithm)` : Z-buffer 를 활성화한 상태에서 완전히 불투명한 물체를 먼저 그린다. 다음 깊이 버퍼를 비활성화하고 투명한 물체를 그린다. 이렇게 되면 깊이 비교 없이 반투명 물체의 컬러가 프레임 버퍼에 그대로 반영되므로 투명 효과를 줄 수 있다.
+  - 다수의 렌더 타겟을 활용하기 때문에 그 만큼 추가적인 메모리를 사용합니다. 경우에 따라서 높은 메모리 대역폭을 지원하지 않는 gpu의 경우 지연렌더링을 사용하지 못할 수 있습니다.
+  - 다수의 마테리얼material 정보를 활용할 때 지연렌더링은 한계점을 가집니다. gpu 내에 마테리얼 정보를 입력시키는 우회책이 있긴 하지만 추가적인 gpu 메모리를 사용하게 됩니다.
+  - 안티 얼라이징anti - aliasing을 활용하기 어렵습니다. 그러나 edge detection을 통한 대안이 있습니다.
+
+
+##### Reference
+- [gamedevelopment](https://gamedevelopment.tutsplus.com/articles/forward-rendering-vs-deferred-rendering--gamedev-12342)
+- [wiki](https://en.wikipedia.org/wiki/Deferred_shading)
+  
+</details>
+
+## Volumetric Lighting
+
+<details>
+  <summary>접기/펼치기</summary>
+  
+</details>
