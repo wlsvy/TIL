@@ -327,5 +327,21 @@ void main()
 
 <details>
   <summary>접기/펼치기</summary>
-  
+
+![](https://fabiensanglard.net/lightScattering/LightScattering.jpg)
+
+1. [Screen Space Occlusion 방식](https://developer.nvidia.com/gpugems/gpugems3/part-ii-light-and-shadows/chapter-13-volumetric-light-scattering-post-process)
+  - 픽셀 상에 빛을 가리는 차폐막 (Occluder) 이 없으면 그 자리에는 빛이 지나가는 장소라고 가정, 해당 픽셀을 밝게 표현하는 방식입니다.
+  - Directional Light 가 아닌 다른 종류(Spot 등) 의 조명을 쓰는 경우, 빛의 방향이 카메라를 정면으로 향하지 않는다면 볼륨이 제대로 표현되지 않게 됩니다.
+
+2. [Ray march 방식](https://archive.org/details/GDC2016Hoobler)
+  - 카메라에서 전방으로 나아가는 레이(Ray)가 있다고 가정합니다. 해당 레이를 샘플 개수 만큼 구간으로 나누어 특정 구간마다 조명이 기여하는 정도를 연산, 이후 모든 구간의 조명값을 더해 최종 결과값를 구합니다.
+  - Screen Space Occlusion 방식보다 더 정확한 표현이 가능합니다.
+
+
+##### Reference
+- [Fast_Flexible_Physically-Based_Volumetric_Light_Scattering](https://developer.nvidia.com/sites/default/files/akamai/gameworks/downloads/papers/NVVL/Fast_Flexible_Physically-Based_Volumetric_Light_Scattering.pdf)
+- [SlightlyMad/VolumetricLights](https://github.com/SlightlyMad/VolumetricLights)
+- [ACskyline/VLD3D11](https://github.com/ACskyline/VLD3D11)
+
 </details>
