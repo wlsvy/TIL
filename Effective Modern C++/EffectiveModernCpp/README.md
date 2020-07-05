@@ -60,10 +60,10 @@
 
 35.	[스레드 기반 프로그래밍보다 task 기반 프로그래밍을 선호하라](https://github.com/wlsvy/TIL/blob/master/Effective%20Modern%20C%2B%2B/EffectiveModernCpp/Item35.h)
 36.	[비동기성이 필수일 때에는 std::launch::async를 지정하라](https://github.com/wlsvy/TIL/blob/master/Effective%20Modern%20C%2B%2B/EffectiveModernCpp/Item36.h)
-37.	[std::thread들을 모든 경로에서 join 불가능하게 만들어라](https://github.com/wlsvy/TIL/blob/master/Effective%20Modern%20C%2B%2B/EffectiveModernCpp/Item37.h)
-38.	[스레드 핸들 소멸자들의 다양한 행동 방식을 주의하라](https://github.com/wlsvy/TIL/blob/master/Effective%20Modern%20C%2B%2B/EffectiveModernCpp/Item38.h)
-39.	[일회성(one-shot) 사건 통신에는 void future 객체를 고려하라](https://github.com/wlsvy/TIL/blob/master/Effective%20Modern%20C%2B%2B/EffectiveModernCpp/Item39.h)
-40. [동시성에는 std::atomic을 사용하고, volatile은 특별한 메모리에 사용하라](https://github.com/wlsvy/TIL/blob/master/Effective%20Modern%20C%2B%2B/EffectiveModernCpp/Item40.h)
+37.	std::thread들을 모든 경로에서 join 불가능하게 만들어라
+38.	스레드 핸들 소멸자들의 다양한 행동 방식을 주의하라
+39.	일회성(one-shot) 사건 통신에는 void future 객체를 고려하라
+40. 동시성에는 std::atomic을 사용하고, volatile은 특별한 메모리에 사용하라
 
 ## Chapter 8   다듬기
 
