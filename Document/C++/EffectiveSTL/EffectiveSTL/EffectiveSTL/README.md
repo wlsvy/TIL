@@ -1,3 +1,7 @@
+# Effective STL
+스콧 마이어스 저
+예제 코드 & 개념 정리
+
 ## Chapter 1   효과적인 컨테이너(Container) 요리법
 
 1. [적재적소에 알맞은 컨테이너를 사용하자](https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item01.h)
