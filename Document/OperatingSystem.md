@@ -1,5 +1,8 @@
 # 운영체제
 
+저자 : Abraham Silberschatz, Peter B. Galvin, Greg Gagne
+9판 요약 정리
+
 # 1장
 <details>
 	<summary>접기/펼치기</summary>
