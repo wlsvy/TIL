@@ -6,7 +6,7 @@
 ##### Reference
 - [parksb 블로그](https://parksb.github.io/article/5.html)
 
-# 1장 
+# 1장 서론
 <details>
 	<summary>접기/펼치기</summary>
 
