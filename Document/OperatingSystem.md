@@ -172,23 +172,23 @@ Three methods for passing parameters to the OS
 시스템 콜은 크게 6가지로 분류할 수 있습니다.
 
 1.Process control
-	- create/terminate, load/execute, wait/signal event
-	- E.g. fork(), execve(), getpid(), signal(), …
+  - create/terminate, load/execute, wait/signal event
+  - E.g. fork(), execve(), getpid(), signal(), …
 2. File management
-	- create/delete, open/close, read/write
-	- E.g. open(), read(), write() close(), …
+  - create/delete, open/close, read/write
+  - E.g. open(), read(), write() close(), …
 3. Memory management
-	- allocate memory
-	- E.g. brk(), …
+  - allocate memory
+  - E.g. brk(), …
 4. Information maintenance
-	- get/set timer or date, get/set process, file, or device attributes
-	- E.g. time()
+  - get/set timer or date, get/set process, file, or device attributes
+  - E.g. time()
 5. Communications
-	- create/delete connection, send/receive message
-	- E.g. socket(), bind(), connect(), 
-6.	Protection
-	- set/get permission, allow/deny user
-	- E.g. chmod()...
+  - create/delete connection, send/receive message
+  - E.g. socket(), bind(), connect(), 
+6. Protection
+  - set/get permission, allow/deny user
+  - E.g. chmod()...
 
 ### Application Program Interface (API)
 - A set of functions available to application programmer.
