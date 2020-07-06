@@ -1,70 +1,72 @@
-## Chapter 1   È¿°úÀûÀÎ ÄÁÅ×ÀÌ³Ê(Container) ¿ä¸®¹ý
+## Chapter 1   íš¨ê³¼ì ì¸ ì»¨í…Œì´ë„ˆ(Container) ìš”ë¦¬ë²•
 
-1. ÀûÀçÀû¼Ò¿¡ ¾Ë¸ÂÀº ÄÁÅ×ÀÌ³Ê¸¦ »ç¿ëÇÏÀÚ
-"ÄÁÅ×ÀÌ³Ê¿¡ µ¶¸³ÀûÀÎ(container-independent) ÄÚµå"¶ó´Â È¯»óÀ» Á¶½ÉÇÏÀÚ / 44
-º¹»ç(Copy)´Â ÄÁÅ×ÀÌ³Ê ¾ÈÀÇ °´Ã¼¿¡ ¸Â°Ô ºñ¿ëÀº ÃÖ¼ÒÈ­ÇÏ¸ç, µ¿ÀÛÀº Á¤È®ÇÏ°Ô ÇÏÀÚ / 51
-¡Ú size()ÀÇ °á°ú¸¦ 0°ú ºñ±³ÇÒ »ý°¢ÀÌ¶ó¸é Â÷¶ó¸® empty¸¦ È£ÃâÇÏÀÚ / 54
-¡Ú ´ÜÀÏ ¿ä¼Ò¸¦ ´ÜÀ§·Î µ¿ÀÛÇÏ´Â ¸â¹ö ÇÔ¼öº¸´Ù ¿ä¼ÒÀÇ ¹üÀ§¸¦ ´ÜÀ§·Î µ¿ÀÛÇÏ´Â ¸â¹ö ÇÔ¼ö°¡ ´õ ³´´Ù / 57
-C++ ÄÄÆÄÀÏ·¯ÀÇ ¾îÀÌ¾ø´Â ºÐ¼® °á°ú¸¦ Á¶½ÉÇÏÀÚ / 68
-new·Î »ý¼ºÇÑ Æ÷ÀÎÅÍÀÇ ÄÁÅ×ÀÌ³Ê¸¦ »ç¿ëÇÒ ¶§¿¡´Â ÄÁÅ×ÀÌ³Ê°¡ ¼Ò¸êµÇ±â Àü¿¡ Æ÷ÀÎÅÍ¸¦ deleteÇÏ´Â ÀÏÀ» ÀØÁö ¸»ÀÚ / 72
-auto_ptrÀÇ ÄÁÅ×ÀÌ³Ê´Â Àý´ë·Î ¸¸µéÁö ¸»ÀÚ / 78
-µ¥ÀÌÅÍ¸¦ »èÁ¦ÇÒ ¶§¿¡µµ Á¶½É½º·´°Ô ¼±ÅÃÇÒ °ÍÀÌ ¸¹´Ù / 82
-ÇÒ´çÀÚ(allocator)ÀÇ ÀÏ¹ÝÀûÀÎ »çÇ×°ú Á¦¾à »çÇ×¿¡ ´ëÇØ Àß ¾Ë¾ÆµÎÀÚ / 89
-Ä¿½ºÅÒ ÇÒ´çÀÚ¸¦ Á¦´ë·Î »ç¿ëÇÏ´Â ¹æ¹ýÀ» ÀÌÇØÇÏÀÚ / 98
-STL ÄÁÅ×ÀÌ³Ê°¡ ¾²·¹µå ¾ÈÀü¼º¿¡ ´ëÇÑ ±â´ë´Â Çö½Ç¿¡ ¸ÂÃß¾î °¡ÁöÀÚ / 102
+1. [ì ìž¬ì ì†Œì— ì•Œë§žì€ ì»¨í…Œì´ë„ˆë¥¼ ì‚¬ìš©í•˜ìž](https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item01.h)
+<!--
+"ì»¨í…Œì´ë„ˆì— ë…ë¦½ì ì¸(container-independent) ì½”ë“œ"ë¼ëŠ” í™˜ìƒì„ ì¡°ì‹¬í•˜ìž / 44
+ë³µì‚¬(Copy)ëŠ” ì»¨í…Œì´ë„ˆ ì•ˆì˜ ê°ì²´ì— ë§žê²Œ ë¹„ìš©ì€ ìµœì†Œí™”í•˜ë©°, ë™ìž‘ì€ ì •í™•í•˜ê²Œ í•˜ìž / 51
+â˜… size()ì˜ ê²°ê³¼ë¥¼ 0ê³¼ ë¹„êµí•  ìƒê°ì´ë¼ë©´ ì°¨ë¼ë¦¬ emptyë¥¼ í˜¸ì¶œí•˜ìž / 54
+â˜… ë‹¨ì¼ ìš”ì†Œë¥¼ ë‹¨ìœ„ë¡œ ë™ìž‘í•˜ëŠ” ë©¤ë²„ í•¨ìˆ˜ë³´ë‹¤ ìš”ì†Œì˜ ë²”ìœ„ë¥¼ ë‹¨ìœ„ë¡œ ë™ìž‘í•˜ëŠ” ë©¤ë²„ í•¨ìˆ˜ê°€ ë” ë‚«ë‹¤ / 57
+C++ ì»´íŒŒì¼ëŸ¬ì˜ ì–´ì´ì—†ëŠ” ë¶„ì„ ê²°ê³¼ë¥¼ ì¡°ì‹¬í•˜ìž / 68
+newë¡œ ìƒì„±í•œ í¬ì¸í„°ì˜ ì»¨í…Œì´ë„ˆë¥¼ ì‚¬ìš©í•  ë•Œì—ëŠ” ì»¨í…Œì´ë„ˆê°€ ì†Œë©¸ë˜ê¸° ì „ì— í¬ì¸í„°ë¥¼ deleteí•˜ëŠ” ì¼ì„ ìžŠì§€ ë§ìž / 72
+auto_ptrì˜ ì»¨í…Œì´ë„ˆëŠ” ì ˆëŒ€ë¡œ ë§Œë“¤ì§€ ë§ìž / 78
+ë°ì´í„°ë¥¼ ì‚­ì œí•  ë•Œì—ë„ ì¡°ì‹¬ìŠ¤ëŸ½ê²Œ ì„ íƒí•  ê²ƒì´ ë§Žë‹¤ / 82
+í• ë‹¹ìž(allocator)ì˜ ì¼ë°˜ì ì¸ ì‚¬í•­ê³¼ ì œì•½ ì‚¬í•­ì— ëŒ€í•´ ìž˜ ì•Œì•„ë‘ìž / 89
+ì»¤ìŠ¤í…€ í• ë‹¹ìžë¥¼ ì œëŒ€ë¡œ ì‚¬ìš©í•˜ëŠ” ë°©ë²•ì„ ì´í•´í•˜ìž / 98
+STL ì»¨í…Œì´ë„ˆê°€ ì“°ë ˆë“œ ì•ˆì „ì„±ì— ëŒ€í•œ ê¸°ëŒ€ëŠ” í˜„ì‹¤ì— ë§žì¶”ì–´ ê°€ì§€ìž / 102
 
-## Chapter 2   vector¿Í string
+## Chapter 2   vectorì™€ string
 
-µ¿ÀûÀ¸·Î ÇÒ´çÇÑ ¹è¿­º¸´Ù´Â vector¿Í stringÀÌ ³´´Ù / 110
-¡Ú reserve´Â ÇÊ¿ä ¾øÀÌ ¸Þ¸ð¸®°¡ ÀçÇÒ´çµÇ´Â °ÍÀ» ¸·¾Æ ÁØ´Ù / 113
-¡Ú ÀØÁö ¸»ÀÚ! stringÀº ¿©·¯ °¡Áö ¹æ½ÄÀ¸·Î ±¸ÇöµÇ¾î ÀÖ´Ù´Â »ç½ÇÀ»... / 116
-±âÁ¸ÀÇ C API¿¡ vector¿Í stringÀ» ³Ñ±â´Â ¹æ¹ýÀ» ¾Ë¾ÆµÎÀÚ / 123
-¾µµ¥¾øÀÌ ³²Àº ¿ë·®Àº "¹Ù²ãÄ¡±â(swap) ¹¦¼ö"¸¦ ½á¼­ ¾ø¾Ö ¹ö¸®ÀÚ / 128
-vector<bool> º¸±â¸¦ µ¹°°ÀÌ ÇÏÀÚ / 131
+ë™ì ìœ¼ë¡œ í• ë‹¹í•œ ë°°ì—´ë³´ë‹¤ëŠ” vectorì™€ stringì´ ë‚«ë‹¤ / 110
+â˜… reserveëŠ” í•„ìš” ì—†ì´ ë©”ëª¨ë¦¬ê°€ ìž¬í• ë‹¹ë˜ëŠ” ê²ƒì„ ë§‰ì•„ ì¤€ë‹¤ / 113
+â˜… ìžŠì§€ ë§ìž! stringì€ ì—¬ëŸ¬ ê°€ì§€ ë°©ì‹ìœ¼ë¡œ êµ¬í˜„ë˜ì–´ ìžˆë‹¤ëŠ” ì‚¬ì‹¤ì„... / 116
+ê¸°ì¡´ì˜ C APIì— vectorì™€ stringì„ ë„˜ê¸°ëŠ” ë°©ë²•ì„ ì•Œì•„ë‘ìž / 123
+ì“¸ë°ì—†ì´ ë‚¨ì€ ìš©ëŸ‰ì€ "ë°”ê¿”ì¹˜ê¸°(swap) ë¬˜ìˆ˜"ë¥¼ ì¨ì„œ ì—†ì•  ë²„ë¦¬ìž / 128
+vector<bool> ë³´ê¸°ë¥¼ ëŒê°™ì´ í•˜ìž / 131
 
-## Chapter 3   STL ¿¬°ü ÄÁÅ×ÀÌ³Ê(Associative Containers)
+## Chapter 3   STL ì—°ê´€ ì»¨í…Œì´ë„ˆ(Associative Containers)
 
-»óµî °ü°è(equality)¿Í µ¿µî °ü°è(equivalence)ÀÇ Â÷ÀÌ¸¦ ÆÄ¾ÇÇÏÀÚ / 136
-Æ÷ÀÎÅÍ¸¦ ÀúÀåÇÏ´Â ¿¬°ü ÄÁÅ×ÀÌ³Ê¿¡ ´ëÇØ¼­´Â ÀûÇÕÇÑ ºñ±³(ºñ±³ ÇÔ¼öÀÚ) Å¸ÀÔÀ» Á¤ÇØÁÖÀÚ / 142
-¿¬°ü ÄÁÅ×ÀÌ³Ê¿ë ºñ±³ ÇÔ¼ö´Â °°Àº °ª¿¡ ´ëÇØ false¸¦ ¹ÝÈ¯ÇØ¾ß ÇÑ´Ù / 148
-set¿Í multiset¿¡ ÀúÀåµÈ µ¥ÀÌÅÍ ¿ä¼Ò¿¡ ´ëÇØ Å°(key)¸¦ ¹Ù²Ù´Â ÀÏÀº ÇÇÇÏÀÚ / 152
-¡Ú ¿¬°ü ÄÁÅ×ÀÌ³Ê ´ë½Å¿¡ Á¤·ÄµÈ vector¸¦ ¾²´Â °ÍÀÌ ÁÁÀ» ¶§°¡ ÀÖ´Ù / 160
-¡Ú map::operator[]³ª map::insert´Â È¿À² ¹®Á¦¿¡ ÁÖÀÇÇÏ¿© ¼±ÅÃÇÏÀÚ / 167
-¡Ú ÇöÀç´Â Ç¥ÁØÀÌ ¾Æ´ÏÁö¸¸, ÇØ½¬ ÄÁÅ×ÀÌ³Ê¿¡ ´ëÇØ ÃæºÐÈ÷ ´ëºñÇØ µÎÀÚ / 174
+ìƒë“± ê´€ê³„(equality)ì™€ ë™ë“± ê´€ê³„(equivalence)ì˜ ì°¨ì´ë¥¼ íŒŒì•…í•˜ìž / 136
+í¬ì¸í„°ë¥¼ ì €ìž¥í•˜ëŠ” ì—°ê´€ ì»¨í…Œì´ë„ˆì— ëŒ€í•´ì„œëŠ” ì í•©í•œ ë¹„êµ(ë¹„êµ í•¨ìˆ˜ìž) íƒ€ìž…ì„ ì •í•´ì£¼ìž / 142
+ì—°ê´€ ì»¨í…Œì´ë„ˆìš© ë¹„êµ í•¨ìˆ˜ëŠ” ê°™ì€ ê°’ì— ëŒ€í•´ falseë¥¼ ë°˜í™˜í•´ì•¼ í•œë‹¤ / 148
+setì™€ multisetì— ì €ìž¥ëœ ë°ì´í„° ìš”ì†Œì— ëŒ€í•´ í‚¤(key)ë¥¼ ë°”ê¾¸ëŠ” ì¼ì€ í”¼í•˜ìž / 152
+â˜… ì—°ê´€ ì»¨í…Œì´ë„ˆ ëŒ€ì‹ ì— ì •ë ¬ëœ vectorë¥¼ ì“°ëŠ” ê²ƒì´ ì¢‹ì„ ë•Œê°€ ìžˆë‹¤ / 160
+â˜… map::operator[]ë‚˜ map::insertëŠ” íš¨ìœ¨ ë¬¸ì œì— ì£¼ì˜í•˜ì—¬ ì„ íƒí•˜ìž / 167
+â˜… í˜„ìž¬ëŠ” í‘œì¤€ì´ ì•„ë‹ˆì§€ë§Œ, í•´ì‰¬ ì»¨í…Œì´ë„ˆì— ëŒ€í•´ ì¶©ë¶„ížˆ ëŒ€ë¹„í•´ ë‘ìž / 174
 
-## Chapter 4   ¹Ýº¹ÀÚ(Iterators)
+## Chapter 4   ë°˜ë³µìž(Iterators)
 
-const_iterator³ª reverse_iterator, const_reverse_iteratorµµ ÁÁÁö¸¸ ¿ª½Ã ¾µ¸¸ÇÑ °ÍÀº iteratorÀÌ´Ù / 182
-const_iterator¸¦ iterator·Î ¹Ù²Ù´Â µ¥¿¡´Â distance¿Í advance¸¦ »ç¿ëÇÏÀÚ / 186
-reverse_iterator¿¡ ´ëÀÀµÇ´Â ±âÁ¡ ¹Ýº¹ÀÚ(base_iterator)¸¦ »ç¿ëÇÏ´Â ¹æ¹ýÀ» Á¤È®ÇÏ°Ô ÀÌÇØÇÏÀÚ / 191
-¡Ú ¹®ÀÚ ´ÜÀ§ÀÇ ÀÔ·Â¿¡´Â istreambuf_iteratorÀÇ »ç¿ëµµ ÀûÀýÇÏ´Ù / 195
+const_iteratorë‚˜ reverse_iterator, const_reverse_iteratorë„ ì¢‹ì§€ë§Œ ì—­ì‹œ ì“¸ë§Œí•œ ê²ƒì€ iteratorì´ë‹¤ / 182
+const_iteratorë¥¼ iteratorë¡œ ë°”ê¾¸ëŠ” ë°ì—ëŠ” distanceì™€ advanceë¥¼ ì‚¬ìš©í•˜ìž / 186
+reverse_iteratorì— ëŒ€ì‘ë˜ëŠ” ê¸°ì  ë°˜ë³µìž(base_iterator)ë¥¼ ì‚¬ìš©í•˜ëŠ” ë°©ë²•ì„ ì •í™•í•˜ê²Œ ì´í•´í•˜ìž / 191
+â˜… ë¬¸ìž ë‹¨ìœ„ì˜ ìž…ë ¥ì—ëŠ” istreambuf_iteratorì˜ ì‚¬ìš©ë„ ì ì ˆí•˜ë‹¤ / 195
 
-## Chapter 5   ¾Ë°í¸®Áò(Algorithms)
+## Chapter 5   ì•Œê³ ë¦¬ì¦˜(Algorithms)
 
-¾Ë°í¸®ÁòÀÇ µ¥ÀÌÅÍ ±â·Ï ¹üÀ§(destination range)´Â ÃæºÐÈ÷ Å©°Ô ÀâÀÚ / 200
-¡Ú Á¤·Ä½ÃÀÇ ¼±ÅÃ »çÇ×µéÀ» Á¦´ë·Î ÆÄ¾ÇÇØ ³õÀÚ / 206
-¿ä¼Ò¸¦ Á¤¸»·Î Á¦°ÅÇÏ°íÀÚ ÇÑ´Ù¸é remove ·ùÀÇ ¾Ë°í¸®Áò¿¡´Â ²À erase¸¦ ºÙ¿© »ç¿ëÇÏÀÚ / 213
-remove¿Í ºñ½ÁÇÑ ¾Ë°í¸®ÁòÀ» Æ÷ÀÎÅÍÀÇ ÄÁÅ×ÀÌ³Ê¿¡ Àû¿ëÇÒ ¶§¿¡´Â °¢º°È÷ Á¶½ÉÇÏÀÚ / 219
-Á¤·ÄµÈ ¹üÀ§¿¡ ´ëÇØ µ¿ÀÛÇÏ´Â ¾Ë°í¸®ÁòÀÌ ¾î¶² °ÍµéÀÎÁö ÆÄ¾ÇÇØ µÎÀÚ / 224
-´ë¼Ò¹®ÀÚ¸¦ ±¸ºÐÇÏÁö ¾Ê´Â ¹®ÀÚ¿­ ºñ±³´Â mismatch ¾Æ´Ï¸é lexicographical_compare¸¦ ½á¼­ °£´ÜÈ÷ ±¸ÇöÇÒ ¼ö ÀÖ´Ù / 229
-copy_if¸¦ ÀûÀýÈ÷ ±¸ÇöÇØ »ç¿ëÇÏÀÚ / 234
-¹üÀ§ ³»ÀÇ µ¥ÀÌÅÍ °ªÀ» ¿ä¾àÇÏ°Å³ª ´õÇÏ´Â µ¥¿¡´Â accumulate³ª for_each¸¦ »ç¿ëÇÏÀÚ / 237
+ì•Œê³ ë¦¬ì¦˜ì˜ ë°ì´í„° ê¸°ë¡ ë²”ìœ„(destination range)ëŠ” ì¶©ë¶„ížˆ í¬ê²Œ ìž¡ìž / 200
+â˜… ì •ë ¬ì‹œì˜ ì„ íƒ ì‚¬í•­ë“¤ì„ ì œëŒ€ë¡œ íŒŒì•…í•´ ë†“ìž / 206
+ìš”ì†Œë¥¼ ì •ë§ë¡œ ì œê±°í•˜ê³ ìž í•œë‹¤ë©´ remove ë¥˜ì˜ ì•Œê³ ë¦¬ì¦˜ì—ëŠ” ê¼­ eraseë¥¼ ë¶™ì—¬ ì‚¬ìš©í•˜ìž / 213
+removeì™€ ë¹„ìŠ·í•œ ì•Œê³ ë¦¬ì¦˜ì„ í¬ì¸í„°ì˜ ì»¨í…Œì´ë„ˆì— ì ìš©í•  ë•Œì—ëŠ” ê°ë³„ížˆ ì¡°ì‹¬í•˜ìž / 219
+ì •ë ¬ëœ ë²”ìœ„ì— ëŒ€í•´ ë™ìž‘í•˜ëŠ” ì•Œê³ ë¦¬ì¦˜ì´ ì–´ë–¤ ê²ƒë“¤ì¸ì§€ íŒŒì•…í•´ ë‘ìž / 224
+ëŒ€ì†Œë¬¸ìžë¥¼ êµ¬ë¶„í•˜ì§€ ì•ŠëŠ” ë¬¸ìžì—´ ë¹„êµëŠ” mismatch ì•„ë‹ˆë©´ lexicographical_compareë¥¼ ì¨ì„œ ê°„ë‹¨ížˆ êµ¬í˜„í•  ìˆ˜ ìžˆë‹¤ / 229
+copy_ifë¥¼ ì ì ˆížˆ êµ¬í˜„í•´ ì‚¬ìš©í•˜ìž / 234
+ë²”ìœ„ ë‚´ì˜ ë°ì´í„° ê°’ì„ ìš”ì•½í•˜ê±°ë‚˜ ë”í•˜ëŠ” ë°ì—ëŠ” accumulateë‚˜ for_eachë¥¼ ì‚¬ìš©í•˜ìž / 237
 
-## Chapter 6   ÇÔ¼öÀÚ, ÇÔ¼ö °´Ã¼, ÇÔ¼ö, ±âÅ¸ µîµî
+## Chapter 6   í•¨ìˆ˜ìž, í•¨ìˆ˜ ê°ì²´, í•¨ìˆ˜, ê¸°íƒ€ ë“±ë“±
 
-ÇÔ¼öÀÚ Å¬·¡½º´Â °ªÀ¸·Î Àü´ÞµÇµµ·Ï(pass-by-value) ¼³°èÇÏÀÚ / 246
-¼ú¾î ±¸¹®Àº ¼ø¼ö ÇÔ¼ö·Î ¸¸µéÀÚ / 250
-ÇÔ¼öÀÚ Å¬·¡½º´Â ¾î´ðÅÍ Àû¿ëÀÌ °¡´ÉÇÏ°Ô(adaptable) ¸¸µéÀÚ / 255
-ptr_fun, mem_fun, mem_fun_refÀÇ Á¸Àç¿¡´Â ºÐ¸íÇÑ ÀÌÀ¯°¡ ÀÖ´Ù / 260
-less<T>´Â operator<ÀÇ ÀÇ¹ÌÀÓÀ» ²À ¾Ë¾ÆµÎÀÚ / 266
+í•¨ìˆ˜ìž í´ëž˜ìŠ¤ëŠ” ê°’ìœ¼ë¡œ ì „ë‹¬ë˜ë„ë¡(pass-by-value) ì„¤ê³„í•˜ìž / 246
+ìˆ ì–´ êµ¬ë¬¸ì€ ìˆœìˆ˜ í•¨ìˆ˜ë¡œ ë§Œë“¤ìž / 250
+í•¨ìˆ˜ìž í´ëž˜ìŠ¤ëŠ” ì–´ëŒ‘í„° ì ìš©ì´ ê°€ëŠ¥í•˜ê²Œ(adaptable) ë§Œë“¤ìž / 255
+ptr_fun, mem_fun, mem_fun_refì˜ ì¡´ìž¬ì—ëŠ” ë¶„ëª…í•œ ì´ìœ ê°€ ìžˆë‹¤ / 260
+less<T>ëŠ” operator<ì˜ ì˜ë¯¸ìž„ì„ ê¼­ ì•Œì•„ë‘ìž / 266
 
-## Chapter 7   STL ÇÁ·Î±×·¡¹ÖÀ» ´õ Àç¹ÌÀÖ°Ô ÇØÁÖ´Â ÆÁ ¸ðÀ½
+## Chapter 7   STL í”„ë¡œê·¸ëž˜ë°ì„ ë” ìž¬ë¯¸ìžˆê²Œ í•´ì£¼ëŠ” íŒ ëª¨ìŒ
 
-¾î¼³ÇÁ°Ô ¼ÕÀ¸·Î ÀÛ¼ºÇÑ ·çÇÁº¸´Ù´Â ¾Ë°í¸®ÁòÀÌ ´õ ³´´Ù / 272
-¡Ú °°Àº ÀÌ¸§À» °¡Áø °ÍÀÌ ÀÖ´Ù¸é ÀÏ¹Ý ¾Ë°í¸®Áò ÇÔ¼öº¸´Ù ¸â¹ö ÇÔ¼ö°¡ ´õ ³´´Ù / 282
-count, find, binary_search, lower_bound, upper_bound, ±×¸®°í equal_range¸¦ Á¦´ë·Î ÆÄ¾ÇÇØ µÎÀÚ / 286
-¡Ú ¾Ë°í¸®ÁòÀÇ ¸Å°³ º¯¼ö·Î´Â ÇÔ¼ö ´ë½Å ÇÔ¼ö °´Ã¼°¡ ±¦Âú´Ù / 297
-¾²±â Àü¿ë(write-only) ÄÚµå´Â ¸¸µéÁö ¸»ÀÚ / 302
-¿ëµµ¿¡ ¸Â´Â Çì´õ¸¦ Ç×»ó #includeÇÏÀÚ / 306
-STL¿¡ °ü·ÃµÈ ÄÄÆÄÀÏ·¯ Áø´Ü ¸Þ½ÃÁö¸¦ ÇØ¼®ÇÏ´Â ´É·ÂÀ» °¡ÁöÀÚ / 308
-STL °ü·Ã À¥ »çÀÌÆ®¿Í Ä£±¸ÇÏÀÚ / 318
+ì–´ì„¤í”„ê²Œ ì†ìœ¼ë¡œ ìž‘ì„±í•œ ë£¨í”„ë³´ë‹¤ëŠ” ì•Œê³ ë¦¬ì¦˜ì´ ë” ë‚«ë‹¤ / 272
+â˜… ê°™ì€ ì´ë¦„ì„ ê°€ì§„ ê²ƒì´ ìžˆë‹¤ë©´ ì¼ë°˜ ì•Œê³ ë¦¬ì¦˜ í•¨ìˆ˜ë³´ë‹¤ ë©¤ë²„ í•¨ìˆ˜ê°€ ë” ë‚«ë‹¤ / 282
+count, find, binary_search, lower_bound, upper_bound, ê·¸ë¦¬ê³  equal_rangeë¥¼ ì œëŒ€ë¡œ íŒŒì•…í•´ ë‘ìž / 286
+â˜… ì•Œê³ ë¦¬ì¦˜ì˜ ë§¤ê°œ ë³€ìˆ˜ë¡œëŠ” í•¨ìˆ˜ ëŒ€ì‹  í•¨ìˆ˜ ê°ì²´ê°€ ê´œì°®ë‹¤ / 297
+ì“°ê¸° ì „ìš©(write-only) ì½”ë“œëŠ” ë§Œë“¤ì§€ ë§ìž / 302
+ìš©ë„ì— ë§žëŠ” í—¤ë”ë¥¼ í•­ìƒ #includeí•˜ìž / 306
+STLì— ê´€ë ¨ëœ ì»´íŒŒì¼ëŸ¬ ì§„ë‹¨ ë©”ì‹œì§€ë¥¼ í•´ì„í•˜ëŠ” ëŠ¥ë ¥ì„ ê°€ì§€ìž / 308
+STL ê´€ë ¨ ì›¹ ì‚¬ì´íŠ¸ì™€ ì¹œêµ¬í•˜ìž / 318
+-->
