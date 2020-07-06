@@ -336,7 +336,7 @@ void main()
 
 2. [Ray march 방식](https://archive.org/details/GDC2016Hoobler)
   - 카메라에서 전방으로 나아가는 레이(Ray)가 있다고 가정합니다. 해당 레이를 샘플 개수 만큼 구간으로 나누어 특정 구간마다 조명이 기여하는 정도를 연산, 이후 모든 구간의 조명값을 더해 최종 결과값를 구합니다.
-  - Screen Space Occlusion 방식보다 더 정확한 표현이 가능합니다.
+  - 비용이 비쌀 수 있지만 Screen Space Occlusion 방식보다 더 정확한 표현이 가능합니다.
 
 
 ##### Reference
