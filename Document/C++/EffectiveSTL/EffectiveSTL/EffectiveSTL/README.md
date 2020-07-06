@@ -1,5 +1,5 @@
 # Effective STL
-스콧 마이어스 저
+스콧 마이어스 저  
 예제 코드 & 개념 정리
 
 ## Chapter 1   효과적인 컨테이너(Container) 요리법
