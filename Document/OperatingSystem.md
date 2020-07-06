@@ -3,7 +3,10 @@
 저자 : Abraham Silberschatz, Peter B. Galvin, Greg Gagne
 9판 요약 정리
 
-# 1장
+##### Reference
+- [parksb 블로그](https://parksb.github.io/article/5.html)
+
+# 1장 
 <details>
 	<summary>접기/펼치기</summary>
 
@@ -143,5 +146,82 @@ Process management activities
 - Process synchronization mechanisms
 - Inter-process communication mechanisms
 - Deadlock handling
+
+</details>
+
+# 2장 시스템 구조
+<details>
+	<summary>접기/펼치기</summary>
+
+## System Call
+`시스템 호출 system call`은 운영체제의 의해 사용 가능하게 된 서비스에 대한 인터페이스를 제공합니다.
+
+- interface provided by the OS.
+- how a program requests a service from an operating system.
+	- E.g. accessing the hard disk
+	- E.g. creating and executing new processes
+- provide an essential interface between a process and operating system.
+- typically written in a high-level language (C or C++)
+
+Three methods for passing parameters to the OS
+1. pass the parameters in registers. 값 전달
+2. store parameters in a table on memory, and then pass the address of table in a register. 참조 전달
+	- e.g. Linux and Solaris
+3. push parameters onto the stack by program, and pop off the stack by OS. 스택 활용
+
+시스템 콜은 크게 6가지로 분류할 수 있습니다.
+
+1.Process control
+	- create/terminate, load/execute, wait/signal event
+	- E.g. fork(), execve(), getpid(), signal(), …
+2. File management
+	- create/delete, open/close, read/write
+	- E.g. open(), read(), write() close(), …
+3. Memory management
+	- allocate memory
+	- E.g. brk(), …
+4. Information maintenance
+	- get/set timer or date, get/set process, file, or device attributes
+	- E.g. time()
+5. Communications
+	- create/delete connection, send/receive message
+	- E.g. socket(), bind(), connect(), 
+6.	Protection
+	- set/get permission, allow/deny user
+	- E.g. chmod()...
+
+### Application Program Interface (API)
+- A set of functions available to application programmer.
+- Three most common APIs
+	- Win32 API for Windows.
+	- POSIX API for POSIX-based systems (UNIX/Linux).
+	- Java API for the Java virtual machine.
+- Why use APIs rather than system calls?
+	- Portability
+	- Easy to use
+	- api를 활용한다면 응용 프로그래머는 자신의 프로그램이 같은 api를 지원하는 어느 시스템에서건 컴파일 되고 실행되는 것을 기대할 수 있습니다.
+	- 또한 실제 시스템 콜은 종종 좀 더 자세한 명세가 필요하고 프로그램 상에서 작업하기가 응용 프로그래머에게 가용한 api 보다 어렵습니다.
+- Programmer dose not need to know system call implementation.
+	- Just needs to obey API and understand what OS will do.
+	- Details of OS are hidden from programmer by API.
+- API는 각 함수에 전달되어야 할 매개변수들과 프로그래머가 기대할 수 있는 반환 값을 포함하여 응용 프로그래머가 사용 가능한 함수의 집합을 명시합니다.
+
+## Operating system structures
+1. Simple structure
+2. Layered structure
+3. Microkernel structure
+4. Module structure
+5. Hybrid Systems
+
+## System Boot
+How to load kernel?
+- Bootloader
+	- run diagnostics, initialize system.
+	- locates the kernel, loads it into memory, and starts it.
+- 작은 시스템의 경우
+	- Store bootloder and OS in ROM.
+- 큰 시스템의 경우 (e.g. PC)
+	- Store bootloader in ROM and OS in disk, respectively.
+	- Simple bootloader in boot block -> complicated bootloader -> kernel
 
 </details>
