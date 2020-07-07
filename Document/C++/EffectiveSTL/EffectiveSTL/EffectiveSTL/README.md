@@ -6,10 +6,11 @@
 
 1. [적재적소에 알맞은 컨테이너를 사용하자](https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item01.h)
 2. ["컨테이너에 독립적인(container-independent) 코드"라는 환상을 조심하자](https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item02.h)
-
+3. [복사(Copy)는 컨테이너 안의 객체에 맞게 비용은 최소화하며, 동작은 정확하게 하자](https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item03.h)
 <!--
-"컨테이너에 독립적인(container-independent) 코드"라는 환상을 조심하자 / 44
-복사(Copy)는 컨테이너 안의 객체에 맞게 비용은 최소화하며, 동작은 정확하게 하자 / 51
+](https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item03.h)
+
+
 ★ size()의 결과를 0과 비교할 생각이라면 차라리 empty를 호출하자 / 54
 ★ 단일 요소를 단위로 동작하는 멤버 함수보다 요소의 범위를 단위로 동작하는 멤버 함수가 더 낫다 / 57
 C++ 컴파일러의 어이없는 분석 결과를 조심하자 / 68
