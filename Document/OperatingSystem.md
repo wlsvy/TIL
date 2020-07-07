@@ -5,6 +5,7 @@
 
 ##### Reference
 - [parksb 블로그](https://parksb.github.io/article/5.html)
+- [Operating System Course Note](https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/)
 
 # 1장 서론
 <details>
@@ -223,5 +224,170 @@ How to load kernel?
 - 큰 시스템의 경우 (e.g. PC)
 	- Store bootloader in ROM and OS in disk, respectively.
 	- Simple bootloader in boot block -> complicated bootloader -> kernel
+
+</details>
+
+# 3장 프로세스
+
+<details>
+	<summary>접기/펼치기</summary>
+
+## 프로세스 개념
+- Operating system executes a variety of programs.
+- `일괄처리 시스템Batch system` – 잡job 을 실행
+- `시분할 시스템Time-shared systems` – 사용자 프로그램 혹은 태스크task 들을 가진다.
+- Textbook uses the terms job and process almost interchangeably
+
+
+##### Process
+- a program in execution
+- 단순히 텍스트 섹션으로 알려진 프로그램 코드 이상의 무엇
+
+##### A process includes
+- The program code, also called text section
+- Data section containing global variables
+- Stack containing temporary data
+  - Function parameters, return addresses, local variables
+- Heap containing memory dynamically allocated during run time
+- Current activity including program counter, processor registers
+
+![](https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/images/Chapter3/3_01_Process_Memory.jpg)
+
+### Process State
+- As a process executes, it changes state.
+- New
+  - The process is being created.
+- Running
+  - Instructions are being executed.
+- Waiting (blocked, sleep)
+  - The process is waiting for some event to occur.
+- Ready
+  - The process is waiting to be assigned to a processor.
+- Terminated
+  - The process has finished execution.
+
+
+### Process Control Block
+- Metadata to manage data
+  - Process Control Block for process, Task Control Block for Task
+    - E.g. task_struct in Linux
+  - File Control Block for file
+    - E.g. vnode in Unix file system
+
+> [메타데이터](https://en.wikipedia.org/wiki/Metadata)는 다른 데이터에 대한 정보를 포함하는 데이터, 즉 데이터의 데이터입니다.
+
+- 프로세스 제어 블록은 특정 프로세스와 연관된 여러 정보를 수록하며 다음과 같은 것들을 포함합니다.
+  - Process ID
+  - Process state
+    - New, ready, running, waiting, terminated
+  - Program counter
+    - Address of the next instruction
+  - CPU registers
+    - Stack pointer, general-purpose registers, …
+  - CPU scheduling information
+    - Priority, …
+  - Memory-management information
+    - Page table, segment table, …
+  - Accounting information
+    - Amount of CPU used, …
+  - I/O status information
+    - Open files, allocated I/O devices, …
+
+![](https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/images/Chapter3/3_03_PCB.jpg)
+
+## Process Scheduliing
+
+### Process Scheduling Queues
+- Ready queue
+  - set of all processes residing in main memory and waiting for execution.
+- Device queues
+  - set of processes waiting for an I/O device.
+  - 각 장치는 자신의 디바이스 큐를 가집니다.
+- Processes migrate among the various queues.
+
+![](https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/images/Chapter3/3_05_Queues.jpg)
+![](https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/images/Chapter3/3_06_QueueingDiagram.jpg)
+
+### Schedulers
+- CPU scheduler
+  - selects which process should be executed next and allocates CPU.
+  - Processes can be classified into
+    - I/O-bound process
+      - spends more time doing I/O than computations.
+      - many short CPU bursts
+    - CPU-bound process
+      - spends more time doing computations. 
+      - a few very long CPU bursts
+
+### Context Switch
+When CPU switches to another process, the system must
+- save the state of the old process, and
+- load the saved state for the new process.
+
+Context switch time is pure overhead. 
+  - System does not any useful work while switching.
+  - Context switch time depends on hardware.
+    - The register set is different.
+
+![](https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/images/Chapter3/3_04_ProcessSwitch.jpg)
+
+## Operation on Process
+
+### Process Creation
+- Parent process creates child processes, 
+- which, in turn creates other processes. 
+- Finally, it forms a tree of processes.
+- Unix, Linux, Windows와 같은 대부분의 현대 운영체제들은 유일한 프로세스 식별자(pid)를 사용하여 프로세스를 구분합니다. 보통 정수형을 사용합니다.
+
+![](https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/images/Chapter3/3_08_ProcessTree.jpg)
+
+Child processes need resources
+- 운영체제가 할당하거나 부모 프로세스의 자원을 공유합니다.
+Resource sharing
+- Parent and children share all resources,
+- Children share subset of parent’s resources, or
+- Parent and child share no resources.
+Execution
+- Parent and child execute concurrently, or
+- Parent waits until child terminate.
+Address space
+- Child duplicates parent, or
+- Child has a new program loaded into it. 자식 프로세스가 자신에게 적재될 새로운 프로그램을 갖고 있다.
+
+### Process Termination
+Process executes last statement and asks operating system to delete itself (exit).
+- Child process returns a status value to its parent (wait). 
+- Child process’ resources are deallocated by operating system
+
+Parent may terminate execution of child processes (abort).
+- If child has exceeded the allocated resources.
+- If task assigned to child is no longer required.
+
+연쇄식 종료cascading termination : 부모 프로세스가 종료되면 그 자식 프로세스들 역시 전부 종료 시키는 것.
+
+![](https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/images/Chapter3/3_10_ProcessCreation.jpg)
+
+## Interprocess Communication
+
+- Independent process
+  - cannot affect or be affected by the execution of another process.
+- Cooperating process
+  - can affect or be affected by the execution of another process
+
+- 협력적인 프로세스의 장점
+  - Information sharing
+    - E.g. shared files, …
+  - Computation speed-up
+    - Parallel execution via subtasks
+  - Modularity
+    - Division the system function into separate tasks
+
+![](https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/images/Chapter3/3_12_CommunicationsModels.jpg)
+
+- Communication Model
+  - Message passing 
+  - Shard memory
+    - Producer-Consumer 모델 활용
+  - 메시지 전달 방식이 공유 메모리보다 더 나은 성능을 보인다는 연구가 있습니다. 공유 메모리를 활용시 공유 데이터가 여러 캐시 사이에서 이주하기 때문에 캐시 일관성 문제가 발생하여 성능 저하가 발생하기 때문입니다.
 
 </details>
