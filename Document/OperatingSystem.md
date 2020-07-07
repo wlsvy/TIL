@@ -1,9 +1,9 @@
 # 운영체제
 
-저자 : Abraham Silberschatz, Peter B. Galvin, Greg Gagne
-9판 요약 정리
+운영체제 요약 정리
 
 ##### Reference
+- Abraham Silberschatz, Greg Gagne, and Peter Baer Galvin, "Operating System Concepts, Ninth Edition "
 - [parksb 블로그](https://parksb.github.io/article/5.html)
 - [Operating System Course Note](https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/)
 
