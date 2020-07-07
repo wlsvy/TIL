@@ -5,6 +5,8 @@
 ## Chapter 1   효과적인 컨테이너(Container) 요리법
 
 1. [적재적소에 알맞은 컨테이너를 사용하자](https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item01.h)
+2. ["컨테이너에 독립적인(container-independent) 코드"라는 환상을 조심하자](https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item02.h)
+
 <!--
 "컨테이너에 독립적인(container-independent) 코드"라는 환상을 조심하자 / 44
 복사(Copy)는 컨테이너 안의 객체에 맞게 비용은 최소화하며, 동작은 정확하게 하자 / 51

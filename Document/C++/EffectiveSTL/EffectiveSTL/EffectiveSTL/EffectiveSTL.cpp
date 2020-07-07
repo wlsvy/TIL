@@ -13,6 +13,9 @@ Item 파일 템플릿
 #pragma once
 #include <iostream>
 #include <vector>
+#include <list>
+#include <algorithm>
+#include <map>
 #include <string>
 #include <array>
 
