@@ -9,10 +9,11 @@
 3. [복사(Copy)는 컨테이너 안의 객체에 맞게 비용은 최소화하며, 동작은 정확하게 하자](https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item03.h)
 4. [size()의 결과를 0과 비교할 생각이라면 차라리 empty를 호출하자](https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item04.h)
 5. [단일 요소를 단위로 동작하는 멤버 함수보다 요소의 범위를 단위로 동작하는 멤버 함수가 더 낫다](https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item05.h)
+6. [C++ 컴파일러의 어이없는 분석 결과를 조심하자](https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item06.h)
 
 
 <!--
-(https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item05.h)
+(https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item06.h)
 
 
 C++ 컴파일러의 어이없는 분석 결과를 조심하자 / 68
