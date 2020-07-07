@@ -391,3 +391,67 @@ Parent may terminate execution of child processes (abort).
   - 메시지 전달 방식이 공유 메모리보다 더 나은 성능을 보인다는 연구가 있습니다. 공유 메모리를 활용시 공유 데이터가 여러 캐시 사이에서 이주하기 때문에 캐시 일관성 문제가 발생하여 성능 저하가 발생하기 때문입니다.
 
 </details>
+
+# 4장 스레드
+
+<details>
+	<summary>접기/펼치기</summary>
+
+## Overview
+- A thread is a basic unit of CPU utilization, consisting of a program counter, a stack, and a set of registers, ( and a thread ID. )
+- 스레드는 cpu 이용의 기본 단위이며, 프로그램 내부의 흐름이라고 볼 수 있습니다.
+
+![](https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/images/Chapter4/4_01_ThreadDiagram.jpg)
+
+- All threads of a process share
+  - code, data, heap
+  - open files
+  - signal handlers
+  - working environment (current directory, user ID, etc.)
+
+-Each thread has it’s own
+  - stack
+  - registers
+  - thread ID
+
+![](https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/images/Chapter4/4_02_MultithreadedArchitecture.jpg)
+- Motivation
+  - For example in a word processor, a background thread may check spelling and grammar while a foreground thread processes user input ( keystrokes ), while yet a third thread loads images from the hard drive, and a fourth does periodic automatic backups of the file being edited.
+  - Another example is a web server. Multiple threads allow for multiple requests to be satisfied simultaneously, without having to service requests sequentially or to fork off separate processes for every incoming request. ( The latter is how this sort of thing was done before the concept of threads was developed. A daemon would listen at a port, fork off a child for every incoming request to be processed, and then go back to listening to the port. )
+  - 두 프로세스가 하나의 데이터를 공유하려면 메시지 패싱이나 공유 메모리 또는 파이프를 활용해야 합니다. 이는 효율도 떨어지고 개발자가 구현, 관리하기도 번거롭습니다.
+  - 프로세스 사이에 문맥 교환이 일어나면 큰 오버헤드가 발생합니다. 스레드 전환에도 컨텍스트 스위치가 일어나지만 오버헤드가 상대적으로 작습니다.
+
+- Benefits
+  - 응답성Responsiveness - One thread may provide rapid response while other threads are blocked or slowed down doing intensive calculations.
+  - Resource sharing - By default threads share common code, data, and other resources, which allows multiple tasks to be performed simultaneously in a single address space.
+  - Economy - Creating and managing threads ( and context switches between them ) is much faster than performing the same tasks for processes.
+    - fork() 등의 명령어로 프로세스를 생성하는 작업은 비용이 비싼 편입니다.
+  - 규모 적응성Scalability, i.e. Utilization of multiprocessor architectures - A single threaded process can only run on one CPU, no matter how many may be available, whereas the execution of a multi-threaded application may be split amongst available processors.
+
+## Multithreading Models
+- 사용자 스레드는 사용자 수준에서 지원되며 커널의 자원 없이 관리됩니다. 반면에 커널 스레드는 운영체제에 의해 직접 지원되고 관리됩니다. 현재 대부분의 os는 커널 스레드를 지원합니다.
+
+- There are two types of threads to be managed in a modern system: User threads and kernel threads.
+- User threads are supported above the kernel, without kernel support. These are the threads that application programmers would put into their programs.
+- Kernel threads are supported within the kernel of the OS itself. All modern OSes support kernel level threads, allowing the kernel to perform multiple simultaneous tasks and/or to service multiple kernel system calls simultaneously.
+- In a specific implementation, the user threads must be mapped to kernel threads, using one of the following strategies.
+
+1. Many-To-One Model
+![](https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/images/Chapter4/4_05_ManyToOne.jpg)
+
+2. One-To-One Model
+![](https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/images/Chapter4/4_06_OneToOne.jpg)
+
+3. Many-To-Many Model
+![](https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/images/Chapter4/4_07_ManyToMany.jpg)
+
+## Implicit Threading
+### Thread Pools
+- Creating new threads every time one is needed and then deleting it when it is done can be inefficient, and can also lead to a very large ( unlimited ) number of threads being created.
+- An alternative solution is to create a number of threads when the process first starts, and put those threads into a thread pool.
+  - Threads are allocated from the pool as needed, and returned to the pool when no longer needed.
+  - When no threads are available in the pool, the process may have to wait until one becomes available.
+- The ( maximum ) number of threads available in a thread pool may be determined by adjustable parameters, possibly dynamically in response to changing system loads.
+- Win32 provides thread pools through the "PoolFunction" function. Java also provides support for thread pools through the java.util.concurrent package, and Apple supports thread pools under the Grand Central Dispatch architecture..
+
+</details>
