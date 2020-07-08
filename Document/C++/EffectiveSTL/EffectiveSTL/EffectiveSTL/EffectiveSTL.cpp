@@ -1,10 +1,12 @@
 #include <iostream>
 #include <string>
 
-#include "Item08.h"
+//#include "Item08.h"
+#include "Item09.h"
 
 int main() {
-	Item08::RunSample();
+	//Item08::RunSample();
+	Item09::RunSample();
 
 
 	system("pause");
