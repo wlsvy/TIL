@@ -33,6 +33,9 @@
     <ClInclude Include="Item06.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="Item07.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EffectiveSTL.cpp">

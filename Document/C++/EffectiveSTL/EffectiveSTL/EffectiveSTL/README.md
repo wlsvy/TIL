@@ -10,14 +10,13 @@
 4. [size()의 결과를 0과 비교할 생각이라면 차라리 empty를 호출하자](https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item04.h)
 5. [단일 요소를 단위로 동작하는 멤버 함수보다 요소의 범위를 단위로 동작하는 멤버 함수가 더 낫다](https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item05.h)
 6. [C++ 컴파일러의 어이없는 분석 결과를 조심하자](https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item06.h)
+7. [new로 생성한 포인터의 컨테이너를 사용할 때에는 컨테이너가 소멸되기 전에 포인터를 delete하는 일을 잊지 말자](https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item07.h)
 
 
 <!--
-(https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item06.h)
+(https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item07.h)
 
 
-C++ 컴파일러의 어이없는 분석 결과를 조심하자 / 68
-new로 생성한 포인터의 컨테이너를 사용할 때에는 컨테이너가 소멸되기 전에 포인터를 delete하는 일을 잊지 말자 / 72
 auto_ptr의 컨테이너는 절대로 만들지 말자 / 78
 데이터를 삭제할 때에도 조심스럽게 선택할 것이 많다 / 82
 할당자(allocator)의 일반적인 사항과 제약 사항에 대해 잘 알아두자 / 89
