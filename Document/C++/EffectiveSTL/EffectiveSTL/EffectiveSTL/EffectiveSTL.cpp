@@ -1,7 +1,11 @@
 #include <iostream>
 #include <string>
 
+#include "Item08.h"
+
 int main() {
+	Item08::RunSample();
+
 
 	system("pause");
 	return 0;
