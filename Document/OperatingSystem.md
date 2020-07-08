@@ -455,3 +455,82 @@ Parent may terminate execution of child processes (abort).
 - Win32 provides thread pools through the "PoolFunction" function. Java also provides support for thread pools through the java.util.concurrent package, and Apple supports thread pools under the Grand Central Dispatch architecture..
 
 </details>
+
+# 5장 CPU 스케쥴링
+
+<details>
+	<summary>접기/펼치기</summary>
+
+운영체제가 프로세스를 프로세서에 할당하는 것을 디스패치(Dispatch)라고 한다. (이때 프로세스 상태가 ready에서 running으로 바뀐다.) 그리고 운영체제가 레디 큐(Ready queue)에 있는 프로세스들 중에서 어떤 프로세스를 디스패치할 것인가 정하는 것이 프로세스 스케줄링(Process scheduling)이다.
+
+스케줄링 알고리즘에는 대표적으로 FCFS, SJF, SRF, RR 네 가지 방식이 있고, 알고리즘을 평가할 때는 수행 시간(Burst time)과 CPU 사용량(CPU utilization), 단위 시간 당 끝마친 프로세스의 수(Throughput), 하나의 프로세스가 레디 큐에서 대기한 시간부터 작업을 마칠 때까지 걸리는 시간(Turnaround time), 프로세스가 레디 큐에서 대기한 시간(Wating time), 프로세스가 처음으로 CPU를 할당받기까지 걸린 시간(Response time)을 기준으로 한다.
+
+선점(Preemptive) 방식과 비선점(Non-Preemptive) 방식으로 나뉜다. 선점 스케줄링은 운영체제가 강제로 프로세스의 사용권을 통제하는 방식이고, 비선점 스케줄링은 프로세스가 스스로 다음 프로세스에게 자리를 넘겨주는 방식이다. 즉, 선점 스케줄링 방식에서는 CPU에 프로세스가 할당되어 있을 때도 운영체제가 개입해 다른 프로세스에게 CPU를 할당할 수 있다.
+
+## Basic Concepts
+
+![](https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/images/Chapter6/6_01_CPU_BurstCycle.jpg)
+
+- A CPU burst of performing calculations, and
+- An I/O burst, waiting for data transfer in or out of the system.
+
+### CPU Scheduler
+- Whenever the CPU becomes idle, it is the job of the CPU Scheduler ( a.k.a. the short-term scheduler ) to select another process from the ready queue to run next.
+- The storage structure for the ready queue and the algorithm used to select the next process are not necessarily a FIFO queue. There are several alternatives to choose from, as well as numerous adjustable parameters for each algorithm, which is the basic subject of this entire chapter.
+
+
+CPU scheduling decisions may take place when
+  1. a process switches from running to waiting state (e.g. I/O request),
+  2. a process switches from running to ready state (e.g. time slice expiration),
+  3. a process switches from waiting to ready (e.g. I/O completion), or
+  4. a process terminates.
+- Scheduling under (1) and (4) is non-preemptive.
+- Scheduling under (2) and (3) is preemptive.
+
+### Dispatcher
+The dispatcher is the module that gives control of the CPU to the process selected by the scheduler. This function involves:
+  - Switching context.
+  - Switching to user mode.
+  - Jumping to the proper location in the newly loaded program.
+The dispatcher needs to be as fast as possible, as it is run on every context switch. The time consumed by the dispatcher is known as dispatch latency.
+
+## Scheduling Criteria
+- CPU utilization
+  - keeps the CPU as busy as possible. (0% ~ 100%)
+- Throughput
+  - The number of processes that are completed per time unit.
+- Turnaround time
+  - Time from the submission of a request to time of completion.
+- Waiting time
+  - Sum of time a process has been waiting in the ready queue.
+- Response time
+  - Time from the submission of a request until the first response is produced.
+
+ ## Scheduling Algorithm
+- FCFS (First-Come First-Served)
+  - 선입 선처리(비선점형)
+- SJF (Shortest-Job-First)
+  - 최단 작업 우선(선점형)
+- SRTF (Shortest-Remaining-Time-First)
+  - 최소 잔여 시간 우선(선점형)
+- Priority Scheduling
+  - 우선 순위(비선점형 & 선점형)
+- RR (Round Robin)
+  - 시간 분할(선점형)
+- Multilevel Queue
+- Multilevel Feedback Queue
+
+ - 선입 선처리 스케쥴링(FCFS)은 가장 단순한 스케쥴링 알고리즘이지만, 짧은 프로세스들이 매우 긴 프로세스들이 끝날 때까지 기다려야 하는 경우를 유발시킵니다. 
+ - 최단 작업 우선 스케쥴링(SJF)은 최적임이 증명 가능하며, 가장 짧은 대기 시간을 제공합니다. 
+   - SJF 스케쥴링을 구현하는 것은 어려운데, 이는 다음 CPU 버스트의 길이를 예측하기 어렵기 때문입니다.
+- SJF 알고리즘은 일반적인 우선순위 스케쥴링 알고리즘의 특별한 경우로 후자는 CPU를 단순히 최고 우선순위의 프로세스에게 할당합니다. 우선순위와 SJF 스케쥴링은 모두 기아 상태를 겪을 수 있습니다. 노화(aging)는 기아 상태를 예방하는 기법입니다.
+- 라운드 로빈(RR) 스케쥴링은 시분할(대화형) 시스템에 더 적합합니다. 라운드 로빈 스케쥴링은 준비 완료 큐에 있는 첫 번재 프로세스에게 q시간 단위(time slice) 동안 CPU를 할당합니다. 여기서 q는 시간 할당량이며, q시간 이후에, 프로세스가 CPU를 양도하지 않았다면, CPU를 선점하고 프로세스는 준비 완료 큐의 꼬리로 이동합니다.
+  - 주요 문제는 시간 할당량을 선택하는 것입니다. 시간 할당량이 너무 크면 라운드 로빈 스케쥴링은 선입 선처리 스케쥴링으로 격하되고, 만약 시간 할당량이 너무 적으면, 문맥 교환으로 나타나는 스케쥴링 오버헤드가 지나치게 커집니다.
+- 다단계 큐 알고리즘(multilevel queue)들은 준비완료 큐(ready queue)를 다수의 별도의 큐로 분류하며 다양한 클래스의 프로세스들에 대해 상이한 알고리즘을 사용하도록 허용합니다. 가장 보편적인 모델은 라운드 로빈 스케쥴링을 사용하는 전위 대화형 큐와 선입 선처리 스케쥴링을 사용하는 후위 일괄처리 큐입니다.
+  - 추가로 큐와 큐 사이의 스케쥴링도 반드시 있어야 하며, 일반적으로 고정 우선순위의 선점형 스케쥴링으로 구현됩니다. 예를 들어 포그라운드 큐는 백그라운드 큐보다 절대적으로 높은 우선순위를 가질 수 있습니다.
+  - 일반 다단계 큐에서는 프로세스가 큐에서 다른 큐로 이동할 수 없습니다.
+- 다단계 피드백 큐(multilevel feedback queue)는 프로세스들이 한 큐에서 다른 큐로 이동하는 것을 허용합니다.
+  - 프로세스들을 CPU 버스트 성격에 따라서 구분하며 어떤 프로세스가 CPU 시간을 너무 많이 사용하면, 낮은 우선순위의 큐로 이동시킵니다. 반대로 낮은 우선순위의 큐에서 너무 오래 대기하는 프로세스들은 높은 우선순위의 큐로 이동할 수 있습니다. 이러한 노화(againg) 방식은 기아 상태를 예방합니다.
+ 
+
+</details>
