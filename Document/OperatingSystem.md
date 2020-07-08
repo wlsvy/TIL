@@ -534,3 +534,108 @@ The dispatcher needs to be as fast as possible, as it is run on every context sw
  
 
 </details>
+
+# 6장 프로세스 동기화
+
+<details>
+	<summary>접기/펼치기</summary>
+
+
+## Background
+
+동시에 여러 개의 프로세스가 동일한 자료를 접근하여 조작하고, 그 실행 결과가 접근이 발생한 특정 순서에 의존하는 상황을 경쟁상황(race condition)이라고 합니다. 경쟁상황으로부터 보호하기 위해, 우리는 한 순간에 하나의 프로세스만이 공유 메모리에 접근할 수 있도록 보장해야 합니다.
+
+## 임계 구역 문제 critical sectioin problem
+
+- 각 프로세스는 임계구역(critical section)이라고 부르는 코드 부분을 포함하고 있고, 그 안에서는 다른 프로세스와 공유하는 변수를 변경하거나, 테이블을 갱신하거나 파일을 쓰거나 하는 등의 작업을 수행합니다.
+  - 이 시스템의 중요한 특징은 한 프로세스가 자신의 임계구역에서 수행하는 동안에는 다른 프로세스들은 그들의 임계구역에 들어갈 수 없다는 사실입니다.
+
+- 임계구역의 문제를 해결하기 위한 조건은 아래 세 가지 입니다.
+  1. Mutual exclution (상호 배제): 이미 한 프로세스가 critical section에서 작업중일 때 다른 프로세스는 critical section에 진입해서는 안됩니다.
+  2. Progress (진행): critical section에서 작업중인 프로세스가 없다면 다른 프로세스가 critical section에 진입할 수 있어야 합니다.
+  3. Bounded waiting (한정된 대기): critical section에 진입하려는 프로세스가 무한하게 대기해서는 안됩니다.
+
+  - os 내에서 임계구역을 다루기 위해 두 가지 접근법을 사용합니다.
+    - 선점형 커널은 프로세스가 커널 모드에서 수해오디는 동안 선점되는 것을 허용합니다.
+	- 비선점형 커널은 커널 모드에서 수행되는 프로세스의 선점을 허용하지 않고 커너 모드 프로세스는 커널을 빠져 나갈 때까지 또는 봉쇄될 때까지 또는 자발적으로 CPU의 제어를 양보할 때까지 계속 수행합니다.
+  - 비선점형 커널보다 선점형 커널이 더 선호됩니다. 커널 모드 프로세스가 대기 중인 프로세스에게 처리기를 양도하기 전에 오랫동안 실행할 위험이 적기 때문에 선점형 커널은 더 응답이 민첩할 수 있습니다.
+
+## Peterson’s Solution
+
+피터슨의 솔루션은 임계구역과 나머지 구역을 번갈아 가며 실행하는 두 개의 프로세스로 한정됩니다.
+- turn은 임계구역으로 진입할 순번, flag 배열은 프로세스가 임계구역으로 진입할 준비가 되었다는 것을 나타냅니다.
+
+```c++
+
+do {
+  flag[i] = true;
+  turn = j;
+  while (flag[j] && turn == j);
+
+  // Critical section
+
+  flag[i] = false;
+
+  // Remainder section
+
+} while(true);
+
+```
+## 동기화 하드웨어 Synchronization Hardware
+
+Modern machines provide special atomic hardware instructions.
+- Atomic = non-interruptable
+- Either test memory word and set value, or
+- swap contents of two memory words.
+
+![](https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/images/Chapter5/5_0304_TestAndSet.jpg)
+![](https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/images/Chapter5/5_0506_CompareAndSwap.jpg)
+
+
+## Mutex Locks
+- mutex locks은 여러 스레드가 공통 리소스에 접근하는 것을 제어하는 기법으로, critical section을 보호하고 race condition을 방지하기 위해 mutex 락을 사용합니다. 프로세스는 임계구역에 들어가기 전에 반드시 락을 획득해야 하고 빠져나올 때 락을 반환해야 합니다. ('mutex’는 'MUTual EXclusion’의 축약어) 
+
+![](https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/images/Chapter5/5_08_Locks.jpg)
+
+- One problem with the implementation shown here, ( and in the hardware solutions presented earlier ), is the busy loop used to block processes in the acquire phase. These types of locks are referred to as spinlocks, because the CPU just sits and spins while blocking the process.
+- Spinlocks are wasteful of cpu cycles, and are a really bad idea on single-cpu single-threaded machines, because the spinlock blocks the entire computer, and doesn't allow any other process to release the lock. ( Until the scheduler kicks the spinning process off of the cpu. )
+- On the other hand, spinlocks do not incur the overhead of a context switch, so they are effectively used on multi-threaded machines when it is expected that the lock will be released after a short time.
+
+## Semaphores
+
+- mutex가 일반적으로 동기화 도구의 가장 간단한 형태라면 semaphore는 프로세스들이 자신들의 행동을 더 정교하게 동기화 할 수 있는 방법을 제공합니다.
+- semaphore는 정수 변수로서 초기활ㄹ 제외하고는 단지 두 개의 표준 원자적 연산 wait()와 signal()로만 접근이 가능합니다. 
+
+![](https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/images/Chapter5/5_Semaphores.jpg)
+
+In practice, semaphores can take on one of two forms:
+- Binary semaphores can take on one of two values, 0 or 1. They can be used to solve the critical section problem as described above, and can be used as mutexes on systems that do not provide a separate mutex mechanism.
+- Counting semaphores can take on any integer value, and are usually used to count the number remaining of some limited resource. The counter is initialized to the number of such resources available in the system, and whenever the counting semaphore is greater than zero, then a process can enter a critical section and use one of the resources. When the counter gets to zero ( or negative in some implementations ), then the process blocks until another process frees up a resource and increments the counting semaphore with a signal call.
+
+### Semaphore Implementation
+![](https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/images/Chapter5/5_Semaphore2.jpg)
+
+- The big problem with semaphores as described above is the busy loop in the wait call, which consumes CPU cycles without doing any useful work. This type of lock is known as a spinlock
+- An alternative approach is to block a process when it is forced to wait for an available semaphore, and swap it out of the CPU. In this implementation each semaphore needs to maintain a list of processes that are blocked waiting for it, so that one of the processes can be woken up and swapped back in when the semaphore becomes available.
+  - 대안은 block and wakeup 이 있습니다. semaphore 안에 기다리는 프로세스들의 리스트를 만들어서, 접근하려는 프로세스들을 중지시키되(block) 순서가 되면 해당되는 프로세스를 다시 깨우는(wake up) 방식입니다.
+
+- 세마포어(Semaphore)는 여러 개의 프로세스나 스레드가 critical section에 진입할 수 있는 locking 매커니즘이다. 세마포어는 카운터를 이용해 동시에 리소스에 접근할 수 있는 프로세스를 제한한다. 물론 한 프로세스가 값을 변경할 때 다른 프로세스가 동시에 값을 변경하지는 못한다. 세마포어는 P와 V라는 명령으로 접근할 수 있다. (P, V는 try와 increment를 뜻하는 네덜란드어 Proberen과 Verhogen의 머릿글자다.)
+
+Which is better?
+- Busy-waiting
+  - No context switching is required.
+  - It is good when the length of critical section is short.
+- Block-wakeup
+  - Context switching is required.
+  - It is good when the length of critical section is long
+
+
+- Deadlocks and Starvation
+두 프로세스가 서로 종료될 때까지 대기하는 프로그램을 실행한다고 생각해보자. 프로세스 A는 B가 종료될 때까지, 프로세스 B는 A가 종료될 때까지 작업을 하지 않기 때문에 프로그램은 어떤 동작도 하지 못할 것이다. 이처럼 두 프로세스가 리소스를 점유하고 놓아주지 않거나, 어떠한 프로세스도 리소스를 점유하지 못하는 상태가 되어 프로그램이 멈추는 현상을 데드락(Deadlock)이라고 한다. 운영체제도 결국 소프트웨어이기 때문에 데드락에 빠질 수 있다.
+
+## Classic Problems of Synchronization
+- 유한 버퍼 문제 the bounded-buffer problem
+- reader-writer 문제
+- 식사하는 철학자들 문제 the dinning-philosophers problem : 교착 상태
+
+</details>
