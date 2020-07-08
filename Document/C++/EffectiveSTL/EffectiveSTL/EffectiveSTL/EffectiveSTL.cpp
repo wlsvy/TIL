@@ -3,11 +3,13 @@
 
 //#include "Item08.h"
 #include "Item09.h"
+#include "Item11.h"
 
 int main() {
 	//Item08::RunSample();
-	Item09::RunSample();
-
+	//Item09::RunSample();
+	//Item11::SharedMemoryCase::RunSample();
+	Item11::DoubleHeapCase::RunSample();
 
 	system("pause");
 	return 0;
@@ -24,7 +26,8 @@ Item 파일 템플릿
 #include <map>
 #include <string>
 #include <array>
-
+#include <set>
+#include <memory>
 
 namespace Item00{
 	using namespace std;

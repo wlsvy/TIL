@@ -14,14 +14,14 @@
 8. [auto_ptr의 컨테이너는 절대로 만들지 말자](https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item08.h)
 9. [데이터를 삭제할 때에도 조심스럽게 선택할 것이 많다](https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item09.h)
 10. [할당자(allocator)의 일반적인 사항과 제약 사항에 대해 잘 알아두자](https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item10.h)
+11. [커스텀 할당자를 제대로 사용하는 방법을 이해하자](https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item11.h)
 
 
 
 <!--
-(https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item10.h)
+(https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item11.h)
 
 
-커스텀 할당자를 제대로 사용하는 방법을 이해하자 / 98
 STL 컨테이너가 쓰레드 안전성에 대한 기대는 현실에 맞추어 가지자 / 102
 
 ## Chapter 2   vector와 string
