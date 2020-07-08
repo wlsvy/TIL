@@ -604,7 +604,7 @@ Modern machines provide special atomic hardware instructions.
 ## Semaphores
 
 - mutex가 일반적으로 동기화 도구의 가장 간단한 형태라면 semaphore는 프로세스들이 자신들의 행동을 더 정교하게 동기화 할 수 있는 방법을 제공합니다.
-- semaphore는 정수 변수로서 초기활ㄹ 제외하고는 단지 두 개의 표준 원자적 연산 wait()와 signal()로만 접근이 가능합니다. 
+- semaphore는 정수 변수로서 초기화를 제외하고는 단지 두 개의 표준 원자적 연산 wait()와 signal()로만 접근이 가능합니다. 
 
 ![](https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/images/Chapter5/5_Semaphores.jpg)
 
@@ -630,7 +630,7 @@ Which is better?
   - It is good when the length of critical section is long
 
 
-- Deadlocks and Starvation
+- Deadlocks and Starvation  
 두 프로세스가 서로 종료될 때까지 대기하는 프로그램을 실행한다고 생각해보자. 프로세스 A는 B가 종료될 때까지, 프로세스 B는 A가 종료될 때까지 작업을 하지 않기 때문에 프로그램은 어떤 동작도 하지 못할 것이다. 이처럼 두 프로세스가 리소스를 점유하고 놓아주지 않거나, 어떠한 프로세스도 리소스를 점유하지 못하는 상태가 되어 프로그램이 멈추는 현상을 데드락(Deadlock)이라고 한다. 운영체제도 결국 소프트웨어이기 때문에 데드락에 빠질 수 있다.
 
 ## Classic Problems of Synchronization
