@@ -2,6 +2,11 @@
 스콧 마이어스 저  
 예제 코드 & 개념 정리
 
+##### Reference
+
+- Scott Meyers, "Effective STL"
+- [Effective STL 정리](http://ajwmain.iptime.org/programming/book_summary/%5B02%5Deffective_stl/effective_stl.html#I12)
+
 ## Chapter 1   효과적인 컨테이너(Container) 요리법
 
 1. [적재적소에 알맞은 컨테이너를 사용하자](https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item01.h)
@@ -22,14 +27,13 @@
 13. [동적으로 할당한 배열보다는 vector와 string이 낫다](https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item13.h)
 14. [reserve는 필요 없이 메모리가 재할당되는 것을 막아 준다](https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item14.h)
 15. [잊지 말자! string은 여러 가지 방식으로 구현되어 있다는 사실을](https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item15.h)
+16. 기존의 C API에 vector와 string을 넘기는 방법을 알아두자
 
 
 <!--
-(https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item15.h)
+(https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item16.h)
 
 
-
-기존의 C API에 vector와 string을 넘기는 방법을 알아두자 / 123
 쓸데없이 남은 용량은 "바꿔치기(swap) 묘수"를 써서 없애 버리자 / 128
 vector<bool> 보기를 돌같이 하자 / 131
 
