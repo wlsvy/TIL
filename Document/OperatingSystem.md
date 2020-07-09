@@ -639,3 +639,87 @@ Which is better?
 - 식사하는 철학자들 문제 the dinning-philosophers problem : 교착 상태
 
 </details>
+
+# 7장 교착 상태
+
+<details>
+	<summary>접기/펼치기</summary>
+
+다중 프로그래밍 환경에서는 여러 프로세스들이 한정된 자원을 사용하려고 서로 경쟁할 수 있습니다. 한 프로세스가 자원을 요청했을 때, 자원을 사용할 수 없는 상황이 발생할 수 있고, 그 경우 프로세스는 대기 상태로 들어갑니다. 이처럼 대기 중인 프로세스들이(필요한 나머지 자원이 다른 프로세스에 의해 점유되어 있고 그들도 다 대기중인 상황) 결코 그 상태를 다시 변경할 수 없으면 이런 상황을 교착 상태라고 부릅니다.
+
+## System model
+
+ 프로세스는 자원을 사용하기 전에 반드시 요청해야 하고 사용 후에는 반드시 방출해야 합니다. 정상적인 작동 모드에서는 프로세스는 다음 순서로만 자원을 사용할 수 있습니다.
+ 1. 요청Request : 리소스를 요청합니다. 만약 다른 프로세스가 리소스를 사용중이라서 리소스를 받을 수 없다면 대기합니다.
+ 2. 사용Use : 프로세스는 자원에 대해 작업을 수행할 수 있습니다.
+ 3. 방출Release : 프로세스가 자원을 반환합니다.
+
+
+
+- For all kernel-managed resources, the kernel keeps track of what resources are free and which are allocated, to which process they are allocated, and a queue of processes waiting for this resource to become available. Application-managed resources can be controlled using mutexes or wait( ) and signal( ) calls, ( i.e. binary or counting semaphores. )
+- A set of processes is deadlocked when every process in the set is waiting for a resource that is currently allocated to another process in the set ( and which can only be released when that other waiting process makes progress. )
+
+## Deadlock Characterization
+
+#### 데드락은 다음 4가지 조건이 성립할 때 발생합니다.
+- 상호배제 Mutual exclusion: 여러 프로세스 중 하나만 critical section에 진입할 수 있을 때.
+- 점유하며 대기 Hold and wait: 프로세스 하나가 리소스를 잡고 있고, 다른 것은 대기중일 때.
+- 비선점 No preemption: OS가 작동중인 프로세스를 임의로 중단시킬 수 없을 때.
+- 순환 대기 Circular wait: 프로세스가 순환적으로 서로를 기다릴 때.
+
+### Resource-Allocation Graph
+
+![](https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/images/Chapter7/7_02_Deadlock.jpg)
+deadlock
+
+![](https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/images/Chapter7/7_03_CycleNoDeadlock.jpg)
+graph with cycle but no deadlock
+
+## Methods for Handling Deadlocks
+
+데드락을 다루는 방법은 크게 세 가지로 나눌 수 있습니다.
+1. 시스템이 결코 교착상태가 되지 않도록 보장하기 위하여 교착상태를 예방하거나 회피하는 프로토콜을 사용합니다.
+2. 시스템이 교착상태가 되도록 허용한 다음에 회복시키는 방법이 있습니다.
+3. 문제를 무시하고 교착상태가 시스템에서 결코 발생하지 않는 척 합니다.
+  - If deadlocks only occur once a year or so, it may be better to simply let them happen and reboot as necessary than to incur the constant overhead and system performance penalties associated with deadlock prevention or detection. This is the approach that both Windows and UNIX take.
+
+## Deadlock Prevention
+
+데드락이 발생하기 위한 네 가지 조건 중 한 가지를 만족시키지 않도록 보장함으로써 데드락을 방지할 수 있습니다.
+
+Mutual Exclusion: 적어도 하나의 자원은 공유가 불가능한 자원이어야 합니다. 공유 가능한 자원들은 배타적인 접근을 보장하지 않으며 이는 데드락의 원인이 될 수 있습니다.
+Hold and wait: 프로세스가 자원을 요청할 때는, 다른 자원들을 점유하지 않을 것을 반드시 보장해야 합니다. 하나의 프로토콜은 각 프로세스가 실행되기 전에 자신의 모든 자원을 요청하고 할당받을 것을 요구해야 합니다.
+No preemption: 자원을 점유하고 있는 프로세스가 즉시 할당할 수 없는 자원을 요청하면 os측에서 프로세스의 자원들을 선점해 버립니다. 즉 이들 자원을 암묵적으로 방출해 버립니다.
+Circular wait: 순환 대기를 막는 한 가지 방법으로는 모든 자원 타입들에게 전체적인 순서를 부여하여, 각 프로세스가 열거된 순서대로 자원을 요청하도록 요구하는 것입니다.
+
+데드락을 방지하는 것은 장치 효율과 시스템 성능을 떨어트리는 문제가 있다.
+
+## Deadlock Avoidance
+
+프로세스에게 할당해야 할 자원을 할당하더라도 교착상태를 야기하지 않을 수 있다면 상태가 안전하다고 말합니다.(safe state) 
+![](https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/images/Chapter7/7_06_StateSpaces.jpg)
+
+- 자원 할당 그래프 알고리즘 Resource - Allocation Graph Algorithm
+  - 다음 자원을 할당할 때 자원 할당 그래프상에서 순환이 발생하지 않다는 것을 확인한 뒤 자원을 할당하는 알고리즘을 통해 데드락을 피할 수 있습니다.
+- 은행원 알고리즘 Banker's Algorithm
+  - When a process starts up, it must state in advance the maximum allocation of resources it may request, up to the amount available on the system.
+  - When a request is made, the scheduler determines whether granting the request would leave the system in a safe state. If not, then the process must wait until the request can be granted safely.
+
+## Deadlock Detection & Recovery
+
+- Allow system to enter deadlock state.
+
+**Detection algorithm.**
+- Periodically invoke an algorithm that searches for a cycle in the graph.
+  - If there is a cycle, there exists a deadlock.
+- [Note] When multiple instances of a resource type, use more complicated algorithm.
+
+**Recovery scheme.**
+- Process termination
+  - Abort all deadlocked processes.
+  - Abort one process at a time until the deadlock cycle is eliminated.
+- Resource preemption
+  - Preempt some resources from processes and give these resources to other processes until the dedlock cycle is broken.
+
+
+</details>
