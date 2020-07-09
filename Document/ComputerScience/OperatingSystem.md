@@ -845,7 +845,7 @@ segmentation은 하나의 프로세스를 여러 개로 나누는 것을 말한�
 ![](https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/images/Chapter8/8_11_PagingModel.jpg)
 ![](https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/images/Chapter8/8_11A_PageNumberOffset.jpg)
 
-- CPU에 의해 만들어진 주소는 page number§와 page offset(d) 두 부분으로 나뉜다. page number는 page table의 index로써 page table에 접근할 때 사용된다. page offset은 physical address를 얻을 때 쓰이며, page table의 base address에 page offset을 더하면 physical address를 구할 수 있다.
+- CPU에 의해 만들어진 주소는 page number(p)와 page offset(d) 두 부분으로 나뉜다. page number는 page table의 index로써 page table에 접근할 때 사용된다. page offset은 physical address를 얻을 때 쓰이며, page table의 base address에 page offset을 더하면 physical address를 구할 수 있다.
 
 ### Protection
 메모리 할당이 contiguous한 경우 limit만 비교해도 메모리를 보호할 수 있었다. 하지만 paging은 contiguous하지 않기 때문에 다른 방법을 쓴다. page table의 각 항목에는 valid-invalid bit가 붙어있어 그 값이 valid라면 해당 페이지에 접근이 가능하고, invalid라면 해당 페이지가 logical address space에 속하지 않아 접근할 수 없다는 것을 의미한다.
