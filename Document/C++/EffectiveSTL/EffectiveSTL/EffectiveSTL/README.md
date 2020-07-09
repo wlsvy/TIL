@@ -1,5 +1,5 @@
 # Effective STL
-스콧 마이어스 저  
+
 예제 코드 & 개념 정리
 
 ##### Reference
@@ -29,14 +29,14 @@
 15. [잊지 말자! string은 여러 가지 방식으로 구현되어 있다는 사실을](https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item15.h)
 16. 기존의 C API에 vector와 string을 넘기는 방법을 알아두자
 17. [쓸데없이 남은 용량은 "바꿔치기(swap) 묘수"를 써서 없애 버리자](https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item17.h)
-
-<!--
-(https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item17.h)
-
-
-vector<bool> 보기를 돌같이 하자 / 131
+18. [vector<bool> 보기를 돌같이 하자](https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item18.h)
 
 ## Chapter 3   STL 연관 컨테이너(Associative Containers)
+
+<!--
+(https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item18.h)
+
+
 
 상등 관계(equality)와 동등 관계(equivalence)의 차이를 파악하자 / 136
 포인터를 저장하는 연관 컨테이너에 대해서는 적합한 비교(비교 함수자) 타입을 정해주자 / 142
