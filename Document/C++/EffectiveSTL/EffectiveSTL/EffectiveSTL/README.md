@@ -20,14 +20,14 @@
 ## Chapter 2   vector와 string
 
 13. [동적으로 할당한 배열보다는 vector와 string이 낫다](https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item13.h)
+14. [reserve는 필요 없이 메모리가 재할당되는 것을 막아 준다](https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item14.h)
 
 
 <!--
-(https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item13.h)
+(https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item14.h)
 
 
 
-동적으로 할당한 배열보다는 vector와 string이 낫다
 ★ reserve는 필요 없이 메모리가 재할당되는 것을 막아 준다 / 113
 ★ 잊지 말자! string은 여러 가지 방식으로 구현되어 있다는 사실을... / 116
 기존의 C API에 vector와 string을 넘기는 방법을 알아두자 / 123

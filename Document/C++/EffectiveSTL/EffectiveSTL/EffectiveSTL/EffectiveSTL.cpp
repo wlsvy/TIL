@@ -4,14 +4,16 @@
 //#include "Item08.h"
 //#include "Item09.h"
 //#include "Item11.h"
-#include "Item12.h"
+//#include "Item12.h"
+#include "Item14.h"
 
 int main() {
 	//Item08::RunSample();
 	//Item09::RunSample();
 	//Item11::SharedMemoryCase::RunSample();
 	//Item11::DoubleHeapCase::RunSample();
-	Item12::RunSample();
+	//Item12::RunSample();
+	Item14::RunSample();
 
 	system("pause");
 	return 0;
