@@ -13,7 +13,8 @@ Today I Learned
 - [Effective C#](https://github.com/wlsvy/TIL/tree/master/Effective%20CSharp/EffectiveCSharp)
 
 ## Computer Science
-- [컴퓨터 아키텍쳐](https://github.com/wlsvy/TIL/blob/master/Document/ComputerArchitecture.md)
+- [컴퓨터 아키텍쳐](https://github.com/wlsvy/TIL/blob/master/Document/ComputerScience/ComputerArchitecture.md)
+- [OS](https://github.com/wlsvy/TIL/blob/master/Document/ComputerScience/OperatingSystem.md)
 
 ## Graphics
 - [2020 DirectX 개인 프로젝트 정리](https://github.com/wlsvy/TIL/blob/master/Document/Graphics/2020_DirectX_Project.md)
