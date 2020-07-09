@@ -17,12 +17,15 @@
 11. [커스텀 할당자를 제대로 사용하는 방법을 이해하자](https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item11.h)
 12. [STL 컨테이너가 쓰레드 안전성에 대한 기대는 현실에 맞추어 가지자](https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item12.h)
 
+## Chapter 2   vector와 string
+
+13. [동적으로 할당한 배열보다는 vector와 string이 낫다](https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item13.h)
 
 
 <!--
-(https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item12.h)
+(https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item13.h)
 
-## Chapter 2   vector와 string
+
 
 동적으로 할당한 배열보다는 vector와 string이 낫다
 ★ reserve는 필요 없이 메모리가 재할당되는 것을 막아 준다 / 113
