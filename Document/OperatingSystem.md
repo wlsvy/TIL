@@ -723,3 +723,134 @@ Circular wait: 순환 대기를 막는 한 가지 방법으로는 모든 자원 
 
 
 </details>
+
+# 8장 메모리 관리 전략
+
+<details>
+	<summary>접기/펼치기</summary>
+
+## Background
+ 메모리는 각각 주소가 할당된 일련의 바이트들로 구성됩니다. cpu는 pc(program counter)가 지시하는대로 메모리로부터 다음 수행할 명령어를 가져오는데 그 명령어는 필요한 경우 추가적인 데이터를 더 가져올 수 있으며 반대로 데이터를 메모리로 내보낼 수 있습니다.
+
+ 전형적인 명령어 실행은 먼저 메모리로부터 한 명령어를 가져오는 데서부터 시작됩니다. 그 다음 명령어를 해독하고, 메모리에서 피연산자(operand)를 가져와 피연산자에 대해 명령어를 실행한 후에 계산 결과를 메모리에 다시 저장합니다. 메모리는 주소에 지시한 대로 읽기 쓰기만 할 뿐 이 주소들이 어떻게 생성되었는지(명령어 계수기pc, 인덱싱, 간접 및 문자 주소 등) 혹은 그 주소가 가리키는 내용이 무엇인지(데이터 혹은 명령어)를 모릅니다. 
+
+## Basic Hardware
+
+주 메모리와 프로세서 자체에 내장되어 있는 레지스터들은 cpu가 직접 잡근할 수 있는 유일한 범용 저장장치입니다. 기계 명령어들은 메모리 주소를 인수로 취할 수 있지만, 디스크의 주소를 취하지는 못합니다. 즉 모든 실행된느 명령어와 데이터들은 cpu가 직접적으로 접근할 수 있는 주 메모리와 레지스터에 있어야 합니다. 만약 데이터가 메모리에 없다면 cpu 처리 작업 전에 디스크에서 메모리로 적재시켜야 할 것입니다.
+
+- cpu에 내장되어 있는 레지스터들은 일반적으로 cpu 클록(clock) 1 사이클(cycle)내에 접근이 가능하지만, 메모리 버스를 통해 전송되는 주 메모리의 경우는 많은 cpu 클록 사이클이 소요됩니다. 이 경우 cpu가 필요한 데이터가 아직 적재되지 않아 작업을 수행하지 못하는 지연(stall) 현상이 발생하게 됩니다.
+  - 이에 대한 해결 방법은 cpu와 주 메모리 사이에 (통상 빠르게 접근할 수 있도록 cpu안에) 빠른 속도의 메모리 캐시(cache)를 추가하는 것입니다.
+
+### Address Binding
+
+일반적으로 프로그램은 디스크에 binary executable 파일로 저장되어 있다. 프로그램을 실행하기 위해서는 메모리에 로드해 프로세스로 만들어야 한다. 이때 디스크에서 메인 메모리로 로드되기를 대기하는 곳이 input queue다. 운영체제는 input queue에서 프로세스를 선택해 메모리에 로드한다.
+
+명령과 데이터를 메모리 주소로 binding하는 시점에 binding이 구분된다.
+
+- Compile time: 만약 compile time에 프로세스가 메모리의 어느 위치에 들어갈지 미리 알고 있다면 absolute codel를 생성할 수 있다. 위치가 변경된다면 코드를 다시 컴파일해야 한다. MS-DOS .COM 형식 프로그램이 예시다.
+- Load time: 프로세스가 메모리의 어느 위치에 들어갈지 미리 알 수 없다면 컴파일러는 relocatable code를 만들어야 한다. 이 경우 최종 바인딩은 로드의 소요 시간만큼 지연될 수 있다.
+- Execution time: 프로세스가 실행 중 메모리의 한 세그먼트에서 다른 세그먼트로 이동할 수 있다면 바인딩은 runtime까지 지연되어야 한다.
+  - 대다수의 os 가 사용하고 있는 방식이며 address mapping을 위한 MMU(Memory Management Unit)가 필요합니다.
+
+![](https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/images/Chapter8/8_03_MultistepProcessing.jpg)
+
+### Logical Versus Physical Address Space
+
+- cpu가 생성하는 주소를 일반적으로 논리 주소(logical address)라고 하며, 반면에 메모리가 취급하게 되는 주소(즉 메모리 주소 레지스터(MAR)에 주어지는 주소)는 일반적으로 물리주소(physical address)라 합니다.
+  - 이 경우 논리 주소는 가상 주소로도 알려져 있습니다. 
+  - 실행시간에 논리 주소를 물리 주소로 변환하는 작업은 memory-management unit, MMU 에 의해 수행됩니다.
+
+- The MMU can take on many forms. One of the simplest is a modification of the base-register scheme described earlier.
+- The base register is now termed a relocation register, whose value is added to every memory request at the hardware level.
+- Note that user programs never see physical addresses. User programs work entirely in logical address space, and any memory references or manipulations are done using purely logical addresses. Only when the address gets sent to the physical memory chips is the physical memory address generated.
+
+
+![](https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/images/Chapter8/8_04_DynamicRelocation.jpg)
+
+### Dynamic Loading
+
+- 전체 프로그램을 한번에 메모리에 적재하는 것이 아닌 각 루틴이 실제 호출되기 전까지는 메모에 올라오지 않고 재배치 가능한 상태로 디스크에서 대기하게 하는 방식입니다.
+  - 필요한 루틴이 메모리에 적재된다는 것이 장점입니다. 
+  - 특정 루틴이 이미 적재되어 있는지 확인하는 과정이 추가되어야 하기 때문에 시스템 복잡성을 증가시킬 수 있습니다.
+
+### Dynamic Linking and Shared Libraries
+
+- With static linking library modules get fully included in executable modules, wasting both disk space and main memory usage, because every program that included a certain routine from the library would have to have their own copy of that routine linked into their executable code.
+- With dynamic linking, however, only a stub is linked into the executable module, containing references to the actual library module linked in at run time.
+  - This method saves disk space, because the library routines do not need to be fully included in the executable modules, only the stubs.
+  - We will also learn that if the code section of the library routines is reentrant, ( meaning it does not modify the code while it runs, making it safe to re-enter it ), then main memory can be saved by loading only one copy of dynamically linked routines into memory and sharing the code amongst all processes that are concurrently using it. ( Each process would have their own copy of the data section of the routines, but that may be small relative to the code segments. ) Obviously the OS must manage shared routines in memory.
+  - An added benefit of dynamically linked libraries ( DLLs, also known as shared libraries or shared objects on UNIX systems ) involves easy upgrades and updates. When a program uses a routine from a standard library and the routine changes, then the program must be re-built ( re-linked ) in order to incorporate the changes. However if DLLs are used, then as long as the stub doesn't change, the program can be updated merely by loading new versions of the DLLs onto the system. Version information is maintained in both the program and the DLLs, so that a program can specify a particular version of the DLL if necessary.
+  - In practice, the first time a program calls a DLL routine, the stub will recognize the fact and will replace itself with the actual routine from the DLL library. Further calls to the same routine will access the routine directly and not incur the overhead of the stub access. ( Following the UML Proxy Pattern. )
+
+## swapping
+
+ 프로세스가 실행되기 위해서는 메모리에 있어야 하지만 프로세스는 실행 중에 임시로 예비 저장장치(backup store)로 내보내어졌다가 실행을 계속하기 위해 다시 메모리로 되돌아 올 수 있습니다. 모든 프로세스의 물리 주소 공간 크기의 총합이 시스템의 실제 물리 메모리 크기보다 큰 경우에도 스와핑을 이용하면 동시에 실행하는 것이 가능하게 합니다.
+  - ready queue에서 대기중인 프로세스를 cpu가 고르고 dispatcher를 호출하면 dispatcher는 다음 프로세스가 메모리에 올라와 있는지 확인하며 올라와 있지 않다면 디스크에서 불러옵니다.(swap in)
+  - 만약 이 프로세스를 위한 공간이 없다면 공간을 만들기 위해 현재 메모리에 올라와 있는 프로세스를 내보내고(swap out) 원하는 프로세스를 불러옵니다.
+
+
+ ![](https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/images/Chapter8/8_05_ProcessSwapping.jpg)
+
+
+## Contiguous Memory Allocation
+
+- One approach to memory management is to load each process into a contiguous space. The operating system is allocated space first, usually at either low or high memory locations, and then the remaining available memory is allocated to processes as needed. ( The OS is usually loaded low, because that is where the interrupt vectors are located, but on older systems part of the OS was loaded high to make more room in low memory ( within the 640K barrier ) for user processes. )
+
+### Memory Protection
+
+![](https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/images/Chapter8/8_06_HardwareSupport.jpg)
+
+- 사용자 프로그램이 유효하지 못한 메모리 주소에 접근하는 것을 막는 방법입니다. 
+  - limit 레지스터가 논리 주소의 범위를 제한합니다. 만약 범위를 넘어선다면 trap을 발생시킵니다.
+
+### Memory Allocation
+- One method of allocating contiguous memory is to divide all available memory into equal sized partitions, and to assign each process to their own partition. This restricts both the number of simultaneous processes and the maximum size of each process, and is no longer used.
+- An alternate approach is to keep a list of unused ( free ) memory blocks ( holes ), and to find a hole of a suitable size whenever a process needs to be loaded into memory. There are many different strategies for finding the "best" allocation of memory to processes, including the three most commonly discussed:
+  - first fit
+  - best fit
+  - worst fit
+
+### Fragmentation
+- 내부단편화internal fragmentation은 실제 프로세스 공간보다 큰 메모리를 할당하게 되는 경우를 말한다. 일반적으로 메모리가 시스템 효율을 위해 고정 크기의 정수 배로 할당되기 때문에 생기는 현상이다.
+- 외부단편화external fragmentation은 특정 프로세스를 적재하기에 전체 메모리의 빈 공간은 충분하지만, 각 메모리 공간이 흩어져 있어서 프로세스를 메모리에 올릴 수 없는 현상.
+
+## Segmentation
+segmentation은 하나의 프로세스를 여러 개로 나누는 것을 말한다. segment는 main, function, method, object 등의 논리적 단위로, 인간의 관점으로 프로세스를 나눈 것이다. 각 segment의 base와 limit은 segment table에 저장된다.
+  - 프로그래머가 생각하는 논리 구조대로 프로세스를 나눕니다. 
+  - 세그멘테이션은 프로세스가 적재되는 물리 주소 공간이 연속적이지 않아도 적재를 허용하지만 외부 단편화를 유발할 수 있으며 메모리 압축(compact)작업이 필요할 수 있습니다.
+![](https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/images/Chapter8/8_08_SegmentationHardware.jpg)
+![](https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/images/Chapter8/8_09_Segmentation.jpg)
+
+## paging
+- 페이징은 또 다른 메모리 관리 기법으로 프로세스를 동일한 크기로 (page) 나눔으로써 외부 단편화를 방지하고 단편화에 따른 압축 작업이 필요하지 않습니다. 
+
+- Entire program image resides on disk.
+- When the program starts, just load the first page only.
+- The rest of pages are loaded in memory on-demand.
+- A particular page X of the program can be either
+  - already loaded in memory page frame Y, or
+  - never been loaded before, it is in disk.
+- Pages can be placed anywhere in memory.
+- Whenever CPU presents an address, MMU looks up page table.
+  - For translating logical address to physical address.
+
+- paging에서는 physical memory의 각 block을 frame이라고 하고, logical memory의 각 block을 page라고 부른다. frame을 작게 나눌수록 fragment가 적게 생기며, 실제로 external fragmentation은 거의 생기지 않는다. logical address를 physical address로 변환하는 page table이 필요하다.
+
+![](https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/images/Chapter8/8_10_PagingHardware.jpg)
+
+- page table은 메모리에 저장되어 있다. PTBR(Page-Table Base Register)가 page table을 가리키고, PTLR(Page-Table Length Register)가 page table의 크기를 가지고 있다. 따라서 매번 데이터에 접근할 때마다 한 번은 데이터에, 한 번은 page table에 접근해야 한다. 물론 이는 비효율적인 일이기 때문에 캐시같은 것을 사용해 해결했다.
+
+- TLB(Translation Look-aside Buffer)는 참조했던 페이지를 담아주는 캐시 역할을 한다. TLB는 key-value pair로 데이터를 관리하는 acssociative memory이며, CPU는 page table보다 TLB을 우선적으로 참조한다.
+
+![](https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/images/Chapter8/8_11_PagingModel.jpg)
+![](https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/images/Chapter8/8_11A_PageNumberOffset.jpg)
+
+- CPU에 의해 만들어진 주소는 page number§와 page offset(d) 두 부분으로 나뉜다. page number는 page table의 index로써 page table에 접근할 때 사용된다. page offset은 physical address를 얻을 때 쓰이며, page table의 base address에 page offset을 더하면 physical address를 구할 수 있다.
+
+### Protection
+메모리 할당이 contiguous한 경우 limit만 비교해도 메모리를 보호할 수 있었다. 하지만 paging은 contiguous하지 않기 때문에 다른 방법을 쓴다. page table의 각 항목에는 valid-invalid bit가 붙어있어 그 값이 valid라면 해당 페이지에 접근이 가능하고, invalid라면 해당 페이지가 logical address space에 속하지 않아 접근할 수 없다는 것을 의미한다.
+
+### Shared Pages
+paging의 또 다른 장점은 코드를 쉽게 공유할 수 있다는 것이다. 만약 코드가 reentrant code(또는 pure code)라면 공유가 가능하다. reentrant code는 runtime 동안 절대로 변하지 않는 코드이며, 따라서 여러 프로세스들이 동시에 같은 코드를 수행할 수 있다. 이런 식으로 공통 page를 공유하면 12개 로드해야 할 것을 6개만 로드해도 된다.
+
+</details>
