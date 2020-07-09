@@ -28,13 +28,12 @@
 14. [reserve는 필요 없이 메모리가 재할당되는 것을 막아 준다](https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item14.h)
 15. [잊지 말자! string은 여러 가지 방식으로 구현되어 있다는 사실을](https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item15.h)
 16. 기존의 C API에 vector와 string을 넘기는 방법을 알아두자
-
+17. [쓸데없이 남은 용량은 "바꿔치기(swap) 묘수"를 써서 없애 버리자](https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item17.h)
 
 <!--
-(https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item16.h)
+(https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item17.h)
 
 
-쓸데없이 남은 용량은 "바꿔치기(swap) 묘수"를 써서 없애 버리자 / 128
 vector<bool> 보기를 돌같이 하자 / 131
 
 ## Chapter 3   STL 연관 컨테이너(Associative Containers)

@@ -5,7 +5,8 @@
 //#include "Item09.h"
 //#include "Item11.h"
 //#include "Item12.h"
-#include "Item14.h"
+//#include "Item14.h"
+#include "Item17.h"
 
 int main() {
 	//Item08::RunSample();
@@ -13,7 +14,8 @@ int main() {
 	//Item11::SharedMemoryCase::RunSample();
 	//Item11::DoubleHeapCase::RunSample();
 	//Item12::RunSample();
-	Item14::RunSample();
+	//Item14::RunSample();
+	Item17::RunSample();
 
 
 	system("pause");
@@ -52,7 +54,7 @@ Widget 클래스 템플릿
 	public:
 		Widget() { std::cout << "default ctor" << std::endl; }
 			Widget(const Widget& rhs) { std::cout << "copy ctor" << std::endl; }
-			Widget(Widget&& rhs) { std::cout << "move ctor" << std::endl; }
+			Widget(Widget&& rhs)noexcept { std::cout << "move ctor" << std::endl; }
 			~Widget() { std::cout << "dtor" << std::endl; }
 
 			Widget& operator=(const Widget& rhs)
