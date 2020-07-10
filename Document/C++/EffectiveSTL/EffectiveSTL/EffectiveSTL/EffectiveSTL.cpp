@@ -6,7 +6,7 @@
 //#include "Item11.h"
 //#include "Item12.h"
 //#include "Item14.h"
-#include "Item17.h"
+//#include "Item17.h"
 
 int main() {
 	//Item08::RunSample();
@@ -15,7 +15,7 @@ int main() {
 	//Item11::DoubleHeapCase::RunSample();
 	//Item12::RunSample();
 	//Item14::RunSample();
-	Item17::RunSample();
+	//Item17::RunSample();
 
 
 	system("pause");
