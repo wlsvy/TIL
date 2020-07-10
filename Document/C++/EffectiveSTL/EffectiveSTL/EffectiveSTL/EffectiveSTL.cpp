@@ -7,6 +7,7 @@
 //#include "Item12.h"
 //#include "Item14.h"
 //#include "Item17.h"
+#include "Item20.h"
 
 int main() {
 	//Item08::RunSample();
@@ -16,7 +17,7 @@ int main() {
 	//Item12::RunSample();
 	//Item14::RunSample();
 	//Item17::RunSample();
-
+	Item20::RunSample();
 
 	system("pause");
 	return 0;

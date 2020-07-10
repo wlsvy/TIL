@@ -34,9 +34,12 @@
 ## Chapter 3   STL 연관 컨테이너(Associative Containers)
 
 19. [상등 관계(equality)와 동등 관계(equivalence)의 차이를 파악하자](https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item19.h)
+20. [포인터를 저장하는 연관 컨테이너에 대해서는 적합한 비교(비교 함수자) 타입을 정해주자](https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item20.h)
+
+
 
 <!--
-(https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item19.h)
+(https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item20.h)
 
 
 포인터를 저장하는 연관 컨테이너에 대해서는 적합한 비교(비교 함수자) 타입을 정해주자 / 142
