@@ -75,6 +75,12 @@
     <ClInclude Include="Item21.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="Item22.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Item23.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EffectiveSTL.cpp">

@@ -37,11 +37,12 @@
 20. [포인터를 저장하는 연관 컨테이너에 대해서는 적합한 비교(비교 함수자) 타입을 정해주자](https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item20.h)
 21. [연관 컨테이너용 비교 함수는 같은 값에 대해 false를 반환해야 한다](https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item21.h)
 22. [set와 multiset에 저장된 데이터 요소에 대해 키(key)를 바꾸는 일은 피하자](https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item22.h)
+23. [연관 컨테이너 대신에 정렬된 vector를 쓰는 것이 좋을 때가 있다](https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item23.h)
 
 
 
 <!--
-(https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item22.h)
+(https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item23.h)
 
 
 ★ 연관 컨테이너 대신에 정렬된 vector를 쓰는 것이 좋을 때가 있다 / 160

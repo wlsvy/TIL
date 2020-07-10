@@ -7,8 +7,9 @@
 //#include "Item12.h"
 //#include "Item14.h"
 //#include "Item17.h"
-#include "Item20.h"
-#include "Item21.h"
+//#include "Item20.h"
+//#include "Item21.h"
+#include "Item23.h"
 
 int main() {
 	//Item08::RunSample();
@@ -19,7 +20,8 @@ int main() {
 	//Item14::RunSample();
 	//Item17::RunSample();
 	//Item20::RunSample();
-	Item21::RunSample();
+	//Item21::RunSample();
+	Item23::RunSample();
 
 	system("pause");
 	return 0;
