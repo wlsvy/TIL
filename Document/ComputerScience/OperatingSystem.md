@@ -845,12 +845,87 @@ segmentation은 하나의 프로세스를 여러 개로 나누는 것을 말한�
 ![](https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/images/Chapter8/8_11_PagingModel.jpg)
 ![](https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/images/Chapter8/8_11A_PageNumberOffset.jpg)
 
-- CPU에 의해 만들어진 주소는 page number§와 page offset(d) 두 부분으로 나뉜다. page number는 page table의 index로써 page table에 접근할 때 사용된다. page offset은 physical address를 얻을 때 쓰이며, page table의 base address에 page offset을 더하면 physical address를 구할 수 있다.
+- CPU에 의해 만들어진 주소는 page number(p)와 page offset(d) 두 부분으로 나뉜다. page number는 page table의 index로써 page table에 접근할 때 사용된다. page offset은 physical address를 얻을 때 쓰이며, page table의 base address에 page offset을 더하면 physical address를 구할 수 있다.
 
 ### Protection
 메모리 할당이 contiguous한 경우 limit만 비교해도 메모리를 보호할 수 있었다. 하지만 paging은 contiguous하지 않기 때문에 다른 방법을 쓴다. page table의 각 항목에는 valid-invalid bit가 붙어있어 그 값이 valid라면 해당 페이지에 접근이 가능하고, invalid라면 해당 페이지가 logical address space에 속하지 않아 접근할 수 없다는 것을 의미한다.
 
 ### Shared Pages
 paging의 또 다른 장점은 코드를 쉽게 공유할 수 있다는 것이다. 만약 코드가 reentrant code(또는 pure code)라면 공유가 가능하다. reentrant code는 runtime 동안 절대로 변하지 않는 코드이며, 따라서 여러 프로세스들이 동시에 같은 코드를 수행할 수 있다. 이런 식으로 공통 page를 공유하면 12개 로드해야 할 것을 6개만 로드해도 된다.
+
+</details>
+
+
+# 9장 가상 메모리
+
+<details>
+	<summary>접기/펼치기</summary>
+
+가상 메모리(virtual memory)라는 것은 프로세스 전체가 메모리 내에 올라오지 않더라도 실행이 가능하도록 하는 기법입니다. 가상 메모리는 물리 메모리로부터 사용자 관점의 논리 메모리를 분리시켜 메인 메모리를 추상화시켜 사용자는 매우 큰 가상 주소 공간을 가정하고 프로그램을 만들 수 있게 됩니다.
+- 이 기법의 주요 장점 중 하나는 사용자 프로그램이 물리 메모리(physical memory)보다 커져도 된다는 점입니다.
+- 또한 파일의 공유를 쉽게 해주고 공유 메모리 구현을 가능하게 합니다.
+- 추가적으로 프로세스 생성을 효율적으로 처리할 수 있는 기법을 제공합니다.
+- 보통 프로그램이 실행될 때 프로그램 전체가 필요한 것이 아닌 일부분만이 필요한 점을 바탕으로 필요한 부분만을 디스크에서 메모리로 가져옵니다.
+
+![](https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/images/Chapter9/9_01_VirtualMemoryLarger.jpg)
+
+논리 메모리를 물리 메모리로부터 분리시켜주는 것 외에 가상 메모리는 페이지 공유를 통해 파일이나 메모리가 둘 또는 그 이상의 프로세스들에 의해 고융되는 것을 가능하게 합니다.
+- 시스템 라이브러리가 여러 프로세스들에게 공유될 수 있습니다.
+- 마찬가지로 프로세스들이 메모리를 공유할 수 있습니다.
+
+## Demanding Page
+
+- 프로그램의 전체가 메모리에 있어야 할 필요는 없습니다.(보편적인 경우) 요구 페이징은 실제 프로그램 실행 시에 페이지들이 실행과정에서 실제로 필요해 질 때 적재됩니다. 메모리에 접근하기 전 페이지 테이블을 참조하며, 필요한 페이지가 현재 메모리에 적재되어 있는 상태인지 valid-invalid bit를 통해 확인합니다.
+  - 페이지 테이블을 참조할 때 valid-invalid bit가 유효하지 않은 경우 해당 페이지가 메모리에 적재되지 않은 상태이므로 page fault trap을 발생시킵니다. 이 트랩은 운영체제에게 페이지 부재를 처리해야함을 알립니다.
+
+![](https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/images/Chapter9/9_05_PageTable.jpg)
+![](https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/images/Chapter9/9_06_PageFaultSteps.jpg)
+
+## Copy-on-Write
+
+- fork() 명령어를 통해 자식 프로세스를 생성할 때 자식 프로세스가 부모의 페이지를 당분간 함께 사용하도록 합니다. 이때 공유되는 페이지를 쓰기 시 복사(copy on write) 페이지라고 표시합니다.
+  - "둘 중 한 프로세스가 공유 중인 페이지를 쓸 때 그 페이지의 복사본이 만들어진다" 라는 의미입니다.
+  - 즉 공유 페이지 중 수정되지 않는 페이지는 부모와 자식 프로세스가 복사과정 없이 그대로 공유하지만, 만약에 어떤 페이지에 대해서 수정 작업이(write) 발생한다면 해당 페이지에 대해서만 복사본을 생성합니다.(copy)
+
+## Page Replacement
+
+- 메인메모리의 많은 페이지를 할당하여 용량이 가득 찼다면(비어있는 프레임이 없다면) swap out 을 통해 기존의 페이지를 frame을 해제하여 메모리 공간을 확보할 수 있습니다. 이때 해제할 프레임을 선택하는 페이지 교체 알고리즘을 활용합니다.
+
+### 페이지 교체 알고리즘
+- FIFO : 메모리에 가장 먼저 적재된 페이지를 선택합니다.
+  - Belady's anomaly : 프로세스에게 프레임을 더 주었는데 페이지 증가율이 오히려 더 증가하는 현상입니다. 추후에 필요한 프레임을 해제해 버리는 것이 원인입니다.
+- Optimal Page Replacement 최적 페이지 교체 : 앞으로 가장 오랫동안 사용되지 않을 페이지를 선택합니다. 실제 구현이 어렵습니다.
+- LRU Least Recently Used : 가장 오랜 기간 사용되지 않았던 페이지를 선택합니다.
+  - FIFO 방식보다 우수하고 Belady's anomaly가 발생하지 않습니다. 하지만 참조 시간을 기록하기 위한 하드웨어의 지원이 필요합니다.
+  - LRU 근사 페이지 교체(LRU Approximation Page Replacement) 알고리즘으로 부가적 참조 비트 알고리즘 등이 있습니다.
+- LFU Least Frequently Used : 참조 회수가 가장 작은 페이지를 선택합니다. 각 페이지를 참조할 때 마다 참조 횟수를 기록합니다.
+
+## Allocation of Frames
+
+- 여러 개의 프로세스가 있을 때 이들에게 프레임을 어떻게 할당할 것인지 결정하는 알고리즘입니다.
+  - 예를 들어 가용 프레임이 90개 이고 실행하는 프로세스가 5개 일 때 각 프로세스에게 몇 개의 가용 프레임을 할당할 것인지 결정합니다.
+
+- 균등할당equal allocation 알고리즘
+- 비례할당proportional allocation 알고리즘
+- 전역 대 지역 할당 global versus local allocation : 페이지를 할당할 때 페이지 교체 알고리즘을 크게 전역교체 global replacement와 지역 교체 local replacement 두 가지로 나눕니다.
+  - 지역 교체의 경우 프로세스가 교체할 프레임을 선택할 때, 자기에게 할당된 프레임들 중에서만 교체 대상을 고릅니다.
+  - 전역 교체의 경우 프로세스가 교체할 프레임을 선택할 때, 자기에게 할당된 프레임 외에도 다른 프로세스에 속한 프레임을 포함해 전역 범위에서 결정합니다.
+
+## Thrashing
+
+- 어떤 프로세스에 대해서 활발하게 사용되는 페이지 집합을 지원해 줄 만큼 프레임을 충분히 할당받지 못했다면 해당 프로세스가 동작할 때 페이지 부재가 바로 발생할 것입니다. 프레임들은 이미 활발하게 사용되는 페이지들로 이루어져 있으므로 어떤 프레임을 교체하건 곧 다시 페이지 부재가 발생하며 또 다시 읽어와야 할 것입니다. 이런 과도한 페이징 작업을 스레싱(thrashing)이라고 부릅니다. 어떤 프로세스가 실제 실행보다 페이징에 더 많은 시간을 사용하고 있을 경우 스레싱이 발생했다고 합니다.
+  - 스레싱은 심각한 성능 저하를 초래합니다.
+  - 스레싱이 발생하면 페이징 장치에 대한 큐잉이 진행되면서 ready 큐는 비게 됩니다. 프로세스들이 페이징 장치를 기다리는 동안 cpu 이용률은 현저하게 떨어집니다.
+    - 이때 cpu 스케쥴러는 이용률이 떨어지는 것을 보고 이용률을 다시 높이기 위해서 새로운 프로세스를 추가합니다.
+	- 새로 추가된 프로세스에는 기존의 프로세스가 가진 frame을 가져와서 할당합니다. 기존의 프로세스는 안 그래도 부족한 프레임 중에서 일부를 반환합니다. 페이지 부재율은 더욱 높아지며 cpu 이용률은 급격히 감소합니다.
+
+![](https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/images/Chapter9/9_18_Thrashing.jpg)
+
+- 스레싱을 해결하기 위한 방법은 프로세스 실행의 지역성 모델(locality model)을 기반으로 합니다.
+- 작업 집합 모델(working set model)의 기본 아이디어는 최근 특정 기준 시간 만큼의 페이지 참조를 관찰하는 것입니다. 한 프로세스가 최근 페이지를 참조했다면 그 안에 들어있는 서로 다른 페이지들의 집합을 작업 집합이라고 부릅니다.
+  - 페이지가 활발하게 사용되면 작업 집합에 포함되지만, 기준 시간 이상으로 사용되지 않으면 작업 집합에서 제외되게 될 것입니다.
+  - 작업 집합 모델을 결정한 뒤에 os는 프로세스의 작업 집합을 감시하면서 집합 크기에 맞는 충분한 프레임을 할당합니다. 이 방법은 가능한 최대의 다중 프로그래밍의 정도를 유지하면서도 스레싱을 방지할 수 있게 해줍니다. 따라서 CPU의 이용률도 최적화됩니다.
+
+![](https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/images/Chapter9/9_20_WorkingSetModel.jpg)
 
 </details>
