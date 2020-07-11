@@ -38,15 +38,14 @@
 21. [연관 컨테이너용 비교 함수는 같은 값에 대해 false를 반환해야 한다](https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item21.h)
 22. [set와 multiset에 저장된 데이터 요소에 대해 키(key)를 바꾸는 일은 피하자](https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item22.h)
 23. [연관 컨테이너 대신에 정렬된 vector를 쓰는 것이 좋을 때가 있다](https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item23.h)
+24. [map::operator[]나 map::insert는 효율 문제에 주의하여 선택하자](https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item24.h)
 
 
 
 <!--
-(https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item23.h)
+(https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item24.h)
 
 
-★ 연관 컨테이너 대신에 정렬된 vector를 쓰는 것이 좋을 때가 있다 / 160
-★ map::operator[]나 map::insert는 효율 문제에 주의하여 선택하자 / 167
 ★ 현재는 표준이 아니지만, 해쉬 컨테이너에 대해 충분히 대비해 두자 / 174
 
 ## Chapter 4   반복자(Iterators)
