@@ -39,16 +39,19 @@
 22. [set와 multiset에 저장된 데이터 요소에 대해 키(key)를 바꾸는 일은 피하자](https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item22.h)
 23. [연관 컨테이너 대신에 정렬된 vector를 쓰는 것이 좋을 때가 있다](https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item23.h)
 24. [map::operator[]나 map::insert는 효율 문제에 주의하여 선택하자](https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item24.h)
+25. [현재는 표준이 아니지만, 해쉬 컨테이너에 대해 충분히 대비해 두자](https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item25.h)
+
+## Chapter 4   반복자(Iterators)
+
 
 
 
 <!--
-(https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item24.h)
+(https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item25.h)
 
 
-★ 현재는 표준이 아니지만, 해쉬 컨테이너에 대해 충분히 대비해 두자 / 174
 
-## Chapter 4   반복자(Iterators)
+
 
 const_iterator나 reverse_iterator, const_reverse_iterator도 좋지만 역시 쓸만한 것은 iterator이다 / 182
 const_iterator를 iterator로 바꾸는 데에는 distance와 advance를 사용하자 / 186
