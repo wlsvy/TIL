@@ -7,7 +7,7 @@
 //소유권 독점 자원의 관리에는 std::unique_ptr를 사용하라
 
 namespace Item18 {
-
+	using namespace std;
 	/*
 	std::unique_ptr는 독점 소유권 의미론을 가진 자원의 관리를 위한, 작고 빠른 이동 전용 스마트 포인터이다.
 	std::unique_ptr는 기본적으로 생 포인터와 같은 크기라고 가정할 수 있으며, 대부분의 연산(역참조를 비롯해서)에서 생 포인터와 정확히 동일한 명령들을 실행한다.
@@ -30,6 +30,8 @@ namespace Item18 {
 
 	*/
 
+	inline void TestDestructor();
+
 	inline void RunSample()
 	{
 		/*
@@ -44,6 +46,37 @@ namespace Item18 {
 		int* p = new int(30);
 
 		std::unique_ptr<int> up(p);
+
+		/*
+			std::unique_ptr에 삭제자를 지정하는 경우 객체의 크기가 바뀝니다.
+
+			- 함수 포인터를 삭제자로 지정한 경우 std::unique_ptr 의 크기는 1워드에서 2워드로 증가합니다.
+			- 삭제자가 함수 객체일 경우에는 마찬가지로 함수 객체에 저장된 크기만큼 증가합니다.
+			- 상태 없는 함수 객체(이를테면 갈무리 없는 람다 표현식)의 경우에는 크기가 증가하지 않습니다.
+
+			따라서 삭제자를 보통의 함수 포인터로 구현하거나 갈무리 없는 람다 표현식으로 구현할 수 있다면 람다 쪽을 선호하는 것이 좋습니다.
+		*/
+		TestDestructor();
+	}
+
+	struct OnDestroy {
+		void operator()() {
+			cout << "On Destroy" << endl;
+		}
+	};
+
+	//삭제자로 타입을 지정하되, 객체의 크기는 증가시키지 않는 방식을 간단하게 구현해보았습니다.
+	template<typename T, typename Dtor>
+	class Sample {
+	public:
+		~Sample() {
+			Dtor d;
+			d();
+		}
+	};
+
+	inline void TestDestructor() {
+		Sample<int, OnDestroy> s;
 	}
 	
 }
