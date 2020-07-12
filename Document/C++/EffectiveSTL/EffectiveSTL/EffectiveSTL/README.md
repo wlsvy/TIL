@@ -44,17 +44,15 @@
 ## Chapter 4   반복자(Iterators)
 
 26. [const_iterator나 reverse_iterator, const_reverse_iterator도 좋지만 역시 쓸만한 것은 iterator이다](https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item26.md)
+27. [const_iterator를 iterator로 바꾸는 데에는 distance와 advance를 사용하자](https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item27.h)
 
 
 
 <!--
-(https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item26.h)
+(https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item27.h)
 
 
 
-
-
-const_iterator나 reverse_iterator, const_reverse_iterator도 좋지만 역시 쓸만한 것은 iterator이다 / 182
 const_iterator를 iterator로 바꾸는 데에는 distance와 advance를 사용하자 / 186
 reverse_iterator에 대응되는 기점 반복자(base_iterator)를 사용하는 방법을 정확하게 이해하자 / 191
 ★ 문자 단위의 입력에는 istreambuf_iterator의 사용도 적절하다 / 195
