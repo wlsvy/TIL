@@ -49,6 +49,16 @@ namespace Item28 {
 			//6이 삭제됩니다.
 			tmp1.erase(it1);
 		}
+		{
+			auto tmp = v;
 
+			auto it = find(tmp.rbegin(), tmp.rend(), 5);
+			//5가 삭제됩니다.
+			tmp.erase((++it).base());
+			/*
+				아래도 마찬가지입니다.
+				tmp.erase(--it.base());
+			*/
+		}
 	}
 }

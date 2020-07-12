@@ -141,6 +141,7 @@
     <ClInclude Include="Item25.h" />
     <ClInclude Include="Item27.h" />
     <ClInclude Include="Item28.h" />
+    <ClInclude Include="Item29.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EffectiveSTL.cpp" />
@@ -148,6 +149,9 @@
   <ItemGroup>
     <None Include="Item26.md" />
     <None Include="Item28.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="FileReadSample.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

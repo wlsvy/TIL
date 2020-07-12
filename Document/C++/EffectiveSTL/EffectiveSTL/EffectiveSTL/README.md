@@ -46,17 +46,14 @@
 26. [const_iterator나 reverse_iterator, const_reverse_iterator도 좋지만 역시 쓸만한 것은 iterator이다](https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item26.md)
 27. [const_iterator를 iterator로 바꾸는 데에는 distance와 advance를 사용하자](https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item27.h)
 28. [reverse_iterator에 대응되는 기점 반복자(base_iterator)를 사용하는 방법을 정확하게 이해하자](https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item28.md)
+29. [문자 단위의 입력에는 istreambuf_iterator의 사용도 적절하다](https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item29.h)
 
+## Chapter 5   알고리즘(Algorithms)
 
 
 <!--
-(https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item28.h)
+(https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item29.h)
 
-
-
-★ 문자 단위의 입력에는 istreambuf_iterator의 사용도 적절하다 / 195
-
-## Chapter 5   알고리즘(Algorithms)
 
 알고리즘의 데이터 기록 범위(destination range)는 충분히 크게 잡자 / 200
 ★ 정렬시의 선택 사항들을 제대로 파악해 놓자 / 206
