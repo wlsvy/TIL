@@ -10,7 +10,7 @@ Today I Learned
 - [Effective STL](https://github.com/wlsvy/TIL/tree/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL)
 
 ## C#
-- [Effective C#](https://github.com/wlsvy/TIL/tree/master/Effective%20CSharp/EffectiveCSharp)
+- [Effective C#](https://github.com/wlsvy/TIL/tree/master/Document/C%23/Effective%20CSharp/EffectiveCSharp)
 
 ## Computer Science
 - [컴퓨터 아키텍쳐](https://github.com/wlsvy/TIL/blob/master/Document/ComputerScience/ComputerArchitecture.md)
