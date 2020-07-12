@@ -143,6 +143,9 @@
   <ItemGroup>
     <ClCompile Include="EffectiveSTL.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Item26.md" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
