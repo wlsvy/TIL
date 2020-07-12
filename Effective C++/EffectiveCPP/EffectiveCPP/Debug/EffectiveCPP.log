@@ -1,4 +1,0 @@
-﻿  Item51.cpp
-c:\users\user\documents\til\effective c++\effectivecpp\effectivecpp\effectivec++\item51.cpp(21): warning C4290: 함수가 __declspec(nothrow)가 아님을 나타내려는 경우를 제외하고 C++ 예외 사양은 무시됩니다.
-c:\users\user\documents\til\effective c++\effectivecpp\effectivecpp\effectivec++\item51.cpp(69): warning C4290: 함수가 __declspec(nothrow)가 아님을 나타내려는 경우를 제외하고 C++ 예외 사양은 무시됩니다.
-  EffectiveCPP.vcxproj -> C:\Users\USER\Documents\TIL\Effective C++\EffectiveCPP\Debug\EffectiveCPP.exe
