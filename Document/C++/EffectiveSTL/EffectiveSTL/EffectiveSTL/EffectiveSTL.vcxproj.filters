@@ -90,6 +90,9 @@
     <ClInclude Include="Item27.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="Item28.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EffectiveSTL.cpp">
@@ -98,5 +101,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Item26.md" />
+    <None Include="Item28.md" />
   </ItemGroup>
 </Project>

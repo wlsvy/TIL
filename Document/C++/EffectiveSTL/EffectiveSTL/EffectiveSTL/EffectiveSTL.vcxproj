@@ -140,12 +140,14 @@
     <ClInclude Include="Item24.h" />
     <ClInclude Include="Item25.h" />
     <ClInclude Include="Item27.h" />
+    <ClInclude Include="Item28.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EffectiveSTL.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Item26.md" />
+    <None Include="Item28.md" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
