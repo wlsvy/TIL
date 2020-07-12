@@ -75,8 +75,27 @@ namespace Item18 {
 		}
 	};
 
+	//private 상속 활용. 실제 std::unique_ptr은 destructor를 포함할 때 private 상속을 활용합니다.
+	template<typename T>
+	struct DtorWithNoMemory : private T {
+		template<typename U>
+		DtorWithNoMemory(U&& val) : T(forward<U>(val)) {}
+
+		~DtorWithNoMemory() {
+			(*this)();
+		}
+
+	private:
+		bool oneByte = true;
+	};
+
 	inline void TestDestructor() {
 		Sample<int, OnDestroy> s;
+
+		auto dtorLambda = [] { cout << "On Destroy" << endl; };
+
+		DtorWithNoMemory<decltype(dtorLambda)> s(dtorLambda);
+		cout << sizeof(s) << endl;	//1바이트
 	}
 	
 }
