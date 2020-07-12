@@ -10,13 +10,13 @@
 
 - reverse_iterator는 const_reverse_iterator로 암시적 변환이 가능하며, reverse_iterator와 const_reverse_iterator는 base()를 통해 각각 iterator와 const_iterator로 변환이 가능합니다.
 
-# - const_iterator 가 가지는 단점은 이렇습니다.
+- # const_iterator 가 가지는 단점은 이렇습니다.
   - insert나 erase와 같은 함수는 매개변수 타입으로, 네 가지의 반복자 타입 중에 iterator만을 요구한다는 점이 중요합니다.
-#####     - 현재는 const_iterator도 매개변수로 넘길 수 있습니다.
+     - ##### 현재는 const_iterator도 매개변수로 넘길 수 있습니다.
   - const_iterator를 iterator로 암묵적(implicit)으로 변환할 방법은 없으며, 굳이 바꾸려면 항목 27에서 소개하는 방법을 쓰면 되지만 일반성도 떨어지며 효율에 대한 보장도 할 수 없습니다.
   - reverse_iterator를 iterator로 변환할 수 있으나, 변환한 후에 약간의 조정이 필요합니다. 언제, 그리고 왜 이렇게 하는지에 대해서는 항목 28에서 공부하겠습니다.
   - 가장 성가신 것은 iterator와 const_iterator를 비교가 되지 않는 것입니다.
-#####     - 현재는 두 종류의 반복자에 대한 비교를 지원하고 있습니다.
+     - ##### 현재는 두 종류의 반복자에 대한 비교를 지원하고 있습니다.
 
 
 ``` c++
