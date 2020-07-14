@@ -38,7 +38,8 @@ namespace EffectiveCSharp
             private string name;
 
             //디폴트 매개변수 활용
-            public MyClass2() : this(0, "") { } //new() 제약 조건을 만족시키려면 이 생성자가 필요하다
+            //new() 제약 조건을 만족시키려면 이 생성자가 필요하다
+            public MyClass2() : this(0, "") { } 
             public MyClass2(int initCount = 0, string name = "")
             {
                 m_Data = (initCount > 0) ? new List<int>(initCount) : new List<int>();

@@ -4,6 +4,12 @@
 
 namespace EffectiveCSharp
 {
+    /// <summary>
+    /// Null 조건 연산자의 동작 방식은 연산자의 왼쪽을 평가하여 이 값이 null 이 아닌 경우에만 연산자 오른쪽의 표현식을 실행한다. 
+    /// 만약 연산자 왼쪽이 null이면 아무 작업도 수행하지 않고 다음 단락으로 이동한다.
+    ///
+    /// If 문과 비슷해 보이지만 null 연산자는 ? 연산자의 왼쪽을 평가하고 메서드를 수행하는 과정이 원자적으로 수행된다는 점이 다르다.
+    /// </summary>
     public class ECSharp08
     {
         int counter = 0;
