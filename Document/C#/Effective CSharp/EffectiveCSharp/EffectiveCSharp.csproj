@@ -34,6 +34,7 @@
   </PropertyGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Item01.cs" />
@@ -74,7 +75,11 @@
     <Compile Include="Item38.cs" />
     <Compile Include="Item39.cs" />
     <Compile Include="Item40.cs" />
+    <Compile Include="Item41.cs" />
     <Compile Include="MainProgram.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="TestRead.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
