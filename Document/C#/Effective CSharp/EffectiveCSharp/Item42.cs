@@ -84,10 +84,6 @@ namespace EffectiveCSharp
                  * (대신 람다를 사용합시다. 항목 38 참조)
                  */ 
             }
-            
-            
-
-           
         }
 
         //간혹 특정 메서드가 동일한 T 타입에 대해서 IEnumerable과 IQueryable을 이용한 쿼리를 모두 지원해야 하는 경우가 있다고 해봅시다.

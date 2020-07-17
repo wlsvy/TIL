@@ -27,6 +27,7 @@ namespace EffectiveCSharp
             //ECSharp36.RunSample();
             //ECSharp37.RunSample();
             //ECSharp41.RunSample();
+            ECSharp43.RunSample();
         }
     }
 }
@@ -63,7 +64,7 @@ namespace EffectiveCSharp
 
 public class Widget
 {
-    Widget() { }
+    public Widget() { }
 }
 
 public struct MyValueType
