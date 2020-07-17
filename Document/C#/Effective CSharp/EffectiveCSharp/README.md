@@ -56,7 +56,7 @@
 44. [바인딩된 변수는 수정하지 말라](https://github.com/wlsvy/TIL/blob/master/Document/C%23/Effective%20CSharp/EffectiveCSharp/Item44.cs)
  
 ## CHAPTER 5 예외 처리
-45. 메서드가 실패했음을 알리기 위해서 예외를 이용하라  
+45. [메서드가 실패했음을 알리기 위해서 예외를 이용하라](https://github.com/wlsvy/TIL/blob/master/Document/C%23/Effective%20CSharp/EffectiveCSharp/Item45.cs)
 46. 리소스 정리를 위해 using과 try/finally를 활용하라  
 47. 사용자 지정 예외 클래스를 완벽하게 작성하라  
 48. 강력한 예외 보증을 준수하는 것이 좋다  
