@@ -53,7 +53,7 @@
 41. [값비싼 리소스를 캡처하지 말라](https://github.com/wlsvy/TIL/blob/master/Document/C%23/Effective%20CSharp/EffectiveCSharp/Item41.cs)
 42. [IEnumerable[T] 데이터 소스와 IQueryable[T] 데이터 소스를 구분하라](https://github.com/wlsvy/TIL/blob/master/Document/C%23/Effective%20CSharp/EffectiveCSharp/Item42.cs)
 43. [쿼리 결과의 의미를 명확히 강제하고, Single()과 First()를 사용하라](https://github.com/wlsvy/TIL/blob/master/Document/C%23/Effective%20CSharp/EffectiveCSharp/Item43.cs)
-44. 바인딩된 변수는 수정하지 말라
+44. [바인딩된 변수는 수정하지 말라](https://github.com/wlsvy/TIL/blob/master/Document/C%23/Effective%20CSharp/EffectiveCSharp/Item44.cs)
  
 ## CHAPTER 5 예외 처리
 45. 메서드가 실패했음을 알리기 위해서 예외를 이용하라  
