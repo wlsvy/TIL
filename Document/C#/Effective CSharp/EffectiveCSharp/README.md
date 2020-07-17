@@ -51,7 +51,7 @@
 39. [function 과 action 내에서는 예외가 발생하지 않도록 해라.](https://github.com/wlsvy/TIL/blob/master/Document/C%23/Effective%20CSharp/EffectiveCSharp/Item39.cs)
 40. [지연 수행과 즉시 수행을 구분하라](https://github.com/wlsvy/TIL/blob/master/Document/C%23/Effective%20CSharp/EffectiveCSharp/Item40.cs)
 41. [값비싼 리소스를 캡처하지 말라](https://github.com/wlsvy/TIL/blob/master/Document/C%23/Effective%20CSharp/EffectiveCSharp/Item41.cs)
-42. IEnumerable[T] 데이터 소스와 IQueryable[T] 데이터 소스를 구분하라
+42. [IEnumerable[T] 데이터 소스와 IQueryable[T] 데이터 소스를 구분하라](https://github.com/wlsvy/TIL/blob/master/Document/C%23/Effective%20CSharp/EffectiveCSharp/Item42.cs)
 43. 쿼리 결과의 의미를 명확히 강제하고, Single()과 First()를 사용하라
 44. 바인딩된 변수는 수정하지 말라
  

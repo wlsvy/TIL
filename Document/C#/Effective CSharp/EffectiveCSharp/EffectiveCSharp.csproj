@@ -76,6 +76,7 @@
     <Compile Include="Item39.cs" />
     <Compile Include="Item40.cs" />
     <Compile Include="Item41.cs" />
+    <Compile Include="Item42.cs" />
     <Compile Include="MainProgram.cs" />
   </ItemGroup>
   <ItemGroup>
