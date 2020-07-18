@@ -81,6 +81,8 @@
     <Compile Include="Item44.cs" />
     <Compile Include="Item45.cs" />
     <Compile Include="Item46.cs" />
+    <Compile Include="Item47.cs" />
+    <Compile Include="Item48.cs" />
     <Compile Include="MainProgram.cs" />
   </ItemGroup>
   <ItemGroup>

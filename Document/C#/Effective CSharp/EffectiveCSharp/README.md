@@ -58,7 +58,7 @@
 ## CHAPTER 5 예외 처리
 45. [메서드가 실패했음을 알리기 위해서 예외를 이용하라](https://github.com/wlsvy/TIL/blob/master/Document/C%23/Effective%20CSharp/EffectiveCSharp/Item45.cs)
 46. [리소스 정리를 위해 using과 try/finally를 활용하라](https://github.com/wlsvy/TIL/blob/master/Document/C%23/Effective%20CSharp/EffectiveCSharp/Item46.cs)
-47. 사용자 지정 예외 클래스를 완벽하게 작성하라  
-48. 강력한 예외 보증을 준수하는 것이 좋다  
+47. [사용자 지정 예외 클래스를 완벽하게 작성하라](https://github.com/wlsvy/TIL/blob/master/Document/C%23/Effective%20CSharp/EffectiveCSharp/Item47.cs)
+48. [강력한 예외 보증을 준수하는 것이 좋다](https://github.com/wlsvy/TIL/blob/master/Document/C%23/Effective%20CSharp/EffectiveCSharp/Item48.cs)
 49. catch 후 예외를 다시 발생시키는 것보다 예외 필터가 낫다  
 50. 예외 필터의 다른 활용 예를 살펴보라  
