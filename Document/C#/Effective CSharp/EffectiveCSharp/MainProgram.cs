@@ -28,7 +28,8 @@ namespace EffectiveCSharp
             //ECSharp37.RunSample();
             //ECSharp41.RunSample();
             //ECSharp43.RunSample();
-            ECSharp49.RunSample();
+            //ECSharp49.RunSample();
+            ECSharp50.RunSample();
         }
     }
 }
