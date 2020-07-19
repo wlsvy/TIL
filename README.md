@@ -50,7 +50,7 @@ Today I Learned
 [Candies](https://www.hackerrank.com/challenges/candies/problem) | 그리디,<br> 스택 | 배열내 인접한 원소의 값(학생 학년) 차이에 따라 사탕을 나눠주기. 최소로 필요한 사탕 갯수 구하기 | [Candies](https://github.com/wlsvy/TIL/blob/master/Coding_Problem_Solving/Candies.cpp)
 
 
-### Sub
+### Helper Resources
 - [TypeAliasing](https://github.com/wlsvy/TIL/blob/master/Coding_Problem_Solving/Helper/TypeAliasing.cpp)  
 - [GetArraySize](https://github.com/wlsvy/TIL/blob/master/Coding_Problem_Solving/Helper/GetArraySize.cpp)  
 - [ContainerOutstream](https://github.com/wlsvy/TIL/blob/master/Coding_Problem_Solving/Helper/OutstreamHelper.cpp)  
