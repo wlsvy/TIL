@@ -51,9 +51,10 @@
 ## Chapter 5   알고리즘(Algorithms)
 
 30. [알고리즘의 데이터 기록 범위(destination range)는 충분히 크게 잡자](https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item30.h)
+31. [정렬시의 선택 사항들을 제대로 파악해 놓자](https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item31.h)
 
 <!--
-(https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item30.h)
+(https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item31.h)
 
 
 ★ 정렬시의 선택 사항들을 제대로 파악해 놓자 / 206

@@ -14,7 +14,8 @@
 //#include "Item27.h"
 //#include "Item28.h"
 //#include "Item29.h"
-#include "Item30.h"
+//#include "Item30.h"
+#include "Item31.h"
 
 int main() {
 	//Item08::RunSample();
@@ -31,7 +32,8 @@ int main() {
 	//Item27::RunSample();
 	//Item28::RunSample();
 	//Item29::RunSample();
-	Item30::RunSample();
+	//Item30::RunSample();
+	Item31::RunSample();
 
 	system("pause");
 	return 0;
