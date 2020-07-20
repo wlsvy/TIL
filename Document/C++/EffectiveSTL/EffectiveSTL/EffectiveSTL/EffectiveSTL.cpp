@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 
+#include "Cpp17StlExample.h"
 //#include "Item07.h"
 //#include "Item08.h"
 //#include "Item09.h"
@@ -17,9 +18,13 @@
 //#include "Item29.h"
 //#include "Item30.h"
 //#include "Item31.h"
-#include "Item34.h"
+//#include "Item34.h"
+#include "Item35.h"
 
 int main() {
+
+	//Example::RunSample();
+
 	//Item07::UsingFunctionObject::RunSample();
 	//Item08::RunSample();
 	//Item09::RunSample();
@@ -37,7 +42,8 @@ int main() {
 	//Item29::RunSample();
 	//Item30::RunSample();
 	//Item31::RunSample();
-	Item34::RunSample();
+	//Item34::RunSample();
+	Item35::RunSample();
 
 	system("pause");
 	return 0;

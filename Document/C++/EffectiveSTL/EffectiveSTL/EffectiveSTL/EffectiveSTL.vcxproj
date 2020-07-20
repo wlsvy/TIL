@@ -119,6 +119,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Cpp17StlExample.h" />
     <ClInclude Include="Item01.h" />
     <ClInclude Include="Item02.h" />
     <ClInclude Include="Item03.h" />
@@ -151,6 +152,7 @@
     <ClInclude Include="Item32.md" />
     <ClInclude Include="Item33.h" />
     <ClInclude Include="Item34.h" />
+    <ClInclude Include="Item35.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EffectiveSTL.cpp" />
