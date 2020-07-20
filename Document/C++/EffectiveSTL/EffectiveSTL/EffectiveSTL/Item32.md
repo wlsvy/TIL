@@ -36,8 +36,9 @@ ForwardIt remove(ForwardIt first, ForwardIt last, const T& value)
 - 표준안에서는 굳이 요구하고 있지 않으나, 새로운 논리적 끝의 뒷부분에 있던 요소들은 대개 원래의 값을 유지하고 있습니다.
   - 여러분은 remove에게 값을 제거해 달라고 요청했지, 제거된 값을 특별한 장소에 따로 모아 달라고는 하지 않았습니다. 그렇기 때문에 제거된 값들이 벡터의 뒷쪽 끝에 모여 있으리라는 기대를 하면 안 됩니다.
 
+![](https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/EffectiveSTL_Item32_Photo.png)
 
-  - 아래의 동작과정을 나타내자면
+  - 위의 동작과정을 나타내자면
     1. 제거 대상이 아닌 v[0], v[1], v[2]는 확인 후 지나갑니다.
 	2. v[3]은 제거 대상이므로, v[3]이 덮어 쓰일 것이라고 표시해 둔 뒤 v[4]로 갑니다. 즉 v[3]은 나중에 채워질 구멍입니다.
 	3. v[4]의 값은 유지되어야 하는 것으로 판단한 뒤 v[4]를 v[3]으로 이동시킵니다. 이제 v[3]는 채워지고 v[4]는 새로운 구멍이 됩니다.
