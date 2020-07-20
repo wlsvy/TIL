@@ -50,12 +50,12 @@
 
 ## Chapter 5   알고리즘(Algorithms)
 
+30. [알고리즘의 데이터 기록 범위(destination range)는 충분히 크게 잡자](https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item30.h)
 
 <!--
-(https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item29.h)
+(https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item30.h)
 
 
-알고리즘의 데이터 기록 범위(destination range)는 충분히 크게 잡자 / 200
 ★ 정렬시의 선택 사항들을 제대로 파악해 놓자 / 206
 요소를 정말로 제거하고자 한다면 remove 류의 알고리즘에는 꼭 erase를 붙여 사용하자 / 213
 remove와 비슷한 알고리즘을 포인터의 컨테이너에 적용할 때에는 각별히 조심하자 / 219
