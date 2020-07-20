@@ -54,12 +54,13 @@
 31. [정렬시의 선택 사항들을 제대로 파악해 놓자](https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item31.h)
 32. [요소를 정말로 제거하고자 한다면 remove 류의 알고리즘에는 꼭 erase를 붙여 사용하자](https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item32.md)
 33. [remove와 비슷한 알고리즘을 포인터의 컨테이너에 적용할 때에는 각별히 조심하자](https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item33.h)
+34. [정렬된 범위에 대해 동작하는 알고리즘이 어떤 것들인지 파악해 두자](https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item34.h)
+
 
 <!--
-(https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item33.h)
+(https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item34.h)
 
 
-remove와 비슷한 알고리즘을 포인터의 컨테이너에 적용할 때에는 각별히 조심하자 / 219
 정렬된 범위에 대해 동작하는 알고리즘이 어떤 것들인지 파악해 두자 / 224
 대소문자를 구분하지 않는 문자열 비교는 mismatch 아니면 lexicographical_compare를 써서 간단히 구현할 수 있다 / 229
 copy_if를 적절히 구현해 사용하자 / 234

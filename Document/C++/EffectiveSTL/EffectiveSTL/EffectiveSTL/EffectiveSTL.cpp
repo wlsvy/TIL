@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 
+//#include "Item07.h"
 //#include "Item08.h"
 //#include "Item09.h"
 //#include "Item11.h"
@@ -15,9 +16,11 @@
 //#include "Item28.h"
 //#include "Item29.h"
 //#include "Item30.h"
-#include "Item31.h"
+//#include "Item31.h"
+#include "Item34.h"
 
 int main() {
+	//Item07::UsingFunctionObject::RunSample();
 	//Item08::RunSample();
 	//Item09::RunSample();
 	//Item11::SharedMemoryCase::RunSample();
@@ -33,7 +36,8 @@ int main() {
 	//Item28::RunSample();
 	//Item29::RunSample();
 	//Item30::RunSample();
-	Item31::RunSample();
+	//Item31::RunSample();
+	Item34::RunSample();
 
 	system("pause");
 	return 0;

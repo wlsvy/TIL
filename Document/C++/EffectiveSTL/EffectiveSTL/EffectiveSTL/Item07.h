@@ -6,6 +6,7 @@
 #include <map>
 #include <string>
 #include <array>
+#include <functional>
 
 //new로 생성한 포인터의 컨테이너를 사용할 때에는 컨테이너가 소멸되기 전에 포인터를 delete하는 일을 잊지 말자
 
@@ -13,6 +14,7 @@ namespace Item07 {
 	using namespace std;
 
 	//c++11 스마트 포인터가 소개되기 이전의 내용
+	//std::unary_function은 c++ 17 이후로 삭제되었습니다.
 	/*
 		컨테이너는 자신이 소멸될 때 각 요소 자체를 없애 주기는 합니다. 
 		하지만 요소의 타입이 포인터인 경우엔 포인터의 소멸자가 아무런 일도 하지 않기 때문에, 
@@ -51,8 +53,9 @@ namespace Item07 {
 	}
 
 	namespace UsingFunctionObject {
+
 		template<typename T>
-		struct DeleteObject : public unary_function<const T*, void> {
+		struct DeleteObject : unary_function
 			void operator()(const T* ptr) const {
 				delete ptr;
 			}
@@ -71,7 +74,7 @@ namespace Item07 {
 		inline void RunSample() {
 			{
 				vector<Widget*> vwp;
-				for_each(vwp.begin(), vwp.end(), DeleteObject<Widget>());
+				for_each(vwp.begin(), vwp.end(), DeleteObject<Widget>);
 
 				/*
 					여기서는 DeleteObject가 삭제하려고 하는 객체의 타입을 직접 지정해 주어야 합니다.
