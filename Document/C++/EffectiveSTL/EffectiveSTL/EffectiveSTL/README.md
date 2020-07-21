@@ -57,16 +57,14 @@
 34. [정렬된 범위에 대해 동작하는 알고리즘이 어떤 것들인지 파악해 두자](https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item34.h)
 35. [대소문자를 구분하지 않는 문자열 비교는 mismatch 아니면 lexicographical_compare를 써서 간단히 구현할 수 있다](https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item35.h)
 36. [copy_if를 적절히 구현해 사용하자](https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item36.h)
-
-
-<!--
-(https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item36.h)
-
-
-copy_if를 적절히 구현해 사용하자 / 234
-범위 내의 데이터 값을 요약하거나 더하는 데에는 accumulate나 for_each를 사용하자 / 237
+37. [범위 내의 데이터 값을 요약하거나 더하는 데에는 accumulate나 for_each를 사용하자](https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item37.h)
 
 ## Chapter 6   함수자, 함수 객체, 함수, 기타 등등
+
+<!--
+(https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item37.h)
+
+
 
 함수자 클래스는 값으로 전달되도록(pass-by-value) 설계하자 / 246
 술어 구문은 순수 함수로 만들자 / 250

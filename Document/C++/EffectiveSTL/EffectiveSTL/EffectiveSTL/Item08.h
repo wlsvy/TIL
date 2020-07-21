@@ -31,20 +31,20 @@ namespace Item08 {
 		bool operator< (const Widget& rhs) { return true; }
 	};
 
-	bool WidgetAPCompare(const auto_ptr<Widget>& lhs,
+	/*bool WidgetAPCompare(const auto_ptr<Widget>& lhs,
 		const auto_ptr<Widget>& rhs)
 	{
 		return *lhs < *rhs;                    
-	}
+	}*/
 
 	inline void RunSample() {
-		auto vwp = vector<auto_ptr<Widget>>();
+		/*auto vwp = vector<auto_ptr<Widget>>();
 		for (int i = 0; i < 100; i++) {
 			vwp.emplace_back(new Widget);
-		}
+		}*/
 
 		//벡터 정렬 작업을 수행하고 나면, 끔찍한 결과가 나타납니다.
-		sort(vwp.begin(), vwp.end(), WidgetAPCompare);
+		//sort(vwp.begin(), vwp.end(), WidgetAPCompare);
 
 		/*
 			sort는 보통 변형된 퀵소트 알고리즘을 사용하고 있습니다.

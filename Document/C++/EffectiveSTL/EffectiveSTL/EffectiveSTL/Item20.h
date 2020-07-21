@@ -16,7 +16,7 @@ namespace Item20 {
 
 	//스마트 포인터나 반복자를 담는 연관 컨테이너는 그것에 대한 비교 타입을 지정해 주세요.
 
-	struct StringPtrLess : public binary_function<const string*, const string*, bool> {
+	struct StringPtrLess {
 		bool operator()(const string *ps1, const string *ps2) const
 		{
 			return *ps1 < *ps2;

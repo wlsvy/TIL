@@ -2,24 +2,25 @@
 #include <string>
 
 #include "Cpp17StlExample.h"
-//#include "Item07.h"
-//#include "Item08.h"
-//#include "Item09.h"
-//#include "Item11.h"
-//#include "Item12.h"
-//#include "Item14.h"
-//#include "Item17.h"
-//#include "Item20.h"
-//#include "Item21.h"
-//#include "Item23.h"
-//#include "Item24.h"
-//#include "Item27.h"
-//#include "Item28.h"
-//#include "Item29.h"
-//#include "Item30.h"
-//#include "Item31.h"
-//#include "Item34.h"
+#include "Item07.h"
+#include "Item08.h"
+#include "Item09.h"
+#include "Item11.h"
+#include "Item12.h"
+#include "Item14.h"
+#include "Item17.h"
+#include "Item20.h"
+#include "Item21.h"
+#include "Item23.h"
+#include "Item24.h"
+#include "Item27.h"
+#include "Item28.h"
+#include "Item29.h"
+#include "Item30.h"
+#include "Item31.h"
+#include "Item34.h"
 #include "Item35.h"
+#include "Item37.h"
 
 int main() {
 
@@ -43,7 +44,8 @@ int main() {
 	//Item30::RunSample();
 	//Item31::RunSample();
 	//Item34::RunSample();
-	Item35::RunSample();
+	//Item35::RunSample();
+	Item37::RunSample();
 
 	system("pause");
 	return 0;

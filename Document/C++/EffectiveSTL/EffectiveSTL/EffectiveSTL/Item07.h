@@ -54,13 +54,17 @@ namespace Item07 {
 
 	namespace UsingFunctionObject {
 
-		template<typename T>
-		struct DeleteObject : unary_function
-			void operator()(const T* ptr) const {
-				delete ptr;
-			}
-		};
-		//unary_function은 항목 40에서 설명
+		/*
+		
+			template<typename T>
+			struct DeleteObject : unary_function
+				void operator()(const T* ptr) const {
+					delete ptr;
+				}
+			};
+		*/
+		
+		//unary_function은 항목 40에서 설명 + c++ 17 이후 unary_function은 삭제되었습니다.
 
 		struct DeleteObject2 {
 
@@ -74,7 +78,7 @@ namespace Item07 {
 		inline void RunSample() {
 			{
 				vector<Widget*> vwp;
-				for_each(vwp.begin(), vwp.end(), DeleteObject<Widget>);
+				//for_each(vwp.begin(), vwp.end(), DeleteObject<Widget>);
 
 				/*
 					여기서는 DeleteObject가 삭제하려고 하는 객체의 타입을 직접 지정해 주어야 합니다.
