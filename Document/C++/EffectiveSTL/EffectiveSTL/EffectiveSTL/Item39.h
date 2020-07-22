@@ -59,7 +59,10 @@ namespace Item39 {
 
 		/*
 			아래의 코드는 3번째 원소만 지우는 것이 아니라, 6번째 원소도 같이 삭제합니다.
-			remove_if 내부에서 BadPredicate 객체는 값복사 된 후, find_if 한번, remove_if 내부에서 한번, 총 두번 제거대상을 찾기 때문입니다.
+			remove_if 내부에서 BadPredicate 객체는 값복사 된 후, 
+
+			find_if의 루프 그리고 remove_if 내부 루프에서
+			총 두번 제거대상을 찾기 때문입니다.
 		*/
 		vi.erase(remove_if(vi.begin(), vi.end(), BadPredicate()), vi.end());
 	}
