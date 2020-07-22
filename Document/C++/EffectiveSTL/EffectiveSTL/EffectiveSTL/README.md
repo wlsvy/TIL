@@ -64,14 +64,14 @@
 38. [함수자 클래스는 값으로 전달되도록(pass-by-value) 설계하자](https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item38.h)
 39. [술어 구문은 순수 함수로 만들자](https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item39.h)
 40. [함수자 클래스는 어댑터 적용이 가능하게(adaptable) 만들자](https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item40.h)
+41. [ptr_fun, mem_fun, mem_fun_ref의 존재에는 분명한 이유가 있다](https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item41.h)
 
 
 <!--
-(https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item40.h)
+(https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item41.h)
 
 
 
-함수자 클래스는 어댑터 적용이 가능하게(adaptable) 만들자 / 255
 ptr_fun, mem_fun, mem_fun_ref의 존재에는 분명한 이유가 있다 / 260
 less<T>는 operator<의 의미임을 꼭 알아두자 / 266
 
