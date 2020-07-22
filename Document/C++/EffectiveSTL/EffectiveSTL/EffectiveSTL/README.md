@@ -61,8 +61,11 @@
 
 ## Chapter 6   함수자, 함수 객체, 함수, 기타 등등
 
+38. [함수자 클래스는 값으로 전달되도록(pass-by-value) 설계하자](https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item38.h)
+
+
 <!--
-(https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item37.h)
+(https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item38.h)
 
 
 
