@@ -65,14 +65,14 @@
 39. [술어 구문은 순수 함수로 만들자](https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item39.h)
 40. [함수자 클래스는 어댑터 적용이 가능하게(adaptable) 만들자](https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item40.h)
 41. [ptr_fun, mem_fun, mem_fun_ref의 존재에는 분명한 이유가 있다](https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item41.h)
+42. [less<T>는 operator<의 의미임을 꼭 알아두자](https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item42.h)
 
 
 <!--
-(https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item41.h)
+(https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item42.h)
 
 
 
-ptr_fun, mem_fun, mem_fun_ref의 존재에는 분명한 이유가 있다 / 260
 less<T>는 operator<의 의미임을 꼭 알아두자 / 266
 
 ## Chapter 7   STL 프로그래밍을 더 재미있게 해주는 팁 모음
