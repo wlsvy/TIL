@@ -22,6 +22,7 @@
 #include "Item35.h"
 #include "Item37.h"
 #include "Item38.h"
+#include "Item39.h"
 
 int main() {
 
@@ -47,7 +48,8 @@ int main() {
 	//Item34::RunSample();
 	//Item35::RunSample();
 	//Item37::RunSample();
-	Item38::RunSample();
+	//Item38::RunSample();
+	Item39::RunSample();
 
 	system("pause");
 	return 0;
