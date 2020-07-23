@@ -12,6 +12,24 @@ C:\Users\USER\Documents\TIL\Document\C++\EffectiveSTL\EffectiveSTL\EffectiveSTL\
           [
               _Ty=int
           ]
+C:\Users\USER\Documents\TIL\Document\C++\EffectiveSTL\EffectiveSTL\EffectiveSTL\Item43.h(84,35): warning C4244: '인수': 'double'에서 '_Ty'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+          with
+          [
+              _Ty=int
+          ]
+C:\Users\USER\Documents\TIL\Document\C++\EffectiveSTL\EffectiveSTL\EffectiveSTL\Item43.h(97,56): warning C4244: '인수': 'double'에서 '_Ty'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+          with
+          [
+              _Ty=int
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.26.28801\include\algorithm(2140,25): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\USER\Documents\TIL\Document\C++\EffectiveSTL\EffectiveSTL\EffectiveSTL\Item43.h(109): message : 컴파일되는 함수 템플릿 인스턴스화 '_OutIt std::transform<double*,std::insert_iterator<std::deque<int,std::allocator<int>>>,Item43::RunSample::<lambda_0fe706d0cc3641a2542103274999fc75>>(const _InIt,const _InIt,_OutIt,_Fn)'에 대한 참조를 확인하세요.
+          with
+          [
+              _OutIt=std::insert_iterator<std::deque<int,std::allocator<int>>>,
+              _InIt=double *,
+              _Fn=Item43::RunSample::<lambda_0fe706d0cc3641a2542103274999fc75>
+          ]
 C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.26.28801\include\numeric(35,26): warning C4244: '=': 'double'에서 '_Ty'(으)로 변환하면서 데이터가 손실될 수 있습니다.
           with
           [

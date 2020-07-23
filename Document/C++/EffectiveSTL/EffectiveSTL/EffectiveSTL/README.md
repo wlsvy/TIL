@@ -67,15 +67,15 @@
 41. [ptr_fun, mem_fun, mem_fun_ref의 존재에는 분명한 이유가 있다](https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item41.h)
 42. [less<T>는 operator<의 의미임을 꼭 알아두자](https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item42.h)
 
+## Chapter 7   STL 프로그래밍을 더 재미있게 해주는 팁 모음
+
+43. [어설프게 손으로 작성한 루프보다는 알고리즘이 더 낫다](https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item43.h)
+
 
 <!--
-(https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item42.h)
+(https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item43.h)
 
 
-
-less<T>는 operator<의 의미임을 꼭 알아두자 / 266
-
-## Chapter 7   STL 프로그래밍을 더 재미있게 해주는 팁 모음
 
 어설프게 손으로 작성한 루프보다는 알고리즘이 더 낫다 / 272
 ★ 같은 이름을 가진 것이 있다면 일반 알고리즘 함수보다 멤버 함수가 더 낫다 / 282
