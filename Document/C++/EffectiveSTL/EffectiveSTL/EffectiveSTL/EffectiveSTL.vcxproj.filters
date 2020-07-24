@@ -153,6 +153,7 @@
   <ItemGroup>
     <None Include="Item26.md" />
     <None Include="Item28.md" />
+    <None Include="Item45.md" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="FileReadSample.txt" />

@@ -82,10 +82,5 @@ namespace Item44 {
 
 			cout << duration << endl;
 		}
-
-
-		multimap<int, int> mmp;
-		mmp.lower_bound(3);
-		mmp.upper_bound(5);
 	}
 }

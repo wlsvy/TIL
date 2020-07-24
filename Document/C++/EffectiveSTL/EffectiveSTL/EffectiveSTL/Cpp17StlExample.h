@@ -49,6 +49,10 @@ namespace Example {
 		vector<Widget> vw;
 		generate_n(back_inserter(vw), 50, [count = 0]() mutable {return Widget(count++); });
 
+		//연관 컨테이너는 이렇게 생성할 수 있습니다.
+		set<int> si;
+		generate_n(inserter(si, si.begin()), 10, [count = 1]() mutable {return count++; });
+
         //매우 큰 숫자에는 이렇게 구분자를 붙일 수 도 있습니다.
         constexpr long long LongValue = 400'000'000'0'0;
 

@@ -28,6 +28,7 @@
 #include "Item42.h"
 #include "Item43.h"
 #include "Item44.h"
+#include "Item45.h"
 
 int main() {
 
@@ -59,7 +60,8 @@ int main() {
 	//Item41::RunSample();
 	//Item42::RunSample();
 	//Item43::RunSample();
-	Item44::RunSample();
+	//Item44::RunSample();
+	Item45::RunSample();
 
 	system("pause");
 	return 0;
@@ -78,6 +80,7 @@ Item 파일 템플릿
 #include <array>
 #include <set>
 #include <memory>
+#include <numeric>
 
 namespace Item00{
 	using namespace std;
