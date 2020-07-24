@@ -22,6 +22,10 @@ C:\Users\USER\Documents\TIL\Document\C++\EffectiveSTL\EffectiveSTL\EffectiveSTL\
           [
               _Ty=int
           ]
+C:\Users\USER\Documents\TIL\Document\C++\EffectiveSTL\EffectiveSTL\EffectiveSTL\Item44.h(43,6): warning C4834: 'nodiscard' 특성이 포함된 함수의 반환 값을 버리는 중
+C:\Users\USER\Documents\TIL\Document\C++\EffectiveSTL\EffectiveSTL\EffectiveSTL\Item44.h(49,4): warning C4834: 'nodiscard' 특성이 포함된 함수의 반환 값을 버리는 중
+C:\Users\USER\Documents\TIL\Document\C++\EffectiveSTL\EffectiveSTL\EffectiveSTL\Item44.h(56,6): warning C4834: 'nodiscard' 특성이 포함된 함수의 반환 값을 버리는 중
+C:\Users\USER\Documents\TIL\Document\C++\EffectiveSTL\EffectiveSTL\EffectiveSTL\Item44.h(57,6): warning C4834: 'nodiscard' 특성이 포함된 함수의 반환 값을 버리는 중
 C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.26.28801\include\algorithm(2140,25): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
 C:\Users\USER\Documents\TIL\Document\C++\EffectiveSTL\EffectiveSTL\EffectiveSTL\Item43.h(109): message : 컴파일되는 함수 템플릿 인스턴스화 '_OutIt std::transform<double*,std::insert_iterator<std::deque<int,std::allocator<int>>>,Item43::RunSample::<lambda_0fe706d0cc3641a2542103274999fc75>>(const _InIt,const _InIt,_OutIt,_Fn)'에 대한 참조를 확인하세요.
           with

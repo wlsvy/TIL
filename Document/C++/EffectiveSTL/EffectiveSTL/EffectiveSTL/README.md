@@ -70,15 +70,14 @@
 ## Chapter 7   STL 프로그래밍을 더 재미있게 해주는 팁 모음
 
 43. [어설프게 손으로 작성한 루프보다는 알고리즘이 더 낫다](https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item43.h)
+44. [같은 이름을 가진 것이 있다면 일반 알고리즘 함수보다 멤버 함수가 더 낫다](https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item44.h)
 
 
 <!--
-(https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item43.h)
+(https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item44.h)
 
 
 
-어설프게 손으로 작성한 루프보다는 알고리즘이 더 낫다 / 272
-★ 같은 이름을 가진 것이 있다면 일반 알고리즘 함수보다 멤버 함수가 더 낫다 / 282
 count, find, binary_search, lower_bound, upper_bound, 그리고 equal_range를 제대로 파악해 두자 / 286
 ★ 알고리즘의 매개 변수로는 함수 대신 함수 객체가 괜찮다 / 297
 쓰기 전용(write-only) 코드는 만들지 말자 / 302

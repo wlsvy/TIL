@@ -27,6 +27,7 @@
 #include "Item41.h"
 #include "Item42.h"
 #include "Item43.h"
+#include "Item44.h"
 
 int main() {
 
@@ -57,7 +58,8 @@ int main() {
 	//Item40::RunSample();
 	//Item41::RunSample();
 	//Item42::RunSample();
-	Item43::RunSample();
+	//Item43::RunSample();
+	Item44::RunSample();
 
 	system("pause");
 	return 0;
@@ -93,22 +95,30 @@ Widget 클래스 템플릿
 
 	class Widget {
 	public:
-		Widget()						{ std::cout << "default ctor" << std::endl; }
-		Widget(const Widget& rhs)		{ std::cout << "copy ctor" << std::endl; }
-		Widget(Widget&& rhs) noexcept	{ std::cout << "move ctor" << std::endl; }
-		~Widget()						{ std::cout << "dtor" << std::endl; }
+		Widget() { std::cout << "default ctor" << std::endl; }
+		Widget(int i) : value(i) { std::cout << "Int ctor" << std::endl; }
+		Widget(const Widget& rhs) { std::cout << "copy ctor" << std::endl; }
+		Widget(Widget&& rhs) noexcept { std::cout << "move ctor" << std::endl; }
+		~Widget() { std::cout << "dtor" << std::endl; }
 
 		Widget& operator=(const Widget& rhs) {
-			std::cout << "copy operator =" << std::endl;
+			std::cout << "assign operator =" << std::endl;
 			return *this;
 		}
 		Widget& operator=(Widget&& rhs) noexcept {
-			std::cout << "move operator =" << std::endl;
+			std::cout << "move assign operator =" << std::endl;
+			return *this;
+		}
+		Widget& operator=(const int i) {
+			value = i;
+			std::cout << "interger assign operator =" << std::endl;
 			return *this;
 		}
 
 		//operator int() const { return 0; }
 		//operator float() const { return 0.0f; }
+
+		int value;
 	};
 */
 

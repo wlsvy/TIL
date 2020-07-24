@@ -15,6 +15,23 @@
 namespace Example {
 	using namespace std;
 
+	class Widget {
+	public:
+		Widget() { std::cout << "default ctor" << std::endl; }
+		Widget(int i) : value(i) { std::cout << "Int ctor" << std::endl; }
+		Widget(const Widget& rhs) : value(rhs.value) { std::cout << "copy ctor" << std::endl; }
+		Widget(Widget&& rhs) noexcept : value(rhs.value) { std::cout << "move ctor" << std::endl; }
+		~Widget() { std::cout << "dtor" << std::endl; }
+
+		Widget& operator=(const int i) {
+			value = i;
+			std::cout << "interger assign operator =" << std::endl;
+			return *this;
+		}
+
+		int value;
+	};
+
 	inline void RunSample() {
 		vector<int> vi(100);
 
@@ -27,6 +44,10 @@ namespace Example {
 		//for문 루프를 돌리는 방법보다 훨씬 세련되 보이지 않습니까??
 		copy(vi.begin(), vi.end(), ostream_iterator<int>(cout, " "));
         cout << endl;
+
+		//generate_n 과 back_inserter를 활용해서 for 문 없이 벡터 원소를 채웁시다.
+		vector<Widget> vw;
+		generate_n(back_inserter(vw), 50, [count = 0]() mutable {return Widget(count++); });
 
         //매우 큰 숫자에는 이렇게 구분자를 붙일 수 도 있습니다.
         constexpr long long LongValue = 400'000'000'0'0;
