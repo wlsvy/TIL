@@ -73,12 +73,12 @@
 44. [같은 이름을 가진 것이 있다면 일반 알고리즘 함수보다 멤버 함수가 더 낫다](https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item44.h)
 45. [count, find, binary_search, lower_bound, upper_bound, 그리고 equal_range를 제대로 파악해 두자](https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item45.md)
 46. [알고리즘의 매개 변수로는 함수 대신 함수 객체가 괜찮다](https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item46.h)
+47. [쓰기 전용(write-only) 코드는 만들지 말자](https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item47.h)
 
 
 <!--
-(https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item46.h)
+(https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item47.h)
 
-★ 알고리즘의 매개 변수로는 함수 대신 함수 객체가 괜찮다 / 297
 쓰기 전용(write-only) 코드는 만들지 말자 / 302
 용도에 맞는 헤더를 항상 #include하자 / 306
 STL에 관련된 컴파일러 진단 메시지를 해석하는 능력을 가지자 / 308

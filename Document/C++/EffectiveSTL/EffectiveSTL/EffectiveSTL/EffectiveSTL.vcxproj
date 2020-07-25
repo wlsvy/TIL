@@ -163,6 +163,7 @@
     <ClInclude Include="Item43.h" />
     <ClInclude Include="Item44.h" />
     <ClInclude Include="Item46.h" />
+    <ClInclude Include="Item47.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EffectiveSTL.cpp" />
