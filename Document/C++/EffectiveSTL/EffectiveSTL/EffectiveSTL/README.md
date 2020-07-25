@@ -77,9 +77,6 @@
 <!--
 (https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item45.h)
 
-
-
-count, find, binary_search, lower_bound, upper_bound, 그리고 equal_range를 제대로 파악해 두자 / 286
 ★ 알고리즘의 매개 변수로는 함수 대신 함수 객체가 괜찮다 / 297
 쓰기 전용(write-only) 코드는 만들지 말자 / 302
 용도에 맞는 헤더를 항상 #include하자 / 306

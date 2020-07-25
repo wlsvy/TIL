@@ -28,7 +28,7 @@
 //#include "Item31.h"
 //#include "Item32.h"
 //#include "Item33.h"
-//#include "Item34.h"
+#include "Item34.h"
 //#include "Item41.h"
 #include "Item42.h"
 
@@ -69,7 +69,7 @@ int main() {
 	//Item31::Case1::RunSample();
 	//Item32::Case1::RunSample();
 	//Item33::RunSample();
-	//Item34::Case0::RunSample();
+	Item34::Case0::RunSample();
 	//Item34::Case1::RunSample();
 	//Item34::Case2::RunSample();
 	//Item34::Case3::RunSample();
