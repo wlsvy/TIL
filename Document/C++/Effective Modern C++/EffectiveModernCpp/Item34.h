@@ -57,7 +57,7 @@ namespace Item34 {
 			/*
 				위의 문제점을 고쳐보면
 
-				* 추가적으로 nested bind 표현식의 경우, bind 매개변수로 bind 객체를 넘기는 경우, 가장 바깥쪽 bind 객체의 operator() 가 호출되는 경우
+				* 추가적으로 nested bind 표현식의 경우(bind 매개변수로 bind 객체를 넘길 때) 가장 바깥쪽 bind 객체의 operator() 가 호출될 때.
 				내부 bind 객체의 operator()가 먼저 호출되고 그 반환 값이 바깥쪽 bind 객체의 operator()의 매개변수로 전달됩니다.
 
 				-> bind 객체가 그대로 매개변수로 전달되는 것이 아닙니다.
