@@ -112,6 +112,11 @@ namespace Item42 {
 		/*
 			람다를 활용하는 경우 살짝 복잡해집니다. 
 			decltype으로 클로져 객체의 타입을 알려줘야 하며, 람다 객체는 임의로 생성할 수 없기에 생성자에 클로저 객체를 직접 넘겨줘야 합니다.
+
+			함수 객체를 활용하는 위의 경우, 해당 타입의 새로운 객체가 생성되어 set에 바인딩되지만
+			람다를 활용하는 경우, 매개변수로 넘긴 람다 객체가 그대로 set에 바인딩 됩니다.
+
+			만일의 경우, 람다가 변수 캡쳐를 통해 외부의 값을 참조하는 경우가 있다면, 변수의 생명주기를 고려해서 사용해야 할 것입니다.
 		*/
 		set<Widget, decltype(WidgetSpeedCompareLess)> swGreater2(vw.begin(), vw.end(), WidgetSpeedCompareLess);
 

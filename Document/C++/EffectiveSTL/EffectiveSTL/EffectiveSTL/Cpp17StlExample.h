@@ -56,7 +56,13 @@ namespace Example {
         //매우 큰 숫자에는 이렇게 구분자를 붙일 수 도 있습니다.
         constexpr long long LongValue = 400'000'000'0'0;
 
+		//shuffle을 활용하는 방식입니다.
+		vector<int> source;
+		generate_n(back_inserter(source), 20, [count = 0]() mutable{return rand() % 10; });
 
+		shuffle(source.begin(), source.end(), mt19937(random_device()()));
+
+		//=======
         const std::vector<double> v(10'000'007, 0.5);
 
         {
