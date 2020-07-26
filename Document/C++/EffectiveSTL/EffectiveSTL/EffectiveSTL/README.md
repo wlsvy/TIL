@@ -76,11 +76,4 @@
 47. [쓰기 전용(write-only) 코드는 만들지 말자](https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item47.h)
 48. [용도에 맞는 헤더를 항상 #include하자](https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item48.h)
 49. [STL에 관련된 컴파일러 진단 메시지를 해석하는 능력을 가지자](https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item49.h)
-
-
-<!--
-(https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/EffectiveSTL/EffectiveSTL/EffectiveSTL/Item49.h)
-
-STL에 관련된 컴파일러 진단 메시지를 해석하는 능력을 가지자 / 308
-STL 관련 웹 사이트와 친구하자 / 318
--->
+50. STL 관련 웹 사이트와 친구하자
