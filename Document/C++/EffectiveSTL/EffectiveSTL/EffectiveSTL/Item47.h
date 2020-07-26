@@ -9,7 +9,7 @@
 #include <set>
 #include <memory>
 #include <numeric>
-//#include <cmath>
+
 //쓰기 전용(write-only) 코드는 만들지 말자
 
 namespace Item47 {

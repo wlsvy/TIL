@@ -150,6 +150,9 @@
     <ClInclude Include="Item47.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="Item48.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EffectiveSTL.cpp">
