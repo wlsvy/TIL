@@ -54,6 +54,7 @@ Today I Learned
 - [TypeAliasing](https://github.com/wlsvy/TIL/blob/master/Coding_Problem_Solving/Helper/TypeAliasing.cpp)  
 - [GetArraySize](https://github.com/wlsvy/TIL/blob/master/Coding_Problem_Solving/Helper/GetArraySize.cpp)  
 - [ContainerOutstream](https://github.com/wlsvy/TIL/blob/master/Coding_Problem_Solving/Helper/OutstreamHelper.cpp)  
+- [Lcm, Gcd](https://github.com/wlsvy/TIL/blob/master/Coding_Problem_Solving/Helper/LCM_GCD.cpp)
 
 </details>
 
