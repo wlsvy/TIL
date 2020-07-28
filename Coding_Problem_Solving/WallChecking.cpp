@@ -1,14 +1,17 @@
-vector<int> Weak;
-vector<int> Dist;
-int N;
-int answer = INT_MAX;
+#include <string>
+#include <vector>
+#include <algorithm>
+#include <iostream>
+#include <climits>
+
+using namespace std;
 
 vector<int> Weak;
 vector<int> Dist;
 int N;
 int answer = INT_MAX;
 
-void dfs(vector<bool> before, int cnt, int weakSize) {
+void dfs(vector<bool> walls, int cnt, int weakSize) {
 
 	if (cnt >= answer) return;
 	if (weakSize == 0) {
@@ -18,9 +21,9 @@ void dfs(vector<bool> before, int cnt, int weakSize) {
 	if (cnt >= Dist.size()) return;
 
 	for (auto w : Weak) {
-		if (!before[w]) continue;
+		if (!walls[w]) continue;
 
-		auto after = before;
+		auto after = walls;
 		auto afterWeakSize = weakSize;
 		for (int i = w; i <= w + Dist[cnt]; i++) {
 			if (after[i % N]) {
