@@ -53,7 +53,7 @@ Today I Learned
 [예산](https://programmers.co.kr/learn/courses/30/lessons/43237#) | 이분탐색 | 이분탐색을 활용하는 기본적인 문제입니다. | [BinarySearch_Budget](https://github.com/wlsvy/TIL/blob/master/Coding_Problem_Solving/BinarySearch_Budget.cpp)
 [입국심사](https://programmers.co.kr/learn/courses/30/lessons/43238) | 이분탐색 | 이분탐색을 활용하는 기본적인 문제입니다. | [Immigration](https://github.com/wlsvy/TIL/blob/master/Coding_Problem_Solving/Immigration.cpp)
 [기둥과 보 짓기](https://programmers.co.kr/learn/courses/30/lessons/60061#) | 카카오 | 격자 칸에 대해서, 가로/세로선을 차지하는 물체를 다루는 문제 | [ConstructPillarAndBeam](https://github.com/wlsvy/TIL/blob/master/Coding_Problem_Solving/ConstructPillarAndBeam.cpp)
-
+[외벽 점검](https://programmers.co.kr/learn/courses/30/lessons/60062) | 카카오, DFS | DFS 응용 문제 | [WallChecking](https://github.com/wlsvy/TIL/blob/master/Coding_Problem_Solving/WallChecking.cpp)
 
 
 ### Helper Resources
