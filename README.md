@@ -50,7 +50,7 @@ Today I Learned
 [Candies](https://www.hackerrank.com/challenges/candies/problem) | 그리디,<br> 스택 | 배열내 인접한 원소의 값(학생 학년) 차이에 따라 사탕을 나눠주기. 최소로 필요한 사탕 갯수 구하기 | [Candies](https://github.com/wlsvy/TIL/blob/master/Coding_Problem_Solving/Candies.cpp)
 [멀쩡한 사각형](https://programmers.co.kr/learn/courses/30/lessons/62048) | 최소공배수 | 격자로 나뉘어진 직사각형에서 대각선을 그었을 때, 대각선이 지나가는 격자 사각형 개수를 구하기 | [IntactRectangle](https://github.com/wlsvy/TIL/blob/master/Coding_Problem_Solving/IntactRectangle.cpp) [Lcm, Gcd](https://github.com/wlsvy/TIL/blob/master/Coding_Problem_Solving/Helper/LCM_GCD.cpp)
 [Gena Playing Hanoi](https://www.hackerrank.com/challenges/gena/problem) | 하노이,<br> BFS | 4개의 기둥을 활용하는 하노이의 탑, BFS를 활용하여 해결하는 방식이 참신했던 문제 | [Gena Playing Hanoi](https://github.com/wlsvy/TIL/blob/master/Coding_Problem_Solving/Gena%20Playing%20Hanoi.cpp)
-
+[이분탐색 - 예산](https://programmers.co.kr/learn/courses/30/lessons/43237#) | 이분탐색 | 이분탐색을 활용하는 기본적인 문제입니다. | [BinarySearch_Budget](https://github.com/wlsvy/TIL/blob/master/Coding_Problem_Solving/BinarySearch_Budget.cpp)
 
 ### Helper Resources
 - [TypeAliasing](https://github.com/wlsvy/TIL/blob/master/Coding_Problem_Solving/Helper/TypeAliasing.cpp)  
