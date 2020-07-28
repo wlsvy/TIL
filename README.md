@@ -49,6 +49,8 @@ Today I Learned
 [Goodland Electricity](https://www.hackerrank.com/challenges/pylons/problem) | 그리디,<br> 배열 응용 | 특정 도시들의 정보가 배열로 주어졌을 때, 발전기를 설치하는 최소 횟수 구하기. 시간 효율성을 위해서 배열을 독특한 방식으로 사용해야 하는 것이 특징 | [Goodland Electricity](https://github.com/wlsvy/TIL/blob/master/Coding_Problem_Solving/Goodland%20Electricity.cpp)
 [Candies](https://www.hackerrank.com/challenges/candies/problem) | 그리디,<br> 스택 | 배열내 인접한 원소의 값(학생 학년) 차이에 따라 사탕을 나눠주기. 최소로 필요한 사탕 갯수 구하기 | [Candies](https://github.com/wlsvy/TIL/blob/master/Coding_Problem_Solving/Candies.cpp)
 [멀쩡한 사각형](https://programmers.co.kr/learn/courses/30/lessons/62048) | 최소공배수 | 격자로 나뉘어진 직사각형에서 대각선을 그었을 때, 대각선이 지나가는 격자 사각형 개수를 구하기 | [IntactRectangle](https://github.com/wlsvy/TIL/blob/master/Coding_Problem_Solving/IntactRectangle.cpp) [Lcm, Gcd](https://github.com/wlsvy/TIL/blob/master/Coding_Problem_Solving/Helper/LCM_GCD.cpp)
+[Gena Playing Hanoi](https://www.hackerrank.com/challenges/gena/problem) | 하노이,<br> BFS | 4개의 기둥을 활용하는 하노이의 탑, BFS를 활용하여 해결하는 방식이 참신했던 문제 | [Gena Playing Hanoi](https://github.com/wlsvy/TIL/blob/master/Coding_Problem_Solving/Gena%20Playing%20Hanoi.cpp)
+
 
 ### Helper Resources
 - [TypeAliasing](https://github.com/wlsvy/TIL/blob/master/Coding_Problem_Solving/Helper/TypeAliasing.cpp)  
