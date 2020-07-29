@@ -6,46 +6,40 @@
 
 using namespace std;
 
-vector<int> Weak;
 vector<int> Dist;
 int N;
 int answer = INT_MAX;
 
-void dfs(vector<bool> walls, int cnt, int weakSize) {
+bool InDist(int from, int to, int dist) {
+	if (to >= from && dist >= to - from) return true;
+	if (from > to && dist >= N - from + to) return true;
+	return false;
+}
+void dfs(vector<int> weaks, int cnt) {
 
 	if (cnt >= answer) return;
-	if (weakSize == 0) {
+	if (weaks.size() == 0) {
 		answer = min(answer, cnt);
 		return;
 	}
 	if (cnt >= Dist.size()) return;
 
-	for (auto w : Weak) {
-		if (!walls[w]) continue;
-
-		auto after = walls;
-		auto afterWeakSize = weakSize;
-		for (int i = w; i <= w + Dist[cnt]; i++) {
-			if (after[i % N]) {
-				after[i % N] = false;
-				afterWeakSize--;
-			}
-		}
-		dfs(move(after), cnt + 1, afterWeakSize);
+	for (auto w : weaks) {
+		auto afterRepair = weaks;
+		afterRepair.erase(remove_if(afterRepair.begin(), afterRepair.end(),
+			[w, cnt](int i) {return InDist(w, i, Dist[cnt]); }), afterRepair.end());
+		dfs(move(afterRepair), cnt + 1);
 	}
 }
+
 
 int solution(int n, vector<int> weak, vector<int> dist) {
 	sort(dist.begin(), dist.end(), greater<int>());
 
 	N = n;
-	Weak = weak;
 	Dist = dist;
 
-	vector<bool> walls(N, false);
-	for_each(weak.begin(), weak.end(), [&walls](int i) {walls[i] = true; });
-
-	dfs(move(walls), 0, Weak.size());
+	dfs(move(weak), 0);
 
 	if (answer == INT_MAX) return -1;
 	return answer;
