@@ -35,3 +35,34 @@ vector<long long> solution(long long k, vector<long long> room_number) {
 
 	return answer;
 }
+
+//=================================================
+//두번째 방법, 재귀를 활용하면 위의 과정을 더 단순화 시킬 수 있다.
+//Union Find 알고리즘의 구현 방법과 비슷하다.
+//=================================================
+
+#include <string>
+#include <vector>
+#include <map>
+
+using namespace std;
+
+map<long long, long long> p;
+
+long long find(long long x) {
+    if (p[x] == 0) return x;
+    else {
+        p[x] = find(p[x]);
+        return p[x];
+    }
+}
+
+vector<long long> solution(long long k, vector<long long> room_number) {
+    vector<long long> answer;
+    for (long long x : room_number) {
+        long long y = find(x);
+        answer.push_back(y);
+        p[y] = y + 1;
+    }
+    return answer;
+}
