@@ -60,7 +60,7 @@ int rotateDir[2][4][6] =
 	}
 };
 
-bool isValid(int x, int y) {
+bool checkBoard(int x, int y) {
 	return
 		0 <= x && x < N &&
 		0 <= y && y < N &&
@@ -68,9 +68,9 @@ bool isValid(int x, int y) {
 }
 
 bool isValidPosition(int x, int y, bool isHorizon) {
-	if (!isValid(x, y)) return false;
-	if (isHorizon && !isValid(x + 1, y)) return false;
-	if (!isHorizon && !isValid(x, y + 1)) return false;
+	if (!checkBoard(x, y)) return false;
+	if (isHorizon && !checkBoard(x + 1, y)) return false;
+	if (!isHorizon && !checkBoard(x, y + 1)) return false;
 	return true;
 }
 
@@ -103,8 +103,8 @@ void bfs() {
 		}
 		for (auto rd : rotateDir[m.isHorizon])
 		{
-			if (!isValid(m.x + rd[0], m.y + rd[1])) continue;
-			if (!isValid(m.x + rd[2], m.y + rd[3])) continue;
+			if (!checkBoard(m.x + rd[0], m.y + rd[1])) continue;
+			if (!checkBoard(m.x + rd[2], m.y + rd[3])) continue;
 
 			int nx = m.x + rd[4];
 			int ny = m.y + rd[5];
