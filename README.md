@@ -56,6 +56,7 @@ Today I Learned
 [외벽 점검](https://programmers.co.kr/learn/courses/30/lessons/60062) | 카카오, DFS | DFS 응용 문제 | [WallChecking](https://github.com/wlsvy/TIL/blob/master/Coding_Problem_Solving/WallChecking.cpp)
 [블록 이동하기](https://programmers.co.kr/learn/courses/30/lessons/60063) | 카카오, BFS, 미로 | BFS 응용 문제, 좌표 두 칸을 차지하는 로봇을 회전시켜가며, 목적지 까지 이동시킬 때 최소 이동 횟수를 구하자 | [MoveBlock](https://github.com/wlsvy/TIL/blob/master/Coding_Problem_Solving/MoveBlock.cpp)
 [호텔 방 배정](https://programmers.co.kr/learn/courses/30/lessons/64063) | 카카오 | 연속된 순서의 숫자중 가장 마지막 값을 빠르게 찾는 법을 구현하는 것이 포인트  | [HotelReservation](https://github.com/wlsvy/TIL/blob/master/Coding_Problem_Solving/HotelReservation.cpp)
+[징검다리 건너기](https://programmers.co.kr/learn/courses/30/lessons/64062) | 카카오 | 특정 횟수 만큼 밟으면 중간의 돌이 사라지는 징검다리 문제. | [SteppingStone](https://github.com/wlsvy/TIL/blob/master/Coding_Problem_Solving/SteppingStone.cpp)
 [Max Array Sum](https://www.hackerrank.com/challenges/max-array-sum/problem?h_l=interview&playlist_slugs%5B%5D=interview-preparation-kit&playlist_slugs%5B%5D=dynamic-programming) | DP | 한칸 간격을 두고 인접한 배열 원소의 합을 구하기. 다수의 경우 중에서 최대값을 출력  | [Max Array Sum](https://github.com/wlsvy/TIL/blob/master/Coding_Problem_Solving/Max%20Array%20Sum.cpp)
 
 ### Helper Resources
