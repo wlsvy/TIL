@@ -58,6 +58,7 @@ Today I Learned
 [호텔 방 배정](https://programmers.co.kr/learn/courses/30/lessons/64063) | 카카오 | 연속된 순서의 숫자중 가장 마지막 값을 빠르게 찾는 법을 구현하는 것이 포인트  | [HotelReservation](https://github.com/wlsvy/TIL/blob/master/Coding_Problem_Solving/HotelReservation.cpp)
 [징검다리 건너기](https://programmers.co.kr/learn/courses/30/lessons/64062) | 카카오 | 특정 횟수 만큼 밟으면 중간의 돌이 사라지는 징검다리 문제. | [SteppingStone](https://github.com/wlsvy/TIL/blob/master/Coding_Problem_Solving/SteppingStone.cpp)
 [튜플](https://programmers.co.kr/learn/courses/30/lessons/64065) | 카카오, 문자열 | 문제 풀이 로직보다 문자열 분석이 더 귀찮은 문제 | [Tuple](https://github.com/wlsvy/TIL/blob/master/Coding_Problem_Solving/Tuple.cpp)
+[불량사용자](https://programmers.co.kr/learn/courses/30/lessons/64064) | 카카오, DFS | DFS 응용 문제, 제재 대상 아이디와 유저 아이디를 매칭 시키는 방법이 이전까지 풀어왔던 DFS 방식과는 다르다. | [IllegalUser](https://github.com/wlsvy/TIL/blob/master/Coding_Problem_Solving/IllegalUser.cpp)
 [Max Array Sum](https://www.hackerrank.com/challenges/max-array-sum/problem?h_l=interview&playlist_slugs%5B%5D=interview-preparation-kit&playlist_slugs%5B%5D=dynamic-programming) | DP | 한칸 간격을 두고 인접한 배열 원소의 합을 구하기. 다수의 경우 중에서 최대값을 출력  | [Max Array Sum](https://github.com/wlsvy/TIL/blob/master/Coding_Problem_Solving/Max%20Array%20Sum.cpp)
 
 ### Helper Resources
