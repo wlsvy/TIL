@@ -1,4 +1,4 @@
-﻿# TIL
+# TIL
 Today I Learned
 
 
@@ -26,6 +26,10 @@ Today I Learned
 <details>
 <summary>List</summary>
 
+## 좀더 효율적인 문제풀이를 위해서
+- #### 예외처리가 복잡해보인다 싶으면 일단 DFS/BFS를 먼저 생각하자
+- #### map/unordered_map/set 등을 써야할 필요성을 느낀다면 그 전에 먼저 배열을 적용할 수 있는지 생각하자
+- #### STL 컨테이너를 활용하는 경우, 더 빠른 코드 작성과, 가독성을 위해서 반복자(iterator) 사용은 자제하자.
 
 문제 | 분류 | 설명 | 해답 코드  
 |---|---|---|---|
