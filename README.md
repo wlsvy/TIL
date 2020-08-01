@@ -63,6 +63,7 @@ Today I Learned
 [징검다리 건너기](https://programmers.co.kr/learn/courses/30/lessons/64062) | 카카오 | 특정 횟수 만큼 밟으면 중간의 돌이 사라지는 징검다리 문제. | [SteppingStone](https://github.com/wlsvy/TIL/blob/master/Coding_Problem_Solving/SteppingStone.cpp)
 [튜플](https://programmers.co.kr/learn/courses/30/lessons/64065) | 카카오, 문자열 | 문제 풀이 로직보다 문자열 분석이 더 귀찮은 문제 | [Tuple](https://github.com/wlsvy/TIL/blob/master/Coding_Problem_Solving/Tuple.cpp)
 [불량사용자](https://programmers.co.kr/learn/courses/30/lessons/64064) | 카카오, DFS | DFS 응용 문제, 제재 대상 아이디와 유저 아이디를 매칭 시키는 방법이 이전까지 풀어왔던 DFS 방식과는 다르다. | [IllegalUser](https://github.com/wlsvy/TIL/blob/master/Coding_Problem_Solving/IllegalUser.cpp)
+[수식 최대화](https://programmers.co.kr/learn/courses/30/lessons/67257) | 카카오, 문자열, 사칙연산 | 연산자 우선순위에 따라 수식 표현식 결과의 최댓값을 구하는 문제.  | [MaximizeExpression](https://github.com/wlsvy/TIL/blob/master/Coding_Problem_Solving/MaximizeExpression.cpp)
 [Max Array Sum](https://www.hackerrank.com/challenges/max-array-sum/problem?h_l=interview&playlist_slugs%5B%5D=interview-preparation-kit&playlist_slugs%5B%5D=dynamic-programming) | DP | 한칸 간격을 두고 인접한 배열 원소의 합을 구하기. 다수의 경우 중에서 최대값을 출력  | [Max Array Sum](https://github.com/wlsvy/TIL/blob/master/Coding_Problem_Solving/Max%20Array%20Sum.cpp)
 
 ### Helper Resources
