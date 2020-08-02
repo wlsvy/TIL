@@ -65,6 +65,7 @@ Today I Learned
 [불량사용자](https://programmers.co.kr/learn/courses/30/lessons/64064) | 카카오, DFS | DFS 응용 문제, 제재 대상 아이디와 유저 아이디를 매칭 시키는 방법이 이전까지 풀어왔던 DFS 방식과는 다르다. | [IllegalUser](https://github.com/wlsvy/TIL/blob/master/Coding_Problem_Solving/IllegalUser.cpp)
 [수식 최대화](https://programmers.co.kr/learn/courses/30/lessons/67257) | 카카오, 문자열, 사칙연산 | 연산자 우선순위에 따라 수식 표현식 결과의 최댓값을 구하는 문제.  | [MaximizeExpression](https://github.com/wlsvy/TIL/blob/master/Coding_Problem_Solving/MaximizeExpression.cpp)
 [보석 쇼핑](https://programmers.co.kr/learn/courses/30/lessons/67258) | 카카오, 배열 | 조건을 만족하는 배열의 연속된 범위를 구하는 문제.  | [GemShopping](https://github.com/wlsvy/TIL/blob/master/Coding_Problem_Solving/GemShopping.cpp)
+[동굴 탐험](https://programmers.co.kr/learn/courses/30/lessons/67260) | 카카오, DFS/BFS | DFS/BFS 응용 문제, 특정 노드는 바로 접근할 수 없으며, 다른 임의의 노드에 방문한 뒤부터 잡근이 가능. 특정 노드를 방문하기 위해 선행되는 조건을 만족하는지 확인하는 과정에 주의하자. | [CaveAdventure](https://github.com/wlsvy/TIL/blob/master/Coding_Problem_Solving/CaveAdventure.cpp)
 [Max Array Sum](https://www.hackerrank.com/challenges/max-array-sum/problem?h_l=interview&playlist_slugs%5B%5D=interview-preparation-kit&playlist_slugs%5B%5D=dynamic-programming) | DP | 한칸 간격을 두고 인접한 배열 원소의 합을 구하기. 다수의 경우 중에서 최대값을 출력  | [Max Array Sum](https://github.com/wlsvy/TIL/blob/master/Coding_Problem_Solving/Max%20Array%20Sum.cpp)
 
 ### Helper Resources
