@@ -55,7 +55,7 @@ void bfs(UShort sy, UShort sx) {
 
 			int diff = abs(board[ny][nx] - board[f[0]][f[1]]);
 			if (diff > H) {
-				s.insert(diff * 90000 + (int)ny * 300 + (int)nx);
+				s.insert(diff * 90000 + (int)ny * 300 + (int)nx);	//set에 높이차(diff)/ x,y 좌표를 패킹해서 입력. set 내부에서는 diff 크기 순서대로 정렬된 형태가 된다.
 				continue;
 			}
 			q.push({ ny, nx });
@@ -73,7 +73,7 @@ int solution(vector<vector<int>> land, int height) {
 		int diff, y, x;
         
 		while (!s.empty()) {
-			auto i = s.begin();
+			auto i = s.begin();	//set 내부에서 더 이상 유효하지 않은 데이터들(이미 방문한 노드)을 전부 제거하는 과정, 
 			diff = *i / 90000;
 			y = (*i % 90000) / 300;
 			x = *i % 300;
@@ -84,7 +84,7 @@ int solution(vector<vector<int>> land, int height) {
 		if (s.empty()) break;
         
 		answer += diff;
-		bfs(y, x);
+		bfs(y, x);		//set에서 방문한 노드를 전부 제거한 뒤, diff가 가장 작은 데이터에 대해서 새로 bfs를 수행한다.
 	}
 
 	return answer;
