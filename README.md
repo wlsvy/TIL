@@ -68,6 +68,7 @@ Today I Learned
 [보석 쇼핑](https://programmers.co.kr/learn/courses/30/lessons/67258) | 카카오, 배열 | 조건을 만족하는 배열의 연속된 범위를 구하는 문제.  | [GemShopping](https://github.com/wlsvy/TIL/blob/master/Coding_Problem_Solving/GemShopping.cpp)
 [동굴 탐험](https://programmers.co.kr/learn/courses/30/lessons/67260) | 카카오, DFS/BFS | DFS/BFS 응용 문제, 특정 노드는 바로 접근할 수 없으며, 다른 임의의 노드에 방문한 뒤부터 잡근이 가능. 특정 노드를 방문하기 위해 선행되는 조건을 만족하는지 확인하는 과정에 주의하자. | [CaveAdventure](https://github.com/wlsvy/TIL/blob/master/Coding_Problem_Solving/CaveAdventure.cpp)
 [Max Array Sum](https://www.hackerrank.com/challenges/max-array-sum/problem?h_l=interview&playlist_slugs%5B%5D=interview-preparation-kit&playlist_slugs%5B%5D=dynamic-programming) | DP | 한칸 간격을 두고 인접한 배열 원소의 합을 구하기. 다수의 경우 중에서 최대값을 출력  | [Max Array Sum](https://github.com/wlsvy/TIL/blob/master/Coding_Problem_Solving/Max%20Array%20Sum.cpp)
+[스티커 모으기(2)](https://programmers.co.kr/learn/courses/30/lessons/12971) | DP | 일차원 DP 응용 문제  | [Max Array Sum](https://github.com/wlsvy/TIL/blob/master/CollectingSticker.cpp)
 
 ### Helper Resources
 - [TypeAliasing](https://github.com/wlsvy/TIL/blob/master/Coding_Problem_Solving/Helper/TypeAliasing.cpp)  
