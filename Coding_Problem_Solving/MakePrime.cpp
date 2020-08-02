@@ -1,10 +1,8 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-set<int> prime = { 2 };
-
 bool isPrime(int n) {
-
+    static set<int> prime = { 2 };
     for (int i = *(--prime.end()) + 1; i <= n; i++)
     {
          if (all_of(prime.begin(), prime.end(), [i](int p) { return i % p != 0; })) {
