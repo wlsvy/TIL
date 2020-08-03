@@ -51,3 +51,34 @@ long long solution(vector<vector<int> > land, int P, int Q) {
 
 	return answer;
 }
+
+///////////////////////////
+//두 번째 방법
+///////////////////////////
+
+#include <bits/stdc++.h>
+using namespace std;
+
+long long solution(vector<vector<int> > land, int P, int Q)
+{
+    vector<long long > v;
+    for (auto& vi : land) v.insert(v.end(), vi.begin(), vi.end());
+    sort(v.begin(), v.end());
+
+    long long temp = 0;
+    for (int i = 0; i < v.size(); i++)
+        temp += (v[i]-v[0]) * Q;
+
+    long long answer = temp;
+
+    for (int i = 1; i < v.size();i++) {
+
+        int down = i;
+        int up = v.size() - down;
+
+        temp += down * (v[i] - v[i - 1])*P;
+        temp -= up * (v[i] - v[i - 1])*Q;
+        answer = min(answer, temp);
+    }
+    return answer;
+}
