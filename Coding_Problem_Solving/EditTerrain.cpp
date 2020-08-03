@@ -2,7 +2,6 @@
 using namespace std;
 using LL = long long;
 
-LL totalM;
 vector<LL> oneDimensionLand;
 vector<LL> accum;
 LL answer = LONG_MAX;
