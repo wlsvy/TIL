@@ -2,11 +2,12 @@
 using namespace std;
 
 bool isPrime(int n) {
-    static set<int> prime = { 2 };
-    for (int i = *(--prime.end()) + 1; i <= n; i++)
+    static int last = 2;
+    static set<int> prime = { last };
+    for (; last <= n; last++)
     {
-         if (all_of(prime.begin(), prime.end(), [i](int p) { return i % p != 0; })) {
-            prime.insert(i);
+         if (all_of(prime.begin(), prime.end(), [](int p) { return last % p != 0; })) {
+            prime.insert(last);
         }
     }
     return prime.find(n) != prime.end();
