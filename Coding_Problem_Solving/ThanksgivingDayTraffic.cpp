@@ -16,7 +16,7 @@ int solution(vector<string> lines) {
 		vf[1].push_back(h * 3600 + m * 60 + s);
 	}
 	
-	long answer = 0;
+	int answer = 0;
 	for (int i = 0; i < N; i++)
 	{
 		auto testTarget =
@@ -33,12 +33,12 @@ int solution(vector<string> lines) {
 				if ((t <= vf[0][j] && vf[0][j] < t + 1.0f) ||
 					(t <= vf[1][j] && vf[1][j] < t + 1.0f) ||
 					(t <= vf[0][j] && vf[1][j] < t + 1.0f) ||
-					(vf[0][j] <= t && t + 1.0f <= vf[1][j]))
+					(vf[0][j] <= t && t + 1.0f < vf[1][j]))
 				{
 					tmp++;
 				}
 			}
-			answer = max(answer, (long)tmp);
+			answer = max(answer, tmp);
 		}
 	}
 
