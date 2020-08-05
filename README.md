@@ -74,6 +74,7 @@ Today I Learned
 [땅따먹기](https://programmers.co.kr/learn/courses/30/lessons/12913) | DP | 이차원 DP  | [Hopscotch](https://github.com/wlsvy/TIL/blob/master/Coding_Problem_Solving/Hopscotch.cpp)
 [가장 큰 정사각형 찾기](https://programmers.co.kr/learn/courses/30/lessons/12905#) | DP | 이차원 DP, 0과 1로 이루어진 2차원 배열에서 1이 차지하는 칸에 대해 가장 큰 정사각형 찾기 | [FindBiggestSquare](https://github.com/wlsvy/TIL/blob/master/Coding_Problem_Solving/FindBiggestSquare.cpp)
 [Lego Blocks](https://www.hackerrank.com/challenges/lego-blocks/problem) | DP | 특정 칸을 완전히 채울 수 있게 레고블록을 사용하는 경우의 수 구하기. 접근법에 대한 배경지식이 없으면 코드 이해가 어려우니, 해설 페이지를 반드시 참조할 것. | [LegoBlocks](https://github.com/wlsvy/TIL/blob/master/Coding_Problem_Solving/LegoBlocks.cpp)
+[도둑질](https://programmers.co.kr/learn/courses/30/lessons/42897) | DP | 일차원 DP 응용문제, 스티커 모으기(2) 와 비슷한 유형 | [Theft](https://gist.github.com/wlsvy/dae136e5061a5ec276f179ae8e065856)
 [Xor and Sum](https://www.hackerrank.com/challenges/xor-and-sum/problem) | 비트 연산 | 두 개의 2진수 값에 대해서, 한쪽 값을 1비트 씩 쉬프트 시킬 때 마다, 두 값의 xor 결과의 합을 구하기. (어려움)  | [xor-and-sum](https://github.com/wlsvy/TIL/blob/master/Coding_Problem_Solving/xor-and-sum.cpp)
 [지형 편집](https://programmers.co.kr/learn/courses/30/lessons/12984#) | 이분 탐색 | 블록을 쌓아 만든(마인크래프트 처럼) 지형에서 서로 다른 높낮이를 균일하게 만들 때 블록을 새로 만들거나 삭제할 때 들어가는 총 비용 구하기. 이분 탐색을 활용하지 않은 보다 간단한 해법이 존재한다.  | [EditTerrain](https://github.com/wlsvy/TIL/blob/master/Coding_Problem_Solving/EditTerrain.cpp)
 
