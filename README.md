@@ -58,6 +58,7 @@ Today I Learned
 [예산](https://programmers.co.kr/learn/courses/30/lessons/43237#) | 이분탐색 | 이분탐색을 활용하는 기본적인 문제입니다. | [BinarySearch_Budget](https://github.com/wlsvy/TIL/blob/master/Coding_Problem_Solving/BinarySearch_Budget.cpp)
 [입국심사](https://programmers.co.kr/learn/courses/30/lessons/43238) | 이분탐색 | 이분탐색을 활용하는 기본적인 문제입니다. | [Immigration](https://github.com/wlsvy/TIL/blob/master/Coding_Problem_Solving/Immigration.cpp)
 [추석 트래픽](https://programmers.co.kr/learn/courses/30/lessons/17676) | 카카오, 문자열 | 어떤 작업의 시작/종료 시간이 주어졌을 때, 특정 1초 구간에서 처리되는 작업의 최대 개수 구하기 | [ThanksgivingDayTraffic](https://github.com/wlsvy/TIL/blob/master/Coding_Problem_Solving/ThanksgivingDayTraffic.cpp)
+[블록 게임](https://programmers.co.kr/learn/courses/30/lessons/42894) | 카카오, 테트리스 | 특정 테트리스 블록이 쌓인 상태에서, 추가적인 1x1 칸 블록을 임의로 삽입할 때 제거할 수 있는 블록의 최대 갯수 구하기 | [BlockGame](https://gist.github.com/wlsvy/bbb650588fef44c8aa663fd8e19cc262)
 [기둥과 보 짓기](https://programmers.co.kr/learn/courses/30/lessons/60061#) | 카카오 | 격자 칸에 대해서, 가로/세로선을 차지하는 물체를 다루는 문제 | [ConstructPillarAndBeam](https://github.com/wlsvy/TIL/blob/master/Coding_Problem_Solving/ConstructPillarAndBeam.cpp)
 [외벽 점검](https://programmers.co.kr/learn/courses/30/lessons/60062) | 카카오, DFS | DFS 응용 문제 | [WallChecking](https://github.com/wlsvy/TIL/blob/master/Coding_Problem_Solving/WallChecking.cpp)
 [블록 이동하기](https://programmers.co.kr/learn/courses/30/lessons/60063) | 카카오, BFS, 미로 | BFS 응용 문제, 좌표 두 칸을 차지하는 로봇을 회전시켜가며, 목적지 까지 이동시킬 때 최소 이동 횟수를 구하자 | [MoveBlock](https://github.com/wlsvy/TIL/blob/master/Coding_Problem_Solving/MoveBlock.cpp)
