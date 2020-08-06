@@ -1,35 +1,28 @@
-#include <string>
-#include <vector>
-#include <iostream>
-#include <numeric>
-#include <map>
-#include <set>
-#include <algorithm>
-
+#include <bits/stdc++.h>
 using namespace std;
 
 vector<string> uid, bid;
 set<int> answer;
 bool check[10];
 
-void dfs(int index, int mask) {
-	if (index == bid.size()) answer.insert(mask);
+void dfs(int bnum, int mask) {
+	if (bnum == bid.size()) answer.insert(mask);
 
-	for (int i = 0; i < uid.size(); i++) {
-		if (check[i]) continue;
-		if (uid[i].size() != bid[index].size()) continue;
+	for (int unum = 0; unum < uid.size(); unum++) {
+		if (check[unum]) continue;
+		if (uid[unum].size() != bid[bnum].size()) continue;
 
-		int j = 0;
-		for (; j < uid[i].size(); j++) {
-			if (bid[index][j] == '*') continue;
-			if (uid[i][j] == bid[index][j]) continue;
+		int i = 0;
+		for (; i < uid[unum].size(); i++) {
+			if (bid[bnum][i] == '*') continue;
+			if (uid[unum][i] == bid[bnum][i]) continue;
 			break;
 		}
 
-		if (j == uid[i].size()) {
-			check[i] = true;
-			dfs(index + 1, mask | ( 1 << i ));
-			check[i] = false;
+		if (i == uid[unum].size()) {
+			check[unum] = true;
+			dfs(bnum + 1, mask | (1 << unum));
+			check[unum] = false;
 		}
 	}
 }
