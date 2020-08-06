@@ -8,7 +8,6 @@ int dir[4][2] =
     {0, -1}
 };
 
-
 int ans = 0;
 
 void dfs(int current, int before, int k) {
@@ -20,8 +19,7 @@ void dfs(int current, int before, int k) {
         return;
     }
 
-    stack<int> st;
-    int cnt = 0;
+    queue<int> nextDir;
     for (int i = 0; i < 4; i++) {
         int ny = y + dir[i][0];
         int nx = x + dir[i][1];
@@ -30,15 +28,12 @@ void dfs(int current, int before, int k) {
         if (ny < 0 || ny >= row || nx < 0 || nx >= col) continue;
         if (m[ny][nx] == 'X') continue;
         if (next == before) continue;
-        cnt++;
-        st.push(next);
+        nextDir.push(next);
     }
-    if (cnt > 1) {
-        k++;
-    }
-    while (!st.empty()) {
-        int next = st.top(); st.pop();
-        dfs(next, current, k);
+    if (nextDir.size() >= 2) k++;
+    while (!nextDir.empty()) {
+        dfs(nextDir.front(), current, k);
+        nextDir.pop();
     }
 }
 
