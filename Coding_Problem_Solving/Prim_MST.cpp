@@ -1,10 +1,4 @@
-#include <string>
-#include <vector>
-#include <iostream>
-#include <algorithm>
-#include <unordered_map>
-#include <queue>
-
+#include <bits/stdc++.h>
 using namespace std;
 
 using ULL = unsigned long long;
