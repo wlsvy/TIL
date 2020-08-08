@@ -3,42 +3,35 @@
 첫번째 방법
 ==============
 */
-#include <string>
-#include <vector>
-#include <algorithm>
-#include <iostream>
-#include <climits>
-
+#include <bits/stdc++.h>
 using namespace std;
 
 int solution(string s) {
-	int len = s.size();
-	int answer = len;
-
-	for (int i = 1; i <= len / 2; i++) {
-		string result = "";
-		auto target = s.substr(0, i);
-		int cnt = 2;
-
-		for (int j = i; j <= len; j += i) {
-			if (s.substr(j, i) == target) {
-				cnt++;
-			}
-			else {
-				if (cnt > 2)result += to_string(cnt);
-				result += target;
-				cnt = 2;
-				target = s.substr(j, i);
-			}
-
-
-		}
-		if (len / i != 0) result += s.substr((len / i)*i);
-		answer = min(answer, (int)result.size());
-	}
-
-
-	return answer;
+    int answer = s.length();
+    for (int len = s.length() / 2; len >= 1; len--) {
+        int cnt = 1;
+        string sub = s.substr(0, len);
+        string temp = "";
+        for (int j = len; j <= s.length(); j += len) {
+            if (sub == s.substr(j, len)) {
+                cnt++;
+            }
+            else {
+                if (cnt == 1)
+                    temp += sub;
+                else
+                    temp += (to_string(cnt) + sub);
+                sub = s.substr(j, len);
+                cnt = 1;
+            }
+            if (j + len > s.length()) {
+                temp += s.substr(j, s.length());
+                break;
+            }
+        }
+        answer = min(answer, (int)temp.length());
+    }
+    return answer;
 }
 
 /*
