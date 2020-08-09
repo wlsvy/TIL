@@ -26,11 +26,6 @@ Today I Learned
 <details>
 <summary>List</summary>
 
-## 좀더 효율적인 문제풀이를 위해서
-- #### 예외처리가 복잡해보인다 싶으면 일단 DFS/BFS를 먼저 생각하자
-- #### map/unordered_map/set 등을 써야할 필요성을 느낀다면 그 전에 먼저 배열을 적용할 수 있는지 생각하자
-- #### STL 컨테이너를 활용하는 경우, 더 빠른 코드 작성과, 가독성을 위해서 반복자(iterator) 사용은 자제하자.
-
 문제 | 분류 | 설명 | 해답 코드  
 |---|---|---|---|
 [소수 만들기](https://programmers.co.kr/learn/courses/30/lessons/12977), [소수 찾기](https://programmers.co.kr/learn/courses/30/lessons/12921#) | 소수 | 앞으로 소수 관련 문제 풀때 참조합시다. | [MakePrime](https://github.com/wlsvy/TIL/blob/master/Coding_Problem_Solving/MakePrime.cpp), [FindPrime](https://github.com/wlsvy/TIL/blob/master/Coding_Problem_Solving/FindPrime.cpp)
@@ -83,6 +78,13 @@ Today I Learned
 [3 x N 타일링](https://programmers.co.kr/learn/courses/30/lessons/12902) | DP, 블록쌓기 | 일차원 DP 응용문제, [접근법은 여기서 확인](https://wonillism.github.io/programmers/Programmers-3xn-tiling/) | [3xN_tiling](https://gist.github.com/wlsvy/768ec04cacdbd50dbbf2016925933495)
 [Xor and Sum](https://www.hackerrank.com/challenges/xor-and-sum/problem) | 비트 연산 | 두 개의 2진수 값에 대해서, 한쪽 값을 1비트 씩 쉬프트 시킬 때 마다, 두 값의 xor 결과의 합을 구하기. (어려움)  | [xor-and-sum](https://github.com/wlsvy/TIL/blob/master/Coding_Problem_Solving/xor-and-sum.cpp)
 [지형 편집](https://programmers.co.kr/learn/courses/30/lessons/12984#) | 이분 탐색 | 블록을 쌓아 만든(마인크래프트 처럼) 지형에서 서로 다른 높낮이를 균일하게 만들 때 블록을 새로 만들거나 삭제할 때 들어가는 총 비용 구하기. 이분 탐색을 활용하지 않은 보다 간단한 해법이 존재한다.  | [EditTerrain](https://github.com/wlsvy/TIL/blob/master/Coding_Problem_Solving/EditTerrain.cpp)
+
+
+## 좀더 효율적인 문제풀이를 위해서
+- #### 예외처리가 복잡해보인다 싶으면 일단 DFS/BFS를 먼저 생각하자
+- #### 데이터 갯수가 많아 DFS/BFS 적용이 어렵다면 DP를 생각하자.
+- #### map/unordered_map/set 등을 써야할 필요성을 느낀다면 그 전에 먼저 배열을 적용할 수 있는지 생각하자
+- #### STL 컨테이너를 활용하는 경우, 더 빠른 코드 작성과, 가독성을 위해서 반복자(iterator) 사용은 자제하자.
 
 ### Helper Resources
 - [TypeAliasing](https://github.com/wlsvy/TIL/blob/master/Coding_Problem_Solving/Helper/TypeAliasing.cpp)  
