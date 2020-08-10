@@ -35,6 +35,7 @@
 int main() {
 
 	//Example::RunSample();
+	Example::RunIosSample();
 
 	//Item07::UsingFunctionObject::RunSample();
 	//Item08::RunSample();
@@ -65,7 +66,7 @@ int main() {
 	//Item44::RunSample();
 	//Item46::RunSample();
 	//Item47::RunSample();
-	Item49::RunSample();
+	//Item49::RunSample();
 
 	system("pause");
 	return 0;

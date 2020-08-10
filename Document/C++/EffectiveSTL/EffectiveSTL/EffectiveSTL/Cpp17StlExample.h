@@ -12,6 +12,14 @@
 #include <chrono>
 #include <execution>
 #include <random>
+#include <iomanip>
+#include <array>
+#include <tuple>
+#include <ctime>
+#include <string>
+#include <iostream>
+#include <sstream>
+#include <iomanip>
 
 namespace Example {
 	using namespace std;
@@ -63,6 +71,23 @@ namespace Example {
 
 		shuffle(source.begin(), source.end(), mt19937(random_device()()));
 
+		
+		//algorithm - adjacent_find	
+		//algorithm - mismatch, equal
+		//algorithm - minmax, minmax_element
+		//algorithm - search, search_n
+		//algorithm - partition, partition_point
+		//algorithm - merge, inplace_merge, include
+		//algorithm - set_union(합집합), set_difference(차집합, A - B), set_intersection(교집합), set_symmetric_difference(합집합 - 교집합, A & B - AUB)
+		//algorithm - make_heap, pop_heap, push_heap
+		//iterator - prev, next
+		//numeric - adjacent_difference, inner_product, partial_sum
+		//numeric - iota
+		//numeric - accumulate
+		std::cout << "default fill: " << std::setw(10) << 42 << '\n'
+			<< "setfill('*'): " << std::setfill('*')
+			<< std::setw(10) << 42 << '\n';
+
 		//=======
         const std::vector<double> v(10'000'007, 0.5);
 
@@ -84,5 +109,120 @@ namespace Example {
             std::cout << "std::reduce result "
                 << result << " took " << ms.count() << " ms\n";
         }
+	}
+
+	inline void RunIosSample() {
+
+		//ios - std::cout.width
+		//ios - std::cout.fill
+		//ios - std::setw
+		//ios - dec, oct, hex
+		//ios - boolalpha, noboolalpha (bool 표현)
+		//ios - setprecision, precision (소수점 자리수)
+		//ios - showpoint, noshowpoint (소수점 표현)
+		//ios - showpos, noshowpos (부호 표현)
+		//ios - showbase, noshowbase
+		//ios - uppercase, nouppercase
+		//ios - fixed, scientific, hexfloat, defaultfloat 
+
+		//setw, setfill
+		std::cout << "default fill: " << std::setw(10) << 42 << '\n'
+				  << "setfill('*'): " << std::setfill('*')
+									  << std::setw(10) << 42 << '\n';
+		std::cout << std::setfill(' ') << std::endl;
+
+		/*
+			default fill:         42
+			setfill('*'): ********42
+		*/
+
+		//dec, hex, oct
+		std::cout << "The number 42 in octal:   " << std::oct << 42 << '\n'
+			<< "The number 42 in decimal: " << std::dec << 42 << '\n'
+			<< "The number 42 in hex:     " << std::hex << 42 << '\n';
+		std::cout << std::dec << std::endl;
+
+		/*
+			The number 42 in octal:   52
+			The number 42 in decimal: 42
+			The number 42 in hex:     2a
+		*/
+
+		//left, right, internal,  fill
+		std::cout.fill('*');
+		std::cout.imbue(std::locale("en_US.utf8"));
+		std::cout << "Left fill:\n" << std::left << std::setfill('*')
+			<< std::setw(12) << -1.23 << '\n'
+			<< std::setw(12) << std::hex << std::showbase << 42 << '\n'
+			<< std::setw(12) << std::put_money(123, true) << "\n\n";
+		std::cout << "Internal fill:\n" << std::internal
+			<< std::setw(12) << -1.23 << '\n'
+			<< std::setw(12) << 1.23 << '\n'
+			<< std::setw(12) << 42 << '\n'
+			<< std::setw(12) << std::put_money(123, true) << "\n\n";
+		std::cout << "Right fill:\n" << std::right
+			<< std::setw(12) << -1.23 << '\n'
+			<< std::setw(12) << 42 << '\n'
+			<< std::setw(12) << std::put_money(123, true) << '\n';
+		//std::cout.fill(' ');
+		std::cout << std::setfill(' ') << std::dec << std::endl;
+		/*
+			Left fill:
+			-1.23*******
+			0x2a********
+			USD1.23*****
+			
+			Internal fill:
+			-*******1.23
+			********1.23
+			0x********2a
+			USD*****1.23
+			
+			Right fill:
+			*******-1.23
+			********0x2a
+			*****USD1.23
+		*/
+
+		struct {
+			string Str;
+			int interger;
+			bool Boolean;
+		} Values[] =
+		{
+			{ "Row0", 0, true},
+			{ "Row1", 1, false},
+			{ "Row2", 2, true},
+			{ "Row3", 99, false},
+			{ "Row4", -99, true},
+			{ "Row5", 999, false}
+		};
+
+		std::cout.setf(std::ios::left, std::ios::adjustfield);		//좌측 정렬
+		//std::cout.setf(std::ios::right, std::ios::adjustfield);		//우측 정렬
+		//std::cout.setf(std::ios::internal, std::ios::adjustfield);
+
+		for (auto v : Values) {
+			auto const& [str, interger, boolean] = v;
+
+			std::cout.width(10);
+			std::cout << ("| " + str) << "| ";
+
+			std::cout.width(5);
+			std::cout << interger << "| ";
+
+			std::cout.width(10);
+			std::cout << std::boolalpha << boolean << '|';
+
+			std::cout << std::endl;
+		}
+		/*
+			| Row0    | 0    | true      |
+			| Row1    | 1    | false     |
+			| Row2    | 2    | true      |
+			| Row3    | 99    | false     |
+			| Row4    | -99   | true      |
+			| Row5    | 999  | false     |
+		*/
 	}
 }
