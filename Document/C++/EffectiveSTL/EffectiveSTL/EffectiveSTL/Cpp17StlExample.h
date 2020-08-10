@@ -164,7 +164,6 @@ namespace Example {
 			<< std::setw(12) << -1.23 << '\n'
 			<< std::setw(12) << 42 << '\n'
 			<< std::setw(12) << std::put_money(123, true) << '\n';
-		//std::cout.fill(' ');
 		std::cout << std::setfill(' ') << std::dec << std::endl;
 		/*
 			Left fill:
@@ -220,8 +219,8 @@ namespace Example {
 			| Row0    | 0    | true      |
 			| Row1    | 1    | false     |
 			| Row2    | 2    | true      |
-			| Row3    | 99    | false     |
-			| Row4    | -99   | true      |
+			| Row3    | 99   | false     |
+			| Row4    | -99  | true      |
 			| Row5    | 999  | false     |
 		*/
 	}
