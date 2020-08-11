@@ -9,6 +9,7 @@ Today I Learned
 - [C++ Type Casting](https://github.com/wlsvy/TIL/blob/master/Document/C++/Cpp%20Type%20Casting.md)
 - [C++ Value Category](https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/C%2B%2B%20Value%20Category.md)
 - [PrependidColon](https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/PrependedColon.md)
+- [C++ Ios api 정리](https://gist.github.com/wlsvy/329df8104a9b51bd65f6cda0dc2acde4#Category)
 
 ## C#
 - [Effective C#](https://github.com/wlsvy/TIL/tree/master/Document/C%23/Effective%20CSharp/EffectiveCSharp)
