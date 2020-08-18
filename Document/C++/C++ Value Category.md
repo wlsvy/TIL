@@ -46,7 +46,55 @@
   - 이동이 가능하면 rvalue 표현식이라 할 수 있습니다. xvalue와 ravlue를 포함합니다.
   
 ## C++ 17 이후
-- copy elision 이 일부 조건에서 필수적인 기능으로 자리잡게 되면서, prvalue 표현식과 그 표현식으로 부터 생성된 임시 객체를 분리해야 했습니다. 결과적으로 prvalue 표현식은 더 이상 이동되지 않게 됩니다. 
+- [copy elision](https://en.cppreference.com/w/cpp/language/reinterpret_cast) 이 일부 조건에서 필수적인 기능으로 자리잡게 되면서, prvalue 표현식과 그 표현식으로 부터 생성된 임시 객체를 분리해야 했습니다. 결과적으로 prvalue 표현식은 더 이상 이동되지 않게 됩니다. 
+> 컴파일러가 알아서 최적화해주니 이동/복사될 필요가 없는 것이라 합니다. 아래는 그 예시
+
+```c++
+#include <iostream>
+#include <vector>
+ 
+struct Noisy {
+    Noisy() { std::cout << "constructed\n"; }
+    Noisy(const Noisy&) { std::cout << "copy-constructed\n"; }
+    Noisy(Noisy&&) { std::cout << "move-constructed\n"; }
+    ~Noisy() { std::cout << "destructed\n"; }
+};
+ 
+std::vector<Noisy> f() {
+    std::vector<Noisy> v = std::vector<Noisy>(3); // copy elision when initializing v
+                                                  // from a temporary (until C++17)
+                                                  // from a prvalue (since C++17)
+    return v; // NRVO from v to the result object (not guaranteed, even in C++17)
+}             // if optimization is disabled, the move constructor is called
+ 
+void g(std::vector<Noisy> arg) {
+    std::cout << "arg.size() = " << arg.size() << '\n';
+}
+ 
+int main() {
+    std::vector<Noisy> v = f(); // copy elision in initialization of v
+                                // from the temporary returned by f() (until C++17)
+                                // from the prvalue f() (since C++17)
+    g(f());                     // copy elision in initialization of the parameter of g()
+                                // from the temporary returned by f() (until C++17)
+                                // from the prvalue f() (since C++17)
+}
+```
+```console
+constructed
+constructed
+constructed
+constructed
+constructed
+constructed
+arg.size() = 3
+destructed
+destructed
+destructed
+destructed
+destructed
+destructed
+```
 
 ##### Reference
 - [cpp Reference](https://en.cppreference.com/w/cpp/language/value_category)
