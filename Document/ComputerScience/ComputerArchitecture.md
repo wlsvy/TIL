@@ -70,7 +70,7 @@ ENIAC 개발 프로젝트의 고문 존 폰 노이만John von Neumann이 제안�
   - 2바이트로 구성된 명령어와 데이터는 2의 배수로 시작되는 주소를 갖고
   - 4바이트로 구성된 명령어와 데이터는 4의 배수로 시작되는 주소를 갖도록 강제합니다.
 - 엔디언은 하나의 워드에포함된 바이트를 배열하는 방법을 의미합니다. 빅 엔디언 방식은 제일 작은 주소값의 바이트가 앞자리에 위치하고, 리틀 엔디언 방식은 제일 큰 주소값의 바이트가 앞자리에 위치합니다.
-  - 아래는 32bit 정수 0A0B0C0D 를 little/big 엔디언 방식으로 표현한 예시입니다. 빅 엔디언의 경우 우리가 아는 그대로, 리틀 엔디언의 경우 빅 엔디언의 바이트 순서의 반대라는 것을 알 수 있습니다.
+  - 아래는 32bit 정수 0A0B0C0D 를 little/big 엔디언 방식으로 표현한 예시입니다. 빅 엔디언의 경우 우리가 숫자를 읽는 방식 그대로, 리틀 엔디언의 경우 빅 엔디언의 바이트 순서의 반대라는 것을 알 수 있습니다.
 ![](https://images.squarespace-cdn.com/content/v1/549dcda5e4b0a47d0ae1db1e/1490746414666-EM74IA60AFM16OEH9G22/ke17ZwdGBToddI8pDm48kOMlUb6YZjvz-j7uj5wTIAtZw-zPPgdn4jUwVcJE1ZvWQUxwkmyExglNqGp0IvTJZamWLI2zvYWH8K3-s_4yszcp2ryTI0HqTOaaUohrI8PICROjhJFkM8GI5jSypQ9qrB6ZUKEpH8g8X8GW3p0wQZI/image-asset.png)
 
 - 주소 지정 방식은 명령어의 일부를 사용하여 데이터가 실제 위치한 유효 주소를 결정하는 방법입니다.
