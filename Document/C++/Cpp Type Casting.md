@@ -4,6 +4,7 @@
 - [cppreference : const_cast](https://en.cppreference.com/w/cpp/language/const_cast)
 - [Effective C++ - 항목 3 : 낌새만 보이면 const를 들이대 보자!](https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/Effective%20C%2B%2B/EffectiveCPP/EffectiveCPP/EffectiveC%2B%2B/Item03.cpp)
 
+<br><br>
 
 - Converts between types with different cv-qualification.
 - const_cast는 서로 다른 cv 지정자를 가진 타입간의 변환을 수행합니다. (const_cast 지만 volatile 속성도 변환 가능)
@@ -155,7 +156,7 @@ namespace DynamicCast_Study {
 
 #### Reference
 - [cppreference : static_cast](https://en.cppreference.com/w/cpp/language/static_cast)
-
+<br><br>
 
 `static_cast < new_type > ( expression )`
 
@@ -309,7 +310,7 @@ namespace StaticCast_Study {
 
 #### Reference
 - [cppreference : reinterpret_cast](https://en.cppreference.com/w/cpp/language/reinterpret_cast)
-
+<br><br>
 - 컴파일 시간에 임의 타입의 포인터 간 형 변환을 수행합니다.
 
 ```c++
