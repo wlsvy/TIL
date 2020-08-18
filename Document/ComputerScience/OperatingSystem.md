@@ -543,7 +543,7 @@ The dispatcher needs to be as fast as possible, as it is run on every context sw
 
 ## Background
 
-동시에 여러 개의 프로세스가 동일한 자료를 접근하여 조작하고, **그 실행 결과가 접근이 발생한 특정 순서에 의존하는 상황을 경쟁상황(race condition)**이라고 합니다. 경쟁상황으로부터 보호하기 위해, 우리는 한 순간에 하나의 프로세스만이 공유 메모리에 접근할 수 있도록 보장해야 합니다.
+동시에 여러 개의 프로세스가 동일한 자료를 접근하여 조작하고, **그 실행 결과가 접근이 발생한 특정 순서에 의존하는 상황을 경쟁상황(race condition)** 이라고 합니다. 경쟁상황으로부터 보호하기 위해, 우리는 한 순간에 하나의 프로세스만이 공유 메모리에 접근할 수 있도록 보장해야 합니다.
 
 ## 임계 구역 문제 critical sectioin problem
 
