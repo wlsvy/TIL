@@ -23,6 +23,9 @@ Today I Learned
 - [2020 DirectX 개인 프로젝트 정리](https://github.com/wlsvy/TIL/blob/master/Document/Graphics/2020_DirectX_Project.md)
 - [DirectX OpenGL 차이점](https://github.com/wlsvy/TIL/blob/master/Document/Graphics/DirectX_OpenGL_Difference.md)
 
+## ETC
+ - [기술면접 참고 자료](https://github.com/wlsvy/TIL/blob/master/Document/InterviewPreparation/tech-interview-Reference.md)
+
 # Coding Problem Solving
 
 <details>
