@@ -5,7 +5,7 @@
 #include <mutex>
 using namespace std;
 
-//예외 안전성이 확보되느 그날 위해 싸우고 또 싸우자
+//예외 안전성이 확보되는 그날 위해 싸우고 또 싸우자
 
 namespace Item29 {
 

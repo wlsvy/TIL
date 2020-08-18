@@ -2,7 +2,7 @@
 #include <vector>
 #include <string>
 
-//상속된 이름을 숨기는 일을 피하자
+//인터페이스 상속과 구현 상속의 차이를 제대로 파악하고 구별하자
 
 namespace Item34 {
 	using namespace std;
