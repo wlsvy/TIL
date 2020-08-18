@@ -13,6 +13,30 @@ ENIAC 개발 프로젝트의 고문 존 폰 노이만John von Neumann이 제안�
 
 </details>
 
+### CPU Instruction Pipeline
+
+<details>
+  <summary>접기/펼치기</summary>
+ 
+![](https://www.cybercomputing.co.uk/Languages/LANGgraphics/diagrams/pipelineGraphical.png)
+![](https://qph.fs.quoracdn.net/main-qimg-e4fade0a0e249ed852f75c8ec5ce6d5e.webp)
+
+- cpu instruction pipeline 이란 cpu 내에서 다수의 명령을 병행처리하기 위한 기술입니다. 입력으로 넘어오는 명령을 다수의 연속된 단계로 분리하여 cpu 의 모든 부분을 쉴 새 없이 활용할 수 있게 합니다.
+
+- IF = Instruction Fetch
+- ID = Instruction Decode
+- EX = Execute
+- MEM = Memory access
+- WB = Register write back
+
+- RISC 와 큰 연관이 있습니다. RISC 는 CISC의 비해 명령어 갯수가 적고 간결화되었으며, 명령어의 크기(피연산자 개수) 등이 가변적이 아니라 고정되었습니다. 이런 특징은 CISC 가 가지는 복잡한 명령어 형식에 비해서 파이프라인을 구현하기에 더 효율적입니다.
+  - RISC 구조가 가지는 load store 아키텍쳐는 RISC의 명령어를 메모리 접근 동작과 ALU 동작으로 구분하며 연산을 수행할 때, 메인 메모리의 값을 레지스터로 가져와(load) 연산을 수행하고 다시 메모리에 저장(store)하는 방식을 활용합니다.
+
+#### Reference
+- [wikipedia : Instruction_pipelining](https://en.wikipedia.org/wiki/Instruction_pipelining)
+
+</details>
+
 ## 3장 명령어 집합
 
 <details>
