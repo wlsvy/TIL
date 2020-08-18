@@ -1,3 +1,25 @@
+## const_cast
+
+#### Reference 
+- [cppreference : const_cast](https://en.cppreference.com/w/cpp/language/const_cast)
+- [Effective C++ - 항목 3 : 낌새만 보이면 const를 들이대 보자!](https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/Effective%20C%2B%2B/EffectiveCPP/EffectiveCPP/EffectiveC%2B%2B/Item03.cpp)
+
+
+- Converts between types with different cv-qualification.
+- const_cast는 서로 다른 cv 지정자를 가진 타입간의 변환을 수행합니다. (const_cast 지만 volatile 속성도 변환 가능)
+
+- const_cast의 역할은 크게 두 가지
+  - 특정 라이브러리에서 값을 변경해선 안되지만 const가 아닌 객체를 다룰 때, const를 붙이는 용도
+    - (C 라이브러리 중 const 키워드가 도입되기 전에 만들어진 라이브러리를 다룰 때 사용한다고 함)
+  - 일반 객체, const 객체에서 서로 다른 함수를 호출할 때 중복되는 코드 방지
+  
+- 제약 조건은 크게 세 가지 입니다.
+  - 참조 타입에 대해서만 변환을 수행할 수 있다.
+  - 참조하는 객체가 const 객체인 경우, 해당 포인터의 const 성을 제거하려는 시도는 미정의 동작을 유발할 수 있다.
+    - 상수가 아닌 객체에 대해서만 const_cast를 수행하는 것이 안전하다.
+  - 함수 포인터에 대해서는 동작하지 않는다.
+
+
 ```c++
 
 #include <iostream>
@@ -5,25 +27,6 @@
 using namespace std;
 
 namespace ConstCast_Study {
-	/*
-		Converts between types with different cv-qualification.
-		const_cast는 서로 다른 cv 지정자를 가진 타입간의 변환을 수행한다. (const_cast 지만 volatile 속성도 변환 가능)
-		https://en.cppreference.com/w/cpp/language/const_cast
-
-		const_cast 역할은 크게 두 가지
-
-		1. 특정 라이브러리에서 값을 변경해선 안되지만 const가 아닌 객체를 다룰 때, const를 붙이는 용도
-		(C 라이브러리 중 const 키워드가 도입되기 전에 만들어진 라이브러리를 다룰 때 사용한다고 함)
-
-		2. const_cast는 일반 객체, const 객체에서 서로 다른 함수를 호출할 때 중복되는 코드 방지
-
-		const_cast 제약조건
-		1. 참조 타입에 대해서만 변환을 수행할 수 있다.
-		2. 참조하는 객체가 const 객체인 경우, 해당 포인터의 const 성을 제거하려는 시도는 미정의 동작을 유발할 수 있다.
-		-> 상수가 아닌 객체에 대해서만 const_cast를 수행하는 것이 안전하다.
-
-		3. 함수 포인터에 대해서는 동작하지 않는다.
-	*/
 	class ExternalClass
 	{
 	public:
@@ -97,15 +100,16 @@ namespace ConstCast_Study {
 		cout << ConstInt << endl;	//값 변하지 않음. const 값은 그대로
 	}
 }
+```
+## dynamic-cast
 
+- dynamic-cast의 제약 조건
+  - 상속 관계 안에서만 사용할 수 있다.
+  - 하나 이상의 가상함수를 가지고 있어야 한다.
+  - 컴파일러의 RTTI 설정이 켜져 있어야 한다.
+
+```c++
 namespace DynamicCast_Study {
-	/*
-	Dynamic cast 제약조건
-	* 상속 관계 안에서만 사용할 수 있다.
-	* 하나 이상의 가상함수를 가지고 있어야 한다.
-	*컴파일러의 RTTI 설정이 켜져 있어야 한다.
-	*/
-
 	class Base
 	{
 	public:
@@ -145,33 +149,39 @@ namespace DynamicCast_Study {
 		pDerived = pDerived2;
 	}
 }
+```
 
+## static_cast
+
+#### Reference
+- [cppreference : static_cast](https://en.cppreference.com/w/cpp/language/static_cast)
+
+
+`static_cast < new_type > ( expression )`
+
+- expression에서 new_type으로 변환하는 암시적 변환 혹은 expression에서 new_type 객체를 생성하는 생성자가 있을 경우, 이들 중 적합한 것을 찾아서 임시객체 생성하거나, (만약에 있다면)사용자 정의 형변환 함수를 호출합니다.
+
+
+```c++
+struct B { };
+struct D : B { };
+D* d = new D();
+B* b = &d;
+void DoSomething(){
+	D* d2 = static_cast<D*>(b);
+}
+```
+
+* static_cast의 특징들을 요약해보자면
+- 우측값으로 변환
+- new_type 이 void 이면 static cast는 타입평가 이후 expression 값을 버린다
+- 배열 참조값 타입을 업캐스트
+- scoped enum을 int 로 변환
+- enum 타입에서 다른 enum 타입으로 변환가능
+- void* 다른 객체 포인터 타입으로 변환가능
+
+```c++
 namespace StaticCast_Study {
-	/*
-		Converts between types using a combination of implicit and user-defined conversions.
-		타입간 암시적 변환 혹은 사용자 정의 형변환 함수를 통해 타입간 변환을 수행한다.
-
-		https://en.cppreference.com/w/cpp/language/static_cast
-
-		static_cast < new_type > ( expression )
-		- expression에서 new_type으로 변환하는 암시적 변환 혹은 expression에서 new_type 객체를 생성하는 생성자가 있을 경우,
-		이들 중 적합한 것을 찾아서 임시객체 생성하거나, (만약에 있다면)사용자 정의 형변환 함수를 호출한다.
-
-		struct B { };
-		struct D : B { };
-		D d;
-		B& br = d;
-		static_cast<D&>(br); // lvalue denoting the original d object
-		- 이 경우, 타입검사를 하지 않은채 형변환을 수행한다.
-
-		- 우측값으로 변환
-		- new_type 이 void 이면 static cast는 타입평가 이후 expression 값을 버린다
-		- 배열 참조값 타입을 업캐스트
-		- scoped enum을 int 로 변환
-		- enum 타입에서 다른 enum 타입으로 변환가능
-		- void* 다른 객체 포인터 타입으로 변환가능
-	*/
-
 	struct B {
 		int m = 0;
 		void hello() const {
@@ -293,7 +303,16 @@ namespace StaticCast_Study {
 	출처: https://prostars.net/64?category=2732 [I'm Prostars]
 	*/
 }
+```
 
+## reinterpret_cast
+
+#### Reference
+- [cppreference : reinterpret_cast](https://en.cppreference.com/w/cpp/language/reinterpret_cast)
+
+- 컴파일 시간에 임의 타입의 포인터 간 형 변환을 수행합니다.
+
+```c++
 namespace Reinterpretcast_Study {
 	class BaseOne
 	{
