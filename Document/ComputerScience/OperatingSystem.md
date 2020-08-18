@@ -399,7 +399,7 @@ Parent may terminate execution of child processes (abort).
 
 ## Overview
 - A thread is a basic unit of CPU utilization, consisting of a program counter, a stack, and a set of registers, ( and a thread ID. )
-- 스레드는 cpu 이용의 기본 단위이며, 프로그램 내부의 흐름이라고 볼 수 있습니다.
+- 스레드는 cpu 이용의 기본 단위이며, 프로그램 내부의 흐름이라고 볼 수 있습니다. 프로그램 카운터(program Counter), 스택, 레지스터, 스레드ID 로 구성되어 있습니다.
 
 ![](https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/images/Chapter4/4_01_ThreadDiagram.jpg)
 
@@ -543,7 +543,7 @@ The dispatcher needs to be as fast as possible, as it is run on every context sw
 
 ## Background
 
-동시에 여러 개의 프로세스가 동일한 자료를 접근하여 조작하고, 그 실행 결과가 접근이 발생한 특정 순서에 의존하는 상황을 경쟁상황(race condition)이라고 합니다. 경쟁상황으로부터 보호하기 위해, 우리는 한 순간에 하나의 프로세스만이 공유 메모리에 접근할 수 있도록 보장해야 합니다.
+동시에 여러 개의 프로세스가 동일한 자료를 접근하여 조작하고, **그 실행 결과가 접근이 발생한 특정 순서에 의존하는 상황을 경쟁상황(race condition)**이라고 합니다. 경쟁상황으로부터 보호하기 위해, 우리는 한 순간에 하나의 프로세스만이 공유 메모리에 접근할 수 있도록 보장해야 합니다.
 
 ## 임계 구역 문제 critical sectioin problem
 
@@ -554,11 +554,6 @@ The dispatcher needs to be as fast as possible, as it is run on every context sw
   1. Mutual exclution (상호 배제): 이미 한 프로세스가 critical section에서 작업중일 때 다른 프로세스는 critical section에 진입해서는 안됩니다.
   2. Progress (진행): critical section에서 작업중인 프로세스가 없다면 다른 프로세스가 critical section에 진입할 수 있어야 합니다.
   3. Bounded waiting (한정된 대기): critical section에 진입하려는 프로세스가 무한하게 대기해서는 안됩니다.
-
-  - os 내에서 임계구역을 다루기 위해 두 가지 접근법을 사용합니다.
-    - 선점형 커널은 프로세스가 커널 모드에서 수해오디는 동안 선점되는 것을 허용합니다.
-	- 비선점형 커널은 커널 모드에서 수행되는 프로세스의 선점을 허용하지 않고 커너 모드 프로세스는 커널을 빠져 나갈 때까지 또는 봉쇄될 때까지 또는 자발적으로 CPU의 제어를 양보할 때까지 계속 수행합니다.
-  - 비선점형 커널보다 선점형 커널이 더 선호됩니다. 커널 모드 프로세스가 대기 중인 프로세스에게 처리기를 양도하기 전에 오랫동안 실행할 위험이 적기 때문에 선점형 커널은 더 응답이 민첩할 수 있습니다.
 
 ## Peterson’s Solution
 
@@ -687,12 +682,12 @@ graph with cycle but no deadlock
 
 데드락이 발생하기 위한 네 가지 조건 중 한 가지를 만족시키지 않도록 보장함으로써 데드락을 방지할 수 있습니다.
 
-Mutual Exclusion: 적어도 하나의 자원은 공유가 불가능한 자원이어야 합니다. 공유 가능한 자원들은 배타적인 접근을 보장하지 않으며 이는 데드락의 원인이 될 수 있습니다.
-Hold and wait: 프로세스가 자원을 요청할 때는, 다른 자원들을 점유하지 않을 것을 반드시 보장해야 합니다. 하나의 프로토콜은 각 프로세스가 실행되기 전에 자신의 모든 자원을 요청하고 할당받을 것을 요구해야 합니다.
-No preemption: 자원을 점유하고 있는 프로세스가 즉시 할당할 수 없는 자원을 요청하면 os측에서 프로세스의 자원들을 선점해 버립니다. 즉 이들 자원을 암묵적으로 방출해 버립니다.
-Circular wait: 순환 대기를 막는 한 가지 방법으로는 모든 자원 타입들에게 전체적인 순서를 부여하여, 각 프로세스가 열거된 순서대로 자원을 요청하도록 요구하는 것입니다.
+1. Mutual Exclusion: 적어도 하나의 자원은 공유가 불가능한 자원이어야 합니다. 공유 자원은 배타적인 접근을 보장하지 않으며 데드락의 원인이 될 수 있습니다.
+2. Hold and wait: 프로세스가 자원을 요청할 때는, 다른 자원들을 점유하지 않을 것을 반드시 보장해야 합니다. 하나의 프로토콜은 각 프로세스가 실행되기 전에 자신의 모든 자원을 요청하고 할당받을 것을 요구해야 합니다.
+3. No preemption: 자원을 점유하고 있는 프로세스가 즉시 할당할 수 없는 자원을 요청하면 os측에서 프로세스의 자원들을 선점해 버립니다. 즉 이들 자원을 암묵적으로 방출해 버립니다.
+4. Circular wait: 순환 대기를 막는 한 가지 방법으로는 모든 자원 타입들에게 전체적인 순서를 부여하여, 각 프로세스가 열거된 순서대로 자원을 요청하도록 지정하는 것입니다.
 
-데드락을 방지하는 것은 장치 효율과 시스템 성능을 떨어트리는 문제가 있다.
+데드락을 방지하는 대안책은 성능상의 오버헤드를 유발하는 단점이 있습니다.
 
 ## Deadlock Avoidance
 
