@@ -69,7 +69,7 @@ namespace Item01 {
 			const int cx = x;
 			const int & rcx = x;
 
-			f(x);	//매개변수는 좌측값, T : int&,			param 타입은 int &
+			f(x);	//매개변수는 좌측값, T : int&,		param 타입은 int &
 			f(cx);	//매개변수는 좌측값, T : const int&,	param 타입은 cosnt int &
 			f(rcx);	//매개변수는 좌측값, T : const int&,	param 타입은 const int &
 			f(27);	//매개변수는 우측값, T : int,			param 타입은 int&&

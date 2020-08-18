@@ -24,7 +24,7 @@ namespace Item13 {
 	}
 
 	template<typename C, typename V>
-	void findAndInert(C& container, const V& target, const V& insertVal) {
+	void findAndInsert(C& container, const V& target, const V& insertVal) {
 		//비멤버 함수 std::cbegin/cend 를 통해 const_iterator를 얻는 예
 		auto it = std::find(std::cbegin(container), std::cend(container), target);
 

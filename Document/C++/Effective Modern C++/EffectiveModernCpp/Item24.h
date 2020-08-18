@@ -44,7 +44,7 @@ namespace Item24 {
 	
 
 	inline void RunSample() {
-		Widget&& var1 = Widget();	//우측값 참조
+		auto && var1 = Widget();	//우측값 참조
 		auto && var2 = var1;		//우측값 참조 아님
 
 		ConstF(std::forward<Widget>(var1));

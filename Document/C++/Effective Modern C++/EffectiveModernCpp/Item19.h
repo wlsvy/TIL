@@ -70,7 +70,7 @@ namespace Item19 {
 
 		//enable_shared_from_this 를 상속받으면 해당 클래스는 this 포인터로부터 shared_ptr를 생성할 수 있다.
 		void process() {
-			vw.emplace_back(this);
+			//vw.emplace_back(this);
 			/*
 				shared_ptr의 컨트롤블럭이 다수 생성되며, 참조카운트가 0 이 될때마다 해당 Gadget 객체는 여러 번 파괴된다.
 				미정의 행동 유발

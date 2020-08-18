@@ -69,10 +69,10 @@ namespace Item09 {
 			c++14에는 std::변환_t 형태의 별칭 템플릿이 추가되었다.
 		*/
 		
-		std::remove_const<const int>::type i0;
-		std::remove_const_t<const int> i1;	//위와 동일
+		std::remove_const<const int>::type i0;	//int
+		std::remove_const_t<const int> i1;		//int
 
-		std::remove_reference<int&&>::type i2;
-		std::remove_reference_t<int&> i3;	//위와 동일
+		std::remove_reference<int&&>::type i2;	//int
+		std::remove_reference_t<int&> i3;		//int
 	}
 }

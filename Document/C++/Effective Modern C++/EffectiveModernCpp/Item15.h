@@ -69,7 +69,7 @@ namespace Item15 {
 
 		constexpr Point midpoint(const Point& p1, const Point& p2) noexcept
 		{
-			//constexrp 멤버 함수만 호출가능하다.
+			//constexr 멤버 함수만 호출가능하다.
 			return { (p1.xValue() + p2.xValue()) / 2,    
 					(p1.yValue() + p2.yValue()) / 2 };   
 		}
