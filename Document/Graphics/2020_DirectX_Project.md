@@ -163,6 +163,8 @@ Entity - Component System 으로 불리기도 합니다.
 
 #### ADDRESS MODE
 
+- 텍스쳐 좌표값이 [0 ~ 1] 을 벗어났을 때 처리할 방식을 지정합니다.
+  - 도대체 이 개념에 왜 Address 라는 이름이 붙는지 이해가 가지 않습니다.
 - clamp, repeat, mirror, border 방식이 있습니다.
 
 ![](https://vulkan-tutorial.com/images/texture_addressing.png)
