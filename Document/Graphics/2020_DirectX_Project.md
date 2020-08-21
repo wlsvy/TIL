@@ -1,6 +1,6 @@
 # 2020_DirectX_Project
 
-> [Direct X 11 개인 프로젝트](https://github.com/wlsvy/2020_DirectX_Project) 를 진행하면서 공부한 내용을 작성한 페이지입니다.
+> ### [Direct X 11 개인 프로젝트](https://github.com/wlsvy/2020_DirectX_Project) 를 진행하면서 공부한 내용을 작성한 페이지입니다.
 
 ## GameObject - Component System
 
@@ -114,6 +114,64 @@ Entity - Component System 으로 불리기도 합니다.
 ![](https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Blinn_phong_comparison.png/600px-Blinn_phong_comparison.png)
 - phong 방식이 정반사광을 원형으로 나타낸다면, blinn phong 방식은 보다 타원형으로 나타냅니다. 강이나 바다에 반사되는 햇빛이 완벽한 원형의 모습을 유지하기보다는 수직방향으로 좀더 늘어져 보이는 것을 떠올리시면 됩니다.
 - 조명이 굉장히 멀리 있는 경우(ex : Directional Light) 이면서 정사영orthographic/isometric 카메라를 활용하고 있을 때, halfway vector는 고정된 값으로 연산할 수 있기 때문에 phong 방식 보다 blinn-phong 방식이 더 빠를 수 있습니다.
+
+</details>
+
+## Texturing
+
+<details>
+  <summary>접기/펼치기</summary>
+
+#### Texture Coordinates in DirectX 11
+
+- UV-mapping 은 모델을 이루는 폴리곤 면의 특정 부분을 텍스쳐의 어느 지점에 대응시킬 것인지(sampling) 구하는 과정입니다. 
+  - 보통 텍스쳐의 수평(horizontal) 성분을 U, 수직(vertical) 성분을 V 라고 부릅니다.
+  - 정규화된 좌표 표현 방식(normalized texture space)을 통해 텍스쳐의 좌측 상단의 uv 성분을 (0, 0), 우측 하단의 uv 성분을 (1, 1)으로 지정합니다. 정규화된 방식을 통해서 우리는 vertex 정보에 uv 성분을 입력할 때 텍스쳐 크기(1024x1024, 512x512)를 고려할 필요가 없게 됩니다. 더불어서 이 특징은 mipmapping을 활용할 때도 유용합니다.
+  
+![](https://www.3dgep.com/wp-content/uploads/2014/04/DX11-Texture-Coordinates.png)
+  
+#### Mip Mapping
+
+- mipmapping은 특정 이미지에 대한 연속된 이미지 리스트를 생성하는 것입니다. 그림에서 보시다시피 매번 이미지를 생성할 때 마다 사이즈를 반으로 줄여나가는 것이 특징입니다.
+  - mipmapping 은 LOD (Level of Detail)에서 자주 활용되는 기법입니다. 물체가 카메라로부터 멀어질 때 점차 디테일한 표현은 눈에 띄지 않게 되므로, 먼 거리의 물체를 표현할 때는 최고 해상도의 텍스쳐를 활용할 필요까지는 없습니다. 이럴 때 mipmapping을 통해 생성한 낮은 해상도의 텍스쳐를 사용할 수 있습니다.
+  - mipmapping 을 통해 생성한 이미지는 본래 해상도의 텍스쳐 메모리 용량의 1/3 정도 됩니다. (1/4 + 1/16 + 1/64 + ....)
+
+![](https://www.3dgep.com/wp-content/uploads/2014/04/Mip-Mapping.png)
+
+- mipmapping은 고해상도의 텍스쳐를 그대로 사용할 때, 텍스쳐 샘플링 품질과 관련해서 먼거리의 오브젝트에서 마치 쟈글거리는듯 보이는 부작용을 완화시키기도 합니다.
+
+![](https://www.3dgep.com/wp-content/uploads/2014/04/mipmapping-egz.png)
+
+#### Filter
+
+- 텍스쳐 공간을 나타내는 기본 단위, 텍셀(texel)을 읽어올 때에도 다양한 방식이 있습니다.
+
+**Point Filtering**  : 샘플링된 서브 텍셀과 가장 가까운 텍셀을 반환합니다.  
+**Linear(Bilinear) filtering** : 샘플링된 서브 텍셀과 가장 가까운 텍셀들을 선형보간하여 중간값을 반환합니다.  
+**Trilinear filtering** : 샘플링된 서브 텍셀과 가장 가까운 텍셀들을 선형보간하는 동시에 **인접한 mipmap level** 의 텍스쳐의 선형보간으로 구한 텍셀을 다시한번 보간해서 중간값을 반환합니다.  
+**Anisotropic filtering** : 위의 명시한 샘플링 방식이 등방형(isotropic) 방식으로서 샘플링 영역이 사각형이었다면 비등방형(anisotropic)은 샘플링 영역을 설정할 때 카메라의 각도를 고려하며 해당 영역에 대해 보간된 텍셀을 반환합니다. 연산비용이 비싸면서도 가장 품질이 좋은 텍스쳐 샘플링 방식으로 알려져 있습니다.  
+
+![](https://www.3dgep.com/wp-content/uploads/2014/04/Texture-Filtering1.png)
+
+#### Mipmap Filtering
+
+**Minification filtering** : 텍스쳐로부터 샘플링된 텍셀이 화면(screen)의 픽셀보다 작은 경우 발생합니다. 텍스쳐를 축소시킨 모습을 보게 됩니다.  
+**Magnification filtering** : 텍스쳐로부터 샘플링된 텍셀이 화면(screen)의 픽셀보다 큰 경우 발생합니다. 텍스쳐를 확대시킨 모습을 보게 됩니다.  
+- 두 경우에도 위의 명시한 적절한 샘플링 방식을 사용해 텍셀을 나타내게 됩니다.
+
+![](http://what-when-how.com/wp-content/uploads/2012/05/tmp1cfe29_thumb_thumb.png)
+
+#### ADDRESS MODE
+
+- clamp, repeat, mirror, border 방식이 있습니다.
+
+![](https://vulkan-tutorial.com/images/texture_addressing.png)
+
+#### Reference 
+- [3dgep : texturing-lighting-directx-11](https://www.3dgep.com/texturing-lighting-directx-11/#Texturing)
+- [wikipedia : texture filtering](https://en.wikipedia.org/wiki/Texture_filtering)
+- [vulkan-tutorial : Texture_mapping](https://vulkan-tutorial.com/Texture_mapping/Image_view_and_sampler)
+
 
 </details>
 
