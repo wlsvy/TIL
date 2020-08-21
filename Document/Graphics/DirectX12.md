@@ -15,7 +15,7 @@
 > 렌더링 기법 중에서 forward rendering 과 deferred rendering 의 차이를 보는 것 같았습니다.
 
 ![](https://docs.microsoft.com/en-us/windows/win32/direct3d12/images/gpu-engines.png)
-> 위의 그림에서 처럼 gpu의 전달된 명령은 종류별로(copy : 자원 복사, compute : gpu 연산(compute shader), 3d : 렌더링) 구분되어 commandQueue 담겨집니다.
+> 위의 그림에서 처럼 gpu에서 처리될 일련의 명령들이 commandList가 됩니다. commandList는 종류별로(copy : 자원 복사, compute : gpu 연산(compute shader), 3d : 렌더링) 구분되어 commandQueue 담겨집니다.
 
 - 즉 요약하면 이렇습니다. 매 프레임마다 cpu는 gpu에 전달한 명령들을 큐에 입력시키며 gpu는 프레임이 업데이트 되기 전 commandQueue의 명령들을 병렬처리를 통해 일괄처리하는 것입니다. 
   - 지금은 추측이지만, dx12가 drawcall 의 오버헤드를 줄었다는 특징은 이런 맥락에서 나타나는 것이 아닐까 생각합니다.
