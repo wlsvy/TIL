@@ -204,10 +204,6 @@ ENIAC 개발 프로젝트의 고문 존 폰 노이만John von Neumann이 제안�
 <details>
   <summary>접기/펼치기</summary>
 
-- `포트 port` : 두 장치 사이에 데이터를 전송하는 채널.
-- `버스 bus` : 두 개이상의 장치 사이의 공유된 채널. 
-- `대역폭 bandwidth` : 포트나 버스의 처리량을 나타내는 것이며 초당 전송된 바이트로 나타냅니다. <br>
-
 - `메인 메모리main memory`란 명령어 집합에 의해 정의된 메모리로서 **실행될 프로그램과 데이터가 머무는 장소**를 의미합니다.
   - Cpu 와 메모리는 물리적으로 메인보드의 `노스브리지north bridge`를 통해 서로 연결됩니다. 논리적으로는 주소버스와 데이터버스에 의해 연결되었다고 볼 수 있습니다.
   - 메모리로는 주로 DRAM이 사용되며, CPU는 `메모리 버퍼 레지스터 MBR memory buffer register`와 `메모리 주소 레지스터 MAR memory address register` 를 사용하여 메모리와 데이터를 교환합니다.
