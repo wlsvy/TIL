@@ -15,11 +15,25 @@
 
 </details>
 
+## Object Copying
+<details>
+<summary>expand </summary> <br>
+  
+- 깊은 복사, 얕은 복사
+
+![](https://i.stack.imgur.com/AWKJa.jpg)
+  
+### Reference 
+- [wiki : Object_copying](https://en.wikipedia.org/wiki/Object_copying)
+
+
+</details>
+
 ## Static/ dynamic library
 <details>
 <summary>expand </summary> <br>
 
-- static-link lib : link 단계에서 라이브러리(*.lib 파일)를 실행 바이너리에 포함합니다.
+- static-link lib : link 단계에서 라이브러리(.lib 파일)를 실행 바이너리에 포함합니다.
   - 정적 빌드 단계에서 라이브러리 파일이 포함되므로 실행파일 크기가 커질 수 있습니다.
   
 - dynamic-link lib : 실행 바이너리에서 필요시 사용할 수 있도록 최소한의 정보만 포함하여 링크하거나, 아예 빌드독립적으로 DLL을 로드/사용/해제할 수 있습니다.
