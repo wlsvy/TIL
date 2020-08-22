@@ -11,6 +11,7 @@ Today I Learned
 - [PrependidColon](https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/PrependedColon.md)
 - [C++ Ios api 정리](https://gist.github.com/wlsvy/329df8104a9b51bd65f6cda0dc2acde4#Category)
 - [Cmake Study](https://github.com/wlsvy/CMake_Study)
+- [개념 정리 웹 링크 모음](https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/cppStudyReference.md)
 
 ## C#
 - [Effective C#](https://github.com/wlsvy/TIL/tree/master/Document/C%23/Effective%20CSharp/EffectiveCSharp)
