@@ -21,6 +21,8 @@ An object, in C++ , `is a region of storage that (until C++14)` has
 다음은 객체가 아닙니다.
 - value, reference, function, enumerator, type, non-static class member, template, class or function template specialization, namespace, parameter pack, and this.
 <br>
+
+
 - c++ 에서 `변수(variable)` 란 비정적 데이터 멤버가 아닌 객체 혹은 참조값입니다.
 
 #### Reference 
