@@ -29,6 +29,56 @@
 
 </details>
 
+## Explicit specifier
+
+<details>
+<summary>expand </summary> <br>
+
+- 생성자와 형변환 함수가 넘겨받는 매개변수가 암시적으로 변환되지 않도록 제한하는 키워드입니다. (말그대로 생성자와 형변환 함수 앞에서만 붙을 수 있는 키워드입니다.)
+- c++17 부터는 deduction guide (CTAD : Class template argument deduction), c++ 20 부터는 조건부로 constexpr 선언하는 것이 가능합니다.
+
+```C++
+struct A
+{
+    A(int) { }      // converting constructor
+    A(int, int) { } // converting constructor (C++11)
+    operator bool() const { return true; }
+};
+ 
+struct B
+{
+    explicit B(int) { }
+    explicit B(int, int) { }
+    explicit operator bool() const { return true; }
+};
+ 
+int main()
+{
+    A a1 = 1;      // OK: copy-initialization selects A::A(int)
+    A a2(2);       // OK: direct-initialization selects A::A(int)
+    A a3 {4, 5};   // OK: direct-list-initialization selects A::A(int, int)
+    A a4 = {4, 5}; // OK: copy-list-initialization selects A::A(int, int)
+    A a5 = (A)1;   // OK: explicit cast performs static_cast
+    if (a1) ;      // OK: A::operator bool()
+    bool na1 = a1; // OK: copy-initialization selects A::operator bool()
+    bool na2 = static_cast<bool>(a1); // OK: static_cast performs direct-initialization
+ 
+//  B b1 = 1;      // error: copy-initialization does not consider B::B(int)
+    B b2(2);       // OK: direct-initialization selects B::B(int)
+    B b3 {4, 5};   // OK: direct-list-initialization selects B::B(int, int)
+//  B b4 = {4, 5}; // error: copy-list-initialization does not consider B::B(int,int)
+    B b5 = (B)1;   // OK: explicit cast performs static_cast
+    if (b2) ;      // OK: B::operator bool()
+//  bool nb1 = b2; // error: copy-initialization does not consider B::operator bool()
+    bool nb2 = static_cast<bool>(b2); // OK: static_cast performs direct-initialization
+}
+```
+
+#### Reference 
+- [cppreference : explicit specifier](https://en.cppreference.com/w/cpp/language/explicit)
+
+</details>
+
 ## Static/ dynamic library
 <details>
 <summary>expand </summary> <br>
