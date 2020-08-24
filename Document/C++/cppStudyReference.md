@@ -1,6 +1,33 @@
 > ### cpp 공부를 위한 참고 링크를 정리해 봅시다.
 > 대충 개념을 다 정리하는게 힘들어서 링크만 올리는 페이지
 
+## C++ Object
+
+<details>
+<summary>expand </summary> <br>
+
+- C++ 프로그램은 객체를 생성(create), 파괴(destroy), 참조(refer to), 접근(access) 그리고 조작(manipulate) 합니다.
+
+An object, in C++ , `is a region of storage that (until C++14)` has
+
+- size (can be determined with sizeof)
+- alignment requirement (can be determined with alignof)
+- storage duration (automatic, static, dynamic, thread-local)
+- lifetime (bounded by storage duration or temporary)
+- type
+- value (which may be indeterminate, e.g. for default-initialized non-class types)
+- optionally, a name.
+
+다음은 객체가 아닙니다.
+- value, reference, function, enumerator, type, non-static class member, template, class or function template specialization, namespace, parameter pack, and this.
+<br>
+- c++ 에서 `변수(variable)` 란 비정적 데이터 멤버가 아닌 객체 혹은 참조값입니다.
+
+#### Reference 
+- [cppreference : Object](https://en.cppreference.com/w/cpp/language/object)
+
+</details>
+
 ## c++ 컴파일 과정
 
 <details>
@@ -25,6 +52,31 @@
   
 ### Reference 
 - [wiki : Object_copying](https://en.wikipedia.org/wiki/Object_copying)
+
+
+</details>
+
+## cv(const/volatile) type qualifiers, constexpr specifier
+<details>
+<summary>expand </summary> <br>
+
+- const 객체 및 const객체의 non-mutable subobject는 그 값을 수정할 수 없습니다.
+  - const 객체의 경우 그 값이 컴파일 시간에 평가되거나(constant exprssion), 컴파일 시간에 평가될 수 없다면 런타임 시간에 지연되어 평가될 수 있습니다.
+- const 멤버 함수 안에서는 멤버 변수의 값을 수정하지 못하며, 함수 내부에서 const 멤버 함수가 아닌 다른 멤버함수는 호출 할 수 없습니다.
+  - 동일한 함수 시그니쳐를 가지고 있어도 const 키워드를 포함하는지에 따라 오버로드가 될 수 있습니다. 이 경우 const 객체는 const 오버로드 버전을, non-const 객체는 일반 오버로드 버전을 호출합니다.
+  
+- volatile 객체 및 volatile 객체의 subobject, 그리고 const-volatile 객체의 mutable subobject 들이 다뤄질 때는 컴파일러가 내부적으로 적용하는 최적화가 부작용을 유발할 수 있다고 가정합니다.
+
+- constexpr specifier 로 선언된 값은 그 값을 컴파일 시간에 평가하는 것이 가능하다고 알려줍니다. 해당 값은 리터럴 상수 등, 컴파일 시간에 확인할 수 있는 값이어야 합니다.
+  - constexpr 은 c++ 버전별로 적용될 수 있는 범위가 매번 바뀌고 있습니다. 사용할 때 반드시 api 문서를 참조하길 권장합니다.
+  
+### Reference 
+- [wikipedia : volatile](https://en.wikipedia.org/wiki/Volatile_(computer_programming))
+- [cppreference : cv](https://en.cppreference.com/w/cpp/language/cv)
+- [cppreference : non static member functions](https://en.cppreference.com/w/cpp/language/member_functions#const-_and_volatile-qualified_member_functions)
+- [cppreference : constexpr](https://en.cppreference.com/w/cpp/language/constexpr)
+- [cppreference : constant_expression](https://en.cppreference.com/w/cpp/language/constant_expression)
+- Effective modern c++ - item 15 : 가능하면 항상 constexpr을 사용하라
 
 
 </details>
