@@ -15,6 +15,7 @@ Today I Learned
 
 ## C#
 - [Effective C#](https://github.com/wlsvy/TIL/tree/master/Document/C%23/Effective%20CSharp/EffectiveCSharp)
+- [string in C#](https://github.com/wlsvy/TIL/blob/master/Document/C%23/String.md)
 
 ## Computer Science
 - [컴퓨터 아키텍쳐](https://github.com/wlsvy/TIL/blob/master/Document/ComputerScience/ComputerArchitecture.md)
