@@ -312,6 +312,7 @@ namespace StaticCast_Study {
 - [cppreference : reinterpret_cast](https://en.cppreference.com/w/cpp/language/reinterpret_cast)
 <br><br>
 - 컴파일 시간에 임의 타입의 포인터 간 형 변환을 수행합니다.
+- 다이나믹 캐스트와는 다르게 클래스 관계에 따른 안전 검사를 하지 않고 이루어지기 때문에 사용하기에 따라서 굉장히 위험할 수도 있습니다. 보통 비트단위로 활용하는 데이터를 다룰 때 사용합니다.
 
 ```c++
 namespace Reinterpretcast_Study {
