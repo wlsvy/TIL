@@ -57,6 +57,12 @@
   - unique_ptr은 이 문제를 해결합니다. 대입 연산자를 막아버리고 소유권을 이전시키기 위해서는 명시적으로 이동연산자를 활용해야 합니다.
 - 참조 Effective STL : auto_ptr의 컨테이너는 절대로 만들지 말자
 
+#### c++의 auto / template / decltype 타입 추론
+- 컴파일 시간에 타입을 추론합니다.
+- auto 와 template 타입 추론은 대부분 비슷합니다만 auto는 중괄호 초기치를 std::initialize_list로 추론하며 template은 중괄호 초기치를 추론하지 못합니다.
+- decltype 은 주어진 이름이나 표현식의 형식을 알려줍니다. 템플릿 추론과 auto와는 달리 주어진 이름이나 표현식의 구체적인 형식(참조성 및 cv 형식까지)을 그대로 말해줍니다.
+- 참조 : effective modern c++, item 1, 2, 3
+
 #### C# 리플렉션에 대해서 아는가?
 - Reflection 거울에 비친 상 이라는 뜻입니다. C# 에서 어셈블리, 모듈, 타입 객체에 대한 정보를 다루는 기능을 말한다. System.Reflection 네임스페이스의 기능들을 활용하여 런타임에 프로그램 메타데이터에 접근할 수 있습니다.
 
@@ -70,8 +76,9 @@
 #### 자료구조 활용, 정렬, 탐색 알고리즘 시간복잡도
 ![](https://miro.medium.com/max/875/1*J8w0UxN-D5dqtWV4Dl3vXQ.png)
 ![](https://miro.medium.com/max/875/1*W9qHlz4sUcXZHfyiwaE5wQ.png)
-![](https://he-s3.s3.amazonaws.com/media/uploads/2d5308d.JPG)
+![](https://he-s3.s3.amazonaws.com/media/uploads/1e0079d.JPG)
 - [bigocheatsheet](https://www.bigocheatsheet.com/)
+- [hackerearth](https://www.hackerearth.com/practice/notes/big-o-cheatsheet-series-data-structures-and-algorithms-with-thier-complexities-1/)
 
 #### 정렬
 > 시간 복잡도는 위의 그림 / 참조를 확인하세요.
@@ -105,3 +112,11 @@
   - 1. 힙 정렬 이후, m개의 데이터만 힙에서 빼냅니다. 시간복잡도는 평균 O(n + mlogn). 
   - 2. partial quicksort : QuickSelect 알고리즘으로 m 번째로 작은 데이터를 찾은 뒤, 해당 데이터보다 작은 m - 1 개의 데이터 영역만을 정렬합니다. 시간복잡도는 평균 O(n + mlogm)
   - [참조](https://www.cs.upc.edu/~conrado/research/talks/aofa04.pdf)
+  
+#### 동적/정적 라이브러리
+- 라이브러리란 프로그램 실행에 필요한 코드들을 담고 있습니다.
+- 정적static 라이브러리는 링킹 단계에서 실행 바이너리에 포함됩니다.
+  - 불필요하게 실행 파일의 크기가 커질 수 있습니다.
+- 동적 라이브러리는 dll 형태의 파일로 독립적으로 존재합니다. 실행파일에 포함되지 않습니다. shared libray 개념으로 하나의 dll 파일을 여러개의 실행파일에서 공유하는 것도 가능합니다.
+
+- [stackoverflow : dll-and-lib-files-what-and-why](https://stackoverflow.com/questions/913691/dll-and-lib-files-what-and-why)
