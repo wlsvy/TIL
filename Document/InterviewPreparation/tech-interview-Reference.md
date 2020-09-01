@@ -99,7 +99,7 @@
 - 힙 정렬 : 힙을 만든 뒤 머리부터 하나씩 빼나갑니다. 참고로 힙에 원소를 넣을 때는(heapify) 꼬리에 넣습니다. 
   - [Geeks for Geeks : time-complexity-of-building-a-heap](https://www.geeksforgeeks.org/time-complexity-of-building-a-heap/) 에서 수학적으로 설명한 바에 의하면 데이터 갯수 N의 배열에 대해 힙을 만드는 시간 복잡도는 O(nlogn)이 아니라 O(n) 입니다.
 
-#### - C++ 의 Introsot : algorithm 헤더에서 가장 기본적인 정렬 알고리즘 입니다. 삽입/ 힙/ 퀵 정렬 세 가지가 결합한 정렬 알고리즘의 하이브리드 버전이라 보시면 되겠습니다.
+- **C++ 의 Introsot : algorithm 헤더에서 가장 기본적인 정렬 알고리즘 입니다. 삽입/ 힙/ 퀵 정렬 세 가지가 결합한 정렬 알고리즘의 하이브리드 버전이라 보시면 되겠습니다.**
   - 지속적으로 퀵 정렬에서 활용되는 partition 방식으로 컨테이너를 분할합니다.
   - 이때 정렬 대상인 컨테이너의 사이즈가 일정 갯수(예를 들어 32) 이하일 때는 삽입정렬을 수행합니다.
   - 그리고 partition 횟수가 일정 갯수(예를 들어 1.5 * log(N)) 을 넘어서면 힙 정렬을 수행합니다.
