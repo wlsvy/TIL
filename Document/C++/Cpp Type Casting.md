@@ -174,12 +174,12 @@ void DoSomething(){
 ```
 
 * static_cast의 특징들을 요약해보자면
-- 우측값으로 변환
-- new_type 이 void 이면 static cast는 타입평가 이후 expression 값을 버린다
-- 배열 참조값 타입을 업캐스트
-- scoped enum을 int 로 변환
-- enum 타입에서 다른 enum 타입으로 변환가능
-- void* 다른 객체 포인터 타입으로 변환가능
+  - 좌측값을 우측값으로 형변환 가능
+  - new_type 이 void 이면 static cast는 타입평가 이후 expression 값을 버린다
+  - 배열 참조값 타입을 업캐스트
+  - scoped enum을 int 로 변환
+  - enum 타입에서 다른 enum 타입으로 변환가능
+  - void* 다른 객체 포인터 타입으로 변환가능
 
 ```c++
 namespace StaticCast_Study {
