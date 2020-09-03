@@ -398,21 +398,20 @@ Parent may terminate execution of child processes (abort).
 	<summary>접기/펼치기</summary>
 
 ## Overview
-- A thread is a basic unit of CPU utilization, consisting of a program counter, a stack, and a set of registers, ( and a thread ID. )
 - 스레드는 cpu 이용의 기본 단위이며, 프로그램 내부의 흐름이라고 볼 수 있습니다. 프로그램 카운터(program Counter), 스택, 레지스터, 스레드ID 로 구성되어 있습니다.
 
 ![](https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/images/Chapter4/4_01_ThreadDiagram.jpg)
 
-- All threads of a process share
-  - code, data, heap
+- 모든 스레드는 아래 자원을 공유합니다.
+  - 코드, 데이터, 힙 영역
   - open files
   - signal handlers
   - working environment (current directory, user ID, etc.)
 
--Each thread has it’s own
-  - stack
-  - registers
-  - thread ID
+- 각 스레드는 아래의 자원을 각자 개별적으로 소유합니다.
+  - 스택
+  - 레지스터
+  - 스레드 ID
 
 ![](https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/images/Chapter4/4_02_MultithreadedArchitecture.jpg)
 - Motivation
