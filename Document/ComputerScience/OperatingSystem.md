@@ -231,45 +231,42 @@ How to load kernel?
 	<summary>접기/펼치기</summary>
 
 ## 프로세스 개념
-- Operating system executes a variety of programs.
-- `일괄처리 시스템Batch system` – 잡job 을 실행
-- `시분할 시스템Time-shared systems` – 사용자 프로그램 혹은 태스크task 들을 가진다.
+- OS는 다양한 프로그램을 실행시킵니다.
+- `일괄처리 시스템Batch system` – 잡job 을 실행합니다.
+- `시분할 시스템Time-shared systems` – 사용자 프로그램 혹은 태스크task 들을 가집니다.
 - Textbook uses the terms job and process almost interchangeably
 
 
 ##### Process
-- a program in execution
+- 실행되는 프로그램(a program in execution)
 - 단순히 텍스트 섹션으로 알려진 프로그램 코드 이상의 무엇
 
 ##### A process includes
-- The program code, also called text section
-- Data section containing global variables
-- Stack containing temporary data
+- text section 이라 불리는 프로그램 코드(program code)
+- 전역 혹은 정적 변수(global/static variables)를 포함하는 Data sections
+- 임시 데이터(temporary data)를 포함하는 스택(stack)
   - Function parameters, return addresses, local variables
-- Heap containing memory dynamically allocated during run time
-- Current activity including program counter, processor registers
+- 동적 할당된 메모리를 포함하는 힙(Heap)
+- program counter, processor registers 값 등. 이 정보들은 특정 프로세스들 사이에서 문맥 교환이 이루어질 때 현재 진행 상황을 저장합니다.
 
 ![](https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/images/Chapter3/3_01_Process_Memory.jpg)
 
-### Process State
-- As a process executes, it changes state.
-- New
-  - The process is being created.
-- Running
-  - Instructions are being executed.
-- Waiting (blocked, sleep)
-  - The process is waiting for some event to occur.
-- Ready
-  - The process is waiting to be assigned to a processor.
-- Terminated
-  - The process has finished execution.
+> 메모리에서 stack 영역은 메모리 최대 주소값에서 0으로, heap 영역은 data section 영역 주솟값 이후 부터 메모리 최대 주소값으로, 즉 두 영역을 서로 향하는 방향으로 메모리를 할당합니다. 만약 이 둘이 만나게 된다면 stack overflow 및 동적 할당 시 메모리 오류가 발생할 것입니다. 
 
+### Process State
+- 프로세느는 실행이 될때 자신의 상태를 변경합니다.
+- New : 프로세스가 새로 생성된 상태입니다.
+- Running : 프로세스의 명령어가 실행되는 상태입니다.
+- Waiting (blocked, sleep) : 프로세스가 특정 이벤트를 대기하고 있는 상태입니다.
+- Ready : 프로세스가 프로세서(CPU)에게 할당되기를 기다리는 상태입니다.
+- Terminated : 프로세스가 실행을 종료한 상태입니다.
 
 ### Process Control Block
-- Metadata to manage data
-  - Process Control Block for process, Task Control Block for Task
+- 프로세스를 관리하는 메타데이터(Metadata)
+  - Process Control Block : process 관리
+  - Task Control Block : Task 관리
     - E.g. task_struct in Linux
-  - File Control Block for file
+  - File Control Block : file 관리
     - E.g. vnode in Unix file system
 
 > [메타데이터](https://en.wikipedia.org/wiki/Metadata)는 다른 데이터에 대한 정보를 포함하는 데이터, 즉 데이터의 데이터입니다.
@@ -297,11 +294,11 @@ How to load kernel?
 
 ### Process Scheduling Queues
 - Ready queue
-  - set of all processes residing in main memory and waiting for execution.
+  - 메인 메모리에 적재되어 있으며 실행을 기다리고 있는 프로세스들의 집합입니다.
 - Device queues
-  - set of processes waiting for an I/O device.
+  - I/O device 를 기다리고 있는 프로세스들의 집합입니다.
   - 각 장치는 자신의 디바이스 큐를 가집니다.
-- Processes migrate among the various queues.
+- 프로세스들은 다양한 큐(queues) 사이를 옮겨다닙니다.
 
 ![](https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/images/Chapter3/3_05_Queues.jpg)
 ![](https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/images/Chapter3/3_06_QueueingDiagram.jpg)
@@ -318,12 +315,13 @@ How to load kernel?
       - a few very long CPU bursts
 
 ### Context Switch
-When CPU switches to another process, the system must
-- save the state of the old process, and
-- load the saved state for the new process.
+
+문맥 교환 Context Switch 가 발생할 때 시스템은 아래의 작업을 수행합니다.
+- 기존 프로세스의 상태를 저장합니다.
+- 새 프로세스의 상태를 불러옵니다.
 
 Context switch time is pure overhead. 
-  - System does not any useful work while switching.
+  - 문맥교환이 발생할 때 시스템은 다른 작업을 수행하지 못합니다.
   - Context switch time depends on hardware.
     - The register set is different.
 
@@ -339,8 +337,7 @@ Context switch time is pure overhead.
 
 ![](https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/images/Chapter3/3_08_ProcessTree.jpg)
 
-Child processes need resources
-- 운영체제가 할당하거나 부모 프로세스의 자원을 공유합니다.
+- 자식 프로세스는 자원을 필요로 하며 운영체제로부터 할당받거나 부모 프로세스의 자원을 공유합니다.
 Resource sharing
 - Parent and children share all resources,
 - Children share subset of parent’s resources, or
@@ -361,7 +358,7 @@ Parent may terminate execution of child processes (abort).
 - If child has exceeded the allocated resources.
 - If task assigned to child is no longer required.
 
-연쇄식 종료cascading termination : 부모 프로세스가 종료되면 그 자식 프로세스들 역시 전부 종료 시키는 것.
+연쇄식 종료cascading termination : 부모 프로세스가 종료되면 그 자식 프로세스들 역시 전부 종료 시킵니다.
 
 ![](https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/images/Chapter3/3_10_ProcessCreation.jpg)
 
