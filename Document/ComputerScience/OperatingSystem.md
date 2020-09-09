@@ -155,14 +155,12 @@ Process management activities
 	<summary>접기/펼치기</summary>
 
 ## System Call
-`시스템 호출 system call`은 운영체제의 의해 사용 가능하게 된 서비스에 대한 인터페이스를 제공합니다.
-
-- interface provided by the OS.
-- how a program requests a service from an operating system.
-	- E.g. accessing the hard disk
-	- E.g. creating and executing new processes
-- provide an essential interface between a process and operating system.
-- typically written in a high-level language (C or C++)
+`시스템 호출 system call`은 운영체제가 제공하는 서비스에 대한 인터페이스를 제공합니다.
+- 프로그램이 운영체제에 대해 서비스를 요청하는 방법이기도 합니다.
+	- E.g. 하드 디스크 접근
+	- E.g. 새로운 프로세스 생성 및 실행
+- 프로세스와 OS 간에 필수적인 인터페이스를 제공합니다.
+- 일반적으로 high-level language (C or C++) 로 작성되었습니다.
 
 Three methods for passing parameters to the OS
 1. pass the parameters in registers. 값 전달
@@ -192,19 +190,19 @@ Three methods for passing parameters to the OS
   - E.g. chmod()...
 
 ### Application Program Interface (API)
-- A set of functions available to application programmer.
-- Three most common APIs
+- API는 애플리케이션 프로그래머가 활용할 수 있는 기능의 집합입니다.
+- 세 가지 가장 보편적입 API 
 	- Win32 API for Windows.
 	- POSIX API for POSIX-based systems (UNIX/Linux).
 	- Java API for the Java virtual machine.
-- Why use APIs rather than system calls?
-	- Portability
-	- Easy to use
+- 시스템 콜 대신 API를 활용하는 이유
+	- 호환성 Portability
+	- 사용하기 쉬움 Easy to use
 	- api를 활용한다면 응용 프로그래머는 자신의 프로그램이 같은 api를 지원하는 어느 시스템에서건 컴파일 되고 실행되는 것을 기대할 수 있습니다.
 	- 또한 실제 시스템 콜은 종종 좀 더 자세한 명세가 필요하고 프로그램 상에서 작업하기가 응용 프로그래머에게 가용한 api 보다 어렵습니다.
-- Programmer dose not need to know system call implementation.
-	- Just needs to obey API and understand what OS will do.
-	- Details of OS are hidden from programmer by API.
+    - 프로그래머는 시스템 콜의 구현상태에 대해 알아야 할 필요가 없습니다.
+	  - Just needs to obey API and understand what OS will do. 
+	  - 프로그래머 입장에서 OS를 활용하는 구체적인 부분은 API 내부에 감춰지게 됩니다.
 - API는 각 함수에 전달되어야 할 매개변수들과 프로그래머가 기대할 수 있는 반환 값을 포함하여 응용 프로그래머가 사용 가능한 함수의 집합을 명시합니다.
 
 ## Operating system structures
