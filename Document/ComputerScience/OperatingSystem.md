@@ -415,25 +415,25 @@ Parent may terminate execution of child processes (abort).
 
 ![](https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/images/Chapter4/4_02_MultithreadedArchitecture.jpg)
 - Motivation
-  - For example in a word processor, a background thread may check spelling and grammar while a foreground thread processes user input ( keystrokes ), while yet a third thread loads images from the hard drive, and a fourth does periodic automatic backups of the file being edited.
-  - Another example is a web server. Multiple threads allow for multiple requests to be satisfied simultaneously, without having to service requests sequentially or to fork off separate processes for every incoming request. ( The latter is how this sort of thing was done before the concept of threads was developed. A daemon would listen at a port, fork off a child for every incoming request to be processed, and then go back to listening to the port. )
   - 두 프로세스가 하나의 데이터를 공유하려면 메시지 패싱이나 공유 메모리 또는 파이프를 활용해야 합니다. 이는 효율도 떨어지고 개발자가 구현, 관리하기도 번거롭습니다.
   - 프로세스 사이에 문맥 교환이 일어나면 큰 오버헤드가 발생합니다. 스레드 전환에도 컨텍스트 스위치가 일어나지만 오버헤드가 상대적으로 작습니다.
+  - 예를 들어 워드 프로세스에서는 background thread 가 작성된 문단의 맞춤법을 검사하는 사이 foreground thread 는 사용자의 입력을 받아 처리합니다. 그러면서 또 다른 세번째 스레드는 하드 드라이브에서 파일(이미지 등)을 메인 메모리로 올리고, 네번째 스레드는 주기적으로 수정사항을 자동저장합니다.
+  - 또 다른 예는 웹 서버입니다. 다수의 스레드가 각각의 요청을 동시에 처리합니다. 다수의 자식 프로세스를 만들어내거나 (스레드 개념이 등장하기 전에 사용된 방법입니다.) 다수의 요청을 일련의 시퀀스로 나열해서 차례차례 처리하지 않아도 됩니다.
 
 - Benefits
-  - 응답성Responsiveness - One thread may provide rapid response while other threads are blocked or slowed down doing intensive calculations.
-  - Resource sharing - By default threads share common code, data, and other resources, which allows multiple tasks to be performed simultaneously in a single address space.
-  - Economy - Creating and managing threads ( and context switches between them ) is much faster than performing the same tasks for processes.
+  - 응답성 Responsiveness - 스레드들이 정지(block) 상태이거나 혹은 값비싼 연산을 수행하는 중일 때 특정 명령이 요청된다면 또 다른 스레드가 여기에 즉각적으로 응답할 수 있습니다.
+  - 자원 공유 Resource sharing - 기본적으로 스레드들은 코드, 데이터 등의 메모리 영역을 공유하기 때문에 하나의 메모리 공간에 대해서 다수의 스레드가 동작할 수 있습니다.
+  - 효율성 Economy - 스레드를 생성하고 관리하는 작업(문맥 교환context switch 역시 마찬가지입니다)은 프로세스에 대해 동일한 작업을 수행할 때 보다 빠릅니다.
     - fork() 등의 명령어로 프로세스를 생성하는 작업은 비용이 비싼 편입니다.
   - 규모 적응성Scalability, i.e. Utilization of multiprocessor architectures - A single threaded process can only run on one CPU, no matter how many may be available, whereas the execution of a multi-threaded application may be split amongst available processors.
 
 ## Multithreading Models
 - 사용자 스레드는 사용자 수준에서 지원되며 커널의 자원 없이 관리됩니다. 반면에 커널 스레드는 운영체제에 의해 직접 지원되고 관리됩니다. 현재 대부분의 os는 커널 스레드를 지원합니다.
 
-- There are two types of threads to be managed in a modern system: User threads and kernel threads.
-- User threads are supported above the kernel, without kernel support. These are the threads that application programmers would put into their programs.
-- Kernel threads are supported within the kernel of the OS itself. All modern OSes support kernel level threads, allowing the kernel to perform multiple simultaneous tasks and/or to service multiple kernel system calls simultaneously.
-- In a specific implementation, the user threads must be mapped to kernel threads, using one of the following strategies.
+- 현대 시스템에서 스레드는 사용자 스레드와, 커널 스레드로 분류됩니다.
+- 사용자 스레드는 사용자 수준에서 지원되며 커널의 자원 없이 관리됩니다. 애플리케이션 프로그래머과 활용할 수 있는 스레드입니다.
+- 커널 스레드는 OS 커널 내에서 관리되는 스레드입니다. 모든 현대 OS 들은 커널 스레드를 지원합니다. 이는 커널이 다수의 시스템 콜을 동시에 처리할 수 있게 합니다.
+- 특정 경우에서는 사용자 스레드가 커널 스레드와 반드시 매칭되어야 합니다. 아래 제시된 전략들 중 한 가지를 사용합니다.
 
 1. Many-To-One Model
 ![](https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/images/Chapter4/4_05_ManyToOne.jpg)
