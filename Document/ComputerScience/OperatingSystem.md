@@ -251,7 +251,7 @@ How to load kernel?
 
 ![](https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/images/Chapter3/3_01_Process_Memory.jpg)
 
-> 메모리에서 stack 영역은 메모리 최대 주소값에서 0으로, heap 영역은 data section 영역 주솟값 이후 부터 메모리 최대 주소값으로, 즉 두 영역을 서로 향하는 방향으로 메모리를 할당합니다. 만약 이 둘이 만나게 된다면 stack overflow 및 동적 할당 시 메모리 오류가 발생할 것입니다. 
+> 메모리에서 stack 영역은 메모리 최대 주소값에서 0으로, heap 영역은 data section 영역 주솟값 이후 부터 메모리 최대 주소값으로, 즉 두 영역을 서로 향하는 방향으로 메모리를 할당합니다. 만약 이 둘이 만나게 된다면 stack overflow 및 동적 할당 시 메모리 오류가 발생할 것입니다. <br>
 > stack : 높은 주솟값 -> 낮은 주솟값, heap : 낮은 주솟값 -> 높은 주솟값
 
 ### Process State
