@@ -6,6 +6,7 @@
 - Abraham Silberschatz, Greg Gagne, and Peter Baer Galvin, "Operating System Concepts, Ninth Edition "
 - [parksb 블로그](https://parksb.github.io/article/5.html)
 - [Operating System Course Note](https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/)
+- [Thread Course Note](http://lass.cs.umass.edu/~shenoy/courses/fall12/lectures/notes/Lec06_notes.pdf)
 
 # 1장 서론
 <details>
@@ -251,7 +252,7 @@ How to load kernel?
 
 ![](https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/images/Chapter3/3_01_Process_Memory.jpg)
 
-> 메모리에서 stack 영역은 메모리 최대 주소값에서 0으로, heap 영역은 data section 영역 주솟값 이후 부터 메모리 최대 주소값으로, 즉 두 영역을 서로 향하는 방향으로 메모리를 할당합니다. 만약 이 둘이 만나게 된다면 stack overflow 및 동적 할당 시 메모리 오류가 발생할 것입니다. <br>
+> 메모리에서 stack 영역은 메모리 최대 주소값에서 0으로, heap 영역은 data section 영역 주솟값 이후 부터 메모리 최대 주소값으로, 즉 두 영역을 서로 향하는 방향으로 메모리를 할당합니다. 만약 이 둘이 만나게 된다면 stack overflow 및 동적 할당 시 메모리 오류가 발생할 것입니다. 
 > stack : 높은 주솟값 -> 낮은 주솟값, heap : 낮은 주솟값 -> 높은 주솟값
 
 ### Process State
@@ -318,8 +319,8 @@ How to load kernel?
 ### Context Switch
 
 문맥 교환 Context Switch 가 발생할 때 시스템은 아래의 작업을 수행합니다.
-- 기존 프로세스의 상태를 저장합니다.
-- 새 프로세스의 상태를 불러옵니다.
+- 기존 프로세스의 상태(registers, memory maps)를 저장합니다. 각종 정보를 저장하는 테이블과 리스트를 업데이트 합니다.(updating various tables and lists)
+- 새 프로세스의 상태(registers, memory maps)를 불러옵니다. 각종 정보를 저장하는 테이블과 리스트를 업데이트 합니다.(updating various tables and lists)
 
 Context switch time is pure overhead. 
   - 문맥교환이 발생할 때 시스템은 다른 작업을 수행하지 못합니다.
@@ -407,6 +408,7 @@ Parent may terminate execution of child processes (abort).
 - 각 스레드는 아래의 자원을 각자 개별적으로 소유합니다.
   - 스택
   - 레지스터
+  - 프로그램 카운터(program count)
   - 스레드 ID
 
 ![](https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/images/Chapter4/4_02_MultithreadedArchitecture.jpg)
@@ -423,6 +425,11 @@ Parent may terminate execution of child processes (abort).
     - fork() 등의 명령어로 프로세스를 생성하는 작업은 비용이 비싼 편입니다.
   - 규모 적응성Scalability, i.e. Utilization of multiprocessor architectures - A single threaded process can only run on one CPU, no matter how many may be available, whereas the execution of a multi-threaded application may be split amongst available processors.
 
+## Context Switch in Thread
+
+- 프로세스간 문맥 교환 context switch 이 발생할 때는 내부적으로 시스템 캐시를 초기화합니다. (리눅스의 경우 TLB(translation lookaside buffer))
+- 스레드간 문맥 교환이 발생하는 경우에는 시스템 캐시가 유지되며, 스레드들이 동일한 주소 공간을 활용하고 있으므로 문맥 교환 비용이 훨씬 경제적입니다.
+
 ## Multithreading Models
 - 사용자 스레드는 사용자 수준에서 지원되며 커널의 자원 없이 관리됩니다. 반면에 커널 스레드는 운영체제에 의해 직접 지원되고 관리됩니다. 현재 대부분의 os는 커널 스레드를 지원합니다.
 
@@ -430,6 +437,7 @@ Parent may terminate execution of child processes (abort).
 - 사용자 스레드는 사용자 수준에서 지원되며 커널의 자원 없이 관리됩니다. 애플리케이션 프로그래머과 활용할 수 있는 스레드입니다.
 - 커널 스레드는 OS 커널 내에서 관리되는 스레드입니다. 모든 현대 OS 들은 커널 스레드를 지원합니다. 이는 커널이 다수의 시스템 콜을 동시에 처리할 수 있게 합니다.
 - 특정 경우에서는 사용자 스레드가 커널 스레드와 반드시 매칭되어야 합니다. 아래 제시된 전략들 중 한 가지를 사용합니다.
+- 커널 스레드보다 사용자 스레드의 문맥 교환 비용이 적습니다. 커널 스레드의 경우 문맥 교환 시 system call overhead 가 존재하기 때문입니다.
 
 1. Many-To-One Model
 ![](https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/images/Chapter4/4_05_ManyToOne.jpg)
