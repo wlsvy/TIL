@@ -191,7 +191,7 @@ Three methods for passing parameters to the OS
 
 ### Application Program Interface (API)
 - API는 애플리케이션 프로그래머가 활용할 수 있는 기능의 집합입니다.
-- 세 가지 가장 보편적입 API 
+- 세 가지 가장 보편적인 API 
 	- Win32 API for Windows.
 	- POSIX API for POSIX-based systems (UNIX/Linux).
 	- Java API for the Java virtual machine.
@@ -472,36 +472,36 @@ Parent may terminate execution of child processes (abort).
 - An I/O burst, waiting for data transfer in or out of the system.
 
 ### CPU Scheduler
-- Whenever the CPU becomes idle, it is the job of the CPU Scheduler ( a.k.a. the short-term scheduler ) to select another process from the ready queue to run next.
-- The storage structure for the ready queue and the algorithm used to select the next process are not necessarily a FIFO queue. There are several alternatives to choose from, as well as numerous adjustable parameters for each algorithm, which is the basic subject of this entire chapter.
+- CPU가 명령을 처리하지 않는(Idle) 상태일 때 ready queue 에서 다음에 수행될 프로세스를 결정하는 것이 CPU scheduler의 역할입니다.
+- ready queue 를 구성하는 자료구조와 알고리즘은 반드시 FIFO 형식의 queue 일 필요가 없습니다. 여기에는 다양한 방식이 존재합니다.
 
 
-CPU scheduling decisions may take place when
+CPU 스케쥴링(CPU scheduling decisions)은 아래 상황에서 발생합니다.
   1. a process switches from running to waiting state (e.g. I/O request),
   2. a process switches from running to ready state (e.g. time slice expiration),
   3. a process switches from waiting to ready (e.g. I/O completion), or
   4. a process terminates.
-- Scheduling under (1) and (4) is non-preemptive.
-- Scheduling under (2) and (3) is preemptive.
+- (1) 과 (4) 에서 발생하는 스케쥴링은 비선점형 입니다.
+- (2) 과 (3) 에서 발생하는 스케쥴링은 선점형 입니다.
 
 ### Dispatcher
-The dispatcher is the module that gives control of the CPU to the process selected by the scheduler. This function involves:
+Dispatcher는 스케쥴러에 의해 선택된 프로세스에게 CPU 통제권을 제공하는 모듈입니다. Dispatcher는 아래의 기능을 포함합니다.
   - Switching context.
   - Switching to user mode.
   - Jumping to the proper location in the newly loaded program.
-The dispatcher needs to be as fast as possible, as it is run on every context switch. The time consumed by the dispatcher is known as dispatch latency.
+Dispatcher 는 모든 문맥 교환 context switch 동작마다 작동하며 가능한한 빨라야 합니다. Dispathcer에 의해 소모되는 시간을 dispatch latency 라 합니다.
 
 ## Scheduling Criteria
 - CPU utilization
   - keeps the CPU as busy as possible. (0% ~ 100%)
 - Throughput
-  - The number of processes that are completed per time unit.
+  - 특정 시간(per time unit)마다 수행 완료되는 프로세스 갯수입니다.
 - Turnaround time
-  - Time from the submission of a request to time of completion.
+  - 요청이 처음 발생했을 때(Time from the submission of a request) 부터 완료될 때까지 걸린 시간입니다.
 - Waiting time
-  - Sum of time a process has been waiting in the ready queue.
+  - ready queue 에서 프로세스가 대기한 시간의 총합입니다.
 - Response time
-  - Time from the submission of a request until the first response is produced.
+  - 요청이 처음 발생했을 때(Time from the submission of a request) 부터 첫 처리 작업(응답response)이 시작될 때까지 걸린 시간입니다.
 
  ## Scheduling Algorithm
 - FCFS (First-Come First-Served)
@@ -521,7 +521,7 @@ The dispatcher needs to be as fast as possible, as it is run on every context sw
  - 최단 작업 우선 스케쥴링(SJF)은 최적임이 증명 가능하며, 가장 짧은 대기 시간을 제공합니다. 
    - SJF 스케쥴링을 구현하는 것은 어려운데, 이는 다음 CPU 버스트의 길이를 예측하기 어렵기 때문입니다.
 - SJF 알고리즘은 일반적인 우선순위 스케쥴링 알고리즘의 특별한 경우로 후자는 CPU를 단순히 최고 우선순위의 프로세스에게 할당합니다. 우선순위와 SJF 스케쥴링은 모두 기아 상태를 겪을 수 있습니다. 노화(aging)는 기아 상태를 예방하는 기법입니다.
-- 라운드 로빈(RR) 스케쥴링은 시분할(대화형) 시스템에 더 적합합니다. 라운드 로빈 스케쥴링은 준비 완료 큐에 있는 첫 번재 프로세스에게 q시간 단위(time slice) 동안 CPU를 할당합니다. 여기서 q는 시간 할당량이며, q시간 이후에, 프로세스가 CPU를 양도하지 않았다면, CPU를 선점하고 프로세스는 준비 완료 큐의 꼬리로 이동합니다.
+- 라운드 로빈(RR) 스케쥴링은 시분할(대화형) 시스템에 더 적합합니다. 라운드 로빈 스케쥴링은 준비 완료 큐에 있는 첫 번재 프로세스에게 q시간 단위(time slice) 동안 CPU를 할당합니다. 여기서 q는 시간 할당량이며, q시간 이후에, 프로세스가 CPU를 양도하지 않았다면, OS는 CPU를 선점하고 프로세스는 준비 완료 큐의 꼬리로 이동합니다.
   - 주요 문제는 시간 할당량을 선택하는 것입니다. 시간 할당량이 너무 크면 라운드 로빈 스케쥴링은 선입 선처리 스케쥴링으로 격하되고, 만약 시간 할당량이 너무 적으면, 문맥 교환으로 나타나는 스케쥴링 오버헤드가 지나치게 커집니다.
 - 다단계 큐 알고리즘(multilevel queue)들은 준비완료 큐(ready queue)를 다수의 별도의 큐로 분류하며 다양한 클래스의 프로세스들에 대해 상이한 알고리즘을 사용하도록 허용합니다. 가장 보편적인 모델은 라운드 로빈 스케쥴링을 사용하는 전위 대화형 큐와 선입 선처리 스케쥴링을 사용하는 후위 일괄처리 큐입니다.
   - 추가로 큐와 큐 사이의 스케쥴링도 반드시 있어야 하며, 일반적으로 고정 우선순위의 선점형 스케쥴링으로 구현됩니다. 예를 들어 포그라운드 큐는 백그라운드 큐보다 절대적으로 높은 우선순위를 가질 수 있습니다.
