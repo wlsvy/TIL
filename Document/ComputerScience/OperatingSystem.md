@@ -330,7 +330,7 @@ Context switch time is pure overhead.
 ## Operation on Process
 
 ### Process Creation
-- Parent process creates child processes, 
+- 부모 프로세스는 자식 프로세스를 생성합니다. 
 - which, in turn creates other processes. 
 - Finally, it forms a tree of processes.
 - Unix, Linux, Windows와 같은 대부분의 현대 운영체제들은 유일한 프로세스 식별자(pid)를 사용하여 프로세스를 구분합니다. 보통 정수형을 사용합니다.
