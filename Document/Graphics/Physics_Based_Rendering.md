@@ -4,6 +4,7 @@
 - [wikipedia : Physically_based_rendering](https://en.wikipedia.org/wiki/Physically_based_rendering)
 - [slide share : 물리 기반 셰이더의 허와 실:물리기반 셰이더를 가르쳐 봤습니다 공개용](https://www.slideshare.net/jpcorp/ss-60782086)
 - [slide share : PBR 기초 이론과 사용되는 맵들 Vol.2](https://www.slideshare.net/MRESC/pbr-vol2-131205432)
+- [physically-based-rendering-and-you-can-too](https://marmoset.co/posts/physically-based-rendering-and-you-can-too/#energy)
 
  ---
  
