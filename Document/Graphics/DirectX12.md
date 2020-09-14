@@ -33,6 +33,11 @@
 #### Reference
 - [slide share : anti-aliasing](https://www.slideshare.net/JinWooLee2/anti-aliasing)
 - [mynameismjp : msaa-overview](https://mynameismjp.wordpress.com/2012/10/24/msaa-overview/)
+- [catlike coding : fxaa](https://catlikecoding.com/unity/tutorials/advanced-rendering/fxaa/)
+- [wikipedia : fxaa](https://en.wikipedia.org/wiki/Fast_approximate_anti-aliasing)
+- [kotaku : fxaa](https://kotaku.com/what-is-fxaa-5866780)
+- [wikipedia : txaa](https://en.wikipedia.org/wiki/Temporal_anti-aliasing)
+- [nvidia document : txaa](https://docs.nvidia.com/gameworks/content/gameworkslibrary/postworks/product.html)
 
 - 안티 앨리어싱은 기하 구조를 픽셀로 표현할 때 나타나는 계단 현상을 처리하는 기법입니다.
 
@@ -46,7 +51,7 @@
 
 - Super-Sampling을 효율과 성능면에서 최적화한 방식입니다.
 
-![](https://mynameismjp.files.wordpress.com/2012/10/msaa_rasterization.png0)
+![](https://mynameismjp.files.wordpress.com/2012/10/msaa_rasterization.png)
 
 - MSAA (N)x : 하나의 픽셀은 N 개의 서브 샘플(subsample)을 가지게 됩니다.
   - SSAA의 경우 목표로 하는 기존의 렌더타겟보다 고해상도의 렌더 타겟의 모든 픽셀에 대해서 픽셀 쉐이더 연산을 수행합니다. 하지만 MSAA의 경우, 기존의 렌더 타겟에 대응하는 픽셀에 대해서만 픽셀 쉐이더 연산을 수행합니다.(SSAA가 기존보다 4배 고해상도 렌더링을 한다고 하면 픽셀 쉐이더 연산량도 4배가 되지만, MSAA 는 2x, 4x 의 경우 상관없이 픽셀 쉐이더 연산량은 변하지 않습니다.)
@@ -56,5 +61,23 @@
 
 ![](https://mynameismjp.files.wordpress.com/2012/10/msaa_partial_coverage2.png?w=1024&h=234)
 
-### FXAA
-### TXAA
+- 단점으로는 지연 렌더링에 적용하기 힘들다는 것과, alpha 텍스쳐까지 앨리어싱을 수행해버린다는 겁니다.
+- alpha-cutout(투명도가 일정 이하이면 해당 픽셀을 렌더링하지 않는 것) 결과값에 대해서는 여전히 계단현상이 나타납니다.
+
+### FXAA(Fast approximate anti-aliasing)
+
+- 특정 이미지에서 윤곽선을 찾아(edge detection) 해당 부분을 블러처리하는 기법입니다.
+  - SSAA, MSAA 등 기존의 방법들이 특정 기하구조를 화면에 렌더링하는 과정에 적용됩니다. 즉 forward 렌더링에 적합하고 deferred 렌더링에는 적용하기 까다롭습니다. FXAA는 이미 렌더링이 진행이된 이미지에 대해 적용할 수 있기 때문에 deferred rendering에도 문제없이 활용할 수 있다는 특징이 있습니다.
+  - 말그대로 edge만을 찾아내 계단 현상을 처리하기 때문에 속도가 빠릅니다.
+  - alpha cutout 과 alpha-blended texture 의 경우도 문제없이 처리합니다.
+  
+![](https://blog.codinghorror.com/content/images/uploads/2011/12/6a0120a85dcdae970b0153942b9436970b-800wi.jpg)
+
+- 단점으로는 의도치 않은 edge detection이 발생하는 경우가 있습니다. 특정 텍스쳐의 경우, 실제 edge가 아님에도 edge로 판단되어 블러처리되는 경우가 있습니다.
+
+### TXAA(Temporal anti-aliasing)
+
+- 현재 프레임과 이전 프레임을 비교합니다.
+  - 정적인 물체의 경우, 물체를 그릴 때 투영행렬에 살짝 jittering 을 반영하고 이전 프레임과 현재 프레임 픽셀 색상의 exponential average(일반 평균과는 다릅니다)를 구한다고 합니다.
+  - 동적인 물체 그러니까 화면상에 굴러다닌 공이 있다고 하면, 각 픽셀에 대해서 motion vector (이전 프레임에서 현재 프레임과 비교했을 때 얼마나 이동했는지)를 고려해서 색상 평균값을 구합니다.
+- (더 찾아보는 중. 생각보다 구체적으로 동작 원리를 설명한 자료가 안보여요.)
