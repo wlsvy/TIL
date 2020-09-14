@@ -39,6 +39,7 @@
 - [wikipedia : txaa](https://en.wikipedia.org/wiki/Temporal_anti-aliasing)
 - [nvidia document : txaa](https://docs.nvidia.com/gameworks/content/gameworkslibrary/postworks/product.html)
 - [nvidia : dlss](https://www.nvidia.com/en-us/geforce/news/graphics-reinvented-new-technologies-in-rtx-graphics-cards/#dlss)
+- [NVIDIA-Turing-Architecture-Whitepaper](https://www.nvidia.com/content/dam/en-zz/Solutions/design-visualization/technologies/turing-architecture/NVIDIA-Turing-Architecture-Whitepaper.pdf)
 
 - 안티 앨리어싱은 기하 구조를 픽셀로 표현할 때 나타나는 계단 현상을 처리하는 기법입니다.
 
