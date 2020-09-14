@@ -26,3 +26,34 @@
 > 개인적으로 fence의 개념 이해를 돕는 이미지를 찾아봤습니다만.... 어렵긴 해도 괜찮은 자료가 위 그림 밖에 없습니다.
 
 - fence는 멀티스레딩의 semaphore와 닮아있습니다. fence 에는 64비트 unsigned 정수값을 포함합니다. 멀티스레딩에서 semaphore의 값을 확인해 프로세서가 임계 구역(critical section)에 접근하는 것을 제한하듯, gpu는 commandList의 signal 값과 fence 값을 확인하며 해당 명령이 지금 수행가능 여부를 판별하는 것입니다.
+
+
+## Anti aliasing
+
+#### Reference
+- [slide share : anti-aliasing](https://www.slideshare.net/JinWooLee2/anti-aliasing)
+- [mynameismjp : msaa-overview](https://mynameismjp.wordpress.com/2012/10/24/msaa-overview/)
+
+- 안티 앨리어싱은 기하 구조를 픽셀로 표현할 때 나타나는 계단 현상을 처리하는 기법입니다.
+
+### SSAA(Super-Sampling Anti-Aliasing = FSAA(Full-Scene AA))
+![](https://www.sapphirenation.net/-/media/sites/sapphirenation/articles/2016/11/1.jpg)
+- 모든 픽셀에 대하여 픽셀당 한 개 이상의 샘플을 추출해 평균값을 구합니다.
+- 표시하는 해상도 보다도 고해상도로 렌더링 한 뒤 원래 해상도로 축소시킵니다.
+- 고해상도로 렌더링하기 때문에 부하가 굉장히 큽니다.
+
+### MSAA(Multi-Sampling Anti-Aliasing)
+
+- Super-Sampling을 효율과 성능면에서 최적화한 방식입니다.
+
+![](https://mynameismjp.files.wordpress.com/2012/10/msaa_rasterization.png0)
+
+- MSAA (N)x : 하나의 픽셀은 N 개의 서브 샘플(subsample)을 가지게 됩니다.
+  - SSAA의 경우 목표로 하는 기존의 렌더타겟보다 고해상도의 렌더 타겟의 모든 픽셀에 대해서 픽셀 쉐이더 연산을 수행합니다. 하지만 MSAA의 경우, 기존의 렌더 타겟에 대응하는 픽셀에 대해서만 픽셀 쉐이더 연산을 수행합니다.(SSAA가 기존보다 4배 고해상도 렌더링을 한다고 하면 픽셀 쉐이더 연산량도 4배가 되지만, MSAA 는 2x, 4x 의 경우 상관없이 픽셀 쉐이더 연산량은 변하지 않습니다.)
+  - 아래의 사진에서 알 수 있듯이 특정 픽셀이 삼각형 내부에 완전히 포함된다면, 해당 픽셀 쉐이더의 결과값은 온전히 반영될 것입니다. 하지만 픽셀의 서브 샘플을 반정도 걸치는 경우에는 픽셀 쉐이더의 결과값이 삼각형이 걸치는 서브 샘플의 비율 만큼(2/4 => 50%) 결과값이 반영됩니다. 
+  - 각 픽셀의 서브 샘플마다 깊이 테스트가 수행되어야 합니다. 이 말은 즉 MSAA 를 수행하기 위해서는 기존의 z-buffer가 N 사이즈 만큼 커야 합니다.( MSAA 2x 의 경우 z-buffer는 기존보다 2배 커야 합니다.)
+
+![](https://mynameismjp.files.wordpress.com/2012/10/msaa_partial_coverage2.png?w=1024&h=234)
+
+### FXAA
+### TXAA
