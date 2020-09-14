@@ -38,6 +38,7 @@
 - [kotaku : fxaa](https://kotaku.com/what-is-fxaa-5866780)
 - [wikipedia : txaa](https://en.wikipedia.org/wiki/Temporal_anti-aliasing)
 - [nvidia document : txaa](https://docs.nvidia.com/gameworks/content/gameworkslibrary/postworks/product.html)
+- [nvidia : dlss](https://www.nvidia.com/en-us/geforce/news/graphics-reinvented-new-technologies-in-rtx-graphics-cards/#dlss)
 
 - 안티 앨리어싱은 기하 구조를 픽셀로 표현할 때 나타나는 계단 현상을 처리하는 기법입니다.
 
@@ -81,3 +82,6 @@
   - 정적인 물체의 경우, 물체를 그릴 때 투영행렬에 살짝 jittering 을 반영하고 이전 프레임과 현재 프레임 픽셀 색상의 exponential average(일반 평균과는 다릅니다)를 구한다고 합니다.
   - 동적인 물체 그러니까 화면상에 굴러다닌 공이 있다고 하면, 각 픽셀에 대해서 motion vector (이전 프레임에서 현재 프레임과 비교했을 때 얼마나 이동했는지)를 고려해서 색상 평균값을 구합니다.
 - (더 찾아보는 중. 생각보다 구체적으로 동작 원리를 설명한 자료가 안보여요.)
+
+### DLSS(Deep Learning Super Sampling)
+- Nvidia 에서 RTX 그래픽 카드에 도입한 기술. 딥 러닝을 활용해 실시간으로 AA를 적용합니다. 게임이 실행되기 이전에 수천장의 렌더링 이미지를 기반으로 학습한 AI 데이터를 게임 파일에 삽입한다고 합니다. 저해상도 이미지가 제공되면 AI가 학습 데이터를 기반으로 고해상도 이미지를 출력합니다.
