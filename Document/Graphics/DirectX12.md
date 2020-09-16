@@ -34,11 +34,11 @@
 - [Microsoft : residency](https://docs.microsoft.com/en-us/windows/win32/direct3d12/residency)
 - [Microsoft : memory management strategy](https://docs.microsoft.com/en-us/windows/win32/direct3d12/memory-management-strategies)
 
-<br>
-- Direct X 11 과는 다르게 DirectX 12에서 자원 바인딩은 아래의 차이점을 가집니다.
+
+> Direct X 11 과는 다르게 DirectX 12에서 자원 바인딩은 아래의 차이점을 가집니다.  
 #### - Memory Residency Management Separated From Binding
- - directx 12에서 memory resident 란 시스템 자원을 gpu가 확인할 수 있는 메모리에 적재(load)하는 것을 말합니다.
- - directX 12 에서는 어떤 자원이 GPU 메모리에 적재할지는 application 측에서 결정합니다. shader에서 특정 자원에 접근하게 하는 것과 어떤 자원이 메모리에 적재될지 결정하는 것은 완벽히 분리됩니다. 이 특징은 Os 측에서 바인딩 된 자원의 정보를 지속적으로 추적할 필요가 없게 합니다. 즉 시스템/하드웨어 적인 오버헤드를 줄입니다.
+  - directx 12에서 memory resident 란 시스템 자원을 gpu가 확인할 수 있는 메모리에 적재(load)하는 것을 말합니다.
+  - directX 12 에서는 어떤 자원이 GPU 메모리에 적재할지는 application 측에서 결정합니다. shader에서 특정 자원에 접근하게 하는 것과 어떤 자원이 메모리에 적재될지 결정하는 것은 완벽히 분리됩니다. 이 특징은 Os 측에서 바인딩 된 자원의 정보를 지속적으로 추적할 필요가 없게 합니다. 즉 시스템/하드웨어 적인 오버헤드를 줄입니다.
 #### - Object Lifetime Management Separated From Binding
   - 객체 라이프타임과 자원 바인딩 과정이 분리되었습니다. 다만 현재 gpu에서 참조하고 있는 자원을 갑자기 파괴해버리는 동작을 오류를 일으킬 수 있습니다.
 #### - Driver Resource State Tracking Separated From Binding
