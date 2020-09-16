@@ -2,6 +2,10 @@
 - [itmo](https://news.itmo.ru/en/startups_and_business/innovations/news/9473/)
 - [unreal : mesh distance field](https://docs.unrealengine.com/en-US/Engine/Rendering/LightingAndShadows/MeshDistanceFields/index.html)
 - [raymarchingdf](https://iquilezles.org/www/articles/raymarchingdf/raymarchingdf.htm)
+- [kosmonautblog : signed-distance-field-rendering-journey-pt-1](https://kosmonautblog.wordpress.com/2017/05/01/signed-distance-field-rendering-journey-pt-1/)
+- [iquilezles : rmshadows](https://www.iquilezles.org/www/articles/rmshadows/rmshadows.htm)
+- [unreal : DynamicOcclusionWithSignedDistanceFields](http://advances.realtimerendering.com/s2015/DynamicOcclusionWithSignedDistanceFields.pdf)
+
 
 # Nanaite
 - 나나이트를 활용한다면 더 이상 메쉬를 렌더링 할때, 노말맵/LOD 기법이 필요하지 않습니다.
