@@ -152,3 +152,5 @@ int main()
 
 ### 콜백 함수 callback functioni
 - 함수를 담는 그릇입니다. 다른 함수를 전달받아 매개변수 형태로 저장합니다. 콜백함수 자체는 콜백함수는 자신이 사용되는 로직에 따라 호출이 되며 호출될때 처음부터 결정된 내용이 아니라, 매개변수로 넘겨받은 다른 함수를 사용합니다.
+
+- [wikipedia : callback](https://en.wikipedia.org/wiki/Callback_(computer_programming))
