@@ -63,7 +63,7 @@ Entity - Component System 으로 불리기도 합니다.
 - [Tessellation Stages](https://docs.microsoft.com/en-us/windows/win32/direct3d11/direct3d-11-advanced-stages-tessellation) : low-detail의 primitive를 high-detail의 primitive로 분할시키는 단계입니다.
   - 테셀레이션의 경우, 디테일을 개선하는 작업을 렌더링 단계에서 수행하기 때문에, 애플리케이션은 높은 디테일의 모델 자원이 아닌 낮은 디테일의 자원을 활용할 수 있습니다. 이는 메모리 절약에 도움이 됩니다. 
   - Level of detail 즉 카메라로 부터 거리에 따른 디테일 수준을 조정할 수 있습니다. 
-  - hull shader 단계 : programmable shader stage로서 입력 정보에 따라 제어점(patch constraint)을 
+  - hull shader 단계 : programmable shader stage로서 입력받은 면(patch)의 제어점(patch constraint)을 tessellator 단계로 전달다.
   - tessellator 단계 : 프로그래밍이 불가능한 고정된 단계로서 hull shader로 부터 전달받은 정보를 활용해 입력 영역domain(line, triangle, quad 등)을 더 작은 영역으로 분할합니다.
   - domain shader 단계 : tessellator 단계에서 분할된 기하정보를 넘겨받습니다. 전달받은 정보를 다루고 다음 파이프라인 단계로 넘깁니다.
 - [Geometry Shader Stage](https://docs.microsoft.com/en-us/windows/win32/direct3d11/geometry-shader-stage) : 정점 쉐이더가 입력정보로 하나의 정점을 받는다면 기하 쉐이더는 하나의 primitive를 이루는 다수의 정점을 입력정보로 받습니다. 이를 기반으로 해당 primitive를 다룰 수 있으며, 새로운 primitive를 만들어내거나 기존의 것을 파괴할 수도 있습니다.
