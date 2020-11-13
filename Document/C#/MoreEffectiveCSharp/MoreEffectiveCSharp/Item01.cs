@@ -18,7 +18,7 @@ namespace MoreEffectiveCSharp
     /// 속성을 사용하는 코드는 마치 데이터 필드에 직접 접근하는 것처럼 보이므로 성능 면에서도 큰 차이를 보여서는 안 될 것입니다. 
     /// 따라서 속성 접근자 내에서 오래 걸리는 연산(데이터 베이스 쿼리 등)은 자제해야 합니다.
     /// </summary>
-    public class MECSharp01
+    public static class MECSharp01
     {
         public class Customer
         {
@@ -109,5 +109,25 @@ namespace MoreEffectiveCSharp
             }
         }
 
+        private static void TestRefMethod(ref string refStr) 
+        {
+        }
+        private static void TestOutMethod(out string outStr)
+        {
+            outStr = string.Empty;
+        }
+
+        public static void RunSample()
+        {
+            Customer c = new Customer();
+            string cName = c.Name;
+
+            TestRefMethod(ref cName);
+            TestOutMethod(out cName);
+
+            //속성은 ref/out 키워드와 함께 전달할 수 없습니다.
+            //TestRefMethod(ref c.Name); //error
+            //TestOutMethod(out c.Name); //error
+        }
     }
 }

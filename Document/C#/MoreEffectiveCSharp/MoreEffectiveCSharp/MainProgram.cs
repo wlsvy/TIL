@@ -11,6 +11,8 @@ namespace MoreEffectiveCSharp
         static void Main(string[] args)
         {
             System.Console.WriteLine("Hello ECS");
+
+            MECSharp01.RunSample();
         }
     }
 }
@@ -25,12 +27,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EffectiveCSharp
+namespace MoreEffectiveCSharp
 {
     /// <summary>
     /// 
     /// </summary>
-    public static class ECSharp00
+    public static class MECSharp00
     {
         public static void RunSample()
         {
