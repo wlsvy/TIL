@@ -13,7 +13,8 @@ namespace MoreEffectiveCSharp
             System.Console.WriteLine("Hello ECS");
 
             //MECSharp01.RunSample();
-            MECSharp03.RunSample();
+            //MECSharp03.RunSample();
+            MECSharp05.RunSample();
         }
     }
 }
