@@ -11,3 +11,4 @@
 05. [값 타입에서는 0이 유효한 상태가 되도록 설계하라](https://github.com/wlsvy/TIL/blob/master/Document/C%23/MoreEffectiveCSharp/MoreEffectiveCSharp/Item05.cs)
 06. [속성을 데이터처럼 동작하게 만들어라](https://github.com/wlsvy/TIL/blob/master/Document/C%23/MoreEffectiveCSharp/MoreEffectiveCSharp/Item06.cs)
 07. [튜플을 사용해서 타입의 사용 범위를 제한하라](https://github.com/wlsvy/TIL/blob/master/Document/C%23/MoreEffectiveCSharp/MoreEffectiveCSharp/Item07.cs)
+08. [익명 타입은 함수를 벗어나지 않게 사용하라](https://github.com/wlsvy/TIL/blob/master/Document/C%23/MoreEffectiveCSharp/MoreEffectiveCSharp/Item08.cs)
