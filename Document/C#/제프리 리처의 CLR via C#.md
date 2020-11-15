@@ -68,3 +68,170 @@ CLR은 실제로 모듈들을 다루지는 않으며, 어셈블리를 다루게 
 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRLR0g7k3JcNHoagiCnQjDYZEEjiDnLTYpKkQ&usqp=CAU" width="40%" height="40%">
 
 </details>
+
+## 4장. 타입의 기초
+
+<details>
+<summary>fold/unfold</summary>
+
+### 모든 타입은 System.Object를 상속한다.
+
+#### Reference
+- [Microsoft : Object Class](https://docs.microsoft.com/en-us/dotnet/api/system.object?view=net-5.0)
+---
+
+- 모든 타입들은 궁극적으로 System.Object 타입으로부터 파생됩니다.
+- 따라서 C#의 모든 객체는 System.Object의 public/protected 메서드(GetHashCode, ToString 등)를 사용할 수 있습니다.
+
+```cs
+//아래 두 클래스 선언은 동일합니다.
+
+class Widget 
+{
+
+}
+
+class Widget : System.Object
+{
+
+}
+
+
+```
+
+- CLR은 모든 객체들을 반드시 new 연산자에 의하여 만들어지도록 하고 있습니다. 
+```cs
+Widget widget = new Widget("Construct Param");
+```
+
+- new 연산자는 아래의 일을 합니다.
+  - 할당하려는 타입과 System.Object 타입, 그리고 System.Object를 상속받은 모든 기본 타입들에서 정의된 모든 인스턴스 필드들을 메모리에 할당하기 위한 바이트 수를 계산합니다.
+     - 힙상의 모든 객체에는 타입 객체 포인터(Type Object Pointer)와 동기화 블록 인덱스(Sync Block Index)가 추가됩니다. CLR은 두 멤버를 통해 객체를 관리합니다.
+     - 추가 멤버들을 위한 바이트는 객체의 실제 크기에 포함됩니다.
+  - 필요한 만큼 메모리를 할당합니다. 처음 할당할 때 모든 바이트를 0으로 초기화합니다.
+  - 객체의 타입 객체 포인터와 동기화 블록 인덱스 멤버를 초기화합니다.
+  - 생성자를 호출하고 new 연산자에 서술된 매개변수가 전달됩니다. 파생클래스의 생성자 부터 호출되며 System.Object의 생성자가 가장 마지막에 호출됩니다.
+
+
+### 타입 간 캐스팅하기
+
+- CLR의 중요한 기능들 중 하나는 타입 안전성입니다. 실행 시점에서 CLR은 객체의 정확한 타입이 무엇인지 항상 파악하고 있습니다.
+
+```cs
+
+    //암시적으로 System.Object를 상속합니다.
+    internal class Widget { }
+    
+    public sealed class Program
+    {
+        public static void Main()
+        {
+            Object o = new Widget(); //암시적 변환이며, 안전합니다.
+
+            //Object 타입으로부터 Widget 클래스를 타입이 파생되었기 때문에 명시적 형 변환 연산자가 필요합니다.
+            //경우에 따라 런타임 오류가 발생할 수 있습니다.
+            Widget w = (Widget)o;
+        }
+    }
+
+```
+### C#의 is와 as 연산자로 캐스팅하기
+- C#에서 캐스팅 연산을 다룰 때 is/as 를 활용할 수 있습니다.
+
+```cs
+    Object o = new Object();
+    Boolean result1 = o is Object;  //true
+    Boolean result2 = o is Widget;  //false
+```
+- 아래와 같이 활용할 수 있으나, 아래의 경우는 CLR 이 타입을 두 번 점검합니다.
+
+```cs
+    //if 문에서 한번 검사합니다.
+    if(o is Widget)
+    {
+        //명시적 형변환을 수행하면서 또 한번 검사합니다.
+        Widget w = (Widget)o;
+    }
+```
+
+- 위와 같은 상황을 방지하기 위해 as 연산자를 사용할 수 있습니다.
+```cs
+    //여기서 한번 타입을 점검합니다.
+    Widget w = o as Widget;
+    if(w != null)
+    {
+        //여기서 w를 사용합니다.
+    }
+```
+
+### 실행 시점과의 연관성
+
+- 아래는 M1 메서드가 호출되기 직전의 스레드 스택의 상태입니다. 할당된 스레드에서 M1 메서드를 호출할 것입니다.
+
+<img src="https://images0.cnblogs.com/blog/157659/201304/21182346-874caa01993545a4a47bd904f19fe340.jpg" width="40%" height="40%">
+
+- 대게 메서드들은 프롤로그 코드(Prologue Code)를 포함하며 메서드 안의 코드가 동작하도록 초기화를 거치게 합니다.
+- 여기에 대응되는 에필로그 코드(Epilogue Code)도 있어서 메서드 실행 후의 정리 작업을 수행하게 합니다. 그리고 원래 호출자에게 돌아갈 수 있게 준비합니다.
+
+
+- 아래에서 프롤로그 코드는 스레드 스택에 지역변수를 위한 메모리 공간을 할당합니다.
+
+<img src="https://images0.cnblogs.com/blog/157659/201304/21183819-86973d2b233b488695e868b15b589ef1.jpg" width="40%" height="40%">
+
+- 아래에서 M2 메서드를 호출합니다. 메서드로 넘길 매개변수와 호출이 끝나고 되돌아갈 위치를 나타내는 주소값이 스택에 올라갑니다.
+
+<img src="https://images0.cnblogs.com/blog/157659/201304/21184716-ab55cd58c889462cbc517feb15e3f959.png" width="40%" height="40%">
+
+- M2 메서드의 지역변수가 스택에 올라갑니다. M2 메서드가 종료되면 리턴 주소를 확인해 다시 M1 메서드를 수행하던 위치로 되돌아갈 것입니다.
+
+<img src="https://images0.cnblogs.com/blog/157659/201304/21193503-93923c3e5087496f964141a1b32fc050.jpg" width="40%" height="40%">
+
+
+
+- 이제 아래의 두 클래스가 정의되어 있다고 가정합시다.
+
+```cs
+
+    public internal class Employee
+    {
+        public Int32 GetYearsEmployed() { ... }
+        public virtual string GetProgressReport() { ... }
+        public static Employee Lookup(string name) { ... }
+    }
+
+    public internal class Manager : Employee
+    {
+        public override string GetProgressReport() { ... }
+    }
+```
+
+- 처음에 Windows 프로세스가 실행되고, CLR이 로드되고, managed heap이 초기화되고, 스택공간과 스레드가 할당될 것입니다. 이 스레드는 초기 코드를 실행한 상태고 이제 M3 메서드를 호출하려고 합니다.
+
+<img src="https://dotblogsfile.blob.core.windows.net/user/hatelove/1302/9a0d03aac5db_1051A/image_2.png" width="40%" height="40%">
+
+- JIT 컴파일러가 M3 메서드의 IL 코드를 컴파일하면서 M3 메서드 안의 타입들과 변수 정보에 대해서 파악합니다.
+  - 이 시점에서 CLR은 이러한 타입들을 포함하는 어셈블리들을 로드할 것이며, 어셈블리의 메타데이터를 통해 타입 정보를 추출하여 타입에 대한 정보를 서술하는 또다른 자료 구조를 생성합니다.
+  - 아래 그림에서 Int32와 string 과 같은 기본적인 타입 정보는 이미 올라와 있다고 가정하며 나타내지 않습니다.
+
+- 아래 그림처럼 힙 위에 만들어지는 모든 객체는 타입 객체 포인터와 동기화 블록 인덱스 멤버를 추가적으로 가집니다.
+- 타입을 선언할 때 정의된 정적 데이터는 타입 객체 안에 포함됩니다. 그리고 타입 객체가 생성되는 시점에 초기화됩니다.
+- 마지막으로 타입 내의 메서드 하나당 한 개의 항목이 포함된 메서드 테이블도 만들어지게 됩니다.
+
+<img src="https://dotblogsfile.blob.core.windows.net/user/hatelove/1302/9a0d03aac5db_1051A/image_thumb_1.png" width="40%" height="40%">
+
+- 스레드의 스택상에 지역 변수를 위한 메모리를 할당합니다.
+
+<img src="https://dotblogsfile.blob.core.windows.net/user/hatelove/1302/9a0d03aac5db_1051A/image_thumb_2.png" width="40%" height="40%">
+
+- 매니저 객체가 생성됩니다. 역시 타입객체 포인터와 동기화 블록 인덱스를 가지며, 타입 객체 포인터는 Manager의 정확한 타입 객체를 가리키도록 초기화됩니다.
+- CLR은 객체를 생성하면서 객체의 모든 인스턴스 필드를 0 또는 NULL 값으로 초기화합니다.
+- 그 다음 객체의 생성자를 호출하면서 인스턴스의 데이터를 수정합니다.
+- 이후 new 연산자는 만들어진 Manager 객체의 메모리 주소를 반환하여 스레드 스택상에 할당된 변수 e에 저장합니다.
+
+<img src="https://dotblogsfile.blob.core.windows.net/user/hatelove/1302/9a0d03aac5db_1051A/image_thumb_2.png" width="40%" height="40%">
+
+
+<img src="https://dotblogsfile.blob.core.windows.net/user/hatelove/1302/9a0d03aac5db_1051A/image_thumb_3.png" width="40%" height="40%">
+
+
+</details>
