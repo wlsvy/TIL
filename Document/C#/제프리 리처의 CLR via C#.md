@@ -168,7 +168,7 @@ Widget widget = new Widget("Construct Param");
 
 - 아래는 M1 메서드가 호출되기 직전의 스레드 스택의 상태입니다. 할당된 스레드에서 M1 메서드를 호출할 것입니다.
 
-<img src="https://images0.cnblogs.com/blog/157659/201304/21182346-874caa01993545a4a47bd904f19fe340.jpg" width="40%" height="40%">
+<img src="https://github.com/wlsvy/TIL/blob/master/Document/C%23/CLRviaC%23_Image/4-2.jpg" width="40%" height="40%">
 
 - 대게 메서드들은 프롤로그 코드(Prologue Code)를 포함하며 메서드 안의 코드가 동작하도록 초기화를 거치게 합니다.
 - 여기에 대응되는 에필로그 코드(Epilogue Code)도 있어서 메서드 실행 후의 정리 작업을 수행하게 합니다. 그리고 원래 호출자에게 돌아갈 수 있게 준비합니다.
@@ -176,15 +176,15 @@ Widget widget = new Widget("Construct Param");
 
 - 아래에서 프롤로그 코드는 스레드 스택에 지역변수를 위한 메모리 공간을 할당합니다.
 
-<img src="https://images0.cnblogs.com/blog/157659/201304/21183819-86973d2b233b488695e868b15b589ef1.jpg" width="40%" height="40%">
+<img src="https://github.com/wlsvy/TIL/blob/master/Document/C%23/CLRviaC%23_Image/4-3.jpg" width="40%" height="40%">
 
 - 아래에서 M2 메서드를 호출합니다. 메서드로 넘길 매개변수와 호출이 끝나고 되돌아갈 위치를 나타내는 주소값이 스택에 올라갑니다.
 
-<img src="https://images0.cnblogs.com/blog/157659/201304/21184716-ab55cd58c889462cbc517feb15e3f959.png" width="40%" height="40%">
+<img src="https://github.com/wlsvy/TIL/blob/master/Document/C%23/CLRviaC%23_Image/4-4.png" width="40%" height="40%">
 
 - M2 메서드의 지역변수가 스택에 올라갑니다. M2 메서드가 종료되면 리턴 주소를 확인해 다시 M1 메서드를 수행하던 위치로 되돌아갈 것입니다.
 
-<img src="https://images0.cnblogs.com/blog/157659/201304/21193503-93923c3e5087496f964141a1b32fc050.jpg" width="40%" height="40%">
+<img src="https://github.com/wlsvy/TIL/blob/master/Document/C%23/CLRviaC%23_Image/4-5.jpg" width="40%" height="40%">
 
 
 
@@ -207,7 +207,7 @@ Widget widget = new Widget("Construct Param");
 
 - 처음에 Windows 프로세스가 실행되고, CLR이 로드되고, managed heap이 초기화되고, 스택공간과 스레드가 할당될 것입니다. 이 스레드는 초기 코드를 실행한 상태고 이제 M3 메서드를 호출하려고 합니다.
 
-<img src="https://dotblogsfile.blob.core.windows.net/user/hatelove/1302/9a0d03aac5db_1051A/image_2.png" width="40%" height="40%">
+<img src="https://github.com/wlsvy/TIL/blob/master/Document/C%23/CLRviaC%23_Image/4-6.png" width="40%" height="40%">
 
 - JIT 컴파일러가 M3 메서드의 IL 코드를 컴파일하면서 M3 메서드 안의 타입들과 변수 정보에 대해서 파악합니다.
   - 이 시점에서 CLR은 이러한 타입들을 포함하는 어셈블리들을 로드할 것이며, 어셈블리의 메타데이터를 통해 타입 정보를 추출하여 타입에 대한 정보를 서술하는 또다른 자료 구조를 생성합니다.
@@ -217,21 +217,41 @@ Widget widget = new Widget("Construct Param");
 - 타입을 선언할 때 정의된 정적 데이터는 타입 객체 안에 포함됩니다. 그리고 타입 객체가 생성되는 시점에 초기화됩니다.
 - 마지막으로 타입 내의 메서드 하나당 한 개의 항목이 포함된 메서드 테이블도 만들어지게 됩니다.
 
-<img src="https://dotblogsfile.blob.core.windows.net/user/hatelove/1302/9a0d03aac5db_1051A/image_thumb_1.png" width="40%" height="40%">
+<img src="https://github.com/wlsvy/TIL/blob/master/Document/C%23/CLRviaC%23_Image/4-7.png" width="40%" height="40%">
 
 - 스레드의 스택상에 지역 변수를 위한 메모리를 할당합니다.
 
-<img src="https://dotblogsfile.blob.core.windows.net/user/hatelove/1302/9a0d03aac5db_1051A/image_thumb_2.png" width="40%" height="40%">
+<img src="https://github.com/wlsvy/TIL/blob/master/Document/C%23/CLRviaC%23_Image/4-8.png" width="40%" height="40%">
 
 - 매니저 객체가 생성됩니다. 역시 타입객체 포인터와 동기화 블록 인덱스를 가지며, 타입 객체 포인터는 Manager의 정확한 타입 객체를 가리키도록 초기화됩니다.
 - CLR은 객체를 생성하면서 객체의 모든 인스턴스 필드를 0 또는 NULL 값으로 초기화합니다.
 - 그 다음 객체의 생성자를 호출하면서 인스턴스의 데이터를 수정합니다.
 - 이후 new 연산자는 만들어진 Manager 객체의 메모리 주소를 반환하여 스레드 스택상에 할당된 변수 e에 저장합니다.
 
-<img src="https://dotblogsfile.blob.core.windows.net/user/hatelove/1302/9a0d03aac5db_1051A/image_thumb_2.png" width="40%" height="40%">
+<img src="https://github.com/wlsvy/TIL/blob/master/Document/C%23/CLRviaC%23_Image/4-9.png" width="40%" height="40%">
 
+- Lookup 메서드를 호출할 때 JIT 컴파일러는 IL 코드를 컴파일하고 컴파일된 코드를 동적할당된 메모리에 저장합니다.
+- joe가 관리직에 해당한다면 새로운 Mananger 객체가 생성되고 지역변수 e에 저장합니다. 
+- 이때 처음 만들어진 Manager 객체는 아무도 참조하지 않으므로 가비지 수거 대상이 됩니다.
 
-<img src="https://dotblogsfile.blob.core.windows.net/user/hatelove/1302/9a0d03aac5db_1051A/image_thumb_3.png" width="40%" height="40%">
+<img src="https://github.com/wlsvy/TIL/blob/master/Document/C%23/CLRviaC%23_Image/4-10.png" width="40%" height="40%">
+
+- GetYearsEmployed 메서드를 호출합니다. 마찬가지로 JIT 컴파일을 거친 뒤 코드를 수행합니다.
+
+<img src="https://github.com/wlsvy/TIL/blob/master/Document/C%23/CLRviaC%23_Image/4-11.png" width="40%" height="40%">
+
+- 가상 메서드 GetProgressReport를 호출합니다.
+  - 가상 메서드를 호출할 때에는 JIT 컴파일러가 호출에 앞서 추가적인 코드를 메서드를 호출할 때마다 그 안에 추가하게 됩니다.
+  - e의 타입은 Employee 이지만 실제 가리키는 객체는 Manager 타입입니다. 코드를 수행할 때 객체 타입 포인터 멤버가 가리키고 있는 타입 객체 정보를 확인하여 실제 어떤 객체를 가리키고 있는지 파악합니다.
+  - 이후 실제 객체 타입의 메서드 테이블에서 호출하려는 메서드를 찾아냅니다. 역시 필요하면 JIT 컴파일을 수행합니다.
+
+<img src="https://github.com/wlsvy/TIL/blob/master/Document/C%23/CLRviaC%23_Image/4-12.png" width="40%" height="40%">
+
+- 아래 그림에서 타입 객체 역시 객체에 해당하므로, 타입 객체 포인터를 멤버를 가진다는 것을 확인할 수 있습니다.
+  - 해당 타입 객체 포인터의 경우 System.Type 이라는 MSCORLIB.DLL 안의 선언되어 있는 타입 객체를 가리키게 됩니다.
+  - System.Type 타입 객체의 경우 타입 객체 포인터 멤버가 자기 자신을 가리킵니다. System.Type 타입 자체가 그 자체로 객체의 타입 객체이기 때문입니다.
+
+<img src="https://github.com/wlsvy/TIL/blob/master/Document/C%23/CLRviaC%23_Image/4-13.png" width="40%" height="40%">
 
 
 </details>
