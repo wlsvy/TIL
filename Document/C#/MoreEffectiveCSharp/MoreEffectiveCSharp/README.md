@@ -12,3 +12,4 @@
 06. [속성을 데이터처럼 동작하게 만들어라](https://github.com/wlsvy/TIL/blob/master/Document/C%23/MoreEffectiveCSharp/MoreEffectiveCSharp/Item06.cs)
 07. [튜플을 사용해서 타입의 사용 범위를 제한하라](https://github.com/wlsvy/TIL/blob/master/Document/C%23/MoreEffectiveCSharp/MoreEffectiveCSharp/Item07.cs)
 08. [익명 타입은 함수를 벗어나지 않게 사용하라](https://github.com/wlsvy/TIL/blob/master/Document/C%23/MoreEffectiveCSharp/MoreEffectiveCSharp/Item08.cs)
+09. [다양한 동일성 개념들 사이의 상관관계를 이해하라](https://github.com/wlsvy/TIL/blob/master/Document/C%23/MoreEffectiveCSharp/MoreEffectiveCSharp/Item09.cs)
