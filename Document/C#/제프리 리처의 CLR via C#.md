@@ -253,5 +253,80 @@ Widget widget = new Widget("Construct Param");
 
 <img src="https://github.com/wlsvy/TIL/blob/master/Document/C%23/CLRviaC%23_Image/4-13.png" width="40%" height="40%">
 
+</details>
 
+## 5장. 기본, 참조, 값 타입
+
+<details>
+<summary>fold/unfold</summary>
+
+### 프로그래밍 언어 기본 타입
+
+#### Reference
+- [Microsoft : c# 내장 타입](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/built-in-types)
+
+- 컴파일러가 직접 지원하는 데이터 타입들을 기본 타입(Primitive Type)이라고 부릅니다.
+  - 대표적인 예로 int 타입이 있으며 아래 코드 4줄은 전부 같은 IL코드를 생성합니다.
+
+```cs
+    int a = 0;
+    System.Int32 a = 0;
+    int a = new int();
+    System.Int32 a = new System.Int32();
+```
+
+- C#의 기본 타입들은 조금 독특한 특징을 가지고 있습니다. 다른 프로그래밍 언어에서 int는 32비트 운영체제에서는 32비트 정수로 64비트 운영체제에서는 64비트 정수로 취급되는 경우가 있지만, C#에서 int는 System.Int32의 별칭이기 때문에 반드시 32비트 정수로 취급됩니다. 64비트 정수는 System.Int64의 별칭인 long을 사용해야 합니다.
+
+- C# 컴파일러는 기본 타입들을 다루는 작업들에 대해서 몇 가지 기능을 제공해줍니다.
+
+1. 컴파일러는 아래의 타입들에 대해서 암묵적/명시적 형 변환을 지원합니다.
+  - 암묵적 변환에 경우 변환 과정에서 데이터 손실이 없는 '안전한' 경우에만 지원합니다.
+```cs
+Int32 i = 5;        //Int32 -> Int32
+Int64 l = i;        //Int32 -> Int64
+Single s = i;       //Int32 -> Single
+Byte b = (Byte)i;   //Int32 -> Byte(명시적)
+Int16 v = (Int16)s; //Single -> Int16(명시적)
+```
+
+- 특히 부동 소수점 데이터를 다룰 때 주의해야 하는데 값을 정수형으로 변환할 때 컴파일러에 따라 버림/반올림 연산 중 어떤 것을 적용할지는 컴파일러마다 다릅니다. C#의 경우는 버림 연산이 적용됩니다.
+
+2. 기본 타입은 변수가 아닌 리터럴 상수로 기재할 수 있습니다.
+```cs
+Console.WriteLine($"{123.ToString()}, {456.ToString()}");
+```
+
+3. 리터럴 상수로 구성되는 표현식이 있다면, 컴파일러가 해당되는 표현식을 컴파일 타임에 평가하여 응용프로그램의 성능을 향상시키도록 할 수도 있습니다.
+4. 컴파일러는 +, -, *, /, &, ^ 등의  연산자가 사용되었을 때, 자동으로 연산자 처리 우선순위를 결정합니다.
+
+### 기본 타입 연산의 오버플로우 여부 검사
+- 언어마다 오버플로우를 처리하는 방식이 다릅니다. 오버플로우를 허용하는 C/C++ 과 다르게 Visual Baisc .NET에서는 오버플로우를 명백한 오류로 취급하고 발견될 경우 이 사실을 알립니다.
+  - C#은 오버플로우를 어떻게 처리할지 개발자가 선택할 수 있게 합니다. 컴파일러 옵션을 바꾸거나, checked/unchecked 키워드를 활용합니다.
+
+```cs
+UInt32 valid = unchecked((UInt32)(-1)); 
+
+int i = -1;
+UInt32 invalid = checked((UInt32)(i));  //overflow exception
+
+//블록 지정도 가능
+checked
+{
+    Byte b = 100;
+    b = (Byte)(b + 200);    //overflow exception
+}
+
+checked
+{
+    DoSomething(100);   //오버플로우 검사가 이루어지지 않을 수도 있습니다.
+}
+
+```
+
+- checked 블록 안에서 메서드를 호출한다고 가정했을 때, 메서드가 어떻게 컴파일 되는지에 따라 오버플로우 검사가 이루어질 수도, 이루어지지 않을 수도 있습니다. 
+  - checked 코드 블록은 단순히 컴파일 시점에 IL 코드의 오버플로우 검사여부를 결정하는 것에 불과하기 때문입니다.
+- checked/unchecked 연산자와 코드 블록, 그리고 컴파일러 스위치는 Decimal 타입에 대해서 검사를 지원하지 않습니다. Decimal 타입은 CLR이 다루지 않는 특수한 타입이며, c# 내부적으로 Decimal 에 대해서는 특별히 다르게 취급하기 때문입니다.(Decimal을 연산하기 위한 정적메서드와 연산자 오버로딩이 추가적으로 존재합니다.)
+  - System.Numerics.BigInteger 타입도 마찬가지입니다.
+
+### 참조 타입과 값 타입
 </details>
