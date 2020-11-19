@@ -264,6 +264,7 @@ Widget widget = new Widget("Construct Param");
 
 #### Reference
 - [Microsoft : c# 내장 타입](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/built-in-types)
+---
 
 - 컴파일러가 직접 지원하는 데이터 타입들을 기본 타입(Primitive Type)이라고 부릅니다.
   - 대표적인 예로 int 타입이 있으며 아래 코드 4줄은 전부 같은 IL코드를 생성합니다.
