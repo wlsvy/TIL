@@ -53,6 +53,7 @@
     <Compile Include="Item07.cs" />
     <Compile Include="Item08.cs" />
     <Compile Include="Item09.cs" />
+    <Compile Include="Item10.cs" />
     <Compile Include="MainProgram.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
