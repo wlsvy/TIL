@@ -373,4 +373,12 @@ IComparable c = i;  //boxing
 - 박싱되지 않은 값 타입들은 동기화 블록 인덱스가 없기 때문에, 다중 스레드 환경에서 lock 구문 등의 설정 대상으로 지정할 수 없습니다.
 - 값 타입은 sealed 타입이기 때문에 값 타입 객체가 ToString, Equals, GetHashCode 같은 가상 메서드를 재정의된 후 호출하려 하면 CLR이 이들을 비가상 메서드로서 호출하게 합니다. 추가적인 상속이 없는 것을 확신할 수 있기에 다형성을 무시하는 것입니다.
 
+### 객체의 동일함과 식별
+- [More Effective CSharp Item09](https://github.com/wlsvy/TIL/blob/master/Document/C%23/MoreEffectiveCSharp/MoreEffectiveCSharp/Item09.cs)를 확인합시다.
+
+### 객체 해시 코드
+
+### dynamic 기본 타입
+- dynamic 타입을 확인하면, 컴파일러는 해당 소스에 대해 조금 특별한 IL코드(페이로드payload)를 만들어 냅니다. dynamic 타입은 런타임 바인더에 의하여, 런타임에 입력되는 값에 따라 타입이 변하게 됩니다.
+
 </details>
