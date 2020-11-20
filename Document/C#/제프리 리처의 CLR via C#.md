@@ -330,4 +330,47 @@ checked
   - System.Numerics.BigInteger 타입도 마찬가지입니다.
 
 ### 참조 타입과 값 타입
+
+- 모든 클래스는 참조타입입니다.
+- 모든 구조체와 열거타입은 값 타입입니다. 구조체는 System.ValueType을 상속받고, 열거형은 System.Enum 을 상속받습니다. 여기서 System.Enum 역시 System.ValueType을 상속받습니다.
+  - 모든 값 타입은 Sealed 타입입니다. 어떤 타입도 값 타입을 상속받을 수 없습니다.
+  - 값 타입이 스택에 할당될 때에는 참조 타입과 달리 타입 객체 포인터와 동기화 블록 인덱스가 멤버로 포함되는 오버헤드가 존재하지 않습니다.
+
+- 어떤 상황에서 값 타입을 쓰는게 좋을지는 [MoreEffective CSharp 4장](https://github.com/wlsvy/TIL/blob/master/Document/C%23/MoreEffectiveCSharp/MoreEffectiveCSharp/Item04.cs) 을 참고합시다.
+- 값 타입의 경우, GetHashCode 메서드의 결과값은 타입의 멤버 값을 통해 평가합니다. 서로 다른 두 값 타입 객체가 똑같은 hash 코드 결과값을 반환할 수도 있는 것입니다.
+
+#### CLR의 메모리 레이아웃
+- System.Runtime.InteropServices 네임스페이스를 참조합시다. 메모리 레이아웃을 개발자가 임의로 지정한다면 아래와 같은 방식으로 공용체를 만드는 것도 가능합니다.
+
+```cs
+using System.Runtime.InteropServices;
+
+    [StructLayout(LayoutKind.Explicit)]
+    public struct Union
+    {
+        [FieldOffset(0)]
+        public int i;
+        [FieldOffset(0)]
+        public byte b;
+        [FieldOffset(0)]
+        public long l;
+        [FieldOffset(4)]
+        public int i2;
+    }
+```
+
+### 박싱된 값 타입과 박싱되지 않은 값 타입
+
+- 특정 인터페이스를 상속받은 값 타입에 대해서, 해당 값 타입 객체를 임의의 인터페이스 타입으로 캐스팅할 때 박싱이 필요합니다.
+  - 인터페이스 변수는 참조타입입니다.
+
+```cs
+ int i = 1;
+IComparable c = i;  //boxing
+```
+
+- 값 타입에 대해서 GetType, MemberwiseClone 과 같은 System.Object 에 정의된 비가상 메서드를 호출하려 할 때 박싱이 일어납니다. 힙에 할당된 참조 객체만이 해당 메서드를 호출할 수 있기 때문입니다.
+- 박싱되지 않은 값 타입들은 동기화 블록 인덱스가 없기 때문에, 다중 스레드 환경에서 lock 구문 등의 설정 대상으로 지정할 수 없습니다.
+- 값 타입은 sealed 타입이기 때문에 값 타입 객체가 ToString, Equals, GetHashCode 같은 가상 메서드를 재정의된 후 호출하려 하면 CLR이 이들을 비가상 메서드로서 호출하게 합니다. 추가적인 상속이 없는 것을 확신할 수 있기에 다형성을 무시하는 것입니다.
+
 </details>
