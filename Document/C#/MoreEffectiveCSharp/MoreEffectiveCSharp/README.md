@@ -18,3 +18,6 @@
 ## Chapter 2 API 디자인
 11. [API에는 변환 연산자를 작성하지 말라](https://github.com/wlsvy/TIL/blob/master/Document/C%23/MoreEffectiveCSharp/MoreEffectiveCSharp/Item11.cs)
 12. [선택적 매개변수를 사용하여 메서드 오버로드를 최소화하라](https://github.com/wlsvy/TIL/blob/master/Document/C%23/MoreEffectiveCSharp/MoreEffectiveCSharp/Item12.cs)
+13. 타입의 가시성을 제한하라
+14. [상속보다는 인터페이스를 정의하고 구현하는 것이 낫다](https://github.com/wlsvy/TIL/blob/master/Document/C%23/MoreEffectiveCSharp/MoreEffectiveCSharp/Item14.cs)
+
