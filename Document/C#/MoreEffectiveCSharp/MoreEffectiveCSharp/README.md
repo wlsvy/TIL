@@ -14,3 +14,6 @@
 08. [익명 타입은 함수를 벗어나지 않게 사용하라](https://github.com/wlsvy/TIL/blob/master/Document/C%23/MoreEffectiveCSharp/MoreEffectiveCSharp/Item08.cs)
 09. [다양한 동일성 개념들 사이의 상관관계를 이해하라](https://github.com/wlsvy/TIL/blob/master/Document/C%23/MoreEffectiveCSharp/MoreEffectiveCSharp/Item09.cs)
 10. [GetHashCode()의 위험성을 이해하라](https://github.com/wlsvy/TIL/blob/master/Document/C%23/MoreEffectiveCSharp/MoreEffectiveCSharp/Item10.cs)
+
+## Chapter 2 API 디자인
+11. [API에는 변환 연산자를 작성하지 말라](https://github.com/wlsvy/TIL/blob/master/Document/C%23/MoreEffectiveCSharp/MoreEffectiveCSharp/Item11.cs)
