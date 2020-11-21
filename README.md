@@ -19,6 +19,7 @@ Today I Learned
 - [Effective C#](https://github.com/wlsvy/TIL/tree/master/Document/C%23/Effective%20CSharp/EffectiveCSharp)
 - [string in C#](https://github.com/wlsvy/TIL/blob/master/Document/C%23/String.md)
 - [CLR via C# - 제프리 리처](https://github.com/wlsvy/TIL/blob/master/Document/C%23/%EC%A0%9C%ED%94%84%EB%A6%AC%20%EB%A6%AC%EC%B2%98%EC%9D%98%20CLR%20via%20C%23.md)
+- [.NET Framework, .NET Core 차이점](https://github.com/wlsvy/TIL/blob/master/Document/C%23/.NET%20Framework%20and%20.NET%20Core.md)
 
 ## Computer Science
 - [컴퓨터 아키텍쳐](https://github.com/wlsvy/TIL/blob/master/Document/ComputerScience/ComputerArchitecture.md)
