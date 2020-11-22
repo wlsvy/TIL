@@ -21,4 +21,6 @@
 13. 타입의 가시성을 제한하라
 14. [상속보다는 인터페이스를 정의하고 구현하는 것이 낫다](https://github.com/wlsvy/TIL/blob/master/Document/C%23/MoreEffectiveCSharp/MoreEffectiveCSharp/Item14.cs)
 15. [인터페이스 메서드와 가상 메서드의 차이를 이해하라](https://github.com/wlsvy/TIL/blob/master/Document/C%23/MoreEffectiveCSharp/MoreEffectiveCSharp/Item15.cs)
+16. [상태 전달을 위한 이벤트 패턴을 구현하라](https://github.com/wlsvy/TIL/blob/master/Document/C%23/MoreEffectiveCSharp/MoreEffectiveCSharp/Item16.cs)
+
 
