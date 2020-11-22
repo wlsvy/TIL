@@ -22,5 +22,8 @@
 14. [상속보다는 인터페이스를 정의하고 구현하는 것이 낫다](https://github.com/wlsvy/TIL/blob/master/Document/C%23/MoreEffectiveCSharp/MoreEffectiveCSharp/Item14.cs)
 15. [인터페이스 메서드와 가상 메서드의 차이를 이해하라](https://github.com/wlsvy/TIL/blob/master/Document/C%23/MoreEffectiveCSharp/MoreEffectiveCSharp/Item15.cs)
 16. [상태 전달을 위한 이벤트 패턴을 구현하라](https://github.com/wlsvy/TIL/blob/master/Document/C%23/MoreEffectiveCSharp/MoreEffectiveCSharp/Item16.cs)
-
+17. 내부 객체를 참조로 반환해서는 안된다
+18. 이벤트 핸들러보다는 오버라이딩을 사용하라
+19. 베이스 클래스에 정의된 메서드를 오버로드해서는 안 된다
+20. [이벤트 런타임 시 객체 간의 결합도를 증가시킨다는 것을 이해하라](https://github.com/wlsvy/TIL/blob/master/Document/C%23/MoreEffectiveCSharp/MoreEffectiveCSharp/Item20.cs)
 
