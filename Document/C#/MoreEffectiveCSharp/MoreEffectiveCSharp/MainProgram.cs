@@ -19,7 +19,8 @@ namespace MoreEffectiveCSharp
             //MECSharp08.RunSample();
             //MECSharp10.RunSample();
             //MECSharp11.RunSample();
-            MECSharp12.RunSample();
+            //MECSharp12.RunSample();
+            MECSharp15.RunSample();
         }
     }
 }
