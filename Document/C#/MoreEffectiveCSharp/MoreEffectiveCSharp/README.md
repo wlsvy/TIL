@@ -26,4 +26,6 @@
 18. 이벤트 핸들러보다는 오버라이딩을 사용하라
 19. 베이스 클래스에 정의된 메서드를 오버로드해서는 안 된다
 20. [이벤트 런타임 시 객체 간의 결합도를 증가시킨다는 것을 이해하라](https://github.com/wlsvy/TIL/blob/master/Document/C%23/MoreEffectiveCSharp/MoreEffectiveCSharp/Item20.cs)
+21. 이벤트는 가상으로 선언하지 말라.
+22. [명확하고 간결하며 완결된 메서드 그룹을 생성하라](https://github.com/wlsvy/TIL/blob/master/Document/C%23/MoreEffectiveCSharp/MoreEffectiveCSharp/Item22.cs)
 
