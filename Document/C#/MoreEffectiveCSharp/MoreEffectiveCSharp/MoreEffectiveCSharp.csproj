@@ -61,6 +61,7 @@
     <Compile Include="Item16.cs" />
     <Compile Include="Item20.cs" />
     <Compile Include="Item22.cs" />
+    <Compile Include="Item23.cs" />
     <Compile Include="MainProgram.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
