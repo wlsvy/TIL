@@ -64,7 +64,7 @@ namespace EffectiveCSharp
         }
 
         /* 컬렉션에 대한 공변성은 컬렉션에 저장할 타이들이 상속 관계에 있을 때 고려 대상이 된다.
-         * CelestialBody 타이브이 매개변수를 취하는 메서드에는 Planet 타입의 객체를 넘겨줄 수 있다.
+         * CelestialBody 타입이 매개변수를 취하는 메서드에는 Planet 타입의 객체를 넘겨줄 수 있다.
          * 유사하게 CelestialBody[] 타입의 매개변수를 취하는 메서드에는 Planet[] 타입의 객체를 넘겨줄 수 있다.
          */
 
