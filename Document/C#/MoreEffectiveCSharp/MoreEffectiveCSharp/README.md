@@ -31,5 +31,6 @@
 23. [생성자, 변경자, 이벤트 핸들러를 위해 partial 클래스와 메서드를 제공하라](https://github.com/wlsvy/TIL/blob/master/Document/C%23/MoreEffectiveCSharp/MoreEffectiveCSharp/Item23.cs)
 24. [설계 선택지를 제한하는 ICloneable은 사용을 피하라](https://github.com/wlsvy/TIL/blob/master/Document/C%23/MoreEffectiveCSharp/MoreEffectiveCSharp/Item24.cs)
 25. [배열 매개변수에는 params 배열만 사용해야 한다](https://github.com/wlsvy/TIL/blob/master/Document/C%23/MoreEffectiveCSharp/MoreEffectiveCSharp/Item25.cs)
+26. [지역 함수를 사용해서 반복자와 비동기 메서드의 오류를 즉시 보고하라](https://github.com/wlsvy/TIL/blob/master/Document/C%23/MoreEffectiveCSharp/MoreEffectiveCSharp/Item26.cs)
 
 
