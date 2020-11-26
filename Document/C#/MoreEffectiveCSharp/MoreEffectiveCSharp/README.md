@@ -33,4 +33,5 @@
 25. [배열 매개변수에는 params 배열만 사용해야 한다](https://github.com/wlsvy/TIL/blob/master/Document/C%23/MoreEffectiveCSharp/MoreEffectiveCSharp/Item25.cs)
 26. [지역 함수를 사용해서 반복자와 비동기 메서드의 오류를 즉시 보고하라](https://github.com/wlsvy/TIL/blob/master/Document/C%23/MoreEffectiveCSharp/MoreEffectiveCSharp/Item26.cs)
 
-
+## Chapter 3 태스크 기반 비동기 프로그래밍
+27. 비동기 작업에는 비동기 메서드를 사용하라
