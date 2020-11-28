@@ -38,4 +38,4 @@
 28. [async void 메서드는 절대 작성하지 말라](https://github.com/wlsvy/TIL/blob/master/Document/C%23/MoreEffectiveCSharp/MoreEffectiveCSharp/Item28.cs)
 29. [동기, 비동기 메서드를 함께 사용해서는 안된다](https://github.com/wlsvy/TIL/blob/master/Document/C%23/MoreEffectiveCSharp/MoreEffectiveCSharp/Item29.cs)
 30. 비동기메서드를 사용해서 스레드 생성과 콘텍스트 전환을 피하라
-
+31. 불필요한 콘텍스트 마셜링을 피하라
