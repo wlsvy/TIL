@@ -36,4 +36,5 @@
 ## Chapter 3 태스크 기반 비동기 프로그래밍
 27. 비동기 작업에는 비동기 메서드를 사용하라
 28. [async void 메서드는 절대 작성하지 말라](https://github.com/wlsvy/TIL/blob/master/Document/C%23/MoreEffectiveCSharp/MoreEffectiveCSharp/Item28.cs)
+29. [동기, 비동기 메서드를 함께 사용해서는 안된다](https://github.com/wlsvy/TIL/blob/master/Document/C%23/MoreEffectiveCSharp/MoreEffectiveCSharp/Item29.cs)
 
