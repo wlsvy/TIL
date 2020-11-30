@@ -67,6 +67,7 @@
     <Compile Include="Item26.cs" />
     <Compile Include="Item28.cs" />
     <Compile Include="Item29.cs" />
+    <Compile Include="Item32.cs" />
     <Compile Include="MainProgram.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
