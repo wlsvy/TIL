@@ -40,3 +40,4 @@
 30. 비동기메서드를 사용해서 스레드 생성과 콘텍스트 전환을 피하라
 31. 불필요한 콘텍스트 마셜링을 피하라
 32. [비동기 작업은 태스크 객체를 사용해 구현하라](https://github.com/wlsvy/TIL/blob/master/Document/C%23/MoreEffectiveCSharp/MoreEffectiveCSharp/Item32.cs)
+33. 태스크 취소 프로토콜을 구현하라
