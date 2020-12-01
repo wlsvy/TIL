@@ -44,3 +44,6 @@
 34. [비동기 메서드의 반환값을 캐시하는 경우 ValueTask<T>를 사용하라](https://github.com/wlsvy/TIL/blob/master/Document/C%23/MoreEffectiveCSharp/MoreEffectiveCSharp/Item34.cs)
 
 ## Chapter 4 병렬 처리
+
+35. [PLINQ가 병렬 알고리즘을 구현하는 방법을 이해하라](https://github.com/wlsvy/TIL/blob/master/Document/C%23/MoreEffectiveCSharp/MoreEffectiveCSharp/Item35.cs)
+
