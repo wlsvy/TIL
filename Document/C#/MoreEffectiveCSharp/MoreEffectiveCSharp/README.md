@@ -46,4 +46,5 @@
 ## Chapter 4 병렬 처리
 
 35. [PLINQ가 병렬 알고리즘을 구현하는 방법을 이해하라](https://github.com/wlsvy/TIL/blob/master/Document/C%23/MoreEffectiveCSharp/MoreEffectiveCSharp/Item35.cs)
+36. [예외를 염두에 두고 병렬 알고리즘을 만들라](https://github.com/wlsvy/TIL/blob/master/Document/C%23/MoreEffectiveCSharp/MoreEffectiveCSharp/Item36.cs)
 
