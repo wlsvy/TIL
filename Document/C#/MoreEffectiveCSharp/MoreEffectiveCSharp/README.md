@@ -50,5 +50,7 @@
 37. [스레드를 생성하지 말고 스레드 풀을 사용하라](https://github.com/wlsvy/TIL/blob/master/Document/C%23/MoreEffectiveCSharp/MoreEffectiveCSharp/Item37.cs)
 38. 스레드 간 커뮤니케이션에는 BackgroundWorker를 사용하라
 39. XAML 환경에서 스레드 간 호출을 이해하라
-
+40. [동기화에는 lock()을 최우선으로 사용하라](https://github.com/wlsvy/TIL/blob/master/Document/C%23/MoreEffectiveCSharp/MoreEffectiveCSharp/Item40.cs)
+41. 락은 가능한 한 좁은 범위에 적용하라
+42. [잠긴 영역에서는 외부 코드 호출을 삼가라](https://github.com/wlsvy/TIL/blob/master/Document/C%23/MoreEffectiveCSharp/MoreEffectiveCSharp/Item42.cs)
 
