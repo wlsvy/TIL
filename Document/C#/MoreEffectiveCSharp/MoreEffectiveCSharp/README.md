@@ -54,3 +54,10 @@
 41. 락은 가능한 한 좁은 범위에 적용하라
 42. [잠긴 영역에서는 외부 코드 호출을 삼가라](https://github.com/wlsvy/TIL/blob/master/Document/C%23/MoreEffectiveCSharp/MoreEffectiveCSharp/Item42.cs)
 
+## Chapter 5 동적 프로그래밍
+...
+
+## Chapter 6 글로벌 c# 커뮤니티에 참여하기
+...
+
+
