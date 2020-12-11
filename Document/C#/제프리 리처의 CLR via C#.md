@@ -684,7 +684,15 @@ C#의 각 키워드와 컴포넌트 버전 관리에 주는 영향
 
 </details>
 
+## 9장. 매개변수
 
+<details>
+<summary>fold/unfold</summary>
+
+### 선택적 매개변수와 명명된 매개변수
+
+
+</details>
 
 ## 26장. 스레드의 기본
 
