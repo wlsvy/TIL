@@ -823,4 +823,34 @@ Join 메서드는 호출한 스레드 객체가 파괴되거나 종료될 때까
     - 스레드 풀에 다수의 스레드가 Idle 상태로 남아 있다면 메모리를 낭비하는 상황이 됩니다. 스레드 풀은 풀 내의 스레드가 특정 시간 동안 계속 Idle 상태에 머물러 있다면, 스레드 풀은 이 같은 스레드를 깨워서 자기 자신을 종료하도록 하여 리소스를 해제합니다.
   - 스레드 풀은 응용 프로그램의 작업을 큐잉하는 속도가 스레드 풀 내의 스레드가 작업을 처리하는 속도보다 현저히 빠른 경우 추가적으로 스레드를 생성합니다.
 
+### 단순한 계산 중심 작업의 수행
+...
+
+### 실행 컨텍스트
+- 모든 스레드는 각자 실행 컨텍스트(Execution Contexts)라는 데이터 구조체를 가지고 있스빈다. 이 실행 컨텍스트에는 보안 설정(압축 스택, 스레드의 Principal 속성, 윈도우즈 아이덴티티(Windows Identity)), 호스트 설정(System.Threading.HostExecutionContextManager), 논리 호출 컨텍스트 데이터(Logical call context data, System.Runtime.Remoting.Messaging.CallContext 의 LogicalSetData/LogicalGetData)가 포함되어 있습니다.
+...
+
+### 협조적 취소와 타임아웃
+- .NET Framework 은 작업 취소를 위한 표준화된 패턴을 제공하고 있는데 이를 혀조적 취소 패턴(cooperative cancellation)이라 합니다.
+- CancellationToken 을 활용합니다.
+  - [마이크로소프트 CancellationTokenSource](https://docs.microsoft.com/ko-kr/dotnet/api/system.threading.cancellationtokensource?view=net-5.0)
+  - [마이크로소프트 CancellationToken](https://docs.microsoft.com/ko-kr/dotnet/api/system.threading.cancellationtoken?view=net-5.0)
+- Regist로 취소될 때 호출될 델리게이트를 등록할 수 있으며, CreateLinkedToken으로 특정 토큰이 취소될 때 자동으로 취소될 연결될 토큰을 생성할 수 있습니다.
+
+### 태스크
+- 계산 중심의 비동기 작업을 수행하기 위해서 ThreadPool의 QueueUserWorkItem을 호출하는 방식은 간단한 방법이긴 하지만 많은 제약사항을 가지고 있다. 가장 큰 문제점은 작업 완료 시점과 작업 수행 결과를 얻을 수 있는 방법을 제공하지 않는다는 것입니다.
+  - 이러한 제약을 극복하기 위해서 마이크로소프트는 태스크(task)라는 개념을 도입하였습니다.
+
+<br>
+- 태스크가 완료될 때까지 대기하여 그 결과를 얻을 수 있습니다.(wait, waitany, waitall 등)
+  - Task.wait 메서드를 호출하게 되면 시스템은 대기하려는 태스크가 이미 수행이 시작되었는지 확인합니다. 수행이 시작되었다면 태스크가 완료될 때까지 Wait메서드를 호출한 스레드를 멈추지만, 만약 수행이 시작되기 전이라면, 태스크를 호출한 스레드를 멈추게 하지 않고 해당 스레드로 태스크를 수행한 뒤 결과값을 반환합니다. 해당 방식을 통해 리소스를 절약하는 효과를 볼 수 있습니다.
+
+- AggregatioinException 타입은 예외 객체들에 대한 컬렉션을 캡슐화하기 위해서 주로 사용됩니다. (부모 스레드가 다수의 자식 스레드를 가지고 있고 특정 자식 스레드에서 예외가 던져지는 경우 사용)
+  - AggregatioinException 의 Handle 메서드는 AggregatioinException 내부의 예외에 대해서 각각 callback 메서드를 호출할 수 있게 합니다. 에러 처리를 수행할 때 해당 기능을 사용합니다.
+- waitall 메서드를 호출하고 다수의 태스크가 전부 완료될 때까지 기다리는 중인데 도중에 하나 이상의 태스크가 취소되었다면, operationCanceledException을 던집니다.
+
+<br>
+- CancellationTokenSource를 이용하면 태스크를 취소할 수 있습니다.
+  - Task 객체의 작업이 스캐줄되기 전에 CancellationToken을 이용하여 태스크를 취소하려고 시도할 수 있는데 이 경우 태스크는 즉각 취소되고 절대 수행되지 않습니다. 하지만 태스크가 이미 수행 중이라면 작업을 수행중에 중단할 수 있도록 코드가 준비되어 있어야 합니다.
+
 </details>
