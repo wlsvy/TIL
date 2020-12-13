@@ -690,7 +690,41 @@ C#의 각 키워드와 컴포넌트 버전 관리에 주는 영향
 <summary>fold/unfold</summary>
 
 ### 선택적 매개변수와 명명된 매개변수
+...
+- 메서드로 매개변수를 전달할 때, 컴파일러는 각각의 매개변수에 대한 식을 왼쪽에서 오른쪽의 순서로 평가합니다.
+- 매개변수에 지정하는 기본값들은 모두 컴파일 시점에서 알 수 있는 상수 값이어야 합니다.
+- 모듈 외부에서 불리는 메서드의 매개변수의 기본값을 바꾸는 것은 위험성을 내포합니다. 호출하는 측의 코드가 재컴파일 되지 않는다면 이전에 사용되던 매개변수의 기본값을 그대로 사용하게 됩니다.
 
+```cs
+        //이 방법은 위험합니다.
+        private static string MakePath(string fileName = "Untitled")
+        {
+            return string.Format(@"C:\{0}.txt", fileName);
+        }
+
+        //대신 이렇게 하는 것이 좋습니다.
+        private static string MakePath(string filename = null)
+        {
+            return string.Format(@"C:\{0}.txt", filename ?? "Untitled");
+        }
+
+```
+<br>
+- ref, out 키워드를 사용하는 매개변수에는 기본값을 지정할 수 없습니다.
+- c#의 경우 선택적 매개변수에 기본값을 지정할 경우, 컴파일러가 내부적으로 System.Runtime.InteropServices.OptionalAttribute 특성을 해당 매개변수에 자동으로 붙이고 메타데이터에 기록합니다.
+  - 추가적으로 System.Runtime.InteropServices.DefaultParameterValueAttribute 특성을 해당 매개변수에 붙이고 메타데이터에 기록합니다. 이후에 DefaultParameterValueAttribute 특성의 생성자에는 소스 코드상에서 지정한 기본 상수 값을 전달합니다.
+
+
+### 암시적으로 타입화된 지역 변수
+...
+
+### 메서드에 참조로 매개변수 전달
+- out/ref 키워드는 매개변수로 넘겨받은 변수의 레퍼런스를 전달합니다.
+- CLR에서 두 키워드는 동일한 의미를 가집니다. 하지만 C# 컴파일러는 두 키워드를 엄격하게 구분합니다.
+  - ref 매개변수를 전달하기 전에 해당 변수는 초기화가 되어 있어야 하지만, out 매개변수로 전달될 때는 초기화 되어있을 필요가 없습니다.
+- out 과 ref 키워드 간 오버로딩은 지원되지 않습니다. 메타데이터 관점에서는 out과 ref 키워드간의 차이가 없기 때문입니다.
+
+### 메서드에 가변 매개변수 전달하기
 
 </details>
 
