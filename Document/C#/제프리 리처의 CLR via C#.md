@@ -872,4 +872,18 @@ Join 메서드는 호출한 스레드 객체가 파괴되거나 종료될 때까
   - ContinueWith를 호출할 때 TaskContinuationOptions 플래그를 지정할 수 있습니다.
 - [마이크로소프트 taskcontinuationoptions](https://docs.microsoft.com/ko-kr/dotnet/api/system.threading.tasks.taskcontinuationoptions?view=net-5.0)
 
+<br>
+
+- 태스크는 부모 자식 관계를 가질 수 있습니다.
+  - 기본적으로 부모 태스크와 자식 태스크는 독립적이지만 TaskFactory 로 태스크를 생성하는 경우 TaskCreationOptions.AttachedToParent 플래그를 설정해 부모와 자식 태스크를 연결시킬 수 있습니다.
+    - 이 경우 자식 태스크가 완료되기 전까지 부모 태스크는 완료되지 않습니다.
+    - 자식 태스크가 예외를 던질 경우 부모 태스크로 전달됩니다.
+    - Task.Run() 을 통해 만들어진 부모 태스크는 명시적으로 자식 태스크와 연결되지 않도록 합니다.
+- [마이크로소프트 childTask](https://docs.microsoft.com/ko-kr/dotnet/standard/parallel-programming/attached-and-detached-child-tasks)
+
+<br>
+
+- 태스크는 내부적으로 ID(Int32), 상태를 나타내는 status(Int32), 부모 태스크 참조자, 태스크 생성시에 지정된 TaskScheduler 참조자, callback 메서드, callback메서드에 전달해야 하는 객체, ExecutionContext 참조자, ManualResetEventSlim 객체 참조자 등을 가지고 있습니다.
+  - 태스크는 IDisposable 인터페이스를 구현합니다.
+  - 태스크의 status를 확인해서 수명 주기를 파악할 수 있습니다. [마이크로소프트 : Task Status](https://docs.microsoft.com/ko-kr/dotnet/api/system.threading.tasks.taskstatus?view=net-5.0)
 </details>
