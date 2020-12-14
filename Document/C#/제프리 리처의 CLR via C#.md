@@ -846,7 +846,10 @@ Join 메서드는 호출한 스레드 객체가 파괴되거나 종료될 때까
 - 태스크가 완료될 때까지 대기하여 그 결과를 얻을 수 있습니다.(wait, waitany, waitall 등)
   - Task.wait 메서드를 호출하게 되면 시스템은 대기하려는 태스크가 이미 수행이 시작되었는지 확인합니다. 수행이 시작되었다면 태스크가 완료될 때까지 Wait메서드를 호출한 스레드를 멈추지만, 만약 수행이 시작되기 전이라면, 태스크를 호출한 스레드를 멈추게 하지 않고 해당 스레드로 태스크를 수행한 뒤 결과값을 반환합니다. 해당 방식을 통해 리소스를 절약하는 효과를 볼 수 있습니다.
 
-- AggregatioinException 타입은 예외 객체들에 대한 컬렉션을 캡슐화하기 위해서 주로 사용됩니다. (부모 스레드가 다수의 자식 스레드를 가지고 있고 특정 자식 스레드에서 예외가 던져지는 경우 사용)
+<br>
+
+- AggregationException 은 애플리케이션을 실행하는 동안 발생하는 하나 이상의 오류를 나타냅니다.
+  - AggregatioinException 타입은 예외 객체들에 대한 컬렉션을 캡슐화하기 위해서 주로 사용됩니다. (부모 스레드가 다수의 자식 스레드를 가지고 있고 특정 자식 스레드에서 예외가 던져지는 경우 사용)
   - AggregatioinException 의 Handle 메서드는 AggregatioinException 내부의 예외에 대해서 각각 callback 메서드를 호출할 수 있게 합니다. 에러 처리를 수행할 때 해당 기능을 사용합니다.
 - waitall 메서드를 호출하고 다수의 태스크가 전부 완료될 때까지 기다리는 중인데 도중에 하나 이상의 태스크가 취소되었다면, operationCanceledException을 던집니다.
 
@@ -886,4 +889,15 @@ Join 메서드는 호출한 스레드 객체가 파괴되거나 종료될 때까
 - 태스크는 내부적으로 ID(Int32), 상태를 나타내는 status(Int32), 부모 태스크 참조자, 태스크 생성시에 지정된 TaskScheduler 참조자, callback 메서드, callback메서드에 전달해야 하는 객체, ExecutionContext 참조자, ManualResetEventSlim 객체 참조자 등을 가지고 있습니다.
   - 태스크는 IDisposable 인터페이스를 구현합니다.
   - 태스크의 status를 확인해서 수명 주기를 파악할 수 있습니다. [마이크로소프트 : Task Status](https://docs.microsoft.com/ko-kr/dotnet/api/system.threading.tasks.taskstatus?view=net-5.0)
+
+<br>
+
+- 태스크 팩토리는 Task 개체를 만들고 예약하도록 지원합니다.
+  - [마이크로소프트 : Task.Run vs Task.Factory.StartNew](https://devblogs.microsoft.com/pfxteam/task-run-vs-task-factory-startnew/)
+
+ <br>
+
+- 태스크 스케쥴러는 작업을 스레드의 큐에 대기하는 낮은 수준의 작업을 처리하는 개체를 나타냅니다.
+  - [마이크로소프트 : Task Scheduler](https://docs.microsoft.com/ko-kr/dotnet/api/system.threading.tasks.taskscheduler?view=net-5.0#definition)
+
 </details>
