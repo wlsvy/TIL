@@ -853,4 +853,20 @@ Join 메서드는 호출한 스레드 객체가 파괴되거나 종료될 때까
 - CancellationTokenSource를 이용하면 태스크를 취소할 수 있습니다.
   - Task 객체의 작업이 스캐줄되기 전에 CancellationToken을 이용하여 태스크를 취소하려고 시도할 수 있는데 이 경우 태스크는 즉각 취소되고 절대 수행되지 않습니다. 하지만 태스크가 이미 수행 중이라면 작업을 수행중에 중단할 수 있도록 코드가 준비되어 있어야 합니다.
 
+<br>
+- 태스크 완료 시 다른 태스크를 자동으로 수행.
+  - Wait, Result 는 해당 태스크를 수행하기 위해 스레드를 하나 더 생성해서 성능에 영향을 주는 경우가 있습니다. Wait/Result  말고도 스레드가 완료되었을 경우 이를 확인할 수 있는 방법이 있는데 특정 태스크가 수행 완료되었을 때 바로 다음 스레드를 이어서 수행하는 방법입니다.
+
+- 아래의 코드는 어떤 스레드도 블로킹하지 않습니다.
+```cs
+            //태스크를 생성하고 시작합니다. 다른 태스크를 이어서 시작할 것입니다.
+            var t = Task.Run(() => sum(1, 3));
+            //ContinueWith 가 태스크를 반환하기는 하지만 잘 사용하지는 않습니다.
+            Task cwt = t.ContinueWith(task => Console.WriteLine($"sum is {task.Result}"));
+```
+
+- 태스크 객체는 내부적으로 ContinueWith 태스크를 컬렉션에 저장하고 있습니다. 덕분에 단일 태스크 객체에 대하여 ContinueWith 메서드를 여러 번 호출할 수 있으며, 태스크가 완료되면 컬렉션 내의 모든 ContinueWith 태스크들을 스레드 풀에 큐잉하게 됩니다.
+  - ContinueWith를 호출할 때 TaskContinuationOptions 플래그를 지정할 수 있습니다.
+- [마이크로소프트 taskcontinuationoptions](https://docs.microsoft.com/ko-kr/dotnet/api/system.threading.tasks.taskcontinuationoptions?view=net-5.0)
+
 </details>
