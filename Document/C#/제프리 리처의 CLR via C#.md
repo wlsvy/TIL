@@ -895,9 +895,60 @@ Join 메서드는 호출한 스레드 객체가 파괴되거나 종료될 때까
 - 태스크 팩토리는 Task 개체를 만들고 예약하도록 지원합니다.
   - [마이크로소프트 : Task.Run vs Task.Factory.StartNew](https://devblogs.microsoft.com/pfxteam/task-run-vs-task-factory-startnew/)
 
- <br>
+<br>
 
 - 태스크 스케쥴러는 작업을 스레드의 큐에 대기하는 낮은 수준의 작업을 처리하는 개체를 나타냅니다.
   - [마이크로소프트 : Task Scheduler](https://docs.microsoft.com/ko-kr/dotnet/api/system.threading.tasks.taskscheduler?view=net-5.0#definition)
+
+<br>
+
+### Parallel의 정적 For, ForEach, Invoke 메서드
+...
+
+### Parallel LINQ
+...
+
+### 계산 중심 작업을 주기적으로 수행하기
+- System.Threading 네임스페이스의 Timer 클래스를 이용하면 스레드 풀 내의 스레드를 이용하여 특정 메서드를 주기적으로 수행할 수 있습니다.
+- Timer 객체가 가비지로 수집되면, finalizatioin 코드가 타이머를 취소하기 때문에 콜백 메서드가 더 이상 수행되지 않습니다. 타이머 클래스의 Dispose()를 호출한 경우에도 마찬가지
+
+```cs
+    public sealed class Program
+    {
+        public static Timer s_Timer;
+        public static void Main()
+        {
+            Console.WriteLine("Timer 클래스를 활용해 주기적으로 델리게이트 호출");
+
+            var timer = new Timer(DoSomething, null, TimeSpan.FromSeconds(2), TimeSpan.FromSeconds(2));
+
+            //절대 수행되지 않는 타이머를 생성합니다. 이렇게 해서 s_Timer 변수에 객체를 할당하기도 전에 스레드 풀 내의 스레드가 DoSomething2 를 호출하는 것을 막습니다.
+            s_Timer = new Timer(DoSomething2, null, Timeout.Infinite, Timeout.Infinite);
+
+            //이 시점에서는 s_Timer의 객체가 할당되었으므로, Status 콜백 함수 내부에서 Change 메서드를 호출하기 위해서 s_Timer를 참조해도 널 오류가 발생하지 않습니다.
+            s_Timer.Change(0, Timeout.Infinite);
+
+            //프로그램이 종료되는 것을 막는다.
+            Console.ReadLine();
+        }
+
+        private static void DoSomething(object state)
+        {
+            Console.WriteLine($"Called DoSomething : Current Time : {DateTime.Now}");
+        }
+
+        private static void DoSomething2(object state)
+        {
+            Console.WriteLine($"Called DoSomething2 : Current Time : {DateTime.Now}");
+            Thread.Sleep(1000); //다른 작업을 수행하기 전에 1초 휴식
+
+            //메서드를 반환하기 이전에 2초 후에 다시 수행될 수 있도록 해준다.
+            s_Timer.Change(2000, Timeout.Infinite);
+
+            //이 메서드가 반환되면 이 메서드를 수행하던 스레드는 스레드 풀로 반환됩니다.
+
+        }
+    }
+```
 
 </details>
