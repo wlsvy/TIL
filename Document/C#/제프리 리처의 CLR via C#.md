@@ -962,7 +962,7 @@ Join 메서드는 호출한 스레드 객체가 파괴되거나 종료될 때까
 
 <br>
 
-<img src="https://github.com/wlsvy/TIL/blob/master/Document/C%23/CLRviaC%23_Image/27-1.png" width="40%" height="40%">
+<img src="https://github.com/wlsvy/TIL/blob/master/Document/C%23/CLRviaC%23_Image/4-10.png" width="40%" height="40%">
 
 <br>
 
@@ -981,5 +981,13 @@ Join 메서드는 호출한 스레드 객체가 파괴되거나 종료될 때까
   - [Microsoft : TaskScheduler](https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.taskscheduler?redirectedfrom=MSDN&view=net-5.0#remarks)
   - [stack overflow : why-does-clr-threadpool-worker-thread-use-lifo](https://stackoverflow.com/questions/53461132/why-does-clr-threadpool-worker-thread-use-lifo-order-to-process-tasks-from-the-l)
 
+</details>
+
+## 29장. 단순 스레드 동기화 요소
+
+<details>
+<summary>fold/unfold</summary>
+
+### 클래스 라이브러리와 스레드 안전성
 
 </details>
