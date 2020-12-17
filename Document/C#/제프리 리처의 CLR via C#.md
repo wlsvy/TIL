@@ -950,5 +950,36 @@ Join 메서드는 호출한 스레드 객체가 파괴되거나 종료될 때까
         }
     }
 ```
+### 스레드 풀이 스레드를 관리하는 방법
+## 이 부분 오역투성이에 엉망진창입니다.
+
+- 스레드 개수가 충분하지 않을 경우, 기아 현상이나 데드락이 발생할 수 있기 때문에 CLR은 지속적으로 수행 가능한 스레드 숫자를 증가시키고 있습니다.
+- 스레드 풀이 생성할 수 있는 최대 스레드 개수는 개발자가 설정할 수 있습니다. 하지만 응용프로그램 성능에 영향을 줄 수 있으므로 가능한 기본 설정을 사용하는 것을 권고하고 있습니다.
+
+<br>
+
+** 워커 스레드는 어떻게 동작하는가 **
+
+<br>
+
+<img src="https://github.com/wlsvy/TIL/blob/master/Document/C%23/CLRviaC%23_Image/4-10.png" width="40%" height="40%">
+
+<br>
+
+- Top-level에 해당하는 태스크들은 항상 작업 항목을 글로벌 큐(Global Queue)에 추가합니다.
+- 워커 스레드가 글로벌 큐로부터 작업 항목을 가져갈 때에는 FIFO(First-in-First-out) 순서로 가져옵니다. 이때 두 개 이상의 스레드가 글로벌 큐에서 태스크를 가져가려 할 수 있기 때문에 글로벌 큐는 스레드 동기화 락으로 보호되고 있습니다.
+
+<br>
+
+- 자식 태스크가 생성되는 경우, 부모 태스크를 담당하는 스레드에 대응하는 로컬 큐(local queue)가 생성되어 태스크가 삽입됩니다.
+- 워커 스레드는 작업을 수행할 수 있는 상황이 되면 자신의 로컬 큐를 확인하여 태스크를 꺼내갑니다. 
+  - 로컬 큐의 가장 앞쪽은(head) 해당 큐를 소유하고 있는 워커 스레드 만이 접근할 수 있도록 구성되어 있어 스레드 동기화가 필요하지 않습니다.(LIFO)
+  - 자신의 로컬 큐에 태스크가 남아있지 않은 경우 워커 스레드는 글로컬 큐의 뒤쪽을 참조해 태스크를 가져갑니다.(FIFO)
+  - 글로벌 큐가 비면 이번에는 다른 스레드의 로컬 큐 뒤쪽의(tail) 태스크를 가져갑니다. 이 경우 다수의 스레드가 접근하는 경우가 있으므로 스레드 락이 필요합니다.(FIFO)
+  - 다른 큐에도 태스크가 남아있지 않으면 스레드는 sleep 상태로 변경됩니다. sleep 상태에서 일정 시간이 지나면 스레드는 스스로 깨어나 자기 자신을 제거하고 자원을 반환합니다.
+  - 위의 방법으로 캐시 지역성을 보존하고 스레드 간 경합을 줄일 수 있습니다.
+  - [Microsoft : TaskScheduler](https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.taskscheduler?redirectedfrom=MSDN&view=net-5.0#remarks)
+  - [stack overflow : why-does-clr-threadpool-worker-thread-use-lifo](https://stackoverflow.com/questions/53461132/why-does-clr-threadpool-worker-thread-use-lifo-order-to-process-tasks-from-the-l)
+
 
 </details>
