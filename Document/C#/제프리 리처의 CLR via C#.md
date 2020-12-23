@@ -770,6 +770,12 @@ C#의 각 키워드와 컴포넌트 버전 관리에 주는 영향
 <br>
 
 #### 객체와 컬렉션 이니셜라이저
+
+객체를 생성한 다음, 객체의 public 필드나 속성에 값을 대입하는 동작은 일반적인 작업입니다.
+
+<br>
+
+
 - 참고 : [Microsoft : object-and-collection-initializers](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/object-and-collection-initializers)
 ```cs
         public class Cat
