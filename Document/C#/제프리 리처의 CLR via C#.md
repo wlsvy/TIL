@@ -1,5 +1,4 @@
 # 제프리 리처의 CLR via C# 4판
-> 오역이 군데군데 있고, 최신 내용이 아니니 마이크로소프트 문서를 좀더 애용합시다.
 
 ## 1장. CLR의 실행 모델
 
@@ -748,7 +747,6 @@ C#의 각 키워드와 컴포넌트 버전 관리에 주는 영향
 <summary>fold/unfold</summary>
 
 - 속성은 메서드를 소스 코드상에서 호출하는 방법을 단순하게 만들어줍니다. CLR에서는 두 가지 유형의 속성을 지원하는데 매개변수를 포함하는 속성(인덱서)와 매개변수를 받지 않는 속성(기본 속성Default Property)로 분류됩니다.
-- 속성의 접근 지정자 중 c# 9.0에서는 init 이 새로 추가될 예정입니다.
 
 ### 매개변수가 없는 속성
 - C#은 속성에 대한 지원을 내장하고 있습니다. C# 컴파일러가 속성으로부터 값을 가져오거나 설정하려는 코드를 만나면, 컴파일러는 적절한 메서드를 호출하는 코드로 이를 변경합니다.
@@ -770,13 +768,6 @@ C#의 각 키워드와 컴포넌트 버전 관리에 주는 영향
 <br>
 
 #### 객체와 컬렉션 이니셜라이저
-
-객체를 생성한 다음, 객체의 public 필드나 속성에 값을 대입하는 동작은 일반적인 작업입니다.
-
-<br>
-
-
-- 참고 : [Microsoft : object-and-collection-initializers](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/object-and-collection-initializers)
 ```cs
         public class Cat
         {
@@ -804,62 +795,8 @@ C#의 각 키워드와 컴포넌트 버전 관리에 주는 영향
         }
 ```
 ```console
-Cat Contructor
-Cat Contructor with name
+
 ```
-
-```cs
-        public static void Main()
-        {
-            List<int> integerList = new List<int>(5)
-            {
-                1, 2, 3, 4, 5
-            };
-
-            //아래처럼 변형됩니다.
-            List<int> integerList2 = new List<int>(5);
-            integerList2.Add(1);
-            integerList2.Add(2);
-            integerList2.Add(3);
-            integerList2.Add(4);
-            integerList2.Add(5);
-        }
-```
-
-#### 익명 타입
-- 책에서는 익명 타입이 변경 불가능한 튜플 타입을 활용한다고 나와있는데, 튜플이랑 익명 타입이 관계가 있는 건가요? 마이크로소프트 문서에서는 따로 언급되어 있지 않습니다.
-- 컴파일러가 익명 타입을 생성할 때 Equals, GetHashCode, ToString 메서드도 임의로 생성합니다.
-- LINQ 와 함께 가장 많이 사용됩니다.
-- 참조 : [Microsoft : anonymous-types](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/anonymous-types)
-```cs
-var pet = new { Age = 10, Name = "Fluffy" };  
-```
-
-<br>
-
-- 익명 타입은 Object 타입을 상속받으며, 다른 어떤 타입으로도 캐스팅될 수 없습니다.
-- 익명 타입을 활용하는 어떤 메서드, 필드, 이벤트 등을 선언할 수 없습니다.
-- 동일한 타입, 동일한 이름, 속성 순서를 동일하게 선언한 다수의 익명 타입이 있으면 컴파일러는 해당 타입들을 동일한 타입으로 간주합니다.
-
-#### 튜플 타입
-- 튜플 타입은 상호 간에 연관성이 있는 속성들의 컬렉션을 포함하는 타입입니다.
-- 튜플 타입은 다양한 타입 데이터를 포함하는 그룹의 간결한 표현방식을 제공합니다.
-- 튜플은 값타입입니다.
-
-### 매개변수가 있는 속성(인덱서)
-- 인덱서의 경우, 컴파일 하면 인덱서의 get 접근 메서드가 get_item으로 set 접근 메서드가 set_item으로 변환되게 됩니다.
-- 기본 프로퍼티는 정적 클래스에서도 사용 가능하지만, 인덱스는 인스턴스 객체에서만 사용가능합니다.
-- [Microsoft : comparison-between-properties-and-indexers](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/indexers/comparison-between-properties-and-indexers)
-
-### 속성의 접근자 메서드 호출에 대한 성능
-- 단순한 get/set 접근자 메서드의 경우 JIT 컴파일러는 해당 코드를 인라인으로 컴파일하여 처리하므로 성능에 크게 영향을 주지 않습니다.
-  - JIT 컴파일러는 디버그 버전의 코드에 대해서는 인라인 컴파일을 적용하지 않는데 인라인 컴파일로 인하여 디버깅이 어려워지기 때문입니다. 이 때문에 디버그 빌드 때에는 속성에 대한 접근이 릴리즈 빌드에 대해서 느려질 수 있습니다.
-
-### 속성 접근자의 한정자
-...
-
-### 제네릭 속성 접근자 메서드
-- c#은 속성에 대해 제네릭 타입 매개변수를 허용하지 않습니다. 개념적으로 속성은 객체의 상태를 조회하거나 설정하는 것이 역할이기 때문에 해당 속성과 무관한 제네릭 타입 매개변수를 도입하는 것은 적절하다고 보기 어렵습니다.
 
 
 </details>
@@ -1110,6 +1047,12 @@ Join 메서드는 호출한 스레드 객체가 파괴되거나 종료될 때까
 
 <details>
 <summary>fold/unfold</summary>
+
+<br>
+
+락의 문제점
+- 성능을 해칩니다. 락을 획득하고 해체하는 작업은 추가적인 함수 호출이 필요하며, cpu가 여러 스레드들 중 어떤 스레드가 처음으로 락을 획득하도록 할 것인지 결정해야 하기 때문에 상당한 시간을 소요합니다.
+- 스레드 동기화 락은 특정 시간에 하나의 스레드 만이 접근 가능하는 것만을 허용하기 때문에 다른 스레드는 블로킹 상태가 되는데, 스레드를 블로킹함에 따라 cpu가 더 많은 스레드를 생성하게 될 수 있습니다. 스레드 풀이 cpu가 스레드 사용성이 낮다고 판단하기 때문입니다. 이때 추가 스레드를 생성하는 동작은 오버헤드가 되며, 블로킹 되는 스레드가 다시 작업을 재개할 때 다시 스케줄링 되며, 더 많은 스레드 사이에서 문맥전환이 발생하는 것도 오버헤드가 됩니다.
 
 ### 클래스 라이브러리와 스레드 안전성
 
