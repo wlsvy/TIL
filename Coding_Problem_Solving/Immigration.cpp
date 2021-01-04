@@ -2,6 +2,7 @@
 #include <vector>
 #include <iostream>
 #include <algorithm>
+#include <numeric>
 #include <climits>
 using namespace std;
 using LL = long long;
