@@ -109,6 +109,9 @@ Today I Learned
 - [ContainerOutstream](https://github.com/wlsvy/TIL/blob/master/Coding_Problem_Solving/Helper/OutstreamHelper.cpp)  
 - [Lcm, Gcd](https://github.com/wlsvy/TIL/blob/master/Coding_Problem_Solving/Helper/LCM_GCD.cpp)
 
+### 참고
+- [세그먼트 트리](https://www.acmicpc.net/blog/view/9)
+
 </details>
 
 
