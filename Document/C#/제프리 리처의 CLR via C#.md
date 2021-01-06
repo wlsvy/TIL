@@ -726,7 +726,7 @@ C#의 각 키워드와 컴포넌트 버전 관리에 주는 영향
 
 ### 메서드에 가변 매개변수 전달하기
 - params 키워드는 메서드에 전달하는 인자의 개수를 가변적으로 취합니다.
-  - 해당 키워드는 컴파일러가 System.ParamArrayAttribute 특성을 해당 매개변수에 붙이돋록 지시합니다.
+  - 해당 키워드는 컴파일러가 System.ParamArrayAttribute 특성을 해당 매개변수에 붙이도록 지시합니다.
 
 - null을 전달하지 않는 이상 params 키워드는 성능적 오버헤드가 존재합니다. 가변 매개변수를 위해 힙 상에는 배열 객체가 생성되어야 합니다.
   - 성능상의 손해를 최소화하고 싶다면 적절한 오버로딩 버전을 준비합시다.
@@ -1022,7 +1022,7 @@ Join 메서드는 호출한 스레드 객체가 파괴되거나 종료될 때까
 
 <br>
 
-<img src="https://github.com/wlsvy/TIL/blob/master/Document/C%23/CLRviaC%23_Image/4-10.png" width="40%" height="40%">
+<img src="https://github.com/wlsvy/TIL/blob/master/Document/C%23/CLRviaC%23_Image/4-10.png" width="70%" height="70%">
 
 <br>
 
