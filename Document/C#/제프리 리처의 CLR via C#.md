@@ -794,9 +794,12 @@ C#의 각 키워드와 컴포넌트 버전 관리에 주는 영향
             Cat sameCat = new Cat("Fluffy") { Age = 10 };
         }
 ```
-```console
 
-```
+- 컬렉션 이니셜라이저의 경우, 특정 타입이 IEnumerable 인터페이스와 Add() 메서드를 구현하고 있어야 합니다.
+
+
+#### 기타
+- new Tupel<> -> 튜플 클래스 타입, (value, value) -> 튜플 구조체 타입
 
 
 </details>
