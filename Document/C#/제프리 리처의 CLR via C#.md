@@ -1174,6 +1174,133 @@ Join 메서드는 호출한 스레드 객체가 파괴되거나 종료될 때까
 - Volatile 동기화 요소
 - Interlocked 동기화 요소
 
+** Volatile **
+컴파일러가 지원하는 최적화는 사용자 입장에서 도움을 주기도 하지만 멀티스레딩을 이용하는 환경에서 컴파일러 최적화는 왜곡된 동작을 유발할 가능성이 있습니다.
+
+```cs
+internal static class StrnageBehavior
+{
+    private static bool s_StopWorker = false;
+
+    public static void Main()
+    {
+        var worker = new Thread(Worker);
+        worker.Start();
+        Thread.Sleep(5000);
+        s_StopWorker = true;
+        Console.WriteLine("Wait For WorkerThread");
+        worker.Join();
+    }
+
+    private static void Worker(Object o)
+    {
+        int x = 0;
+        while (!s_StopWorker) x++;
+        Console.WriteLine("worker Stop");
+    }
+}
+```
+
+위의 코드에서 컴파일러는 Worker 메서드를 수행하는 새로운 스레드를 생성할 때 최적화를 수행합니다. 이때 s_StopWorker 는 스레드 내에서 수정되는 일이 없으니 Worker 내부의 while문을 최적화하게 됩니다. 이 말인즉, Main 스레드에서는 s_StopWorker가 변경될 수 있는 값임에도 불구하고 Worker를 수행하는 스레드에서는 s_StopWorker를 불변값으로 인식해 while문을 최적화하는 것입니다. 이 결과로 코드 상의 while문을 벗어날 수 없게 됩니다.
+- 릴리즈 빌드시 문제가 발생합니다.
+
+또한 컴파일러 최적화는 경우에 따라 메서드 내부의 명령 실행 순서를 임의로 변경하기도 합니다.
+
+```cs
+internal sealed class ThreadsSharingData
+{
+    private int m_Flag = 0;
+    private int m_Value = 0;
+
+    //1번 스레드가 수행합니다.
+    public void Thread1()
+    {
+        //참고 : 아래 코드는 실행 순서가 뒤집혀서 수행될 수 있습니다.
+        m_Value = 5;
+        m_Flag = 1;
+    }
+
+    //2번 스레드가 수행합니다.
+    public void Thread2()
+    {
+        //참고 : m_Value 가 m_Flag 이전에 조회될 수 있습니다. m_Flag는 1이면서 m_Value 는 0 값이 출력될 수 있습니다.
+        if(m_Flag == 1)
+        {
+            Console.WriteLine(m_Value);
+        }
+    }
+}
+```
+
+<br>
+
+- System.Threading.Volatile 네임스페이스의 Volatile 정적 메서드는 아래의 기능을 제공합니다.
+  - Volatile.Write : 이 메서드를 호출한 위치에서 그 값이 반드시 쓰여질 것임을 보장합니다. 또한 프로그램 코드 순서상 이 코드를 호출한 위치보다 앞쪽에서 수행된 로드(load)/스토어(store) 과정은 반드시 이 코드보다 앞서 수행될 것임을 보장합니다.
+  - Volatile.Read : 이 메서드를 호출한 위치에서 그 값이 읽혀질 것임을 보장합니다. 또한 프로그램 코드의 순서상 이 코드 이후에 위치한 로드(load)/스토어(store) 과정은 반드시 이 메서드가 수행된 이후에 수행될 것임을 보장합니다.
+
+ <br>
+
+ 위의 코드를 아래처럼 변경할 수 있습니다.
+ ```cs
+ internal sealed class ThreadsSharingData
+ {
+     private int m_Flag = 0;
+     private int m_Value = 0;
+ 
+     //1번 스레드가 수행합니다.
+     public void Thread1()
+     {
+         //참고 : m_Flag 값이 1로 바뀌기 이전에 m_Value 값이 먼저 5로 변경될 것입니다. 순서가 바뀔 염려가 없습니다. 하지만 Volatile.Write 이전에 다수의 명령이 있다면 해당 명령들의 실행 순서까지 보장하진 못합니다.
+         m_Value = 5;
+         Volatile.Write(ref m_Flag, 1);
+     }
+ 
+     //2번 스레드가 수행합니다.
+     public void Thread2()
+     {
+         //참고 : m_Flag 값을 먼저 가져온 다음 m_Value 값을 가져옵니다.
+         if(Volatile.Read(ref m_Flag) == 1)
+         {
+             Console.WriteLine(m_Value);
+         }
+     }
+ }
+```
+
+
+- c# 이 지원하는 volatile 키워드를 필드에 적용할 수도 있습니다.
+  - 기본 타입 및 Enum 타입에 대해서 지원하며 해당 필드에 접근하는 코드를 컴파일 할때, Volatile.Read, Volatile.Write 메서드를 사용하게 해줍니다.
+  - 또한 이 키워드를 사용하면 C# 컴파일러와 JIT 컴파일러에게 이 필드의 값을 CPU 레지스터에 캐싱하지 않도록 하며, 항상 메모리로부터 값을 읽고 쓰도록 합니다.
+  - 하지만 volatile 필드의 경우 최적화 대상에서 제외되는 만큼 메모리를 차지하는 크기도 커질 뿐더러 동작 속도도 느려집니다.
+  - C# 에서는 volatile 필드에 대한 참조 값을 전달하지 못합니다 
+```cs
+internal sealed class ThreadsSharingData
+{
+    private volatile int m_Flag = 0;
+    private int m_Value = 0;
+
+    //1번 스레드가 수행합니다.
+    public void Thread1()
+    {
+        //참고 : m_Flag 값이 1로 바뀌기 이전에 m_Value 값이 먼저 5로 변경될 것입니다.
+        m_Value = 5;
+        m_Flag = 1;
+    }
+
+    //2번 스레드가 수행합니다.
+    public void Thread2()
+    {
+        //참고 : m_Flag 값을 먼저 가져온 다음 m_Value 값을 가져옵니다.
+        if (m_Flag == 1)
+        {
+            Console.WriteLine(m_Value);
+        }
+    }
+}
+```
+
+
+
 ### 커널 모드 등기화 요소
 
 </details>
