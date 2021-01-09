@@ -1301,7 +1301,8 @@ internal sealed class ThreadsSharingData
 
 <br>
 
-**Interlocked **
+
+**Interlocked**
 
 - Interlocked 클래스의 메서드들을 이용하면 원자적으로 값을 읽고 쓸 수 있을 뿐 아니라, 완벽히 메모리 펜스(memory fence)기능을 제공한다. 메모리 펜스 기능이란 Interlocked 메서드를 호출하기 이전에 수행된 쓰기 작업은 반드시 Interlocked 메서드 호출 이전에 호출될 것임을 보장하고, Interlocked 이후에 호출한 읽기 작업은 반드시 Interlocked 메서드 호출 이후에 수행될 것임을 보장하는 것을 말합니다.
   - Interlocked 메서드들의 경우, 상대적으로 속도도 빠른 편이고 다용도로 활용할 수 있습니다. 
@@ -1330,7 +1331,8 @@ public static class Interlocked
 
 <br>
 
-**간단한 스핀락 구현하기 **
+
+**간단한 스핀락 구현하기**
 
 - System.Threading 에도 spinlock 구조체가 존재합니다.
 - 간단한 구현방식의 가장 큰 문제는 락을 소유하기 위한 경쟁 상태가 발생한 경우에, 스레드들이 계속해서 로프를 헛돌 수 있다는 것입니다. 이 경우 cpu 시간을 허비하게 되므로 스핀락 방식은 짧고 금방 벗어나는 구간에 대해서 사용하는 것이 좋습니다.
