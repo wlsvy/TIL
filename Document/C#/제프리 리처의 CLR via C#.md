@@ -1375,7 +1375,48 @@ public sealed class SomeResource
 }
 ```
 
+**타입에 상관없이 Interlocked 요소를 사용하기 위한 패턴**
 
+- 데이터 베이스 레코드를 수정할 때 흔히 사용되는 낙관적 동시성(Optimistic concurrency) 패턴
+```cs
+public static int Maximum(ref int target, int value)
+{
+    int current = target, start, desired;
+
+    //루프 내에서는 target의 값을 변경하는 경우를 제외하고는 이 값에 접근해서는 안 된다.
+    //왜냐하면 다른 스레드가 이 값을 변경할 수도 있기 때문이다.
+    do
+    {
+        start = current;
+        desired = Math.Max(start, value);
+
+        //수행 중이던 스레드가 여기서 선점 당할 수 있다.
+
+        current = Interlocked.CompareExchange(ref target, desired, start);
+
+        //이번 순회 과정 중에 targe 값이 외부에서 변경되었다면 루프를 다시 돈다.
+    } while (start != current);
+    return desired;
+}
+```
+- 위의 메서드가 한창 수행 중에 다른 스레드가 target의 값을 변경할 수도 있다. 그때 start와 현재의 target 값이 동일하지 않기 때문에 이때 desired 값은 유효하지 않은 값입니다. 즉 다른 스레드가 target 값을 변경하지 않았을 때 연산된 desired 값을 반환해야하며 이를 위해 Interlocked.compareExchange를 사용합니다.
+
+- Morph 패턴
+```cs
+public delegate int Morpher<TResult, TArgument>(int start, TArgument argument, out TResult result);
+public static TResult Morph<TResult, TArgument>(ref int target, TArgument arguemnt, Morpher<TResult, TArgument> morpher)
+{
+    TResult result;
+    int current = target, start, desired;
+    do
+    {
+        start = current;
+        desired = morpher(start, arguemnt, out result);
+        current = Interlocked.CompareExchange(ref target, desired, start);
+    } while (start != current);
+    return result;
+}
+```
 
 ### 커널 모드 등기화 요소
 
