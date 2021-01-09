@@ -1174,9 +1174,7 @@ Join 메서드는 호출한 스레드 객체가 파괴되거나 종료될 때까
 - Volatile 동기화 요소
 - Interlocked 동기화 요소
 
-
-**Volatile**
-
+** Volatile **
 컴파일러가 지원하는 최적화는 사용자 입장에서 도움을 주기도 하지만 멀티스레딩을 이용하는 환경에서 컴파일러 최적화는 왜곡된 동작을 유발할 가능성이 있습니다.
 
 ```cs
@@ -1297,6 +1295,78 @@ internal sealed class ThreadsSharingData
         {
             Console.WriteLine(m_Value);
         }
+    }
+}
+```
+
+<br>
+
+**Interlocked **
+- Interlocked 클래스의 메서드들을 이용하면 원자적으로 값을 읽고 쓸 수 있을 뿐 아니라, 완벽히 메모리 펜스(memory fence)기능을 제공한다. 메모리 펜스 기능이란 Interlocked 메서드를 호출하기 이전에 수행된 쓰기 작업은 반드시 Interlocked 메서드 호출 이전에 호출될 것임을 보장하고, Interlocked 이후에 호출한 읽기 작업은 반드시 Interlocked 메서드 호출 이후에 수행될 것임을 보장하는 것을 말합니다.
+  - Interlocked 메서드들의 경우, 상대적으로 속도도 빠른 편이고 다용도로 활용할 수 있습니다. 
+
+```cs
+public static class Interlocked
+{
+    //return(++location)
+    public static int Increment(ref int location);
+
+    //return (--location)
+    public static int Decrement(ref int location);
+
+    //return (location += value)
+    public static int Add(ref int location, int value);
+
+    //int old = location; location = value; return old;
+    public static int Exchange(ref int location, int value);
+
+    //int old = location;
+    //if (location == comparand) location = value;
+    //return old;
+    public static int CompareExchange(ref int location, int value, int comparand);
+}
+```
+
+<br>
+
+**간단한 스핀락 구현하기 **
+- System.Threading 에도 spinlock 구조체가 존재합니다.
+- 간단한 구현방식의 가장 큰 문제는 락을 소유하기 위한 경쟁 상태가 발생한 경우에, 스레드들이 계속해서 로프를 헛돌 수 있다는 것입니다. 이 경우 cpu 시간을 허비하게 되므로 스핀락 방식은 짧고 금방 벗어나는 구간에 대해서 사용하는 것이 좋습니다.
+  - 단일 cpu 구조에서는 스핀락을 잘 사용하지 않습니다. 어떤 스레드가 락을 소유하고 다른 스레드가 루프를 돌고 있을 때 라긍ㄹ 빠르게 해제할 수 없기 때문입니다. 
+
+```cs
+//Interlocked 를 활용하여 간단한 스레드 동기화 락을 구현합니다.
+internal struct SimpleSpinLock
+{
+    private int m_ResourceInUse; //0 기본값, 1 = true
+
+    public void Enter()
+    {
+        while (true)
+        {
+            //리소스가 사용 중인 상태가 아니라면 사용 중인 상태로 변경한 후 바로 반환된다.
+            if (Interlocked.Exchange(ref m_ResourceInUse, 1) == 0) return;
+            //여기서 락을 얻지 못한 스레드는 블로킹
+        }
+    }
+
+    public void Leave()
+    {
+        Volatile.Write(ref m_ResourceInUse, 0);
+    }
+}
+```
+아래처럼 사용합니다.
+```cs
+public sealed class SomeResource
+{
+    private SimpleSpinLock m_SpinLock = default;
+
+    public void AccessResource()
+    {
+        m_SpinLock.Enter();
+        //특정 시점에 단 하나의 스레드만이 이곳에 진입하여 리소스에 접근할 수 있습니다.
+        m_SpinLock.Leave();
     }
 }
 ```
