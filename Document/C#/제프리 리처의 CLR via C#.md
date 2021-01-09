@@ -1756,6 +1756,93 @@ internal sealed class SimpleHybridLock : IDisposable
 
 
 ### 스피닝, 스레드 소유권, 중복 소유
+- 스레드가 커널 모드로 전환하게 되면 아주 짧은 시간 동안이라 락을 소유하는 경우라도 성능에 상당히 좋지 않은 영향을 미치게 됩니다. 따라서 스레드가 락을 대기하기 위해서 커널 모드로 전환하기에 앞서 유저 모드에서 스피닝을 수행하면 커널 모드로 전환하지 않을 수 있어 응용프로그램의 성능을 향상시킬 수 있습니다.
+- 이와 별개로 일부 락을 소유한 스레드만이 락을 해제할 수 있는 경우가 있습니다. 이러한 락을 사용하면 락을 소유하고 있는 스레드가 중복적으로 락을 다시 획득하는 것이 가능합니다.
+  - Mutex가 바로 이러한 특징을 가진 락의 전형적인 예라 볼 수 있습니다. 그러나 뮤텍스를 사용하지 않더라도 약간의 코드를 추가하면 스피닝과 더불어 스레드의 소유권 및 중복 소유가 가능한 복합 스레드 동기화 요소를 만들어낼 수 있습니다.
+
+```cs
+internal sealed class AnotherHybridLock : IDisposable
+{
+    private int m_Waiters = 0;
+    private AutoResetEvent m_WaiterLock = new AutoResetEvent(false);
+
+    //이 필드는 성능 향상을 위해서 스피닝 횟수를 제어합니다.
+    private int m_SpinCount = 4000;
+    //이 필드는 어떤 스레드가 락을 소유하고 있으며, 몇 회에 걸쳐 락을 중복적으로 소유하려 했는지를 저장합니다.
+    private int m_OwningThreadId = 0;
+    private int m_Recursion = 0;
+
+    public void Enter()
+    {
+        //이 메서드를 소유한 스레드가 이미 락을 소유하고 있다면 중복 횟수만 증가시키고 반환합니다.
+        var threadId = Thread.CurrentThread.ManagedThreadId;
+        if(threadId == m_OwningThreadId)
+        {
+            m_Recursion++;
+            return;
+        }
+
+        //이 메서드를 호출한 스레드가 락을 소유하고 있지 않은 경우 락을 획득하기 위해서 다음과 같이 수행합니다.
+        var spinWait = new SpinWait();
+        for(int spinCount = 0; spinCount < m_SpinCount; spinCount++)
+        {
+            //락이 해제되었다면 현재 스레드가 락을 획득할 것입니다. 락을 소유한 스레드는 상태 저장 후 반환합니다.
+            if(Interlocked.CompareExchange(ref m_Waiters, 1,0) == 0)
+            {
+                goto GotLock;
+            }
+
+            //... 여기서 다른 스레드가 수행될 기회를 줍니다.
+            //락을 소유하고 있는 스레드가 빨리 수행되어 소유하고 있던 락을 해제할 수 있도록 하는 거싱 좋습니다.
+            spinWait.SpinOnce();
+        }
+
+    GotLock:
+        //스레드가 락을 소유하면, 스레드의 ID를 저장하고 중복 횟수를 1로 설정합니다.
+        m_OwningThreadId = threadId;
+        m_Recursion = 1;
+    }
+
+    public void Leave()
+    {
+        //이 메서드를 호출한 스레드가 락을 소유한 것이 아니면 오류
+        int threadId = Thread.CurrentThread.ManagedThreadId;
+        if (threadId != m_OwningThreadId)
+        {
+            throw new SynchronizationLockException("Lock not owned by calling thread");
+        }
+        //중복 횟수를 감소시킵니다. 만일 현재 스레드가 계속 락을 소유해야 하는 상황이면 바로 반환합니다.
+        if(--m_Recursion > 0)
+        {
+            return;
+        }
+
+        m_OwningThreadId = 0;
+        if(Interlocked.Decrement(ref m_Waiters) == 0)
+        {
+            //락을 획득하기 위해서 대기하는 스레드가 없다면 바로 반환합니다.
+            return;
+        }
+
+        //다른 스레드가 대기 중이라면 그 중 하나를 깨웁니다.
+        m_WaiterLock.Set(); //여기서 성능저하가 발생합니다.
+    }
+
+    public void Dispose() => m_WaiterLock.Dispose();
+}
+```
+
+- 여기서 29장에서 했던 방식대로 성능 측정을 해보면
+```console
+Incrementing x : 5000000 : 2
+Incrementing x : 10000000 in M : 29
+Incrementing x : 15000000 in SpinLock : 138
+Incrementing x : 20000000 in SimpleWaitLock : 10156
+Incrementing x : 25000000 in SimpleHybridLock : 76
+Incrementing x : 30000000 in AnotherHybridLock : 206
+```
+- AnotherHybridLock이 SimpleHybridLock 에 비해 성능이 좋지 않습니다. 전자의 경우 몇 가지 필드를 더 가지고 있으며 그에따라서 코드도 복잡해지기 때문에 성능저하가 발생하는 것입니다.
+
 
 ### 프레임워크 클래스 라이브러리 내의 복합 동기화 요소
 
