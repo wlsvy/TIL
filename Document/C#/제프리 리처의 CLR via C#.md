@@ -1337,7 +1337,7 @@ public static class Interlocked
 
 - System.Threading 에도 spinlock 구조체가 존재합니다.
 - 간단한 구현방식의 가장 큰 문제는 락을 소유하기 위한 경쟁 상태가 발생한 경우에, 스레드들이 계속해서 로프를 헛돌 수 있다는 것입니다. 이 경우 cpu 시간을 허비하게 되므로 스핀락 방식은 짧고 금방 벗어나는 구간에 대해서 사용하는 것이 좋습니다.
-  - 단일 cpu 구조에서는 스핀락을 잘 사용하지 않습니다. 어떤 스레드가 락을 소유하고 다른 스레드가 루프를 돌고 있을 때 라긍ㄹ 빠르게 해제할 수 없기 때문입니다. 
+  - 단일 cpu 구조에서는 스핀락을 잘 사용하지 않습니다. 어떤 스레드가 락을 소유하고 다른 스레드가 루프를 돌고 있을 때 락을 빠르게 해제할 수 없기 때문입니다. 
 
 ```cs
 //Interlocked 를 활용하여 간단한 스레드 동기화 락을 구현합니다.
@@ -1695,4 +1695,69 @@ internal class SomeClass : IDisposable
 
 - 뮤텍스 객체는 재귀 방식을 지원하기 때문에, 동일 스레드가 이 뮤텍스 객체를 두 번에 걸쳐 소유하고 해제할 수 있습니다. Mutex 대신 AutoResetEvent를 사용한다면  Method2 내부에서 블로킹되어버릴 겁니다.
   - 책에서는 AutoResetEvent를 재귀 방식으로 활용할 수 있도록 작성한 코드 예시가 있습니다. 이 경우 뮤텍스와 달리 소유권을 추적하기 위한 코드들이 관리 코드에서 수행되기 때문에 동작은 동일하지만 속도는 더 빠릅니다.
+</details>
+
+## 30장. 복합 스레드 동기화 요소
+
+<details>
+<summary>fold/unfold</summary>
+
+- 유저 모드 스레드 동기화 요소와 커널 모드 스레드 동기화 요소를 결합하여 `복합 스레드 동기화 요소`를 만들 수 있습니다.
+  - 복합 스레드 동기화 요소는 스레드 들이 경쟁 상태가 아닐 때에는 유저 모드 동기화 요소의 성능상의 장점을 취하며, 동시에 다수의 스레드가 경쟁 상태일 경우에는 커널 모드 스레드 동기화 요소를 이용하여 CPU 시간을 소비하는 스피닝(spinning) 이 발생하지 않도록 합니다.
+
+### 간단한 복합 스레드 동기화 락
+
+- 복합 스레드 동기화 락의 예제 코드
+  - 단순 유저 모드 동기화 요소인 Interlocked와 단순 커널 동기화 요소인 AutoResetEvent를 동시에 사용해서 최대한의 성능을 얻어내고 있습니다.
+  - 처음 스레드가 락을 획득할 때에는 Interlocked 를 통해 빠르게 획득할 수 있도록 합니다.
+  - 두 번째 스레드가 블로킹될 때에는 커널 동기화 요소인 AutoResetEvent의 WaitOne를 호출합니다. 이때 WaitOne은 커널에 접근하기 때문에 느리지만, 어차피 해당 스레드는 블로킹될 스레드이기 때문에 완전히 멈추는데 시간이 걸리더라도 성능적 손해는 크지 않을 것입니다.
+  - 이 방식은 장점이 있어서 스레드가 완전히 블로킹되면 CPU 시간을 낭비하는 스피닝을 피할 수 있습니다.
+  - 스레드가 락을 반환할 때에도 마찬가지로 먼저 Interlocked를 활용합니다. m_Waiters 를 확인해 스레드가 경쟁상태에 있는지 먼저 확인합니다.
+  - 만약 대기하는 스레드가 없다면 별다른 동작 없이 빠져나옵니다. 이때 수행 성능은 꽤 빠릅니다.
+  - 대기하는 스레드가 있다면 AutoResetEvent 의 set을 호출합니다. 이 경우 커널에 접근하기 때문에 속도는 느리지만, 다행히 스레드가 경쟁상태에 있을 때에만 커널 전환을 수행하게 됩니다.
+
+```cs
+internal sealed class SimpleHybridLock : IDisposable
+{
+    //단순 유저 동기화 요소(Interlocked) 에서 사용하기 위한 값
+    private int m_Waiters = 0;
+
+    //커널 모드 동기화 요소인 AutoResetEvent 선언
+    private readonly AutoResetEvent m_WaiterLock = new AutoResetEvent(false);
+
+    public void Enter()
+    {
+        //이 스레드는 락을 필요로 합니다.
+        if(Interlocked.Increment(ref m_Waiters) == 1)
+        {
+            return;
+        }
+
+        //다른 스레드가 락을 소유하고 있는 경우(경쟁 상태). 이 스레드를 대기시킵니다.
+        m_WaiterLock.WaitOne(); //성능에 나쁜 영향을 미친다.
+        //WaitOne 메서드가 반환되면, 이 스레드가 락을 소유합니다.
+    }
+
+    public void Leave()
+    {
+        //이 스레드는 락을 해제합니다.
+        if(Interlocked.Decrement(ref m_Waiters) == 0)
+        {
+            return;
+        }
+
+        //다른 스레드가 대기하고 있으므로, 그 중 하나를 깨운다.
+        m_WaiterLock.Set(); //성능상 나쁜 영향을 미친다.
+    }
+
+    public void Dispose() => m_WaiterLock.Dispose();
+}
+```
+
+
+### 스피닝, 스레드 소유권, 중복 소유
+
+### 프레임워크 클래스 라이브러리 내의 복합 동기화 요소
+
+### Concurrent 컬렉션 클래스
 </details>
