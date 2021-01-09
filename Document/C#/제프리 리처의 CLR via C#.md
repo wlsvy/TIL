@@ -1478,4 +1478,220 @@ public sealed class Program
   - 두 번째 프로세스의 스레드가 동일 이름으로 커널 객체를 생성하려 하면 윈도우는 생성하려는 커널 객체가 이미 존재하고 있으므로 동일 이름의 커널 객체를 신규로 생성하지 못하도록 막고, 대신 앞서 다른 프로세스의 스레드가 생성하였던 동일 커널 객체를 사용할 수 있도록 해줍니다.
   - 이 방식으로 서로 다른 프로세스에 존재하는 스레드들이 단일의 커널 객체를 통해 상호 통신을 수행할 수 있습니다. 두 번째 프로세스는 객체 생성 시에 createdNew 값으로 false을 돌려받게 됩니다.
 
+  <br>
+
+  **이벤트**
+  - 이벤트는 커널에서 관리되는 단순한 bool 변수입니다. 이벤트가 false이면 스레드가 블로킹되고 true 일때에는 블로킹이 해제됩니다. 
+  - 이벤트는 크게 두 가지 종류가 있습니다.
+    - 자동-리셋 이벤트는 여러 스레드가 자동-리셋 이벤트에 의해서 블로킹 되어있는 상태에서, 그 값이 true로 변경되면, 단 하나의 스레드만 블록킹을 해제합니다. 이후 커널이 자동적으로 이 이벤트를 리셋하여 false로 변경합니다.
+    - 수동-리셋 이벤트는 동일 상황에서 그 값이 true로 변경되면 대기 중인 모든 스레드의 블록킹을 해제하며, 자동으로 리셋되지 않으므로 false로 변경되지 않습니다. 즉 코드를 통해서 수동으로 이벤트의 값을 false로 변경해줘야 합니다.
+
+
+ <br>
+
+ 아래는 이벤트와 관련된 클래스들입니다.
+```cs
+public class EventWaitHandle : WaitHandle
+{
+    public bool Set();  //bool 값을 true로 설정합니다. 항상 true를 반환합니다.
+    public bool Reset(); // bool 값을 false로 설정합니다. 항상 false를 반환합니다.
+}
+
+public sealed class AutoResetEvent : EventWaitHandle
+{
+    public AutoResetEvent(bool initialState);
+}
+
+public sealed class ManualResetEvent : EventWaitHandle
+{
+    public ManualResetEvent(bool initialState);
+}
+```
+
+자동-리셋 이벤트를 사용하면 앞서 살펴본 SimpleSpinLock과 유사한 기능을 수행하는 스레드 동기화 락을 손쉽게 만들 수 있습니다.
+
+```cs
+internal sealed class SimpleWaitLock : IDisposable
+{
+    private readonly AutoResetEvent m_Available;
+
+    public SimpleWaitLock()
+    {
+        m_Available = new AutoResetEvent(true); // true로 초기화
+    }
+
+    //리소스가 사용 가능할 때까지 커널에서 블로킹 수행
+    public void Enter() => m_Available.WaitOne();
+
+    //다른 스레드가 리소스를 사용할 수 있도록 해줌
+    public void Leave() => m_Available.Set();
+
+    public void Dispose() => m_Available.Dispose();
+}
+```
+
+- SimpleWaitLock은 SimpleSpinLock 과 동일한 방법으로 사용할 수 있으며, 외부에서 보기에는 완전히 동일하게 동작하는 것처럼 보입니다. 하지만 이 두 가지 클래스를 성능적이 측면에서 비교해보면 근본적인 차이가 있습니다.
+  - 여러 스레드들이 락을 획득하기 위해서 경쟁 상태에 있는 경우가 아니라면, SimpleWaitLock이 SimpleSpinLock에 비해 훨씬 느립니다. 왜냐하면 SimpleWaitLock의 Enter와 Leave 메서드를 호출할 때마다, 스레드는 관리 코드와 커널 코드 사이를 오가야 하기 때문입니다. (단점)
+  - 하지만 스레드들이 경쟁 상태에 있는 경우라면, 락을 대기해야 하는 스레드들을 커널이 알아서 블로킹시켜주기 때문에, 스피닝으로 인한 CPU 소비가 발생하지 않습니다.(장점)
+  - 더불어서 AutoResetEvent를 생성할 때는 Dispose 메서드를 호출할 때에는 관리 코드로부터 커널 코드로의 전환이 일어나며, 이로 인해 성능에 좋지 않은 영향을 미칠 수 있습니다.
+
+```cs
+public static void Main()
+{
+    int x = 0;
+    const int iterations = 5000000;    //오백만 번
+
+    var stopWatch = Stopwatch.StartNew();
+    for(int i = 0; i < iterations; i++)
+    {
+        x++;
+    }
+
+    Console.WriteLine($"Incrementing {nameof(x)} : {x} : {stopWatch.ElapsedMilliseconds}");
+
+    //아무런 작업도 하지 않는 메서드를 추가한 후에 오백만번 반복하는데 소요되는 시간을 측정
+    stopWatch.Restart();
+    for(int i = 0; i< iterations; i++)
+    {
+        M();
+        x++;
+        M();
+    }
+    Console.WriteLine($"Incrementing {nameof(x)} : {x} in M : {stopWatch.ElapsedMilliseconds}");
+
+    //경쟁 상태가 발생하지 않는 상황에서 SimpleSpinLock을 상요하는 코드를 추가한 후에 오백만 번 반복하는 데 소요되는 시간을 측정
+    var spinLock = new SpinLock(false);
+    stopWatch.Restart();
+    for (int i = 0; i < iterations; i++)
+    {
+        bool taken = false;
+        spinLock.Enter(ref taken);
+        x++;
+        spinLock.Exit();
+    }
+    Console.WriteLine($"Incrementing {nameof(x)} : {x} in SpinLock : {stopWatch.ElapsedMilliseconds}");
+
+    //경쟁 상태가 발생하지 않는 상황에서 SimpleWaitLock을 사용하는 코드를 추가한 후에 오백만 번 반복하는 데 소요되는 시간을 측정
+    using (var waitLock = new SimpleWaitLock())
+    {
+        stopWatch.Restart();
+        for (int i = 0; i < iterations; i++)
+        {
+            waitLock.Enter();
+            x++;
+            waitLock.Leave();
+        }
+        Console.WriteLine($"Incrementing {nameof(x)} : {x} in SimpleWaitLock : {stopWatch.ElapsedMilliseconds}");
+    }
+}
+
+//이 메서드는 아무런 작업도 수행하지 않습니다.
+[MethodImpl(MethodImplOptions.NoInlining)]
+private static void M() { }
+```
+
+- 실행 결과
+```console
+Incrementing x : 5000000 : 3
+Incrementing x : 10000000 in M : 25
+Incrementing x : 15000000 in SpinLock : 136
+Incrementing x : 20000000 in SimpleWaitLock : 11084
+```
+
+- 결과에서 알 수 있듯 스레드 동기화는 가능한 피하는 것이 좋고 반드시 동기화가 필요한 경우에는 유저모드 동기화 요소를 사용하되 커널 모드 동기화 요소는 가능한 사용을 피하는 것이 좋다.
+
+<br>
+
+**세마포어**
+
+세마포어는 커널에서 관리되는 단순한 int 변수입니다. 세마포어의 값이 0이면 스레드들은 블로킹되고 0보다 크면 블로킹이 해제됩니다. 세마포어를 대기하던 스레드가 블록킹이 해제되면, 세마포어의 값은 1만큼 늘어납니다. 세마포어는 사용자가 설정할 수 있는 최댓값을 가질 수 있어서 현재 세마포어 카운트 값은 이 값을 초과할 수 없습니다.
+
+```cs
+public sealed class Semaphore : WaitHandle
+{
+    public Semaphore(int initialCount, int maximumCount);
+    public int Release(); //Release(1)을 호출하고 이전 세마포어 값을 반환합니다.
+    public int Release(int releaseCount); //이전 세마포어 값을 반환합니다.
+}
+```
+
+<br><br>
+- 세 가지 커널 모드 동기화 요소의 동작 방식을 정리해보면
+  - 여러 스레드들이 자동 리셋 이벤트에 의해서 블로킹되어 있는 상태에서 이벤트가 설정 상태(시그널 상태) 가 되면 하나의 스레드 만이 블록킹이 해제됩니다.
+  - 여러 스레드들이 수동 리셋 이벤트에 의해서 블로킹되어 있는 상태에서 이벤트가 설정 상태(시그널 상태) 가 되면 모든 스레드가 블로킹이 해제됩니다.
+  - 여러 스레드들이 세마포어에 의해서 블로킹되어 있는 상태에서는 releaseCount에서 지정한 개수만큼의 스레드가 블로킹이 해제됩니다.
+
+- 자동 리셋 이벤트는 최댓값을 1로 설정한 세마포어와 유사하게 동작합니다. 이벤트와 세마포어의 차이점이라면 자동 리셋 이벤트의 경우 연속적을 Set 메서드를 호출할 수 있고, 그 때마다 하나씩의 스레드가 블로킹 상태를 벗어나는 반면, 세마포어의 Release를 연속적으로 호출하였을 때 내부 카운트 값을 증가시켜서, 여러 스레드들이 동시에 블로킹 상태를 벋어날 수 있습니다. 하지만 세마포어의 release를 너무 많이 호출해서 설정된 최댓값을 넘어서게 된다면 SemaphoreFullException을 호출합니다.
+
+<br>
+
+- 아래는 세마포어를 이용하여 SimpleWaitLock을 구현한 코드입니다.
+```cs
+internal sealed class SimpleWaitLock : IDisposable
+{
+    private readonly Semaphore m_Available;
+
+    public SimpleWaitLock(int maxConcurrent)
+    {
+        m_Available = new Semaphore(maxConcurrent, maxConcurrent);
+    }
+
+    //리소스가 사용 가능할 때까지 커널에서 블로킹 수행
+    public void Enter() => m_Available.WaitOne();
+
+    //다른 스레드가 리소스를 사용할 수 있도록 해줌
+    public void Leave() => m_Available.Release(1);
+
+    public void Dispose() => m_Available.Dispose();
+}
+```
+
+<br><br>
+
+**뮤텍스**
+뮤텍스는 상호 배제 락을 표현하기 위한 요소입니다. 이는 AutoResetEvent나 최대 카운트가 1인 세마포어와 유사해서 블록킹된 스레드가 여러 개일 때, 이 중 하나의 스레드만이 수행될 수 있도록 해줍니다. Mutex클래스는 다음과 같습니다.
+
+```cs
+public sealed class Mutex : WaitHandle
+{
+    public Mutex();
+    public void ReleaseMutex();
+}
+```
+
+- 뮤텍스는 객체는 자신을 소유하고 있는 스레드의 ID 값을 기록해두었다가 특정 스레드가 ReleaseMutex를 호출하였을 때, 이 스레드의 ID값과 뮤텍스가 기록해두었던 스레드의 ID 값이 동일한지를 비교합니다. 만약 일치하지 않는다면 뮤텍스 객체의 상태는 변경되지 않고, ApplicaitonException을 발생시킵니다.
+  - 또한 Mutex를 소유하고 있던 스레드가 어떤 이유에서 종료되면 AbandonedMutexException을 발생시켜, 동일 뮤텍스를 대기하던 다른 스레드를 깨웁니다. 이 예외를 처리하지 않는다면 프로세스는 종료됩니다.
+- 뮤텍스 객체는 재귀 카운트(recursion count)를 가지고 있어서 뮤텍스를 이미 소유한 스레드가 뮤텍스를 다시 소유하려고 하면 이 값을 증가시키며 스레드를 블로킹시키는 대신 계속 수행될 수 있도록 해줍니다. ReleaseMutex를 호출하면 재귀 카운트 값은 줄어들고, 재귀 카운트가 0이 되어야만 다른 스레드가 뮤텍스를 소유할 수 있게 됩니다.
+- 뮤텍스 객체는 스레드 ID와 재귀 카운트 등 추가적인 메모리 공간을 요구하므로, 성능상의 오버헤드가 있으며, 반드시 필요한 경우가 아니라면 뮤텍스를 사용을 피하는 편입니다.
+
+<br>
+
+- 보통 뮤텍스와 같이 재귀가 지원되는 락이 필요한 경우는 특정 메서드가 락을 소유한 채로 다른 메서드를 호출하고, 호출된 메서드 내부에서도 락을 필요로 하는 경우입니다.
+
+```cs
+internal class SomeClass : IDisposable
+{
+    private readonly Mutex m_Mutex = new Mutex();
+
+    public void Method1()
+    {
+        m_Mutex.WaitOne();
+        //여기서 작업을 수행합니다.
+        Method2();  //내부에서 다시 락을 요구합니다.
+        m_Mutex.ReleaseMutex();
+    }
+
+    public void Method2()
+    {
+        m_Mutex.WaitOne();
+        //여기서 작업을 수행합니다.
+        m_Mutex.ReleaseMutex();
+    }
+
+    public void Dispose() => m_Mutex.Dispose();
+}
+```
+
+- 뮤텍스 객체는 재귀 방식을 지원하기 때문에, 동일 스레드가 이 뮤텍스 객체를 두 번에 걸쳐 소유하고 해제할 수 있습니다. Mutex 대신 AutoResetEvent를 사용한다면  Method2 내부에서 블로킹되어버릴 겁니다.
+  - 책에서는 AutoResetEvent를 재귀 방식으로 활용할 수 있도록 작성한 코드 예시가 있습니다. 이 경우 뮤텍스와 달리 소유권을 추적하기 위한 코드들이 관리 코드에서 수행되기 때문에 동작은 동일하지만 속도는 더 빠릅니다.
 </details>
