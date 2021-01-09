@@ -1025,7 +1025,7 @@ Join 메서드는 호출한 스레드 객체가 파괴되거나 종료될 때까
 
 <br>
 
-<img src="https://github.com/wlsvy/TIL/blob/master/Document/C%23/CLRviaC%23_Image/4-10.png" width="70%" height="70%">
+<img src="https://github.com/wlsvy/TIL/blob/master/Document/C%23/CLRviaC%23_Image/27-1.png" width="70%" height="70%">
 
 <br>
 
