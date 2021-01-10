@@ -1797,6 +1797,14 @@ internal sealed class AnotherHybridLock : IDisposable
             spinWait.SpinOnce();
         }
 
+        // 주어진 횟수만큼 스피닝을 수행하였으나 여전히 락을 획득하지 못한 경우, 한번만 더 스피닝을 수행해봅니다.
+        if (Interlocked.Increment(ref m_Waiters) > 1)
+        {
+            //여전히 경쟁 상태이므로, 스레드는 대기할 수밖에 없습니다.
+            m_WaiterLock.WaitOne(); //락을 대기합니다. 성능 저하 발생
+            // 스레드가 깨어나면, 락을 소유하게 됩니다. 이제 락을 소유한 스레드는 상태 저장 후 반환합니다.
+        }
+
     GotLock:
         //스레드가 락을 소유하면, 스레드의 ID를 저장하고 중복 횟수를 1로 설정합니다.
         m_OwningThreadId = threadId;
@@ -2176,6 +2184,173 @@ internal sealed class SynchronizedQueue<T>
 
 
 ### 비동기 동기화
+- 락은 매우 대중화된 기법이지만, 락을 너무 오랫동안 소유하게 되면 확장성에 치면적인 문제를 야기할 수 있습니다. 따라서 락이 필요한 위치에 비동기 동기화 요소를 사용하는 것은 상당히 유용하다고 할 수 있습니다. 락을 획득할 수 없을 때 단순히 반환해 버리거나 다른 일을 처리할 수 있어서, 스레드가 블로킹되는 것을 피할 수 있으며 이후 락을 획득할 수 있는 상황이 되면 어떤 식으로든 작업을 재개하여 락으로 보호하려던 자원에 접근할 수 있습니다.
+- SemaphoreSlim 클래스의 WaitAsync 메서드는 이러한 아이디어를 구현하였습니다. 이 메서드를 이용하면 비동기적으로 리소스에 대한 동기 접근을 수행할 수 있습니다.(스레드를 블로킹하지 않고)
+
+```cs
+private static async Task AccessResourceViaAsyncSynchronization(SemaphoreSlim asyncLock)
+{
+    //...
+    //여기서는 어떤 코드든지 수행할 수 있습니다.
+
+    await asyncLock.WaitAsync(); //리소스에 대한 배타적인 접근을 위해서 락을 요청합니다.
+                                 //여기서 락을 회득하였다면 다른 스레드가 리소스에 접근 하지 못합니다.
+
+    //...
+    //여기서 상호 배타적으로 리소스를 활용합니다.
+
+    //작업을 마쳤다면 락을 반환하여 다른 코드에서 리소스를 사용할 수 있게 합니다.
+    asyncLock.Release();
+
+    //...
+    //여기서는 어떤 코드든지 수행할 수 있습니다.
+}
+```
+- 아래는 책에서 저자가 작성한 리더-라이터 구조의 비동기 락
+  - 내부적으로 커널 모드 스레드 동기화 요소를 사용하지 않기 때문에 스레드를 블로킹하지 않습니다.
+```cs
+private static async Task AccessResourceViaAsyncSynchronization(AsyncOneManyLock asyncLock)
+{
+    // 여기서는 어떤 코드든지 수행 가능
+
+    //동시에 접근하려면 OneManyMode.Exclusive나 OneManyMode.Shared를 사용
+    await asyncLock.WaitAsync(OneManyMode.Shared);
+
+    //상호 배타적으로 리소스를 읽는다.
+
+    asyncLock.Release();
+    // 여기서는 어떤 코드든지 수행 가능
+}
+
+public enum OneManyMode
+{
+    Exclusive, 
+    Shared
+}
+
+public sealed class AsyncOneManyLock
+{
+    #region 락 코드
+    private SpinLock m_Lock = new SpinLock(true); //읽기 전용으로 사용하지 않음
+    private void Lock()
+    {
+        bool taken = false;
+        m_Lock.Enter(ref taken);
+    }
+    private void Unlock()
+    {
+        m_Lock.Exit();
+    }
+    #endregion
+
+    #region 락의 상태와 헬퍼 메서드
+    private int m_State = 0;
+    private bool IsFree => m_State == 0;
+    private bool IsOwnedByWriter => m_State == -1;
+    private bool IsOwnedByReaders => m_State > 0;
+    private int AddReaders(int count) => m_State += count;
+    private int SubtractReader() => --m_State;
+    private void MakeWriter() => m_State = -1;
+    private void MakeFree() => m_State = 0;
+    #endregion
+
+    //경쟁 상태가 아닌 경우에는 성능을 높이고 메모리 소비를 줄이기 위해서 사용
+    private readonly Task m_NoContentionAccessGranter;
+
+    //대기 중인 개별 라이터 스레드는 큐잉된 각자의 TaskCompletionSource에 의해서 깨어납니다.
+    private readonly Queue<TaskCompletionSource<Object>> m_WaitingWriters = new Queue<TaskCompletionSource<object>>();
+
+    //대기 중인 모든 리더 스레드는 단일의 TaskCompletioniSource 의해서 깨어난다
+    private TaskCompletionSource<Object> m_WaitingReadersSignal = new TaskCompletionSource<Object>();
+    private int m_NumWaitingReaders = 0;
+
+    public AsyncOneManyLock()
+    {
+        m_NoContentionAccessGranter = Task.FromResult<Object>(null);
+    }
+
+    public Task WaitAsync(OneManyMode mode)
+    {
+        var accessGranter = m_NoContentionAccessGranter; //경쟁 상태가 아니라고 가정
+
+        Lock();
+        switch (mode)
+        {
+            case OneManyMode.Exclusive:
+                {
+                    if (IsFree)
+                    {
+                        MakeWriter(); // 경쟁 상태가 아니다.
+                    }
+                    else
+                    {
+                        //경쟁 상태 : 새로운 라이터 태스크를 큐에 삽입하여 라이터 스레드가 대기하게 한 후 이를 반환
+                        var tcs = new TaskCompletionSource<object>();
+                        m_WaitingWriters.Enqueue(tcs);
+                        accessGranter = tcs.Task;
+                    }
+                    break;
+                }
+            case OneManyMode.Shared:
+                {
+                    if(IsFree || 
+                        (IsOwnedByReaders && m_WaitingWriters.Count == 0))
+                    {
+                        AddReaders(1); // 경쟁 상태가 아니다.
+                    }
+                    else
+                    {
+                        //경쟁 상태 : 대기 중인 리더 스레드의 개수를 증가하고, 리더 태스크가 대기하게 한 후 이를 반환
+                        m_NumWaitingReaders++;
+                        accessGranter = m_WaitingReadersSignal.Task.ContinueWith(task => task.Result);
+                    }
+                    break;
+                }
+        }
+        Unlock();
+
+        return accessGranter;
+    }
+
+    public void Release()
+    {
+        TaskCompletionSource<object> accessGranter = null; //어떤 코드도 해제하지 않았다고 가정
+
+        Lock();
+        if (IsOwnedByWriter)
+        {
+            MakeFree(); //라이터 스레드인 경우
+        }
+        else
+        {
+            SubtractReader(); //리더 스레드인 겅우
+        }
+
+        if (IsFree)
+        {
+            //프리 상태이면, 대기 중인 라이터 스레드 하나를 깨우거나 모든 리더 스레드를 깨웁니다.
+            if(m_WaitingWriters.Count > 0)
+            {
+                MakeWriter();
+                accessGranter = m_WaitingWriters.Dequeue();
+            }
+            else if(m_NumWaitingReaders > 0)
+            {
+                AddReaders(m_NumWaitingReaders);
+                m_NumWaitingReaders = 0;
+                accessGranter = m_WaitingReadersSignal;
+
+                //추후 리더 스레드를 대기시키기 위해서 새로운 TCS를 생성
+                m_WaitingReadersSignal = new TaskCompletionSource<object>();
+            }
+        }
+        Unlock();
+
+        //리더/라이터 스레드가 락을 벋어날 수 있도록 하여 경쟁 상태가 발생할 수 있는 가능성을 낮추어 성능을 개선
+        accessGranter?.SetResult(null);
+    }
+}
+```
 
 ### Concurrent 컬렉션 클래스
 </details>
