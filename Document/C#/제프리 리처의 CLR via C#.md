@@ -2096,6 +2096,84 @@ public static void Main()
 
 
 ### 조건 변수 패턴
+- 복잡한 조건이 참일 경우에만 특정 코드를 수행하도록 하고 싶을 수 있습니다. 이를 위한 하나의 방법으로 스레드를 계속 스피닝시키면서 조건을 지속적으로 확인하는 방법이 있을 수 있습니다. 그러나 이 방법은 CPU 시간을 낭비하게 되는데 여러 변수로 구성되어 있는 복잡한 조건 계산을 효율적으로 동기화할 수 있는 패턴이 있습니다.
+- 조건 변수 패턴(condition variable pattern)이라 부릅니다.
+
+```cs
+internal sealed class ConditionVariablePattern
+{
+    private readonly object m_Lock = new object();
+    private bool m_Condition = false;
+
+    public void Thread1()
+    {
+        Monitor.Enter(m_Lock);
+
+        //lock 을 획득한 상태로 복잡한 조건을 "원자적"으로 확인합니다.
+        while (!m_Condition)
+        {
+            //조건을 만족하지 않으면 다른 스레드가 조건을 변경할 때까지 기다립니다.
+            Monitor.Wait(m_Lock); // 임시로 작을 해제해서 다른 스레드가 락을 획득할 수 있도록 해줍니다.
+        }
+
+        //...
+        //조건을 만족하면 데이터를 처리합니다
+
+        Monitor.Exit(m_Lock);
+    }
+
+    public void Thread2()
+    {
+        Monitor.Enter(m_Lock);
+
+        //...
+        //데이터를 처리하고 조건을 수정합니다.
+
+        m_Condition = true;
+
+        Monitor.Pulse(m_Lock);      //락을 해제하고 대기 중인 스레드 중 하나를 깨웁니다.
+        //Monitor.PulseAll(m_Lock);   //락을 해제하고 대기 중인 모든 스레드를 깨웁니다. 여기서 다른 모든 스레드를 깨우더라도 다시 락을 획득하는 스레드는 하나입니다.
+
+        Monitor.Exit(m_Lock);
+    }
+}
+```
+- 첫번째 스레드에서는 조건을 만족하지 않을 시 해당 스레드를 블로킹 시키고 다른 스레드가 조건 처리 작업을 수행할 수 있도록 합니다. 스레드를 스피닝시키면서 계속 조건을 확인할 수도 있지만, 이는 CPU시간을 낭비하기 때문에 Wait 메소드를 호출합니다.
+- 두번째 스레드에서는 조건을 처리하는 작업을 수행하고 블로킹된 스레드를 다시 깨웁니다. 
+
+
+- 조건 변수 패턴을 활용한 스레드 안전한 큐의 구현
+```cs
+//스레드 안정적인 큐의 구현
+internal sealed class SynchronizedQueue<T>
+{
+    private readonly object m_Lock = new object();
+    private readonly Queue<T> m_Queue = new Queue<T>();
+
+    public void Enqueue(T item)
+    {
+        Monitor.Enter(m_Lock);
+        //큐에 아이템을 삽입한 후에 대기 중인 스레드 중 하나(혹은 전체)를 깨웁니다.
+        m_Queue.Enqueue(item);
+        Monitor.PulseAll(m_Lock);
+        Monitor.Exit(m_Lock);
+    }
+
+    public T Dequeue()
+    {
+        Monitor.Enter(m_Lock);
+        while(m_Queue.Count == 0)
+        {
+            Monitor.Wait(m_Lock);
+        }
+
+        var item = m_Queue.Dequeue();
+        Monitor.Exit(m_Lock);
+        return item;
+    }
+}
+```
+
 
 ### 비동기 동기화
 
