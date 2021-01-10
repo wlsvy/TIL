@@ -1959,6 +1959,141 @@ private void SomeMethod()
 - 또한 finally 블록 내에서 락을 해제하는 것은 피하는 것이 좋습니다. 예외 처리 블록으로 진입하거나 빠져 나오는 작업은 상당한 성능 저하를 유발하거니와 상태를 변경하던 중간에 예외가 발생하면 상태 정보가 손상되어 다른 스레드들이 이로 인해 이상 동작을 할 수 있습니다.
 
 ### 잘 알려진 이중 확인 락 기법
+- 싱글톤 패턴에서 다수의 스레드가 처음 싱글톤 객체에 접근할 때 객체가 여러 개 생성되는 일은 막아야 합니다(늦은 초기화, lazy initialization). 
+
+```cs
+internal sealed class Singleton
+{
+    private static readonly object s_Lock = new object();
+    private static Singleton s_Value = null;
+    
+    //생성자를 private로 선언하여 외부에서 이 클래스의 인스턴스를 생성할 수 없도록 하고 있다.
+    private Singleton()
+    {
+
+    }
+
+    //c#을 이용하여 구현한 이중확인 락 기법
+    public static Singleton Instance
+    {
+        get
+        {
+            if(s_Value != null)
+            {
+                return s_Value;
+            }
+            Monitor.Enter(s_Lock);
+            if(s_Value == null) //메모리 펜스를 통해 CPU 레지스터에 캐싱된 s_Value 값을 읽는것이 아닌 메모리에서 직접 s_Value 값을 조회하도록 합니다.
+            {
+                var tmp = new Singleton();
+                Volatile.Write(ref s_Value, tmp);   //메모리 펜스
+            }
+            Monitor.Exit(s_Lock);
+            return s_Value;
+        }
+    }
+}
+```
+메모리 펜스가 없다면
+- 컴파일러는 이 코드를 만났을 때 Singleton 객체를 위한 메모리를 할당하고, 생성자를 호출하여 필드의 값을 초기화한 후, 그 값을 s_Value 필드에 그 참조 값을 할당하도록 코드를 생성할 것이라고 생각합니다.
+  - 스레드가 변수의 값을 살펴볼 수 있도록 하는 작업을 퍼블리싱(publishing) 이라고 하는데 사실 컴파일러는 Singleton을 위한 메모리를 할당하고, s_Value에 참조 값을 퍼블리싱(할당)한 후에 생성자를 호출합니다.
+  - 단일 스레드의 경우 이렇게 순서가 바뀌더라도 문제가 발생하지 않지만, 다중 스레드에서는 문제가 됩니다. s_Value에 참조 값을 퍼블리싱하고 생성자를 아직 호출하기 이전인 상황에서 다른 스레드가 싱글톤 객체를 참조한다면 이 스레드는 s_Value가 null이 아님을 확인하고 해당 객체를 사용하려 할 것이다.(하지만 생성자 호출이 완료되지 않은 상태)
+- Volatile.Write를 이용하여 이 같은 문제를 해결합니다. 이 방법을 통해 tmp내의 참조 값을 s_Value로 퍼블리싱하기 전에 생성자가 수행을 완료하였음을 보증할 수 있습니다.
+
+```cs
+internal sealed class Singleton
+{
+    private static Singleton s_Value = new Singleton();
+    public static Singleton Instance => s_Value;
+    
+    //생성자를 private로 선언하여 외부에서 이 클래스의 인스턴스를 생성할 수 없도록 하고 있다.
+    private Singleton()
+    {
+
+    }
+}
+```
+- 싱글톤을 구현하는 다른 방법
+  - CLR은 타입 생성자의 스레드 안정성을 보증하므로 해당 싱글톤 객체는 단 한개만 생성됩니다.
+  - 대신 해당 타입 생성자는 타입을 참조할때 수행되므로, 싱글톤 객체를 참조하는 것이 아닌 다른 정적 멤버를 참조하는 경우에도 싱글톤 객체가 생성됩니다.
+
+```cs
+internal sealed class Singleton
+{
+    private static Singleton s_Value = new Singleton();
+    public static Singleton Instance
+    {
+        get
+        {
+            if(s_Value != null)
+            {
+                return s_Value;
+            }
+
+            var tmp = new Singleton();
+            Interlocked.CompareExchange(ref s_Value, tmp, null);
+
+            //만약 다수의 스레드가 동시에 싱글톤 객체를 생성한다 하더라도, s_Value에는 단 하나의 객체만이 할당되게 됩니다. 나머지는 전부 가비지로 수집됩니다.
+
+            return s_Value;
+        }
+    }
+    
+    //생성자를 private로 선언하여 외부에서 이 클래스의 인스턴스를 생성할 수 없도록 하고 있다.
+    private Singleton()
+    {
+
+    }
+}
+```
+- 싱글톤을 구현하는 세 번째 방법
+  - Interlocked를 활용함으로써 스레드를 블로킹하지 않고도 빠른 성능으로 싱글톤 객체를 참조할 수 있습니다.
+
+**Lazy 활용**
+- System.Lazy 클래스를 통해 위의 기법을 활용하도록 코드를 작성할 수 있습니다.
+
+```cs
+public static void Main()
+{
+    //DateTime을 이용하는 늦은 초기화 랩퍼(lazy-Initialization wrapper)를 생성합니다.
+    Lazy<string> s = new Lazy<string>(() => DateTime.Now.ToLongTimeString(), true);
+
+    Console.WriteLine($"value Created : {s.IsValueCreated}");   // Value 값을 가져올 수 없으므로 false를 반환
+    Console.WriteLine($"value : {s.Value}");    // 이 시점에 매개변수로 전달한 델리게이트가 호출
+    Console.WriteLine($"value Created : {s.IsValueCreated}");   // Value 값을 가져올 수 있으므로 true 반환
+    Thread.Sleep(1000);
+    Console.WriteLine($"value : {s.Value}");    // 이번에는 델리게이트 호출 X, 이전과 동일한 값 출력
+}
+```
+
+- LazyInitializer 활용
+```cs
+public static void Main()
+{
+    //아래 방식은 내부적으로 Interlocked.CompareExchange를 활용합니다.
+
+    string name = null;
+    //name이 null이므로, 델리게이트가 수행되고 name이 초기화됩니다.
+    LazyInitializer.EnsureInitialized(ref name, () => "Jeffrey");
+    Console.WriteLine(name);
+
+    //name이 null이 아니므로, 델리게이트가 수행되지 않으며, name이 변경되지 않습니다.
+    LazyInitializer.EnsureInitialized(ref name, () => "Richter"); 
+    Console.WriteLine(name);    //여전히 "Jeffrey" 출력
+
+
+
+    //아래 방식은 내부적으로 Monitor의 Enter와 Exit을 사용할 수 있도록 syncLock을 전달합니다.
+    name = null;
+    var lockObj = new object();
+    LazyInitializer.EnsureInitialized(ref name, ref lockObj, () => "Richter");
+    Console.WriteLine(name);
+
+    LazyInitializer.EnsureInitialized(ref name, ref lockObj, () => "Jeffrey");
+    Console.WriteLine(name);    //여전히 "Richter" 출력
+}
+```
+
 
 ### 조건 변수 패턴
 
