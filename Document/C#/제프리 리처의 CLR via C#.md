@@ -2353,4 +2353,7 @@ public sealed class AsyncOneManyLock
 ```
 
 ### Concurrent 컬렉션 클래스
+- FCL은 ConcurrentQueue, ConcurrentStack, ConcurrentDictionary, ConcurrentBag의 네 개의 스레드-안정적인 컬렉션 클래스를 제공합니다.
+  - 해당 클래스들은 스레드를 블로킹하지 않습니다. 따라서 컬렉션 내에 존재하지 않는 항목을 가져오려고 하는 경우, 해당 항목이 삽입될 때까지 기다리는 것이 아니라 즉각 반환됩니다. (TryDequeue 등, 자원을 가져올 수 없다면 false 반환)
+  - ConcurrentStack, ConcurrentQueue, ConcurrentBag 컬렉션은 IProducerConsumerCollection 인터페이스를 구현하고 있습니다. 이 인터페이스를 구현하고 있는 클래스는 블로킹 컬렉션으로 변경될 수 있는데 이와 같이 변경되면 컬렉션이 가득 찬 경우 항목을 생산하는 스레드가 블로킹될 수 있으며, 컬렉션이 비어있을 때는 항목을 소비하는 스레드가 블로킹될 수 있습니다.
 </details>
