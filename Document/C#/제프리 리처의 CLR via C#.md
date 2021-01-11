@@ -809,9 +809,68 @@ C#의 각 키워드와 컴포넌트 버전 관리에 주는 영향
 <details>
 <summary>fold/unfold</summary>
 
+이벤트 멤버를 타입 내에 정의한다는 것은 다음의 기능을 제공하는 것입니다.
+- 관심 있는 이벤트의 메서드를 등록할 수 있습니다.
+- 관심 있는 이벤트로부터 메서드를 등록 해제할 수 있습니다.
+- 이벤트가 발생하면 등록된 메서드들에 이벤트가 발생하였음을 알려줍니다.
+
+<br>
+
+CLR의 이벤트 모델은 델리게이트(Delegate)에 기반을 두고 있습니다. 델리게이트는 타입 안정성을 유지한 채로 콜백 메서드를 호출하는 방법입니다. 콜백 메서드는 이벤트를 수신하려는 객체가 이벤트가 발생했음을 알아내기 위해 사용됩니다.
+
 ### 이벤트를 노출하는 타입을 설계하기
+...
+(예제 코드 위주로 설명하는 장)
 
 ### 컴파일러가 이벤트를 구현하는 방법
+```cs
+public class NewMailEventArgs : EventArgs {}
+public class MailManager
+{
+    public event EventHandler<NewMailEventArgs> NewMail;
+}
+```
+위의 코드는 컴파일러가 아래처럼 바뀝니다.
+- event 에 델리게이트를 추가하거나 제거하는 과정은 스레드 안정적으로 설계되었습니다. 29장 타입에 상관없이 Interlocked를 요소를 사용하기 위한 패턴 참조.
+- 만약 등록한 적이 없는 메서드를 제거하려 하면 Delegate 의 Remove 메서드는 아무런 작업도 수행하지 않습니다. 이 단계에서 어떠한 예외나 경고도 유발하지 않으며 컬렉션의 내용도 그대로 유지됩니다.
+
+```cs
+public class MailManager2
+{
+    //1. private 으로 델리게이트 필드를 생성하여 null로 초기화한다.
+    private EventHandler<NewMailEventArgs> NewMail = null;
+
+    //2. public 으로 'add_이벤트명' 메서드를 추가하여 이벤트에 메서드를 등록할 수 있게 해준다.
+    public void add_NewMail(EventHandler<NewMailEventArgs> value)
+    {
+        //반복문과 CompareExchange 메서드를 이용하여 스레드 안정적으로 델리게이트를 추가한다.
+        EventHandler<NewMailEventArgs> prevHandler;
+        EventHandler<NewMailEventArgs> newMail = this.NewMail;
+        do
+        {
+            prevHandler = newMail;
+            EventHandler<NewMailEventArgs> newHandler =
+                (EventHandler<NewMailEventArgs>) Delegate.Combine(prevHandler, value);
+            newMail = Interlocked.CompareExchange(ref this.NewMail, newHandler, prevHandler);
+        } while (newMail != prevHandler);
+    }
+
+    //3. public으로 'remove_이벤트명' 메서드를 추가하여 이벤트로부터 메서드를 제거할 수 있게 해준다.
+    public void remove_NewMail(EventHandler<NewMailEventArgs> value)
+    {
+        //반복문과 CompareExchange 메서드를 추가하여 스레드 안정적으로 델리게이트를 제거한다.
+        EventHandler<NewMailEventArgs> prevHandler;
+        EventHandler<NewMailEventArgs> newMail = this.NewMail;
+        do
+        {
+            prevHandler = newMail;
+            EventHandler<NewMailEventArgs> newHandler =
+                (EventHandler<NewMailEventArgs>)Delegate.Remove(prevHandler, value);
+            newMail = Interlocked.CompareExchange(ref this.NewMail, newHandler, prevHandler);
+        } while (newMail != prevHandler);
+    }
+}
+```
 
 ### 이벤트가 기다리는 타입 설계하기
 
