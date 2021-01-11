@@ -896,6 +896,30 @@ public class MailManager2
 
 </details>
 
+## 12장. 제네릭
+
+<details>
+<summary>fold/unfold</summary>
+
+### Framework Class Library 에서의 제네릭
+
+### 제네릭 하부 구조
+
+### 제네릭 인터페이스
+
+### 제네릭 델리게이트
+
+### 공변성과 반공변성 타입 매개변수를 사용하는 델리게이트와 인터페이스
+
+### 제네릭 메서드
+
+### 제네릭 기타 멤버들
+
+### 검증 가능성과 제약조건
+
+
+</details>
+
 ## 26장. 스레드의 기본
 
 <details>
