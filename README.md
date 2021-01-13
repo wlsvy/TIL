@@ -15,7 +15,7 @@ Today I Learned
 - [C++ 로 작성한 테트리스](https://github.com/wlsvy/Tetris)
 - [개념 정리 웹 링크 모음](https://github.com/wlsvy/TIL/blob/master/Document/C%2B%2B/cppStudyReference.md)
 
-## C#
+## C# & .NET
 - [Effective C#](https://github.com/wlsvy/TIL/tree/master/Document/C%23/Effective%20CSharp/EffectiveCSharp)
 - [More Effective C#](https://github.com/wlsvy/TIL/tree/master/Document/C%23/MoreEffectiveCSharp/MoreEffectiveCSharp)
 - [string in C#](https://github.com/wlsvy/TIL/blob/master/Document/C%23/String.md)
