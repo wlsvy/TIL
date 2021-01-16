@@ -1009,6 +1009,39 @@ private static List<TBase> ConvertIList<T, TBase>(IList<T> list) where T : TBase
 
 </details>
 
+## 20장. 예외와 상태 관리
+
+<details>
+<summary>fold/unfold</summary>
+
+### 예외의 정의
+
+### 예외 처리의 구조
+
+### System.Exception 클래스
+
+### FCL에 정의된 예외 클래스
+
+### 예외 발생시키기
+
+### 사용자 정의 예외 클래스 만들기
+
+### 생산성을 위한 신뢰성 재고
+
+### 지침과 모범 사례
+
+### 처리되지 않은 예외
+
+### 예외 디버깅하기
+
+### 예외 처리 시 성능 고려사항
+
+### CER
+
+### 코드 계약
+
+</details>
+
 ## 26장. 스레드의 기본
 
 <details>
