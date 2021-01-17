@@ -1057,9 +1057,138 @@ private static List<TBase> ConvertIList<T, TBase>(IList<T> list) where T : TBase
 ...
 
 ### 지침과 모범 사례
-...
+- finally 블록은 아낌없이 사용하라
+  - lock 문장을 사용하면, finally 블록 내부에 잠금해제 코드를 포함시킨다.
+  - using 문장을 사용하면, fianlly 블록 내부에 객체의 dispose 메서드를 호출하는 코드를 포함시킨다.
+  - foreach 문장을 사용하면, finally 블록 내부에 IEnumerator 가 참조하는 객체의 Dispose 메서드를 호출하는 코드를 포함한다.
+  - 파괴자를 정의하면, finally 블록 내부에서 기본 클래스의 finalize 메서드를 호출한다.
+
+```cs
+try{
+    //개발자가 실패할 것을 염두에 둔 코드를 여기서 수행
+}
+catch(Exception){
+    //...
+}
+```
+
+- 모든 예외를 잡으려 하지 마라
+  - 클래스 라이브러리의 일부로 제공되는 타입은 절대로 어떤 상황에서도 위의 예시처럼 모든 예외를 잡으려 하면 안됩니다. 이러한 타입들은 델리게이트나, 가상 메서드, 혹은 인터페이스 메서드를 통하여 응용 프로그램 쪽 코드를 호출하는 경우도 흔합니다. 만일 응용프로그램 내의 특정 코드가 예외를 발생시키고, 응용 프로그램의 다른 쪽에서 발생한 예외를 잡아내도록 코드가 개발되어 있다면, 콜백되 응용프로그램 코드가 예외를 발생시키고, 발생된 예외가 라이브러리 타입 내의 코드를 벗어나서, 예외를 잡도록 고안된 응용 프로그램 코드 쪽으로 호출 스택을 거슬러 올라갈 수 있어야 합니다.
+  - System.Exception 예외를 잡고 catch 블록에서 몰래 작업을 수행한 후 다시 예외를 던지는 경우라면 상관이 없습니다. 하지만 System.Exception 코드를 잡아 없애버리는 코드는 실패 상황을 숨겨버리기 때문에, 예기치 않은 결과를 초래하거나 잠재적으로 보안 취약성을 유발할 수 있으므로 절대로 그냥 놔둬서는 안됩니다.
+
+
+```cs
+public string CalculateSpreadsheetCell(int row, int column)
+{
+    string result;
+    try
+    {
+        result = /* 스프레드시트 셀의 값을 계산하는 코드*/;
+    }
+    catch (DivideByZeroException)
+    {
+        result = "Can't show value : Divide by zero";
+    }
+    catch (OverflowException)
+    {
+        result = "Can't show value : Too big";
+    }
+    return result;
+}
+```
+
+- 예외를 안정적으로 극복하기
+  - 어떤 메서드를 호출할 때 그 메서드가 발생시킬 예외들을 미리 알고 있는 경우가 있다면 각각의 예외를 안정적으로 극복하고 응용프로그램을 계속해서 수행하도록 코드를 작성하고 싶을 것입니다.
+  - System.Exception 타입으로 예외 처리를(예외를 다시 던지는 코드 없이) 하려고 해서는 안됩니다. try 블록 내에서 발생할 수 있는 모든 예외들을 미리 알 수 없는 노릇이기 때문입니다.
+
+```cs
+public void SerializeObjectGraph(FileStream fs, IFormatter formatter, object root)
+{
+    var beforeSerialization = fs.Position;
+
+    try
+    {
+        formatter.Serialize(fs, root);
+    }
+    catch //모든 예외를 잡는다.
+    {
+        //만일 조금이라도 잘못된 부분이 있으면, 파일을 이전 상태로 재설정한다.
+        fs.Position = beforeSerialization;
+        //파일 크기 재설정
+        fs.SetLength(fs.Position);
+        //참고 : 파일 저장이 실패하였을 때만 스트림을 재설정해야 하기 때문
+        //앞쪽의 코드는 finally 블록에 둘 수 없다.
+
+        //호출자에게 예외를 발생하였음을 알려주기 위해서 동일한 예외를 다시 던진다.
+        throw;
+    }
+}
+```
+- 복구할 수 없는 예외 발생 시 부분적으로 완료된 작업들을 취소하여 상태유지
+  - 동작 수행 중 오류가 발생하여 진행 사항이 손상된 경우, 부분적으로 완료된 작업들을 취소할 수 있어서, 진행사항을 복구 할 수 있도록 하는 것이 좋습니다.
+  - 부분적으로 완료된 작업들을 올바르게 취소하려면 모든 예외를 잡도록 코드를 작성해야 합니다. 이때 예외를 처리한 뒤 호출자에게 예외가 발생했음을 전파하는 것을 잊어서는 안됩니다.
+  - 위의 예제에서는 catch 블록에 어떤 예외 타입도 지정하지 않았습니다. 단지 무엇인가가 잘못되었음을 확인할 뿐이며, throw 문을 통해 예외를 다시 던집니다.
+
+- 계약을 유지하기 위해서 세부 구현사항 숨기기
+  - 일부 상황에서는 특정 타입의 예외를 잡더라도 그와는 다른 타입의 예외를 다시 던지는 것이 효과적이 때가 있습니다. 이렇게 하는 유일한 이유는 메서드의 계약사항을 유지하기 위해서이며, 새롭게 생성하는 예외는 대체로 더욱 구체적이 예외 타입이어야 합니다.
+  - 이 방법은 호출자에게 거짓말을 하는 것과 같습니다. 실제로 발생한 예외를 알려주는 것이 아니며, 어디서 발생했는지에 대한 정보(스택정보)도 제대로 전달하지 않습니다. 그러니 이 방법은 신중하게 활용해야 합니다.
+  ```cs
+  // GetPhoneNumber 메서드를 호출하는 사용자 입장에서 내부적으로 FileNotFoundException이나 IOException과 같은 예외를 발생한다는 것을 예측하기가 쉽지 않습니다. 그래서 NameNotFoundException이라는 새로운 예외를 생성하여 다시 던집니다.
+  internal sealed class PhoneBook
+  {
+      private string m_Pathname;
+  
+      public string GetPhoneNumber(string name)
+      {
+          string phone;
+          FileStream fs = null;
+          try
+          {
+              fs = new FileStream(m_Pathname, FileMode.Open);
+              //... 지정한 이름을 찾을 때까지 fs 로부터 내용을 읽어오는 코드
+              phone = /*찾은 전화번호*/;
+          }
+          catch(FileNotFoundException e)
+          {
+              //찾고자 하는 이름을 포함시키고 원래 발생한 예외를 내부 예외로 취하는 다른 예외를 발생시킵니다.
+              throw new NameNotFoundException(name, e);
+          }
+          catch(IOException e)
+          {
+              //찾고자 하는 이름을 포함하고, 원래 발생한 예외를 내부 예외로 취하는 다른 예외를 발생시킵니다.
+              throw new NameNotFoundException(name, e);
+          }
+          finally
+          {
+              fs?.Close();
+          }
+          return phone;
+      }
+  }
+  - 단순히 몇 가지 정보만을 더하는 정도의 작업을 하고자 한다면 예외 객체의 Data 속성 컬렉션(collection)에 그러한 정보를 추가하고 동일 예외를 다시 던지는 것이 좋습니다.
+  ```cs
+  private static void SomeMethod(string filename)
+  {
+      try
+      {
+          //...
+      }
+      catch(IOException e)
+      {
+          //IOException 객체에 파일 이름을 더한다.
+          e.Data.Add("Filename", filename);
+  
+          //이제 정보가 추가된 동일 예외 객체를 다시 던진다.
+          throw;
+      }
+  }
+  ```
+  - 하지만 이런 기법이 유용하지 않는 경우가 있는데, Reflection을 활용하는 메서드 내부에서 발생하는 예외는 CLR이 TargetInvocationException 으로 바꾸어 던집니다. 따라서 리플렉션작업 중 발생한 예외는 TargetInvocationException으로 추적해야 합니다.
+
+
 
 ### 처리되지 않은 예외
+
 
 ### 예외 디버깅하기
 
