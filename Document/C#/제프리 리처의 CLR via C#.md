@@ -1057,6 +1057,7 @@ private static List<TBase> ConvertIList<T, TBase>(IList<T> list) where T : TBase
 ...
 
 ### 지침과 모범 사례
+...
 
 ### 처리되지 않은 예외
 
