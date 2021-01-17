@@ -1165,6 +1165,7 @@ public void SerializeObjectGraph(FileStream fs, IFormatter formatter, object roo
           return phone;
       }
   }
+  ```
   - 단순히 몇 가지 정보만을 더하는 정도의 작업을 하고자 한다면 예외 객체의 Data 속성 컬렉션(collection)에 그러한 정보를 추가하고 동일 예외를 다시 던지는 것이 좋습니다.
   ```cs
   private static void SomeMethod(string filename)
