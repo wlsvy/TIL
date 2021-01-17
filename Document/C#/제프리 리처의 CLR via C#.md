@@ -1186,18 +1186,23 @@ public void SerializeObjectGraph(FileStream fs, IFormatter formatter, object roo
   ```
   - 하지만 이런 기법이 유용하지 않는 경우가 있는데, Reflection을 활용하는 메서드 내부에서 발생하는 예외는 CLR이 TargetInvocationException 으로 바꾸어 던집니다. 따라서 리플렉션작업 중 발생한 예외는 TargetInvocationException으로 추적해야 합니다.
 
-
-
 ### 처리되지 않은 예외
-
+...
 
 ### 예외 디버깅하기
+...
 
 ### 예외 처리 시 성능 고려사항
+...
 
-### CER
+### CER(Constrained Execution Regions : 제약이 있는 실행 영역)
+...
+- CER은 실패가 발생하더라도 반드시 수행되어야하는 탄력적인 코드 블록을 의미합니다.
+- 신뢰할 수 있는 메서드에 관한 내용
 
-### 코드 계약
+### 코드 계약(Code Contracts)
+...
+- 코드 계약(Code Contracts)은 개발자가 자신이 작성한 코드의 설계 고려사항을 코드를 이용하여 선언적으로 알려주는 방법입니다.
 
 </details>
 
