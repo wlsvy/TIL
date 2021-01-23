@@ -1312,6 +1312,21 @@ public void SerializeObjectGraph(FileStream fs, IFormatter formatter, object roo
 
 </details>
 
+## 21장. 관리 힙과 가비지 수집
+
+<details>
+<summary>fold/unfold</summary>
+
+### 관리 힙의 기본
+
+### 세대 : 성능 개선을 위한
+
+### 특별한 정리 작업이 필요한 타입 다루기
+
+### 객체의 수명을 수동으로 모니터링하고 제어하기
+
+</details>
+
 ## 26장. 스레드의 기본
 
 <details>
