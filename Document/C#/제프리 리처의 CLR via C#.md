@@ -1046,8 +1046,61 @@ public static void M<T>(T t) where T : IComparable {}
   - 인터페이스 제약조건을 사용하는 경우를 제외하고는 C# 컴파일러가 이 같은 IL 명령어를 추가하는 경우가 없으므로, 값 타입의 인스턴스를 매개변수로 인터페이스 메서드를 호출하는 경우에는 항상 박싱이 일어나게 됩니다.
 
 ### 같은 메서드 이름과 원형을 가지는 여러 인터페이스 구현하기
+...
 
 ### 명시적 인터페이스 구현 메서드로 컴파일 시 타입 안정성 향상시키기
+- 명시적 인터페이스 구현을 통해 타입 안정성을 확보하고 예기치 않은 박싱을 방지합니다.
+```cs
+public interface IComparable
+{
+    Int32 CompareTo(object other);
+}
+
+internal struct SomeValueType : IComparable
+{
+    private int m_X;
+    public SomeValueType(int x) { m_X = x; }
+
+    public int CompareTo(object other)
+    {
+        return m_X - ((SomeValueType)other).m_X;
+    }
+}
+public static void Main()
+{
+    var v = new SomeValueType(0);
+    var o = new object();
+    var n = v.CompareTo(v); // 박싱 발생
+    n = v.CompareTo(o); // InvalidCastException 예외 발생
+}
+```
+
+```cs
+internal struct SomeValueType : IComparable
+{
+    private int m_X;
+    public SomeValueType(int x) { m_X = x; }
+
+    public int CompareTo(SomeValueType other)
+    {
+        return m_X - other.m_X;
+    }
+
+    //명시적 인터페이스 구현
+    int IComparable.CompareTo(object other)
+    {
+        return m_X - ((SomeValueType)other).m_X;
+    }
+}
+public static void Main()
+{
+    var v = new SomeValueType(0);
+    var o = new object();
+    var n = v.CompareTo(v); // 박싱 없음
+    n = v.CompareTo(o); // 컴파일 시점 오류
+}
+```
+
 
 ### 명시적 인터페이스 구현 메서드에서 주의해야 할 부분
 
