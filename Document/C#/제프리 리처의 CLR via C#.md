@@ -1327,7 +1327,7 @@ public void SerializeObjectGraph(FileStream fs, IFormatter formatter, object roo
 
 
 #### 관리 힙에 리소스 할당하기
-CLR 환경에서는 모든 객체가 관리 힙에서 할당되어야 한다. 프로세스가 초기화되면 CLR은 관리 힙에서 사용할 주소 공간(Address Space) 영역을 우선 할당합니다. CLR은 이 영역 내에서 다음에 객체를 할당할 위치를 가리키는포인터를 관리하는데, 이를 NextObjPtr으로 부른다면, NextObjPtr은 이 주소 공간 여영ㄱ의 시작 주소를 가리키게 초기화 됩니다.
+CLR 환경에서는 모든 객체가 관리 힙에서 할당되어야 한다. 프로세스가 초기화되면 CLR은 관리 힙에서 사용할 주소 공간(Address Space) 영역을 우선 할당합니다. CLR은 이 영역 내에서 다음에 객체를 할당할 위치를 가리키는포인터를 관리하는데, 이를 NextObjPtr으로 부른다면, NextObjPtr은 이 주소 공간 영역의 시작 주소를 가리키게 초기화 됩니다.
 
 <br>
 
