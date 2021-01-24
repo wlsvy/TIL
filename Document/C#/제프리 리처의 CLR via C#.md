@@ -1422,9 +1422,9 @@ CLR이 기동되면 GC 모드가 선택되는데 이렇게 선택된 모드는 �
 
 #### Finalization의 내부
 
-<img src="https://github.com/wlsvy/TIL/blob/master/Document/C%23/CLRviaC%23_Image/21-13.png" width="100%" height="100%">
-<img src="https://github.com/wlsvy/TIL/blob/master/Document/C%23/CLRviaC%23_Image/21-14.png" width="100%" height="100%">
-<img src="https://github.com/wlsvy/TIL/blob/master/Document/C%23/CLRviaC%23_Image/21-155.png" width="100%" height="100%">
+<img src="https://github.com/wlsvy/TIL/blob/master/Document/C%23/CLRviaC%23_Image/21-13.jpg" width="60%" height="60%">
+<img src="https://github.com/wlsvy/TIL/blob/master/Document/C%23/CLRviaC%23_Image/21-14.jpg" width="60%" height="60%">
+<img src="https://github.com/wlsvy/TIL/blob/master/Document/C%23/CLRviaC%23_Image/21-15.jpg" width="60%" height="60%">
 
 
 ### 객체의 수명을 수동으로 모니터링하고 제어하기
