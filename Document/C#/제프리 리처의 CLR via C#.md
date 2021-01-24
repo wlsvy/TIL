@@ -1422,8 +1422,19 @@ CLR이 기동되면 GC 모드가 선택되는데 이렇게 선택된 모드는 �
 
 #### Finalization의 내부
 
+응용프로그램이 새로운 객체를 생성하려면 new 연산자를 사용하여 힙으로부터 메모리를 할당 받아야 한다. 만일 객체가 Finalize 메서드를 정의하고 있다면 타입의 생성자가 호출되기 직전에, 객체를 가리키는 포인터가 fianlization 리스트에 삽입된다. 해당 리스트의 각 항목은 객체가 점유하고 있는 메모리를 반납하기 전에 finalize 메서드를 호출해야 하는 객체를 가리키고 있다.
+
 <img src="https://github.com/wlsvy/TIL/blob/master/Document/C%23/CLRviaC%23_Image/21-13.jpg" width="60%" height="60%">
+
+가비지 수집 절차가 진행되고 객체들이 가비지로 판단되면 가비지 수집기는 finalization 리스트를 살펴보고 가비지로 판단된 객체들을 참조하고 있는지 확인한다. 만일 그러한 객체 참조가 존재한다면 finalization 리스트로부터 항목을 제거하고, 제거된 항목들을 freachable 큐에 추가한다.(F - reachable) 해당 큐 내의 각 항목은 finalize 메서드가 호출될 준비가 된 객체를 나타낸다. 가비지 수집이 완료되면 관리 힙의 모습은 아래와 같이 될 것이다.
+
 <img src="https://github.com/wlsvy/TIL/blob/master/Document/C%23/CLRviaC%23_Image/21-14.jpg" width="60%" height="60%">
+
+CLR은 Finalize 메서드를 호출하기 위해서 특별히 높은 우선순위의 전용 스레드를 사용한다. 이처럼 전용의 스레드를 사용하는 이유는 응용프로그램 내의 보통 우선순위 스레드를 사용하게 되면 스레드 동기화 문제가 발생할 가능성이 있기 때문에 이를 피하기 위해서 전용의 스레드를 사용하게 된다. freachable 큐가 비어있다면(보통의 경우) 이 스레드는 sleep 상태가 된다. 하지만 freachable 큐에 항목이 추가된다면 스레드가 깨어나서 큐로부터 항목을 제거한 후 그 항목이 가리키는 객체의 finalize 메서드를 호출하게 된다. 이 같은 스레드의 동작 방식 때문에 해당 객체의 코드를 수행하던 스레드가 finalize 메서드를 호출할 것이라고 가정해서는 안 된다.
+- freachable 큐는 마치 정적 필드처럼 다수의 루트들을 가지고 있는 또 다른 루트처럼 동작하게 된다. 즉 freachable 내의 각 항목들은 객체를 도달 가능 상태로 만들고 가비지가 되지 않도록 해준다.
+- 가비지 수집기는 도달 가능하지 않은 객체를 가비지로 판단한다. 가비지 수집기가 객체에 대한 참조를 finalization 리스트에서 freachable 큐로 옮기게 되면, 객체는 다시 도달 가능한 상태가 되어 메모리를 반납하지 않아도 되다. 최초에는 객체가 가비지였으나 이후에 가비지가 아닌 상태로 바뀌게 된 것이다. 이를 객체가 복원(resurrected)되었다고 한다.
+- freachable 큐에서 빠져나오면서 finalize를 호출한 뒤 다음번에 더 오래된 세대에 대하여 가비지 수집이 수행되면, finalize 가 완료된 객체들이 이제는 진짜 가비지가 된다. 왜냐하면 응용 프로그램의 어떤 루트도 더 이상 이 객체들을 가리키고 있지 않을 뿐더러, freachable 큐 또한 더 이상 이 객체들을 참조하고 있지 않기 때문이다. 
+
 <img src="https://github.com/wlsvy/TIL/blob/master/Document/C%23/CLRviaC%23_Image/21-15.jpg" width="60%" height="60%">
 
 
