@@ -1115,6 +1115,27 @@ public static void Main()
 
 </details>
 
+## 14장. 문자, 문자열, 텍스트 사용하기
+
+<details>
+<summary>fold/unfold</summary>
+
+### 문자
+
+### System.String 타입
+
+### 효율적으로 문자열 생성하기
+
+### 객체에 대한 문자열 포현을 얻어오기 ToString
+
+### 문자열을 객체로 분석하기: Parse
+
+### 인코딩: 문자 배열과 바이트 배열 사이의 변환
+
+### 안전한 문자열
+
+</details>
+
 ## 20장. 예외와 상태 관리
 
 <details>
