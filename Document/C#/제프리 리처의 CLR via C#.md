@@ -1305,8 +1305,44 @@ Console.WriteLine(a.ToString());    //Delete, Query, Sync
 - CLR은 배열에 대한 인덱스 값이 정확한지 항상 검사한다. 예를 들어 100개의 원소를 가진 배열에서 -5나 100을 사용하여 원소에 접근할 수 없다. 이렇게 할 경우, System.IndexOutOfRangeException 예외가 발생하게 된다.
 
 ### 배열 요소 초기화하기
+- 배열 이니셜라이저(Array Initializer) 활용.
+
+```cs
+//Array Initializer
+string[] names = new string[] { "Aidan", "Grant" };
+
+//C#의 var 활용
+var names = new string[] { "Aidan", "Grant" };
+
+//배열의 타입 추론
+var names = new[] { "Aidan", "Grant" };
+
+//다음과 같이 좀 더 간편한 문법으로 배열을 만드는 것도 가능
+string[] names2 = { "Aidan", "Grant" };
+```
 
 ### 배열 캐스팅하기
+- 참조 타입 요소로 구성된 배열의 경우, CLR은 암묵적으로 원본 배열의 오소를 특정 타입으로 캐스팅할 수 있다. 이 경우 양쪽의 배열 타입은 반드시 차수가 동일해야 하고, 원본 요소 타입에서 대상 요소 타입으로 암묵적이든 명시적이든 변환이 가능해야 한다. 하지만 값 타입의 요소로 구서오딘 배열은 다른 타입으로 캐스팅할 수 없다.
+  - Array.Copy 를 활용하는 경우, 새로운 배열을 만들고 원래의 배열 요소를 꺼내어 대상 배열로 수동으로 지정할 수는 있을 것이다.
+  - Array.Copy 메서드는 단순히 한 배열에서 다른 배열로 복사하는 메서드가 아니다. Copy 메서드는 복사 영역이 메모리상에서 겹치는 경우라도 C의 memmove함수와 같이 정확히 복사 해준다.
+    - 박싱, 언박싱, 기본값 확장(CLR 의 int -> double), downcasting 와 같은 변환을 지원한다.
+ 
+```cs
+FileStream[,] f = new FileStream[5, 10];
+object[,] o = f;    //2차원 객체 배열을 암묵적으로 캐스팅
+
+int[] i = new int[5];
+object[] o2 = i; //값 타입의 배열은 캐스팅 불가능
+
+//배열을 새로 만들고, Array.Copy를 활용하여 각 메서드를 강제로 원본 배열에서 특정 타입으로 구성된 배열로 캐스팅을 수행하며 복사
+//아래는 int를 박싱한 참조 객체로 구성된 배열을 만들게 된다.
+o2 = new object[5];
+Array.Copy(i, o2, i.Length);
+```
+
+- 만약 배열의 요소에 대한 복사본을 만드는 일만 하고 싶다면, System.Buffer의 BlockCopy 메서드를 사용하는 것이 Array의 Copy 메서드보다 더 빠르다. 하지만 Buffer의 BlockCopy메서드는 기본 타입에 대해서만 사용할 수 있으며, Array의 Copy 메서드와 같은 타입 캐스팅을 지원하지는 않는다.
+  - 또한 이 메서드를 사용하는 경우 int 타입의 매개변수들은 배열 내의 바이트 오프셋으로 표현되는 것이며, 요소의 인덱스를 의미하는 것은 아니다. BlockCopy 메서드는 비트 단위로 취급할 수 있는 데이터를 다른 배열로 복사하기 위한 목적으로 설계되었으므로 Byte[] 배열 안에 들어있는 유니코드 문자를 Char[] 타입의 배열로 복사하기 위해 사용할 수도 있다.
+- 배열의 요소들을 한쪽 배열에서 다른 쪽 배열로 안전하게 복사하기를 원한다면, 반드시 System.Array의 ConstrainedCopy 메서드를 사용해야 한다. 복사 작업이 완벽하게 끝낼 수 있도록 해주어, 복사 작업이 실패할 경우에도 대상 배열의 데이터를 변경하거나 훼손하지 않는다. 해당 메서드는 제약이 있는 실행영역(Constrained Execution Region, CER) 에서 사용 가능한다.
 
 ### 모든 배열의 암묵적 부모 타입인 System.Array
 
