@@ -1345,12 +1345,24 @@ Array.Copy(i, o2, i.Length);
 - 배열의 요소들을 한쪽 배열에서 다른 쪽 배열로 안전하게 복사하기를 원한다면, 반드시 System.Array의 ConstrainedCopy 메서드를 사용해야 한다. 복사 작업이 완벽하게 끝낼 수 있도록 해주어, 복사 작업이 실패할 경우에도 대상 배열의 데이터를 변경하거나 훼손하지 않는다. 해당 메서드는 제약이 있는 실행영역(Constrained Execution Region, CER) 에서 사용 가능한다.
 
 ### 모든 배열의 암묵적 부모 타입인 System.Array
+...
 
 ### 모든 배열이 암묵적으로 구현하는 IEnumerable, ICollection, IList 인터페이스
+- System.Array 타입은 이 세 가지 인터페이스를 전부 구현하고 있다. (하지만 제네릭 버전이 아니다)
+  - CLR 팀은 System.Array 타입에 IEnumerable<T>, ICollection<T>, IList<T> 인터페이스를 직접 구현하도록 하지 않았는데, 다차원 배열과 시작 인덱스가 0이 아닌 배열들에 지원해야 하는 문제 때문이었다.
+  - 이러한 이유로 CLR 팀은 약간의 트릭을 활용해서 1차원 배열이면서, 시작 인덱스가 0인 배열 타입이 만들어지면 IEnumerable<T>, ICollection<T>, IList<T> 인터페이스를 자동으로 구현하고, T가 참조 타입인 경우 상속 계통을 따라 모든 상위 클래스들에 대해서도 추가적으로 세 개의 인터페이스를 구현한다.
+  - 따라서 만약 `FileStream[] fsArray` 가 있다고 하면, CLR은 FileStream[] 타입을 생성할 때 자동으로 IEnumerable<FileStream>, ICollection<FileStream>, IList<FileStream> 인터페이스를 구현한다. 더불어 IEnumerable<Stream>, ICollection<Stream>, IList<Stream> (+ object 타입 버전까지) 상위 타입의 인터페이스 역시 구현한다. 
+  - 그러나 만약 값 타입 배열이라면, 해당 타입에 대한 인터페이스는 구현하겠지만, System.ValueType 이나 System.Object 타입에 대해서는 이 인터페이스들을 구현하지 않는다.
 
 ### 배열의 전달과 반환
+...
+- Array.Copy 는 얕은 복사를 수행한다는 것을 주의할 것.
+- 배열을 반환하는 메서드를 작성할 때, 배열 내부에 원소가 없는 경우, null을 반환하는 것보다 빈 배열을 반환하는 것이 좋다.(호출자 측에서 처리해야할 예외가 줄어든다.)
 
 ### 시작 인덱스가 0이 아닌 배열 만들기
+- Array의 CreateInstance를 활용. 배열의 타입을 지정하거나, 배열의 각 차수마다 포함할 요소의 개수를 지정할 수 있다.
+  - CreateInstance 메서드는 배열을 위한 메모리 공간을 할당하고, 배열의 메모리 블록에 추가 공간을 할당하여, 매개변수에 대한 정보를 저장한 후, 배열 객체에 대한 참조를 반환한다.
+
 
 ### 배열의 내부 구조
 
