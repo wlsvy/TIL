@@ -1296,6 +1296,32 @@ Console.WriteLine(a.ToString());    //Delete, Query, Sync
 
 </details>
 
+## 16장. 배열
+
+<details>
+<summary>fold/unfold</summary>
+
+배열은 여러 개의 항목을 단일 컬렉션으로 다룰 수 있게 해주는 매커니즘이다. CLR에서는 1차원 배열, 다차원 배열, 중첩 배열(Jagged Array)를 지원한다. 모든 배열 타입은 System.Array 타입을 상속받는다.
+- CLR은 배열에 대한 인덱스 값이 정확한지 항상 검사한다. 예를 들어 100개의 원소를 가진 배열에서 -5나 100을 사용하여 원소에 접근할 수 없다. 이렇게 할 경우, System.IndexOutOfRangeException 예외가 발생하게 된다.
+
+### 배열 요소 초기화하기
+
+### 배열 캐스팅하기
+
+### 모든 배열의 암묵적 부모 타입인 System.Array
+
+### 모든 배열이 암묵적으로 구현하는 IEnumerable, ICollection, IList 인터페이스
+
+### 배열의 전달과 반환
+
+### 시작 인덱스가 0이 아닌 배열 만들기
+
+### 배열의 내부 구조
+
+### 안전하지 않은 배열 사용과 고정 크기 배열
+
+</details>
+
 ## 20장. 예외와 상태 관리
 
 <details>
