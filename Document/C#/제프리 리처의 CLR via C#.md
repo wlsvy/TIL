@@ -1188,6 +1188,62 @@ var s = "Hi" + " " + "there.";
 
 ### 열거 타입
 - 열거 타입은 기호 이름과 연결되는 값의 쌍을 묶어서 정의하는 타입이다.
+- 열거 타입은 보통 강력한 타입으로 취급된다. 예를 들어 만약 Color.Orange 값을 Fruit 열거 타입을 매개변수로 받는 메서드로 전달하려고 하면 컴파일러가 오류가 있음을 알려준다.
+
+<br>
+
+- 모든 열거 타입은 System.Enum 타입을 상속하는데, System.Enum은 System.Valutype을 상속하니 열거 타입들은 값 타입으로 분류된다. 하지만 열거 타입은 메서드, 속성 등을 정의할 수 없다.
+
+<br>
+
+```cs
+internal enum Color
+{
+    White, //숫자 값 0 할당
+    Red,
+    Green,
+    Blue,
+    Orange,
+}
+```
+
+위의 Enum 타입은 컴파일러에 의해 아래와 비슷한 형태로 컴파일한다.
+
+```cs
+internal struct Color : System.Enum
+{
+    // 다음의 public 상수 필드들은 Color 열거 타입의 기호와 값들을 정의하고 있다.
+    public const Color White = (Color)0;
+    public const Color Red = (Color)1;
+    public const Color Green = (Color)2;
+    public const Color Blue = (Color)3;
+    public const Color Orange = (Color)4;
+
+    //다음은 Color 변수의 값을 저장하는 인스턴스 필드다.
+    //다음의 필드를 직접 참조하는 코드를 작성할 수 없다.
+    public int value__;
+}
+```
+
+- 실제로 C# 컴파일러는 위 코드를 컴파일 할 수 는 없는데, System.Enum을 상속하는 것은 허용하지 않기 때문이다. 기본적으로 열거 타입은 다수의 상수 필드와 함께 하나의 인스턴스 필드를 가지고 있는 구조체다.
+- 열거 타입에 의하여 정의되는 기호들은 모두 상수 값이다. 그래서 컴파일러가 열거 타입의 기호를 참조하는 코드를 만나게 되면, 기호를 그와 연결된 숫자 값으로 치환하기 때문에 더 이상 열거 타입에서 정의하는 기호와는 연관성을 잃게 됩니다. 열거 타입을 사용하는 어셈블리가 실행 시에는 열거 타입을 필요로 하지 않으며, 컴파일 시점에서만 활용하는 것이다.
+
+<br>
+
+- System.Enum의 정적 메서드인 GetValues과, System.Type의 인스턴스 메서드인 GetEnumValues 를 활용하면 해당 enum 타입에서 정의하는 개별 기호들을 배열형태로 가져올 수 있다.
+- 위의 메서드들은 Array를 반환하니 아래처럼 사용할 수 있다.
+```cs
+public static TEnum[] GetEnumValues<TEnum>() where TEnum : System.Enum
+{
+    return (TEnum[])Enum.GetValues(typeof(TEnum));
+}
+```
+
+<br>
+
+- System.Enum의 GetName와 System.Type의 GetEnumNames를 활용하면 enum 값에 대한 문자열 표현을 반환한다. 
+- Enum의 Parse 와 TryParse 를 활용하면 문자열로부터 그에 대응되는 Enum값을 가져올 수 있다.
+- Enum의 IsDefined와 Type의 IsEnumDefined를 활용하여 매개변수로 전달한 값이 특정 enum 타입 안에 존재하는지 확인할 수 있다.(대신 리플렉션을 사용하기 때문에 속도가 훨씬 느리다)
 
 ### 비트 플래그
 
