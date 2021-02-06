@@ -1292,6 +1292,7 @@ Console.WriteLine(a.ToString());    //Delete, Query, Sync
 
 
 ### 열거 타입에 메서드 추가하기
+- 확장 메서드 활용
 
 </details>
 
