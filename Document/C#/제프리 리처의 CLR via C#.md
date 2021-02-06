@@ -1246,6 +1246,50 @@ public static TEnum[] GetEnumValues<TEnum>() where TEnum : System.Enum
 - Enum의 IsDefined와 Type의 IsEnumDefined를 활용하여 매개변수로 전달한 값이 특정 enum 타입 안에 존재하는지 확인할 수 있다.(대신 리플렉션을 사용하기 때문에 속도가 훨씬 느리다)
 
 ### 비트 플래그
+- 열거 타입을 이용하여 결합 가능한 비트 플래그를 표현하는 방식은 매우 일반적이다. 열거 타입이 단일 수치 값을 표현하므로, 어떤 비트가 설정되어 있고, 어떤 비트가 설정되어 있지 않은지 나타내는 방식으로도 활용할 수 있다.
+- Enum 타입은 HasFlag라는 메서드를 제공하고 있다. 하지만 매개변수로 Enum 타입을 받고 있는데 여기에 값 타입을 넣으면 박싱이 발생하므로 쓰지 않는 것을 권장.
+
+<br>
+
+열거 타입을 비트 플래그 조합처럼 사용하려는 경우 반드시 System.FlagsAttribute 사용자 정의 특성을 지정하는 것을 강력히 권장한다.
+```cs
+[Flags]
+internal enum Actions
+{
+    None = 0,
+    Read = 0x0001,
+    Write = 0x0002,
+    ReadWrite = Actions.Read | Actions.Write,
+    Delete = 0x0004,
+    Query = 0x0008,
+    Sync = 0x0010,
+}
+```
+- 아래의 경우 FlagsAttribute가 지정되어 있다면, ToString 메서드는 이를 확인하고, 현재의 숫자 값이 단순히 고정된 값이 아니라 비트 플래그의 조합으로 나온 값이라는 것을 이해하고 그에 맞추어 처리한다.
+  - 아래 예시에 경우에는 Read, Delete를 출력한다.
+
+```cs
+public void DoSomething()
+{
+    var actions = Actions.Read | Actions.Delete; //0x0005
+    Console.WriteLine(actions.ToString()); // 0x0005 에 대응하는 Actions의 값은 존재하지 않는다.
+}
+```
+
+```cs
+var a = (Actions)Enum.Parse(typeof(Actions), "Query");
+Console.WriteLine(a.ToString());    //Query
+
+Enum.TryParse<Actions>("Query, Read", out a);
+Console.WriteLine(a.ToString());    //Read, Query
+
+Enum.TryParse<Actions>("28", out a);
+Console.WriteLine(a.ToString());    //Delete, Query, Sync
+```
+
+- 하지만 비트 플래그용 열거 타입에 대해서는 IsDefined 메서들르 절대 사용하면 안된다. 전달된 문자열을 검색하는 과정에서 ', ' 을 기준으로 문자열을 토큰화하지 않기 때문이다. 숫자를 전달하는 경우도, 정확히 일치하는 값을 찾으려 하지 특정 비트가 일치하는 경우에 대해서는 고려하지 않는다.
+
+
 
 ### 열거 타입에 메서드 추가하기
 
