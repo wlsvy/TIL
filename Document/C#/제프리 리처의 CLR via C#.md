@@ -1939,7 +1939,18 @@ static void Main(string[] args)
 
 ### 타입 내의 멤버를 찾기 위해 리플렉션 사용하기
 
+#### 타입 내의 멤버 검색
 
+타입의 멤버로서 정의할 수 있는 것들로는 필드, 생성자, 메서드, 속성, 이벤트, 중첩 타입이 있다.
+- FCL은 System.Reflection.MemberInfo 라는 추상 기본 클래스(abstract base class) 를 통해서 타입 멤버들의 공통적인 속성들을 캡슐화하고, 이 MemberInfo 를 상속하여 개별 타입 멤버의 고유 특성을 캡슐화하고 있다.
+
+<img src="https://github.com/wlsvy/TIL/blob/master/Document/C%23/CLRviaC%23_Image/23-1.png" width="70%" height="70%">
+
+#### 타입 내의 멤버 수행
+...
+
+#### 프로세스의 메모리 소비량을 줄이기 위해서 핸들 바인딩 기법 사용하기
+...
 
 </details>
 
