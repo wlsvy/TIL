@@ -1801,6 +1801,36 @@ CLR COM 서버는 초기화 시 앱도메인을 생성하게 된다. 앱도메�
 - Type 객체는 타입 참조를 나타내는 아주 가벼운 객체다. 만일 타입 자체에 대해서 좀 더 알고 싶다면 타입의 정의를 나타내는 TypeInfo 객체를 얻어 와야 한다.
   - 마이크로소프트는 타입 이름과 '어셈블리명을 정규화한 타입 이름'의 구조를 베커스 나우어 형식(Backus-Naur Form)으로 정의하고 있으며 이를 리플렉션 메서드의 문자열 매개변수로 주로 사용한다. 이러한 문법에 대한 지식은 중첩 타입(nested type), 제네릭 타입, 제네릭 메서드, 참조 매개변수, 배열 등을 리플렉션을 통해서 사용할 때 매우 유용하게 사용할 수 있다.
 
+##### 타입 인스턴스 생성
+- System.Activator의 CreateInstance 메서드들
+- System.Activator의 CreateInstanceFrom 메서드들
+- System.AppDomain의 메서드들 : AppDomain은 특정 타입의 인스턴스를 생성하기 위해서 CreateInstance, CreateInstnaceAndUnwrap, CreateInstanceFrom, CreateInstanceFromAndUnwrap의 네 가지 종류의 메서드를 제공해준다.
+- System.Reflection.ConstructorInfo의 Invoke 인스턴스 메서드
+
+<br>
+
+위에 나열한 매커니즘들을 이용하면 배열(System.Array 계통의 타입)과 델리게이트(System.MulticastDelegate 계통의 타입)를 제외한 모든 타입을 생성할 수 있다.
+- 배열을 생성하고 싶다면 Array.CreateInstance를, 델리게이트의 경우 MethodInfo.CreateDelegate를 활용.
+
+<br>
+
+- 제네릭 타입의 생성
+```cs
+static void Main(string[] args)
+{
+    //열려있는 제네릭 타입 객체를 가져온다.
+    Type openType = typeof(Dictionary<,>);
+
+    // <string, int> 타입 매개변수를 가지는 제네릭 타입을 얻는다.
+    Type closedType = openType.MakeGenericType(typeof(string), typeof(int));
+
+    // 닫힌 타입의 인스턴스를 생성한다.
+    var o = Activator.CreateInstance(closedType);
+
+    Console.WriteLine(o.GetType());
+}
+```
+
 ### 애드인을 지원하는 응용프로그램 설계
 
 ### 타입 내의 멤버를 찾기 위해 리플렉션 사용하기
