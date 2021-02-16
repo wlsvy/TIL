@@ -1954,6 +1954,39 @@ static void Main(string[] args)
 
 </details>
 
+## 24장. 런타임 serialization
+
+<details>
+<summary>fold/unfold</summary>
+
+serialization 은 객체나 연결된 객체 그래프를 바이트 스트림(byte stream)으로 변환하는 과정을 뜻하며, deserialization 은 바이트 스트림을 다시 연결된 객체 그래프로 되돌리는 과정을 뜻한다.
+- 객체와 바이트 스트림 간의 상호 변환 기능은 상당히 유용한 기능인데 몇 가지 활용 예를 나타내보면
+- 응용프로그램의 상태(객체 그래프)를 파일이나 데이터베이스에 손쉽게 저장할 수 있고 다음 번에 응용프로그램을 수행할 때 저장해두었던 정보를 손쉽게 복원할 수 있다.
+- 일련의 객체들은 시스템의 클립보드에 손쉽게 복사할 수 있고, 복사한 객체들은 자신의 응용프로그램이나 혹은 다른 응용프로그램에 붙여 넣을 수 있다. 실제로 윈도우 폼이나 WPF(Windows Presentatioin Foundation)가 이 방법을 사용한다.
+- 사용자가 주요 객체들을 수정하는 동안 원본 객체를 복제해서 백업 용도로 가지고 있을 수 있다.
+- 일련의 객체들을 네트워크를 통해서 손쉽게 다른 컴퓨터로 전송할 수 있다. .NET Framework의 리모팅 아키텍처에서는 객체를 값으로 마샬링할 때 serialize와 deserialize 를 사용한다. 
+- 객체를 바이트 스트림으로 메모리에 serialize 하면 데이터의 암호화나 압축 등과 같은 작업을 수행할 때에도 용이하다.
+
+### serialization/deserialization 쾌속 시작
+
+### serialize 가능한 타입 정의하기
+
+### serialization과 deserialization 제어하기
+
+### 포맷터는 타입 인스턴스를 어떻게 serialize 하는가?
+
+### serialize/deserialize 할 데이터 제어하기
+
+### 스트리밍 컨텍스트
+
+### 다른 타입으로 serialize 하고 다른 객체로 deserialize 하기
+
+### serialization 대리자
+
+### 객체를 deserialize 할 때 어셈블리와 타입을 오버라이딩하기
+
+</details>
+
 ## 26장. 스레드의 기본
 
 <details>
