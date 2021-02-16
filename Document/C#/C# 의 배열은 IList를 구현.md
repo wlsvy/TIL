@@ -1,5 +1,14 @@
 > C#의 배열은 IList 인터페이스를 구현하고 있으며, 만약 시작 인덱스가 0인 1차원 배열인 경우(SZ배열) `IList<T>` 인터페이스 역시 구현합니다.
 
+```cs
+//컴파일 오류 발생 X
+int[] integers = { 1, 2, 3 };
+IList<int> list = integers;
+IList objList = integers;
+
+list.Add(4); //런타임 오류
+objList.Add(5); //런타임 오류
+```
 
 ### 참고
 - [stackoverflow : why-array-implements-ilist](https://stackoverflow.com/questions/5968708/why-array-implements-ilist)
