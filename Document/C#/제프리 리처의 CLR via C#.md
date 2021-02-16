@@ -1349,9 +1349,9 @@ Array.Copy(i, o2, i.Length);
 
 ### 모든 배열이 암묵적으로 구현하는 IEnumerable, ICollection, IList 인터페이스
 - System.Array 타입은 이 세 가지 인터페이스를 전부 구현하고 있다. (하지만 제네릭 버전이 아니다)
-  - CLR 팀은 System.Array 타입에 IEnumerable<T>, ICollection<T>, IList<T> 인터페이스를 직접 구현하도록 하지 않았는데, 다차원 배열과 시작 인덱스가 0이 아닌 배열들에 지원해야 하는 문제 때문이었다.
-  - 이러한 이유로 CLR 팀은 약간의 트릭을 활용해서 1차원 배열이면서, 시작 인덱스가 0인 배열 타입이 만들어지면 IEnumerable<T>, ICollection<T>, IList<T> 인터페이스를 자동으로 구현하고, T가 참조 타입인 경우 상속 계통을 따라 모든 상위 클래스들에 대해서도 추가적으로 세 개의 인터페이스를 구현한다.
-  - 따라서 만약 `FileStream[] fsArray` 가 있다고 하면, CLR은 FileStream[] 타입을 생성할 때 자동으로 IEnumerable<FileStream>, ICollection<FileStream>, IList<FileStream> 인터페이스를 구현한다. 더불어 IEnumerable<Stream>, ICollection<Stream>, IList<Stream> (+ object 타입 버전까지) 상위 타입의 인터페이스 역시 구현한다. 
+  - CLR 팀은 System.Array 타입에 `IEnumerable<T>`, `ICollection<T>`, `IList<T>` 인터페이스를 직접 구현하도록 하지 않았는데, 다차원 배열과 시작 인덱스가 0이 아닌 배열들에 지원해야 하는 문제 때문이었다.
+  - 이러한 이유로 CLR 팀은 약간의 트릭을 활용해서 1차원 배열이면서, 시작 인덱스가 0인 배열 타입이 만들어지면 `IEnumerable<T>`, `ICollection<T>`, `IList<T>` 인터페이스를 자동으로 구현하고, T가 참조 타입인 경우 상속 계통을 따라 모든 상위 클래스들에 대해서도 추가적으로 세 개의 인터페이스를 구현한다.
+  - 따라서 만약 `FileStream[] fsArray` 가 있다고 하면, CLR은 FileStream[] 타입을 생성할 때 자동으로 `IEnumerable<FileStream>`, `ICollection<FileStream>`, `IList<FileStream>` 인터페이스를 구현한다. 더불어 `IEnumerable<Stream>`, `ICollection<Stream>`, `IList<Stream>` (+ object 타입 버전까지) 상위 타입의 인터페이스 역시 구현한다. 
   - 그러나 만약 값 타입 배열이라면, 해당 타입에 대한 인터페이스는 구현하겠지만, System.ValueType 이나 System.Object 타입에 대해서는 이 인터페이스들을 구현하지 않는다.
 
 ### 배열의 전달과 반환
