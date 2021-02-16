@@ -2078,6 +2078,29 @@ internal class Circle
   - System.Runtime.Serialization.OptionalFieldAttribute 특성을 이용하여 새롭게 추가하는 필드에 이 특성을 지정하면 문제 해결에 도움이 된다.
 
 ### 포맷터는 타입 인스턴스를 어떻게 serialize 하는가?
+포맷터가 좀 더 쉽게 작업을 수행할 수 있도록 FCL은 System.Runtime.Serialization 네임스페이스 내에 FormatterServices라는 타입을 구현해두고 있다. 이 타입은 정적 메서드만을 정의하고 있으므로 인스턴스로 생성하지 않는다.
+
+<br>
+
+다음은 SerializableAttribute 특성을 지정한 타입의 객체를 포맷터가 serialize할 때 자동으로 수행하는 작업들이다.
+1. 포맷터는 FormatterServices의 GetSerializableMembers 메서드를 호출한다.
+  - 이 메서드는 리플렉션을 사용하여 타입의 public, private 인스턴스 필드를 얻어온다.(NonSerializedAttribute 특성이 부여된 필드를 제외하고). 이 메서드는 serialize 가능한 개별 인스턴스 필드를 나타내는 MemberInfo 객체의 배열을 반환한다.
+2. serialize할 객체와 System.Reflection.MemberInfo 객체들을 FormatterServices의 GetObjectData 메서드에 전달한다.
+  - GetObjectData 메서드는 serialize할 필드의 값을 object 배열 형태로 반환한다. 이 object 배열과 memberinfo 배열은 그 순서가 동일해서, object 배열의 0번째 값은 memberinfo 의 0번째 항목이 가리키는 멤버의 값을 나타낸다.
+3. 포맷터는 어셈블리 구분자와 타입의 전체 이름을 스트림에 쓴다.
+4. 포맷터는 두 배열을 순회하면서 멤버의 이름과 값을 스트림에 쓴다.
+
+<br>
+
+SerializableAttribute 특성을 지정한 타입의 객체를 포맷터가 deserialize 할 때 자동으로 수행하는 작업
+1. 포맷터는 스트림으로부터 어셈블리 구분자와 타입의 전체 이름을 읽어 온다. 만일 해당 어셈블리가 앱도메인에 로드되어 있지 않다면 로드하려고 시도한다.(로드할 수 없다면 SerializationException 발생) 어셈블리를 로드할 수 있으면 포맷터는 어셈블리 구분자와 타입의 전체 이름을 FormatterServices 의 정적 메서드인 GetTypeFromAssembly 메서드에 넘겨준다.
+  - GetTypeFromAssembly 메서드는 deserialize할 객체의 타입을 나타내는 System.Type 객체를 반환한다.
+2. 이제 포맷터는 FormatterServices의 GetUninitializedObject 메서드를 호출한다.
+  - GetUninitializedObject 메서드는 새로운 객체를 위한 메모리만을 할당하고 객체의 생성자는 호출하지 않는다. 메모리는 null이나 0으로 초기화된다.
+3. 포맷터는 앞서 알아본 FormatterServices의 GetSerializableMembers를 호출하여 MemberInfo 배열을 생성, 초기화하는데 이 배열은 deserialize 해야 하는 필드의 목록을 나타낸다.
+4. 포맷터는 스트림 내에 포함된 데이터를 이용하여 object 배열을 생성, 초기화한다.
+5. 새롭게 생성된 객체와 MemberInfo 배열 그리고 개별 필드들의 값을 담고 있는 object 배열을 FormatterServices 의 정적 메서드인 PopulateObjectMembers에 넘겨준다.
+  - PopulateObjectMembers 메서드는 두 개의 배열을 순회하면서 obj 의 필드 값을 설정한다. 이 작업을 완료하면 객체는 완벽히 deserialize 되게 된다.
 
 ### serialize/deserialize 할 데이터 제어하기
 
