@@ -2013,6 +2013,15 @@ private static T DeserializeFromMemory<T>(Stream stream)
   - BinaryFormatter를 활용하여 객체를 serialize하면 스트림에 serialize하려는 타입의 전체 이름과 타입을 정의하고 있는 어셈블리의 이름을 같이 저장한다.(어셈블리의 파일 이름(확장자 제외), 버전 번호, 문화권, 공개 키 정보를 모두 포함하는 어셈블리 식별자) Deserialize 를 수행할 때에는 가장 먼저 스트림 내에 기록되어 있는 어셈블리 식별자를 확인하고 현재 수행 중인 앱도메인에 해당 어셈블리를 로드한다.
 
 ### serialize 가능한 타입 정의하기
+- 타입을 설계할 때에는 이 타입의 인스턴스를 serialize 가능한 타입으로 작성할 것인지에 대해서 미리 염두에 두고 있어야 한다. 기본적으로 새로 작성하는 타입은 serialize 가능하지 않다.
+```cs
+//serialize 가능한 타입을 작성하기 위해서는 System.Serializable 애트리뷰트를 지정해야 하다.
+[System.Serializable]
+internal struct Point
+{
+    public int X, Y;
+}
+```
 
 ### serialization과 deserialization 제어하기
 
