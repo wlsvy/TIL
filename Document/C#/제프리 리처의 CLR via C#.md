@@ -2024,6 +2024,58 @@ internal struct Point
 ```
 
 ### serialization과 deserialization 제어하기
+SerializableAttribute 사용자 정의 특성을 타입에 지정하게 되면, 모든 인스턴스 필드 (public, private, protected 등)가 serialize되게 된다. 하지만 타입 내의 일부 필드를 serialize 대상에서 제외시키고 싶을 수도 있을 것이다.
+- 일부 필드의 경우, deserialize하였을 때 아무런 의미가 없는 경우가 있다. 예를 들어 윈도우 커널 객체에 대한 핸들(파일, 프로세스, 스레드, 뮤텍스, 이벤트 등등)을 가지고 있는 경우, 이 값들은 동일 프로세스 내에서만 의미 있는 값이기 때문에 다른 프로세스나 컴퓨터에서 deserialize 해봐야 사용할 수 없다.
+- 특정 필드가 가지고 있는 정보가 나중에 아주 쉽게 계산 가능할 정보일 경우이다. 이러한 필드의 경우 serialize 대상에서 제외시켜서 serialize 할 데이터의 크기를 줄이면, 응용프로그램의 전체적인 성능 향상에 도움이 된다.
+
+
+<br>
+
+System.NonSerializedAttribute 사용자 정의 특성을 이용하여, 특정 필드를 serialize 하지 않도록 지정하는 방법
+```cs
+[Serializable]
+internal class Circle
+{
+    private double m_Radius;
+
+    [NonSerialized]
+    private Double m_Area;  //serialize 대상에서 제외된다.
+
+    public Circle(Double radius)
+    {
+        m_Radius = radius;
+        m_Area = Math.PI * m_Radius * m_Radius;
+    }
+
+    [OnDeserializing]
+    private void OnDeserializing(StreamingContext context)
+    {
+        //deserialize를 수행하는 중에 호출
+        //새롭게 생성되는 객체의 필드 값에 기본값을 대입할때 활용 가능
+    }
+    
+    [OnDeserialized]
+    private void OnDeserialized(StreamingContext context)
+    {
+        //deserialize 를 수행하여 객체를 새롭게 생성할 때면 포맷터는 항상 deserialize 하는 타입에 이 특성이 부여된 메서드가 있는지를 확인하고 해당 메서드를 호출한다.
+        m_Area = Math.PI * m_Radius * m_Radius;
+    }
+    
+    [OnSerializing]
+    private void OnSerializing(StreamingContext context)
+    {
+        //serialize를 수행하는 중에 호출
+    }
+    
+    [OnSerialized]
+    private void OnSerialized(StreamingContext context)
+    {
+        //serialize를 수행한 이후에 호출
+    }
+}
+```
+- 어떤 타입에 새로운 필드를 추가한 후, 새로운 필드를 추가하기 이전에 serialize 하였던 내용을 이용하여 deserialize 를 수행하게 되면, 포맷터는 serializationException을 발생시키고, 메세지를 통하여 스트림 내의 필드 개수가 타입과 일치하지 않음을 알려줄 것이다. 특정 타입에 새로운 필드를 추가하는 것은 아주 일반적인 작업이기 때문에 이러한 타입의 버전 문제는 상당히 중요한 문제이다.
+  - System.Runtime.Serialization.OptionalFieldAttribute 특성을 이용하여 새롭게 추가하는 필드에 이 특성을 지정하면 문제 해결에 도움이 된다.
 
 ### 포맷터는 타입 인스턴스를 어떻게 serialize 하는가?
 
