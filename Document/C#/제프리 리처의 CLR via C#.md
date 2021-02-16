@@ -1968,6 +1968,49 @@ serialization 은 객체나 연결된 객체 그래프를 바이트 스트림(by
 - 객체를 바이트 스트림으로 메모리에 serialize 하면 데이터의 암호화나 압축 등과 같은 작업을 수행할 때에도 용이하다.
 
 ### serialization/deserialization 쾌속 시작
+```cs
+static void Main(string[] args)
+{
+    var texts = new List<string> { "Jeff", "Kristin", "Alddan", "Grant" };
+    var stream = SerializeToMemory(texts);
+
+    //전부 초기화
+    stream.Position = 0;
+    texts = null;
+
+    //객체를 deserialize한 후, 제대로 동작하는지 검증한다.
+    texts = DeserializeFromMemory<List<string>>(stream);
+    texts.ForEach(text => Console.WriteLine(text));
+}
+
+private static MemoryStream SerializeToMemory(object source)
+{
+    //serialize한 객체를 저장할 스트림을 생성
+    var stream = new MemoryStream();
+
+    //모든 복잡한 작업을 전임할 serialization 포맷터를 생성한다.
+    var formatter = new BinaryFormatter();
+
+    //포맷터에게 객체를 stream으로 serialize해줄 것을 요청한다.
+    formatter.Serialize(stream, source);
+
+    //호출자에게 serialize된 객체 스트림을 반환한다.
+    return stream;
+}
+
+private static T DeserializeFromMemory<T>(Stream stream)
+{
+    //모든 복잡한 작업을 전임할 serialization 포맷터를 생성한다.
+    var formatter = new BinaryFormatter();
+
+    //포맷터에게 스트림으로부터 객체를 deserialize 해줄 것을 요청한다.
+    return (T)formatter.Deserialize(stream);
+}
+```
+
+- BinaryFormatter는 객체를 어떻게 serialize해야 하는지를 파악하기 위해서, 각 객체의 타입을 정확히 설명하고 있는 메타데이터를 활용한다. Serialize 메서드는 serialize 할 객체가 어떤 필드들을 가지고 있는지 확인하기 위해서 리플렉션 기법을 활용한다. 만일 개별 필드들이 또 다른 객체들을 참조하는 경우, 참조되는 필드까지도 어떻게 serialize해댜 할지를 확인할 것이다.
+  - 포맷터는 객체 그래프 내의 단일 객체가 여러번에 걸쳐 스트림으로 serialize 되지 않도록 방지한다. 즉 그래프 내의 두 개의 서로 다른 객체가 동일한 객체를 참조하고 있는 경우, 포맷터를 이를 감지하고 각 객체를 단 한 번씩만 serialize하도록 한다.
+  - BinaryFormatter를 활용하여 객체를 serialize하면 스트림에 serialize하려는 타입의 전체 이름과 타입을 정의하고 있는 어셈블리의 이름을 같이 저장한다.(어셈블리의 파일 이름(확장자 제외), 버전 번호, 문화권, 공개 키 정보를 모두 포함하는 어셈블리 식별자) Deserialize 를 수행할 때에는 가장 먼저 스트림 내에 기록되어 있는 어셈블리 식별자를 확인하고 현재 수행 중인 앱도메인에 해당 어셈블리를 로드한다.
 
 ### serialize 가능한 타입 정의하기
 
