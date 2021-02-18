@@ -2103,14 +2103,23 @@ SerializableAttribute 특성을 지정한 타입의 객체를 포맷터가 deser
   - PopulateObjectMembers 메서드는 두 개의 배열을 순회하면서 obj 의 필드 값을 설정한다. 이 작업을 완료하면 객체는 완벽히 deserialize 되게 된다.
 
 ### serialize/deserialize 할 데이터 제어하기
+- 포맷터는 내부적으로 리플렉션을 사용하기 때문에 좋은 성능을 기대할 수 없으며 OnSerialized 등으로도 사용자가 필요한 만큼 제어권을 얻기 힘들 수도 있다. 이 경우에는 `System.Runtime.Serialization.ISerializable` 인터페이스를 활용할 수 있다.
+  - ISerializable 의 가장 큰 문제점은 이 인터페이스를 구현한 타입을 상속하면, 상속한 하위 타입 또한 이 인터페이스를 다시 구현해야만 한다는 것.
+- 포맷터는 객체 그래프를 serialize 할 때 각각의 객체들을 살펴서 그 타입이 ISerializable 인터페이스를 구현하고 있는지 확인한다. 만일 ISerializable 인터페이스를 구현하고 있는 타입이라면 모든 사용자 정의 특성을 무시하고 System.Runtime.Serialization.SerializationInfo 객체를 새롭게 생성하게 되는데 이 객체는 serialize해야 하는 객체에 대한 정보들을 모두 가지고 있다.
+
+...
 
 ### 스트리밍 컨텍스트
+...
 
 ### 다른 타입으로 serialize 하고 다른 객체로 deserialize 하기
+...
 
 ### serialization 대리자
+...
 
 ### 객체를 deserialize 할 때 어셈블리와 타입을 오버라이딩하기
+...
 
 </details>
 
