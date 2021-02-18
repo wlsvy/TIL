@@ -2124,6 +2124,10 @@ SerializableAttribute 특성을 지정한 타입의 객체를 포맷터가 deser
 </details>
 
 ## 25장. WinRT 컴포넌트와의 상호 운용
+
+<details>
+<summary>fold/unfold</summary>
+
 - Windows8 이 출시됨에 따라 새로운 운영체제의 기능을 사용하기 위한 새로운 클래스 라이브러리도 같이 출시되었다. 공식적인 이름은 Windows Runtime(WinRT) 이고, 이 컴포넌트들은 WinRT 타입 시스템을 통해서 접근 가능하다.
 - WinRT 는 CLR이 최초로 출시되었을 때의 지향점과 많은 부분이 동일한데, 예를 들어 응용프로그램 개발을 단순화하고 서로 다른 프로그래밍 언어 사이를 사용하더라도 상호 운용이 원활하도록 개발되었다는 점 등이다.
   - 구체적으로 마이크로소프트는 WinRT 컴포넌트를 네이티브 C/C++, JavaScript 뿐만 아니라 CLR을 통해서 c#와 Visual Basic .NET 에서도 사용 가능하도록 만들었다.
@@ -2137,6 +2141,8 @@ SerializableAttribute 특성을 지정한 타입의 객체를 포맷터가 deser
 
 ### C#으로 WinRT 컴포넌트 정의하기
 ...
+
+</details>
 
 ## 26장. 스레드의 기본
 
