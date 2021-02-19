@@ -1389,7 +1389,98 @@ Array.Copy(i, o2, i.Length);
 - .NET Framework 는 콜백 함수 매커니즘을 델리게이트라는 형태로 노출하고 있다. 네이티브 C++ 등의 다른 플랫폼이 제안하는 콜백 메커니즘과는 다르게 델리게이트는 더 강력한 기능을 제공한다. 예를 들어 델리게이트는 콜백 메서드의 타입 안정성을 보장함으로써, CLR의 가장 중요한 원칙 중 하나를 지키고 있다. 델리게이트는 또한 여러 메서드를 순차적으로 호출할 수 있는 기능을 내장하고 있으며 인스턴스 메서드 뿐 아니라 정적 메서드도 호출할 수 있다.
 
 ### 델리게이트 살펴보기
-...
+```cs
+class Program
+{
+
+    static void Main(string[] args)
+    {
+        StaticDelegateDemo();
+        InstanceDelegateDemo();
+        ChainDelegateDemo1(new Program());
+        ChainDelegateDemo2(new Program());
+    }
+
+    private static void StaticDelegateDemo()
+    {
+        Console.WriteLine("----- Static Delegate Demo -----");
+        Counter(1, 3, null);
+        Counter(1, 3, new Action<int>(Program.FeedbackToConsole));
+        Counter(1, 3, Program.FeedbackToConsole_BlueText);
+        Console.WriteLine();
+    }
+
+    private static void InstanceDelegateDemo()
+    {
+        Console.WriteLine("----- Instance Delegate Demo -----");
+        var p = new Program();
+        Counter(1, 3, p.FeedbackToConsole_YellowText);
+
+        Console.WriteLine();
+    }
+
+    private static void ChainDelegateDemo1(Program p)
+    {
+        Console.WriteLine("----- Chain Delegate Demo 1 -----");
+        Action<int> action1 = FeedbackToConsole;
+        Action<int> action2 = FeedbackToConsole_BlueText;
+        Action<int> action3 = p.FeedbackToConsole_YellowText;
+
+        Action<int> actionChain = null;
+        actionChain = (Action<int>)Delegate.Combine(actionChain, action1);
+        actionChain = (Action<int>)Delegate.Combine(actionChain, action2);
+        actionChain = (Action<int>)Delegate.Combine(actionChain, action3);
+        Counter(1, 2, actionChain);
+
+        actionChain = (Action<int>)Delegate.Remove(actionChain, new Action<int>(FeedbackToConsole_BlueText));
+        Counter(1, 2, actionChain);
+    }
+
+    private static void ChainDelegateDemo2(Program p)
+    {
+        Console.WriteLine("----- Chain Delegate Demo 2 -----");
+        Action<int> action1 = FeedbackToConsole;
+        Action<int> action2 = FeedbackToConsole_BlueText;
+        Action<int> action3 = p.FeedbackToConsole_YellowText;
+
+        Action<int> actionChain = null;
+        actionChain += action1;
+        actionChain += action2;
+        actionChain += action3;
+        Counter(1, 2, actionChain);
+
+        actionChain -= FeedbackToConsole_BlueText;
+        Counter(1, 2, actionChain);
+    }
+
+    private static void Counter(int from, int to, Action<int> fb) 
+    {
+        for(int i = from; i <= to; i++)
+        {
+            fb?.Invoke(i);
+        }
+    }
+
+    private static void FeedbackToConsole(int value)
+    {
+        Console.WriteLine("Item=" + value);
+    }
+
+    private static void FeedbackToConsole_BlueText(int value)
+    {
+        Console.ForegroundColor = ConsoleColor.Blue;
+        Console.WriteLine("Item=" + value);
+        Console.ResetColor();
+    }
+
+    private void FeedbackToConsole_YellowText(int value)
+    {
+        Console.ForegroundColor = ConsoleColor.Yellow;
+        Console.WriteLine("Item=" + value);
+        Console.ResetColor();
+    }
+}
+```
 
 ### 정적 메서드에 대한 콜백을 델리게이트로 구현하기
 - 델리게이트는 반환타입에 대해서 공변성, 매개변수 타입에 대해서 반공변성을 지원
