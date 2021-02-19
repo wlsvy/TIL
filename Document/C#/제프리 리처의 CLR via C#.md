@@ -1484,9 +1484,49 @@ class Program
 
 ### 정적 메서드에 대한 콜백을 델리게이트로 구현하기
 - 델리게이트는 반환타입에 대해서 공변성, 매개변수 타입에 대해서 반공변성을 지원
+
 ### 인스턴스 메서드에 대한 콜백을 델리게이트로 구현하기
+...
 
 ### 델리게이트 파헤쳐보기
+- 델리게이트는 내부적으로 복잡한 일들이 일어나고 있다. 컴파일러와 CLR은 이런 복잡한 면을 단순화하기 위해 많은 처리를 자동으로 해준다. 
+
+`internal delegate void Feedback(int value);`
+
+위의 코드를 컴파일러가 만나게 되면, 실제로는 아래와 같이 완전한 클래스로 새로 정의되게 된다.
+
+```cs
+internal class Feedback : System.MulticastDelegate 
+{
+    public Feedback(object @object, IntPtr method);
+
+    //소스 코드에서 정의했던 것과 동일한 프로토타입으로 정의한다.
+    public virtual void Invoke(int value);
+
+    //콜백을 비동기적으로 호출할 수 있도록 해주는 메서드들이다.
+    public virtual IAsyncResult BeginInvoke(int value, AsyncCallback callback, object @object);
+    public virtual void EndInvoke(IAsyncResult reult);
+}
+```
+- BeginInvoke, EndInvoke의 경우 .NET framework의 비동기 프로그래밍 모델과 관련된 내용으로 대체되어 이젠 거의 사용되지 않는다.
+- MulticastDelegate의 중요한 내부 필드
+  - _target (System.Object) 델리게이트 객체가 정적 메서드를 포장하는 경우, 이 필드는 null. 만약 인스턴스 메서드를 포장하는 경우 이 필드는 콜백 메서드가 호출되어야 할 대상 객체에 대한 참조를 가리키게 된다. 즉 이 필드는 인스턴스 메서드에 암묵적으로 항상 전달되어야 하는 this 매개변수와 같다.
+  - _methodPtr (System.IntPtr) CLR이 콜백으로 호출해야 하는 메서드를 식별하는 내부 정수 필드다.
+  - _invocationList (System.Object) 이 필드는 보통 null로 설정된다. 델리게이트 체인을 만들기 위한 배열을 가리킬 수 있다.
+- 모든 델리게이트가 두 개의 매개변수를 받는 생성자를 가지고 있는데, 객체에 대한 this 참조와, 콜백 메서드를 식별하는 정수 값을 매개변수로 받는다.
+
+<img src="https://github.com/wlsvy/TIL/blob/master/Document/C%23/CLRviaC%23_Image/17-2.png" width="70%" height="70%">
+
+```cs
+var action = new Action<int>(FeedbackConsole);
+action(1);
+```
+
+위에서 action 델리게이트를 호출하는 부분은 컴파일러에 의해 아래처럼 바뀐다.
+
+```cs
+action.Invoke(1);
+```
 
 ### 델리게이트를 사용하여 여러 메서드를 호출하기(메서드 연결하기)
 
