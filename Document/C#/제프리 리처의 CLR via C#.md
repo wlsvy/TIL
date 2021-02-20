@@ -1759,6 +1759,7 @@ internal sealed class AClass
 ```
 
 ### 델리게이트와 리플렉션
+...
 
 </details>
 
