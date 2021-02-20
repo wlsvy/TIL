@@ -1628,6 +1628,135 @@ public int Invoke(int value)
 ...
 
 ### 델리게이틀르 위한 C#의 문법적 편의사항
+- 문법적 편의사항 1 : 델리게이트 객체를 생성할 필요가 없다.
+  - new Action(DoSomething) 등등을 할 필요가 없다.
+- 문법적 편의사항 2 : 콜백 메서드를 정의하지 않아도 된다.(람다 표현식 적용 가능)
+```cs
+//만약 델리게이트가 매개변수를 받지 않는다면 ()로 표기한다.
+Func<string> f = () => "Jeff";
+
+//만약 한 개 이상의 매개변수를 받는다면 명시적으로 매개변수의 타입을 지정할 수 있다.
+Func<int, string> f2 = (int n) => n.ToString();
+Func<int, int, string> f3 = (int n1, int n2) => (n1 + n2).ToString();
+
+//만약 한 개 이상의 매개변수를 받는다면 매개변수 타입 이름을 컴파일러가 자동을 유추하도록 할 수도 있다.
+Func<int, string> f4 = (n) => n.ToString();
+Func<int, int, string> f5 = (n1, n2) => (n1 + n2).ToString();
+
+//만약 델리게이트가 한 개의 매개변수만을 받는다면, ()기호를 생략할 수 있다.
+Func<int, string> f6 = n => n.ToString();
+
+//만약 델리게이트가 ref나 out 형태의 매개변수를 사용한다면, ref/out 과 함께 매개변수의 타입과 이름을 모두 사용해야 한다.
+delegate void Bar(out int n);
+Bar b = (out int n) => n = 5;
+```
+  - 람다 표현식을 활용함으로써 소스 코드 내에서 간접적인 접근 수준을 최소화할 수 있는 장점이 있다. 보통 별도의 메서드를 항상 따로 작성해야 하고, 메서드의 이름을 짓고, 메서드의 이름을 델리게이트가 필요한 위치에 넣어주었을 거싱다. 이렇게 메서드 이름을 지어주면 이 메서드에 접근하기 위해서 메서드의 이름을 사용하면 되기 때문에, 소스 코드 내의 여러 위치에서 이 코드를 재사용할 때 활용할 수 있는 장점이 있으며, 분명히 좋은 접근 방식이다. 하지만 만약 해당 코드를 소스 코드에서 단 한번만 참조한느 경우라면 메서드로 만드는 대신, 람다 표현식을 이용하여 해당 코드를 필요로 하는 위치에 바로 인라인 방식으로 이름을 작명하지 않고도 간편하게 이를 지정할 수 있다. 이를 통해 프로그래머의 생산성을 높일 수 있다.
+- 문법적 편의사항 3 : 클래스 내의 로컬 변수를 포장하여 명시적으로 콜백 메서드를 전달할 필요가 없다.(람다에 변수 캡쳐)
+  - 람다 표현식을 사용하면 컴파일러가 매개변수와 로컬 변수들을 필드로 사용하는 도우미 클래스를 만들고, 해당 객체의 생명주기를 참조하는 변수들의 생명주기와 동일하게 관리한다. 보통 매개변수와 로컬 변수는 메서드 내에서 마지막으로 해당 변수들을 사용하는 시점까지 유지된다. 하지만 변수들을 필드로 바꾸어 정의하면 객체의 생명주기는 해당 객체가 필드들을 가지고 있는 동안 계속 유지되는 것으로 바뀐다. 
+```cs
+internal sealed class AClass
+{
+    public static void UsingLocalVariablesInTheCallbackCode(int numToDo)
+    {
+        var squares = new int[numToDo];
+        var done = new AutoResetEvent (false);
+
+        for (var n = 0; n < squares.Length; n++)
+        {
+            ThreadPool.QueueUserWorkItem(obj =>
+            {
+                var num = (int)obj;
+
+                //이 작업은 보통 시간이 더 걸리기 마련이다.
+                squares[num] = num * num;
+
+                //만약 마지막 작업인 경우, 메인 스레드가 계속 실해되도록 한다.
+                if (Interlocked.Decrement(ref numToDo) == 0)
+                {
+                    done.Set();
+                }
+            }, 
+            state: n);
+        }
+
+        //나머지 모든 스레드들의 작업이 끝날 때까지 기다린다.
+        done.WaitOne();
+
+        //결과를 표시한다.
+        for (var n = 0; n < squares.Length; n++)
+        {
+            Console.WriteLine($"Index {n}, Square={squares[n]}");
+        }
+    }
+}
+```
+위의 코드는 아래처럼 바뀐다.
+```cs
+internal sealed class AClass
+{
+    public static void UsingLocalVariablesInTheCallbackCode(int numToDo)
+    {
+        WaitCallback callback1 = null;
+        //도우미 인스턴스 생성
+        <> c__DisplayClass2 class1 = new <> c__DisplayClass2();
+
+        //도우미 클래스의 필드르 초기화
+        class1.numToDo = numToDo;
+        class1.squares = new int[class1.numToDo];
+        class1.Done = new AutoResetEvent(false);
+
+        //다른 스레드에서 몇 가지 작업들을 수행한다.
+        for (var n = 0; n < class1.squares.Length; n++)
+        {
+            if (callback1 == null)
+            {
+                //델리게이트 객체를 도우미 객체와 익명 인스턴스 메서드와 묶어 새로 만든다.
+                callback1 = new WaitCallback(class1.< UsingLocalVariablesInTheCallbackCode > b__0);
+            }
+
+            ThreadPool.QueueUserWorkItem(callback1, n);
+        }
+
+        //나머지 모든 스레드들의 작업이 끝날 때까지 기다린다.
+        done.WaitOne();
+
+        //결과를 표시한다.
+        for (var n = 0; n < squares.Length; n++)
+        {
+            Console.WriteLine($"Index {n}, Square={squares[n]}");
+        }
+    }
+
+    //도우미 클래스의 이름을 특이하게 만들어 잠재적인 이름 충돌 가능성을 방지하고,
+    //또한 private으로 정의하여 AClass 외부에서 임의로 접근할 수 없도록 한다.
+    [CompilerGenerated]
+    private sealed class <>c__DisplayClass2 : Object
+    {
+        //콜백 코드 내에서 사용하는 로컬 변수마다 필드를 하나씩 추가한다.
+        public int[] squraes;
+        public int numToDo;
+        public AutoResetEvent done;
+
+        //매개변수가 없는 public 생성자를 하나 정의한다.
+        public <>c__DisplayClass2() { }
+
+        //콜백 코드를 포함하는 인스턴스 메서드를 정의한다.
+        public void <UsingLocalVariablesInTheCallbackCode>b__0(object obj)
+        {
+            var num = (int)obj;
+
+            //이 작업은 보통 시간이 더 걸리기 마련이다.
+            squares[num] = num * num;
+
+            //만약 마지막 작업인 경우, 메인 스레드가 계속 실해되도록 한다.
+            if (Interlocked.Decrement(ref numToDo) == 0)
+            {
+                done.Set();
+            }
+        }
+    }
+}
+```
 
 ### 델리게이트와 리플렉션
 
