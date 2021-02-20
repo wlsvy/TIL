@@ -1548,7 +1548,7 @@ fbChain은 처음에 null인 상태
 
 세 번째 `fbChain = (Feedback) Delegate.Combine(fbChain, fb1);` 을 호출하면, 이번에도 Combine 메서드는 fbChain이 이미 델리게이트 객체를 가리키고 있음을 확인하고, 새로운 델리게이트 객체를 생성한다. 마찬가지로 새로운 델리게이트 객체는 _target, _methodPtr 필드를 초기화한다. 이어서 _invocationList 필드가 델리게이트 객체 배열을 가리키도록 초기화한다. 기존의 델리게이트 객체와 _invocationList 필드가 가리키던 배열은 가비지 수집 대상으로 전환된다.
 
-<img src="https://github.com/wlsvy/TIL/blob/master/Document/C%23/CLRviaC%23_Image/17-6.jpb" width="70%" height="70%">
+<img src="https://github.com/wlsvy/TIL/blob/master/Document/C%23/CLRviaC%23_Image/17-6.jpg" width="70%" height="70%">
 
 <br>
 
