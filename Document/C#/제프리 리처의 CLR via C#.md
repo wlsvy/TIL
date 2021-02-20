@@ -1392,7 +1392,7 @@ Array.Copy(i, o2, i.Length);
 ```cs
 class Program
 {
-
+    public delegate void Feedback(int value);
     static void Main(string[] args)
     {
         StaticDelegateDemo();
@@ -1405,7 +1405,7 @@ class Program
     {
         Console.WriteLine("----- Static Delegate Demo -----");
         Counter(1, 3, null);
-        Counter(1, 3, new Action<int>(Program.FeedbackToConsole));
+        Counter(1, 3, new Feedback(Program.FeedbackToConsole));
         Counter(1, 3, Program.FeedbackToConsole_BlueText);
         Console.WriteLine();
     }
@@ -1422,38 +1422,38 @@ class Program
     private static void ChainDelegateDemo1(Program p)
     {
         Console.WriteLine("----- Chain Delegate Demo 1 -----");
-        Action<int> action1 = FeedbackToConsole;
-        Action<int> action2 = FeedbackToConsole_BlueText;
-        Action<int> action3 = p.FeedbackToConsole_YellowText;
+        Feedback fb1 = FeedbackToConsole;
+        Feedback fb2 = FeedbackToConsole_BlueText;
+        Feedback fb3 = p.FeedbackToConsole_YellowText;
 
-        Action<int> actionChain = null;
-        actionChain = (Action<int>)Delegate.Combine(actionChain, action1);
-        actionChain = (Action<int>)Delegate.Combine(actionChain, action2);
-        actionChain = (Action<int>)Delegate.Combine(actionChain, action3);
-        Counter(1, 2, actionChain);
+        Feedback fbChain = null;
+        fbChain = (Feedback)Delegate.Combine(fbChain, fb1);
+        fbChain = (Feedback)Delegate.Combine(fbChain, fb2);
+        fbChain = (Feedback)Delegate.Combine(fbChain, fb3);
+        Counter(1, 2, fbChain);
 
-        actionChain = (Action<int>)Delegate.Remove(actionChain, new Action<int>(FeedbackToConsole_BlueText));
-        Counter(1, 2, actionChain);
+        fbChain = (Feedback)Delegate.Remove(fbChain, new Feedback(FeedbackToConsole_BlueText));
+        Counter(1, 2, fbChain);
     }
 
     private static void ChainDelegateDemo2(Program p)
     {
         Console.WriteLine("----- Chain Delegate Demo 2 -----");
-        Action<int> action1 = FeedbackToConsole;
-        Action<int> action2 = FeedbackToConsole_BlueText;
-        Action<int> action3 = p.FeedbackToConsole_YellowText;
+        Feedback fb1 = FeedbackToConsole;
+        Feedback fb2 = FeedbackToConsole_BlueText;
+        Feedback fb3 = p.FeedbackToConsole_YellowText;
 
-        Action<int> actionChain = null;
-        actionChain += action1;
-        actionChain += action2;
-        actionChain += action3;
-        Counter(1, 2, actionChain);
+        Feedback fbChain = null;
+        fbChain += fb1;
+        fbChain += fb2;
+        fbChain += fb3;
+        Counter(1, 2, fbChain);
 
-        actionChain -= FeedbackToConsole_BlueText;
-        Counter(1, 2, actionChain);
+        fbChain -= FeedbackToConsole_BlueText;
+        Counter(1, 2, fbChain);
     }
 
-    private static void Counter(int from, int to, Action<int> fb) 
+    private static void Counter(int from, int to, Feedback fb) 
     {
         for(int i = from; i <= to; i++)
         {
@@ -1530,7 +1530,102 @@ action.Invoke(1);
 
 ### 델리게이트를 사용하여 여러 메서드를 호출하기(메서드 연결하기)
 
+fbChain은 처음에 null인 상태
+
+<img src="https://github.com/wlsvy/TIL/blob/master/Document/C%23/CLRviaC%23_Image/17-3.png" width="70%" height="70%">
+
+`fbChain = (Feedback) Delegate.Combine(fbChain, fb1);`
+
+<br>
+
+이 코드가 실행되면, Combine 메서드는 null과 fb1을 연결하기 위하여 시도한다. 내부적으로, Combine 메서드는 단순하게 fb1을 반환하고, fbChain 변수는 fb1을 가리키는 상태가 된다.
+
+<img src="https://github.com/wlsvy/TIL/blob/master/Document/C%23/CLRviaC%23_Image/17-4.png" width="70%" height="70%">
+
+다시 한번 `fbChain = (Feedback) Delegate.Combine(fbChain, fb1);` 을 호출하면 내부적으로, Combine 메서드는 fbChain이 이미 다른 델리게이트 객체를 가리키고 있음을 확인하고, 새로운 델리게이트 객체를 생성한다. 새로운 델리게이트 객체는 내부의 _target과 _methodPtr 필드를 초기화한다.(어떤 값으로 초기화하는지는 여기서 크게 중요하지 않음) 그리고 내부 필드인 _invocationList 필드를 초기화하여 델리게이트 객체의 배열을 지정한다.
+
+<img src="https://github.com/wlsvy/TIL/blob/master/Document/C%23/CLRviaC%23_Image/17-5.png" width="70%" height="70%">
+
+세 번째 `fbChain = (Feedback) Delegate.Combine(fbChain, fb1);` 을 호출하면, 이번에도 Combine 메서드는 fbChain이 이미 델리게이트 객체를 가리키고 있음을 확인하고, 새로운 델리게이트 객체를 생성한다. 마찬가지로 새로운 델리게이트 객체는 _target, _methodPtr 필드를 초기화한다. 이어서 _invocationList 필드가 델리게이트 객체 배열을 가리키도록 초기화한다. 기존의 델리게이트 객체와 _invocationList 필드가 가리키던 배열은 가비지 수집 대상으로 전환된다.
+
+<img src="https://github.com/wlsvy/TIL/blob/master/Document/C%23/CLRviaC%23_Image/17-6.jpb" width="70%" height="70%">
+
+<br>
+
+Feedback의 Invoke 메서드는 다음과 유사한 형태로 구성되어 있다고 볼 수 있다. (아래는 의사 코드)
+```cs
+public void Invoke(int value)
+{
+    Delegate[] delegateSet = _invocationList as Delegate[];
+    if(delegateSet != null)
+    {
+        //호출해야할 델리게이트 배열이다.
+        foreach(Feedback d in delegateSet)
+        {
+            d(value); // 각각의 델리게이트를 호출한다.
+        }
+    }
+    else
+    {
+        //콜백으로 호출해야 할 메서드 하나를 호출한다.
+        // 특정 대상 객체에 대해서 호출을 시도한다.
+        _methodPtr.Invoke(_target, value);
+        //실제로 작성될 코드는 이런 형태는 아닐 것이며, c#으로는 표현할 수 없다.
+    }
+}
+```
+
+<br>
+
+`fbChain = (Feedback) Delegate.Remove(fbChain, new Feedback(FeedbackToConsole));`
+- Delegate.Remove를 호출하는 경우, 첫 번째 매개변수 내부의 델리게이트 배열을 순회하면서 두 번째 매개변수와 일치하는 _target 과 _methodPtr 필드를 갖는 델리게이트 항목을 찾는다. 만약 일치하는 항목 이외에 배열상에 항목이 하나 남은 경우, 해당 항목이 반환된다. 만약 일치하는 항목 이외에 다른 항목들이 더 있을 경우, 새로운 델리게이트 객체를 생성하고, 그 객체의 _invocationList 배열에 제거하려는 항목을 제외한 나머지 델리게이트 항목들을 추가한 뒤, 이 델리게이트 체인 객체를 반환한다. 만약 체인이 아닌 단일 델리게이트 항목데 애해서 이 메서드를 호출한 경우 null을 반환한다. 주목할 것은 Remove메서드를 호출하면 _targetrhk _methodPtr 필드가 일치하는 항목이 여러번 등장하더라도 한 번에 하나씩만 제거한다는 것이다.
+
+<br>
+<br>
+
+- 지금 까지는 반환 타입이 없는 Feedback 델리게이트에 대해서만 그 예를 살펴보았다. 하지만 Feedback 델리게이트의 원형을 다음과 같이 바꿀 수도 있을 것이다.
+
+`public delegate int Feedback(int value);`
+
+
+<br>
+
+이 경우 내부의 Invoke 메서드는 다음의 의사 코드와 유사한 형태로 구현될 것이다.
+```cs
+public int Invoke(int value)
+{
+    int result;
+    Delegate[] delegateSet = _invocationList as Delegate[];
+    if(delegateSet != null)
+    {
+        //호출해야할 델리게이트 배열이다.
+        foreach(Feedback d in delegateSet)
+        {
+            result = d(value); // 각각의 델리게이트를 호출한다.
+        }
+    }
+    else
+    {
+        //콜백으로 호출해야 할 메서드 하나를 호출한다.
+        // 특정 대상 객체에 대해서 호출을 시도한다.
+        result = _methodPtr.Invoke(_target, value);
+        //실제로 작성될 코드는 이런 형태는 아닐 것이며, c#으로는 표현할 수 없다.
+    }
+    return result;
+}
+```
+- 배열에 포함되어 있는 델리게이트가 호출될 때마다 반환 값이 매법 result 변수에 저장될 것이다. 배열을 모두 순회하고 나면 result 변수에는 마지막으로 호출한 델리게이트가 반환한 값만이 저장되고 앞의 내용들은 소실된다.
+
+#### C#의 델리게이트 체인에 대한 지원
+
+- c# 개발자들의 편의를 위하여, c# 컴파일러는 델리게이트 타입의 인스턴스에 +=와 -= 연산자를 자동 오버로드해준다. 이들은 각각 Delegate.Combine 과 Delegate.Remove 메서드를 자동으로 호출해준다.
+
+#### 델리게이트 체인 호출을 커스터마이징하는 방법
+- 델리게이트는 내부적으로 _invocationList의 델리게이트 객체들을 순회하면서 Invoke를 수행하기 때문에, 체인 내에 포함되어 있는 모든 항목들이 호출되게 된다. 이 방식에는 많은 제약이 있는데, 각 델리게이트 들의 반환 값중 마지막 값을 반환하게 되는 것과, 혹시나 델리게이트 객체를 순회하는 도중 하나가 예외를 발생시키거나 실행 시간이 너무 오래걸리다면 다른 델리게이트 실행에 방해가 될 수 있다.
+  - 기본 알고리즘이 적절하지 않다면 델리게이트의 GetInvocationList 메서드를 통해 델리게이트 체인의 배열을 가져와 명시적으로 활용할 수 있다.
+
 ### 이미 정의되어 있는 델리게이트 활용하기(제네릭 델리게이트)
+...
 
 ### 델리게이틀르 위한 C#의 문법적 편의사항
 
