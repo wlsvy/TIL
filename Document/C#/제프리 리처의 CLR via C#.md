@@ -1853,10 +1853,13 @@ namespace Study
   - 또 다른 예로 Java에서는 java.util.Date 클래스가 참조 타입이기 때문에 null을 대입하는 것이 가능하지만, CLR 에서는 System.DateTime은 값 타입이므로 절대로 null을 지정할 수 없다. 만약 java로 작성된 응용프로그램과 CLR 기반의 응용프로그램이 웹 서비스를 이용하여 통신을 한다면 시간 정보를 공유할 때 java에서 보낸 null을 CLR에서 처리할 방법이 없으므로 문제가 된다.
 
 ### C# 의 Nullable 값 타입에 대한 지원
+...
 
 ### C# 의 Null 결합 연산자
+...
 
 ### CLR의 Nullable 값 타입에 대한 특별한 배려
+...
 
 </details>
 
