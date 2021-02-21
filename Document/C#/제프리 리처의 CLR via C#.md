@@ -1812,7 +1812,7 @@ namespace Study
         public event EventHandler SomeEvent;
     }
 }
-...
+```
 
 - 사용자 정의 특성이란 단순히 특정 타입의 인스턴스다. CLS 규약에 따름면, 사용자 정의 특성 타입은 직접적이든 간접적이든 모두 public 추상 클래스인 System.Attribute 클래스로부터 상속을 받아야 한다고 되어 있다.
   - C#에서는 CLS과 호환되는 사용자 정의 특성만을 사용할 수 있다.
