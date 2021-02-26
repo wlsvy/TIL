@@ -72,5 +72,8 @@ Git으로 하는 일은 기본적으로 아래와 같다.
   - git log
   - 저자(Author) 와 커미터(Committer) 를 구분하는 것이 조금 이상해 보일 수 있다. 저자는 원래 작업을 수행한 원작자이고 커밋터는 마지막으로 이 작업을 적용한(저장소에 포함시킨) 사람이다. 만약 당신이 어떤 프로젝트에 패치를 보냈고 그 프로젝트의 담당자가 패치를 적용했다면 두 명의 정보를 모두 알 필요가 있다.
 
+- [되돌리기](https://git-scm.com/book/ko/v2/Git%EC%9D%98-%EA%B8%B0%EC%B4%88-%EB%90%98%EB%8F%8C%EB%A6%AC%EA%B8%B0)
+  - amend : 커밋 수정, reset : 파일 상태를 Unstage로 변경, checkout 을 통해 Modified 파일 되돌리기
+
 
 </details>
