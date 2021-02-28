@@ -86,3 +86,42 @@ Git으로 하는 일은 기본적으로 아래와 같다.
 - [Git Alias](https://git-scm.com/book/ko/v2/Git%EC%9D%98-%EA%B8%B0%EC%B4%88-Git-Alias)
 
 </details>
+
+## 2. Git 브랜치
+
+<details>
+<summary>fold/unfold</summary>
+
+- 커밋하면 Git은 현 Staging Area에 있는 데이터의 스냅샷에 대한 포인터, 저자나 커밋 메시지 같은 메타데이터, 이전 커밋에 대한 포인터 등을 포함하는 커밋 개체(커밋 Object)를 저장한다. 이전 커밋 포인터가 있어서 현재 커밋이 무엇을 기준으로 바뀌었는지를 알 수 있다. 최초 커밋을 제외한 나머지 커밋은 이전 커밋 포인터가 적어도 하나씩 있고 브랜치를 합친 Merge 커밋 같은 경우에는 이전 커밋 포인터가 여러 개 있다.
+
+<br>
+
+[브랜치란 무엇인가](https://git-scm.com/book/ko/v2/Git-%EB%B8%8C%EB%9E%9C%EC%B9%98-%EB%B8%8C%EB%9E%9C%EC%B9%98%EB%9E%80-%EB%AC%B4%EC%97%87%EC%9D%B8%EA%B0%80)
+
+- 파일이 3개 있는 디렉토리가 하나 있고 이 파일을 Staging Area에 저장하고 커밋하는 예제를 살펴 보자. 파일을 Stage 하면 Git 저장소에 파일을 저장하고(Git은 이것을 Blob이라고 부른다) Staging Area에 해당 파일의 체크섬을 저장한다
+- git commit 으로 커밋하면 먼저 루트 디렉토리와 각 하위 디렉토리의 트리 개체를 체크섬과 함께 저장소에 저장한다. 그다음에 커밋 개체를 만들고 메타데이터와 루트 디렉토리 트리 개체를 가리키는 포인터 정보를 커밋 개체에 넣어 저장한다. 그래서 필요하면 언제든지 스냅샷을 다시 만들 수 있다.
+- 이 작업을 마치고 나면 Git 저장소에는 다섯 개의 데이터 개체가 생긴다. 각 파일에 대한 Blob 세 개, 파일과 디렉토리 구조가 들어 있는 트리 개체 하나, 메타데이터와 루트 트리를 가리키는 포인터가 담긴 커밋 개체 하나이다.
+
+<img src="https://git-scm.com/book/en/v2/images/commit-and-tree.png" width="60%" height="60%">
+
+다시 파일을 수정하고 커밋하면 이전 커밋이 무엇인지도 저장한다.
+
+<img src="https://git-scm.com/book/en/v2/images/commits-and-parents.png" width="60%" height="60%">
+
+- Git의 브랜치는 커밋 사이를 가볍게 이동할 수 있는 어떤 포인터 같은 것이다. 기본적으로 Git은 master 브랜치를 만든다. 처음 커밋하면 이 master 브랜치가 생성된 커밋을 가리킨다.
+
+<img src="https://git-scm.com/book/en/v2/images/branch-and-history.png" width="60%" height="60%">
+
+- 만약 위의 과정에서 새로 testing 브랜치를 생성한다고 가정하자.
+  - 새로 만든 브랜치도 지금 작업하고 있던 마지막 커밋을 가리킨다.
+
+<img src="https://git-scm.com/book/en/v2/images/two-branches.png" width="60%" height="60%">
+
+- 지금 작업 중인 브랜치가 무엇인지 Git은 어떻게 파악할까. 다른 버전 관리 시스템과는 달리 Git은 'HEAD’라는 특수한 포인터가 있다. 이 포인터는 지금 작업하는 로컬 브랜치를 가리킨다. 브랜치를 새로 만들었지만, Git은 아직 master 브랜치를 가리키고 있다. git branch 명령은 브랜치를 만들기만 하고 브랜치를 옮기지 않는다.
+
+<img src="https://git-scm.com/book/en/v2/images/head-to-master.png" width="60%" height="60%">
+
+- git log 명령에 --decorate 옵션을 사용하면 브랜치가 어떤 커밋을 가리키고 있는지 확인가능
+- git checkout 명령으로 다른 브랜치로 이동할 수 있다.
+
+</details>
