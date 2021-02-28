@@ -87,7 +87,7 @@ Git으로 하는 일은 기본적으로 아래와 같다.
 
 </details>
 
-## 2. Git 브랜치
+## 3. Git 브랜치
 
 <details>
 <summary>fold/unfold</summary>
