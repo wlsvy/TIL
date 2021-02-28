@@ -124,4 +124,13 @@ Git으로 하는 일은 기본적으로 아래와 같다.
 - git log 명령에 --decorate 옵션을 사용하면 브랜치가 어떤 커밋을 가리키고 있는지 확인가능
 - git checkout 명령으로 다른 브랜치로 이동할 수 있다.
 
+<br>
+
+[브랜치와 Merge의 기초](https://git-scm.com/book/ko/v2/Git-%EB%B8%8C%EB%9E%9C%EC%B9%98-%EB%B8%8C%EB%9E%9C%EC%B9%98%EC%99%80-Merge-%EC%9D%98-%EA%B8%B0%EC%B4%88)
+- Fast-Forward Merge : A 브랜치에서 다른 B 브랜치를 Merge 할 때 B 브랜치가 A 브랜치 이후의 커밋을 가리키고 있으면 그저 A 브랜치가 B 브랜치와 동일한 커밋을 가리키도록 이동시키는 방식
+- 현재 브랜치가 가리키는 커밋이 Merge 할 브랜치의 조상이 아닌 경우, Git은 'Fast-forward’로 Merge 하지 않는다. 이 경우에는 Git은 각 브랜치가 가리키는 커밋 두 개와 공통 조상 하나를 사용하여 3-way Merge를 한다.
+  - 단순히 브랜치 포인터를 최신 커밋으로 옮기는 게 아니라 3-way Merge 의 결과를 별도의 커밋으로 만들고 나서 해당 브랜치가 그 커밋을 가리키도록 이동시킨다. 그래서 이런 커밋은 부모가 여러 개고 Merge 커밋이라고 부른다.
+<img src="https://git-scm.com/book/en/v2/images/basic-merging-1.png" width="60%" height="60%">
+<img src="https://git-scm.com/book/en/v2/images/basic-merging-2.png" width="60%" height="60%">
+
 </details>
