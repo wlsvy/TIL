@@ -171,5 +171,11 @@ Git으로 하는 일은 기본적으로 아래와 같다.
 <br>
 
 - [서버에 Git 설치하기](https://git-scm.com/book/ko/v2/Git-%EC%84%9C%EB%B2%84-%EC%84%9C%EB%B2%84%EC%97%90-Git-%EC%84%A4%EC%B9%98%ED%95%98%EA%B8%B0)
+- [SSH 공개키 만들기](https://git-scm.com/book/ko/v2/Git-%EC%84%9C%EB%B2%84-SSH-%EA%B3%B5%EA%B0%9C%ED%82%A4-%EB%A7%8C%EB%93%A4%EA%B8%B0)
+- [서버 설정하기](https://git-scm.com/book/ko/v2/Git-%EC%84%9C%EB%B2%84-%EC%84%9C%EB%B2%84-%EC%84%A4%EC%A0%95%ED%95%98%EA%B8%B0)
+- [Git 데몬](https://git-scm.com/book/ko/v2/Git-%EC%84%9C%EB%B2%84-%EC%84%9C%EB%B2%84-%EC%84%A4%EC%A0%95%ED%95%98%EA%B8%B0)
+- [스마트 HTTP](https://git-scm.com/book/ko/v2/Git-%EC%84%9C%EB%B2%84-%EC%8A%A4%EB%A7%88%ED%8A%B8-HTTP)
+- [GitWeb](https://git-scm.com/book/ko/v2/Git-%EC%84%9C%EB%B2%84-GitWeb)
+- [GitLab](https://git-scm.com/book/ko/v2/Git-%EC%84%9C%EB%B2%84-GitLab)
 
 </details>
