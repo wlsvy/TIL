@@ -19,6 +19,7 @@ Today I Learned
 
 ## C# & .NET
 - [Effective C#](https://github.com/wlsvy/TIL/tree/master/Document/C%23/Effective%20CSharp/EffectiveCSharp)
+- [EffectiveC# : 컬렉션을 반환하기보다 이터레이터를 반환하는 것이 낫다. (yield return 이 어떻게 활용되는지)](https://github.com/wlsvy/TIL/blob/master/Document/C%23/Effective%20CSharp/EffectiveCSharp/Item29.cs)
 - [More Effective C#](https://github.com/wlsvy/TIL/tree/master/Document/C%23/MoreEffectiveCSharp/MoreEffectiveCSharp)
 - [string in C#](https://github.com/wlsvy/TIL/blob/master/Document/C%23/String.md)
 - [CLR via C# - 제프리 리처](https://github.com/wlsvy/TIL/blob/master/Document/C%23/%EC%A0%9C%ED%94%84%EB%A6%AC%20%EB%A6%AC%EC%B2%98%EC%9D%98%20CLR%20via%20C%23.md)
