@@ -185,6 +185,8 @@ Git으로 하는 일은 기본적으로 아래와 같다.
 <details>
 <summary>fold/unfold</summary>
 
-
+- [분산 환경에서의 워크플로](https://git-scm.com/book/ko/v2/%EB%B6%84%EC%82%B0-%ED%99%98%EA%B2%BD%EC%97%90%EC%84%9C%EC%9D%98-Git-%EB%B6%84%EC%82%B0-%ED%99%98%EA%B2%BD%EC%97%90%EC%84%9C%EC%9D%98-%EC%9B%8C%ED%81%AC%ED%94%8C%EB%A1%9C)
+  - Git에서는 각 개발자의 저장소가 하나의 노드이기도 하고 중앙 저장소 같은 역할도 할 수 있다. 즉, 모든 개발자는 다른 개발자의 저장소에 일한 내용을 전송하거나, 다른 개발자들이 참여할 수 있도록 자신이 운영하는 저장소 위치를 공개할 수도 있다. 
+  - 중앙집중식 워크플로, Integration-Manager 워크플로, Dictator and Lieutenants 워크플로
 
 </details>
