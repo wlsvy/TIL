@@ -179,3 +179,12 @@ Git으로 하는 일은 기본적으로 아래와 같다.
 - [GitLab](https://git-scm.com/book/ko/v2/Git-%EC%84%9C%EB%B2%84-GitLab)
 
 </details>
+
+## 5. 분산 환경에서의 Git
+
+<details>
+<summary>fold/unfold</summary>
+
+
+
+</details>
