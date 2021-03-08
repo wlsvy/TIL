@@ -202,3 +202,12 @@ Git으로 하는 일은 기본적으로 아래와 같다.
 
 - [프로젝트 관리하기](https://git-scm.com/book/ko/v2/%EB%B6%84%EC%82%B0-%ED%99%98%EA%B2%BD%EC%97%90%EC%84%9C%EC%9D%98-Git-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EA%B4%80%EB%A6%AC%ED%95%98%EA%B8%B0)
 </details>
+
+## 6. GitHub
+
+<details>
+<summary>fold/unfold</summary>
+
+- [계정 만들고 설정하기](https://git-scm.com/book/ko/v2/GitHub-%EA%B3%84%EC%A0%95-%EB%A7%8C%EB%93%A4%EA%B3%A0-%EC%84%A4%EC%A0%95%ED%95%98%EA%B8%B0)
+
+</details>
