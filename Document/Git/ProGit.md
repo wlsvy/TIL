@@ -212,5 +212,10 @@ Git으로 하는 일은 기본적으로 아래와 같다.
 - [프로젝트에 기여하기](https://git-scm.com/book/ko/v2/GitHub-GitHub-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%EC%97%90-%EA%B8%B0%EC%97%AC%ED%95%98%EA%B8%B0)
 - [프로젝트에 관리하기](https://git-scm.com/book/ko/v2/GitHub-GitHub-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EA%B4%80%EB%A6%AC%ED%95%98%EA%B8%B0)
 - [Organization 관리하기](https://git-scm.com/book/ko/v2/GitHub-Organization-%EA%B4%80%EB%A6%AC%ED%95%98%EA%B8%B0)
+- [GitHub 스크립팅](https://git-scm.com/book/ko/v2/GitHub-GitHub-%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8C%85)
+  - 서비스와 훅은 저장소에서 발생한 이벤트의 알림을 받는 방법이다.
+  - 서비스 :훅과 서비스는 저장소의 설정 페이지에서 연동할 수 있다.
+    - CI, 버그 트래커, 이슈 트래커, 채팅, 문서 시스템 등과 연동하는 데 사용하는 서비스가 수십 개 준비돼 있다.
+  - 훅 : GitHub 서비스에 없는 사이트나 외부 서비스와 연동하고 싶거나 좀 더 세세한 설정을 하고 싶으면 GitHub 훅을 이용한다. GitHub 저장소의 훅은 단순하다. URL을 하나 주면 그 URL로 HTTP 페이로드를 보내준다.
 
 </details>
