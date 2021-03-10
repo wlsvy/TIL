@@ -1880,6 +1880,9 @@ private static Nullable<int> NullableCodeSize(Nullable<int> a, Nullable<int> b)
 
 ### CLR의 Nullable 값 타입에 대한 특별한 배려
 ...
+- nullable 타입 박싱의 경우, 할당된 값이 null 이면 박싱이 일어나지 않도록 처리가 되어 있다. 다시 말해서 할당된 값이 null 이 아닌 경우에만 박싱을 수행하도록 특수한 처리가 적용되어 있는 것.
+ - 언박싱의 경우에도 비슷한 방식으로 동작한다. null값이라면 언박싱이 일어나지 않는 방식.
+
 
 </details>
 
