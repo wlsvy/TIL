@@ -231,4 +231,14 @@ Git으로 하는 일은 기본적으로 아래와 같다.
   - RefLog 로 가리키기 : git reflog 
   - 계통 관계로 가리키기 : git show HEAD^
   - 범위로 커밋 가리키기 : Double Dot, 세 개 이상의 Refs, Triple Dot
+
+<br>
+
+- [대화형 명령](https://git-scm.com/book/ko/v2/Git-%EB%8F%84%EA%B5%AC-%EB%8C%80%ED%99%94%ED%98%95-%EB%AA%85%EB%A0%B9)
+  - git add -i : 이 명령을 수행하면 git 은 대화형 모드로 들어간다. Staging Area의 현재 상태가 어떻고 할 수 있는 일이 무엇인지 보여준다.
+
+<br>
+
+- [Stashing 과 Cleaning](https://git-scm.com/book/ko/v2/Git-%EB%8F%84%EA%B5%AC-Stashing%EA%B3%BC-Cleaning)
+  - 당신이 어떤 프로젝트에서 한 부분을 담당하고 있다고 하자. 그리고 여기에서 뭔가 작업하던 일이 있고 다른 요청이 들어와서 잠시 브랜치를 변경해야 할 일이 생겼다고 치자. 그런데 이런 상황에서 아직 완료하지 않은 일을 커밋하는 것이 껄끄럽다는 것이 문제다. 커밋하지 않고 나중에 다시 돌아와서 작업을 다시 하고 싶을 것이다. 이 문제는 git stash 라는 명령으로 해결할 수 있다.
 </details>
