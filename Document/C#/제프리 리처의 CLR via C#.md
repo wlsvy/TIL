@@ -1856,6 +1856,24 @@ namespace Study
 
 ### C# 의 Nullable 값 타입에 대한 지원
 ...
+- Nullable 값 타입 인스턴스를 활용할 때는 많은 양의 코드가 생성되므로 조심스럽게 다루어야 한다.
+
+```cs
+private static int? NullableCodeSize(int? a, int? b) => a + b;
+
+//위의 코드는 아래처럼 변환된다.
+private static Nullable<int> NullableCodeSize(Nullable<int> a, Nullable<int> b)
+{
+    Nullable<int> nullable1 = a;
+    Nullable<int> nullable2 = b;
+    if (!(nullable1.HasValue & nullable2.HasValue))
+    {
+        return new Nullable<int>();
+    }
+
+    return new Nullable<int>(nullable1.GetValueOrDefault() + nullable2.GetValueOrDefault());
+}
+```
 
 ### C# 의 Null 결합 연산자
 ...
