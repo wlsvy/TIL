@@ -219,3 +219,16 @@ Git으로 하는 일은 기본적으로 아래와 같다.
   - 훅 : GitHub 서비스에 없는 사이트나 외부 서비스와 연동하고 싶거나 좀 더 세세한 설정을 하고 싶으면 GitHub 훅을 이용한다. GitHub 저장소의 훅은 단순하다. URL을 하나 주면 그 URL로 HTTP 페이로드를 보내준다.
 
 </details>
+
+## 7. Git 도구
+
+<details>
+<summary>fold/unfold</summary>
+
+- [리비전 조회하기](https://git-scm.com/book/ko/v2/Git-%EB%8F%84%EA%B5%AC-%EB%A6%AC%EB%B9%84%EC%A0%84-%EC%A1%B0%ED%9A%8C%ED%95%98%EA%B8%B0)
+  - SHA-1 줄여 쓰기 : Git은 해시 값의 앞 몇 글자만으로도 어떤 커밋인지 충분히 식별할 수 있다. 저장소 안에서 해시 값이 중복되지 않으면 해시 값의 앞 4자만으로도 나타낼 수 있다. 즉 짧은 SHA-1 값이라고 해도 유일해야 한다.
+  - 브랜치로 가리키기 : git show 
+  - RefLog 로 가리키기 : git reflog 
+  - 계통 관계로 가리키기 : git show HEAD^
+  - 범위로 커밋 가리키기 : Double Dot, 세 개 이상의 Refs, Triple Dot
+</details>
