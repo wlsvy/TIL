@@ -293,5 +293,23 @@ Git으로 하는 일은 기본적으로 아래와 같다.
   - checkout : 
     - 첫 번째로 reset --hard 명령과는 달리 checkout 명령은 워킹 디렉토리를 안전하게 다룬다. 저장하지 않은 것이 있는지 확인해서 날려버리지 않는다는 것을 보장한다. 사실 보기보다 좀 더 똑똑하게 동작한다. 워킹 디렉토리에서 Merge 작업을 한번 시도해보고 변경하지 않은 파일만 업데이트한다. 반면 reset --hard 명령은 확인하지 않고 단순히 모든 것을 바꿔버린다.
     - 두 번째 중요한 차이점은 어떻게 checkout 명령이 HEAD를 업데이트 하는가이다. reset 명령은 HEAD가 가리키는 브랜치를 움직이지만(브랜치 Refs를 업데이트하지만), checkout 명령은 HEAD 자체를 다른 브랜치로 옮긴다.
-      
+    
+<br>
+
+- [고급 Merge](https://git-scm.com/book/ko/v2/Git-%EB%8F%84%EA%B5%AC-%EA%B3%A0%EA%B8%89-Merge)
+  - Merge 취소하기 : git merge --abort
+  - 공백 무시하기 : Merge 할 때 무수한 공백 때문에 문제가 생기면 그냥 Merge를 취소한 다음 -Xignore-all-space 나 -Xignore-space-change 옵션을 주어 다시 Merge 한다. 
+  - 수동으로 Merge 하기
+    - Merge 커밋을 완료하기 전에 양쪽 부모에 대해서 무엇이 바뀌었는지 확인하려면 git diff 를 사용한다.
+    - Merge 후의 결과를 Merge 하기 전의 브랜치와 비교하려면, 다시 말해 무엇이 합쳐졌는지 알려면 git diff --ours 명령을 실행한다.
+    - Merge 할 파일을 가져온 쪽과 비교해서 무엇이 바뀌었는지 보려면 git diff --theirs 를 실행한다. 공백을 빼고 비교하고 싶다면 -b 옵션을 같이 사용할 수 있다.
+    - 마지막으로 git diff --base 를 사용해서 양쪽 모두와 비교하여 바뀐 점을 알아볼 수 있다.
+  - 충돌 파일 Checkout
+  - Merge 로그 : “Triple Dot” 문법을 이용하면 Merge 에 사용한 양 브랜치의 모든 커밋의 목록을 얻을 수 있다.
+  - Combined Diff 형식
+  - Merge 되돌리기
+  - Refs 수정 : 실수로 생긴 Merge 커밋이 로컬 저장소에만 있을 때는 브랜치를 원하는 커밋을 가리키도록 옮기는 것이 쉽고 빠르다. 잘못 Merge 하고 나서 git reset --hard HEAD~ 명령으로 브랜치를 되돌리면 된다.
+  - 커밋 되돌리기 : 브랜치를 옮기는 것을 할 수 없는 경우는 모든 변경사항을 취소하는 새로운 커밋을 만들 수도 있다. Git에서 이 기능을 “revert” 라고 부른다.
+  - 다른 방식의 Merge
+
 </details>
