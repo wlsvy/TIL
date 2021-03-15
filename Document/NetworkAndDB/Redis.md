@@ -36,5 +36,6 @@
   - member는 유일한 값만 포함될 수 있습니다.
   - score라고 불리는 values 값은 부동 수소점만을 포함할 수 있습니다.
   - 내부 멤버는 정렬된 순서로 접근 가능합니다.
-
+  - 참고 : https://jupiny.com/2020/03/28/redis-sorted-set/
+  
 <img src="https://www.redislabs.com/wp-content/images/academy/redis-in-action/RIA_fig1-05.svg" width="60%" height="60%">
