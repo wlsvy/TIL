@@ -1929,9 +1929,12 @@ private static Nullable<int> NullableCodeSize(Nullable<int> a, Nullable<int> b)
 
 ### 사용자 정의 예외 클래스 만들기
 ...
+- 사용자 정의 예외를 만드는 과정은 장황하기도 하고 오류를 유발할 가능성도 높다. Exception 계통의 모든 타입들이 앱도메인을 넘나 들거나 로그 파일 혹은 데이터베이스에도 저장 가능하도록 serialize 가능해야 하기 때문이댜.(serializable)
 
 ### 생산성을 위한 신뢰성 재고
 ...
+
+- 예외는 꼼꼼하게, 예를들어 OutOfMemoryException 을 염두하는 것은 좋은 습관이 될 것이다.
 
 ### 지침과 모범 사례
 - finally 블록은 아낌없이 사용하라
