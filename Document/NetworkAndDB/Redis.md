@@ -1,5 +1,6 @@
 # Redis
 
+- Redis는 윈도우 환경을 지원하지 않는다. 윈도우에서는 MS 가 별도로 지원하는 서버를 이용해야 한다.
 - [c# Redis](https://github.com/StackExchange/StackExchange.Redis)
 
 #### Reference
