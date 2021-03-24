@@ -354,4 +354,18 @@ Git으로 하는 일은 기본적으로 아래와 같다.
   - 서버설정
   - ....
 
+<br>
+
+- [Git Attributes](https://git-scm.com/book/ko/v2/Git%EB%A7%9E%EC%B6%A4-Git-Attributes)
+  - 디렉토리와 파일 단위로 다른 설정을 적용할 수도 있다. 이렇게 경로별로 설정하는 것을 Git Attribute 라고 부른다. 이 설정은 .gitattributes 라는 파일에 저장하고 아무 디렉토리에나 둘 수 있지만, 보통은 프로젝트 최상위 디렉토리에 둔다. 그리고 이 파일을 커밋하고 싶지 않으면 .gitattributes 가 아니라 .git/info/attributes 로 파일을 만든다
+  - 이 Attribute로 Merge는 어떻게 할지, 텍스트가 아닌 파일은 어떻게 Diff 할지, checkin/checkout 할 때 어떻게 필터링할지 정해줄 수 있다.
+
+<br>
+
+  - 바이너리 파일
+    - 이 Attribute로 어떤 파일이 바이너리 파일인지 Git에게 알려줄 수 있다. 기본적으로 Git은 어떤 파일이 바이너리 파일인지 알지 못한다. 하지만, Git에는 파일을 어떻게 다뤄야 하는지 알려주는 방법이 있다.
+  - 키워드 치환
+  - 저장소 익스포트 하기
+  - Merge 전략
+
 </details>
