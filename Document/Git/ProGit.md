@@ -379,4 +379,8 @@ Git으로 하는 일은 기본적으로 아래와 같다.
   - 클라이언트 훅 : committing-workflow hook, email-workflow script, 기타 훅
   - 서버 훅 : 서버 훅은 모두 Push 전후에 실행된다. Push 전에 실행되는 훅이 0이 아닌 값을 반환하면 해당 Push는 거절되고 클라이언트는 에러 메시지를 출력한다. 이 훅으로 아주 복잡한 Push 정책도 가능하다.
 
+  <br>
+
+- [정책 구현하기](https://git-scm.com/book/ko/v2/Git%EB%A7%9E%EC%B6%A4-%EC%A0%95%EC%B1%85-%EA%B5%AC%ED%98%84%ED%95%98%EA%B8%B0)
+  - 
 </details>
