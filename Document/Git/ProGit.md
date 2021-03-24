@@ -334,3 +334,24 @@ Git으로 하는 일은 기본적으로 아래와 같다.
   - 다행히도 Git은 이렇게 매번 인증정보(Credential)를 입력하는 경우 인증정보를 저장해두고 자동으로 입력해주는 시스템을 제공한다.
 
 </details>
+
+## 8. Git 맞춤
+
+<details>
+<summary>fold/unfold</summary>
+
+- [Git 설정하기](https://git-scm.com/book/ko/v2/Git%EB%A7%9E%EC%B6%A4-Git-%EC%84%A4%EC%A0%95%ED%95%98%EA%B8%B0)
+  - core.editor
+  - commit.template
+  - core.pager
+  - user.signingkey
+  - core.excludesfile
+  - help.autocorrect
+  - color.ui
+  - 다른 Merge, Diff 도구 사용하기
+  - core.autocrlf : Windows는 라인 바꿈 문자로 CR(Carriage-Return)과 LF(Line Feed) 문자를 둘 다 사용하지만, Mac과 Linux는 LF 문자만 사용한다. 아무것도 아닌 것 같지만, 크로스 플랫폼 프로젝트에서는 꽤 성가신 문제다. Git은 커밋할 때 자동으로 CRLF를 LF로 변환해주고 반대로 Checkout 할 때 LF를 CRLF로 변환해 주는 기능이 있다. core.autocrlf 설정으로 이 기능을 켤 수 있다. Windows에서 이 값을 true로 설정하면 Checkout 할 때 LF 문자가 CRLF 문자로 변환된다.
+  - core.whitespace
+  - 서버설정
+  - ....
+
+</details>
