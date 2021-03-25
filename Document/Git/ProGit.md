@@ -394,3 +394,27 @@ Git으로 하는 일은 기본적으로 아래와 같다.
 - [Git으로 옮기기](https://git-scm.com/book/ko/v2/Git%EA%B3%BC-%EC%97%AC%ED%83%80-%EB%B2%84%EC%A0%84-%EA%B4%80%EB%A6%AC-%EC%8B%9C%EC%8A%A4%ED%85%9C-Git%EC%9C%BC%EB%A1%9C-%EC%98%AE%EA%B8%B0%EA%B8%B0)
 
 </details>
+
+## Git의 내부
+
+<details>
+<summary>fold/unfold</summary>
+
+- [Plumbing 명령과 Porcelain 명령](https://git-scm.com/book/ko/v2/Git%EC%9D%98-%EB%82%B4%EB%B6%80-Plumbing-%EB%AA%85%EB%A0%B9%EA%B3%BC-Porcelain-%EB%AA%85%EB%A0%B9)
+  - Git은 원래 사용하기 쉽게 만든 VCS라기보다는 VCS를 위한 툴킷이다. 기본적으로 매우 많은 저수준 명령어로 구성돼 있고 이 명령어들을 UNIX 스타일로 엮어서 실행하거나 스크립트로 만들어 사용하도록 설계했다. 이러한 저수준의 명령어는 “Plumbing” 명령어라고 부르고 좀 더 사용자에게 친숙한 사용자용 명령어는 “Porcelain” 명령어라고 부른다.
+
+<br>
+
+- [Git 개체](https://git-scm.com/book/ko/v2/Git%EC%9D%98-%EB%82%B4%EB%B6%80-Git-%EA%B0%9C%EC%B2%B4)
+  - Git은 Content-addressable 파일시스템이다. 이게 무슨 말이냐 하면 Git의 핵심은 단순한 Key-Value(역주 - 예, 파일 이름과 파일 데이터) 데이터 저장소라는 것이다. 어떤 형식의 데이터라도 집어넣을 수 있고 해당 Key로 언제든지 데이터를 다시 가져올 수 있다.
+
+<br>
+
+- [Git Refs](https://git-scm.com/book/ko/v2/Git%EC%9D%98-%EB%82%B4%EB%B6%80-Git-Refs)
+- [Packfile](https://git-scm.com/book/ko/v2/Git%EC%9D%98-%EB%82%B4%EB%B6%80-Packfile)
+- [Refspec](https://git-scm.com/book/ko/v2/Git%EC%9D%98-%EB%82%B4%EB%B6%80-Refspec)
+- [데이터 전송 프로토콜](https://git-scm.com/book/ko/v2/Git%EC%9D%98-%EB%82%B4%EB%B6%80-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%A0%84%EC%86%A1-%ED%94%84%EB%A1%9C%ED%86%A0%EC%BD%9C)
+- [운영 및 데이터 복구](https://git-scm.com/book/ko/v2/Git%EC%9D%98-%EB%82%B4%EB%B6%80-%EC%9A%B4%EC%98%81-%EB%B0%8F-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EB%B3%B5%EA%B5%AC)
+- [환경변수](https://git-scm.com/book/ko/v2/Git%EC%9D%98-%EB%82%B4%EB%B6%80-%ED%99%98%EA%B2%BD%EB%B3%80%EC%88%98)
+
+</details>
