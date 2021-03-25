@@ -384,3 +384,13 @@ Git으로 하는 일은 기본적으로 아래와 같다.
 - [정책 구현하기](https://git-scm.com/book/ko/v2/Git%EB%A7%9E%EC%B6%A4-%EC%A0%95%EC%B1%85-%EA%B5%AC%ED%98%84%ED%95%98%EA%B8%B0)
   
 </details>
+
+## 9. Git과 여타 버전 관리 시스템
+
+<details>
+<summary>fold/unfold</summary>
+
+- [Git: 범용 Client](https://git-scm.com/book/ko/v2/Git%EA%B3%BC-%EC%97%AC%ED%83%80-%EB%B2%84%EC%A0%84-%EA%B4%80%EB%A6%AC-%EC%8B%9C%EC%8A%A4%ED%85%9C-Git%3A-%EB%B2%94%EC%9A%A9-Client)
+- [Git으로 옮기기](https://git-scm.com/book/ko/v2/Git%EA%B3%BC-%EC%97%AC%ED%83%80-%EB%B2%84%EC%A0%84-%EA%B4%80%EB%A6%AC-%EC%8B%9C%EC%8A%A4%ED%85%9C-Git%EC%9C%BC%EB%A1%9C-%EC%98%AE%EA%B8%B0%EA%B8%B0)
+
+</details>
