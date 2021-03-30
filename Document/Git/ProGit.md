@@ -1,6 +1,8 @@
 # ProGit
 
-참조 : [git-scm.com](https://git-scm.com/book/ko/v2)
+참조
+- [git-scm.com](https://git-scm.com/book/ko/v2)
+- [git branch 연습](https://learngitbranching.js.org/?locale=ko)
 
 ## 1. 시작하기
 
