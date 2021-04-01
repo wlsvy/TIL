@@ -42,6 +42,9 @@ Today I Learned
 - [DirectX 12](https://github.com/wlsvy/TIL/blob/master/Document/Graphics/DirectX12.md)
 - [Unreal5 - Nanite / Lumen](https://github.com/wlsvy/TIL/blob/master/Document/Graphics/Unreal5_NaniteAndLumen.md)
 
+## Network And Database
+- [Redis](https://github.com/wlsvy/TIL/blob/master/Document/NetworkAndDB/Redis.md)
+
 ## ETC
 - [각종 참조 웹 페이지 모음](https://gist.github.com/wlsvy/8e4762beb84729aecb6262a0fbf69b24)
 - [기술면접 참고 자료](https://github.com/wlsvy/TIL/blob/master/Document/InterviewPreparation/tech-interview-Reference.md)
