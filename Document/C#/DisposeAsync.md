@@ -3,6 +3,7 @@
 #### Reference
 - [msdn : implementing-disposeasync](https://docs.microsoft.com/ko-kr/dotnet/standard/garbage-collection/implementing-disposeasync)
 - [msdn : IAsyncDisposable](https://docs.microsoft.com/ko-kr/dotnet/api/system.iasyncdisposable?view=net-5.0)
+- [ConfigureAwait FAQ](https://devblogs.microsoft.com/dotnet/configureawait-faq/)
 
 <br>
 <br>
