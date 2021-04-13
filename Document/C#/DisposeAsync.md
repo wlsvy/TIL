@@ -11,7 +11,7 @@
 
 - System.IAsyncDisposable 인터페이스는 C# 8.0의 일부로 도입되었습니다. IAsyncDisposable.DisposeAsync() 메서드는 Dispose 메서드를 구현할 때와 마찬가지로 리소스 정리를 수행하는 경우에 구현합니다. 그러나 중요한 차이점 하나는 이 구현에서는 비동기 정리 작업이 가능하다는 것입니다. DisposeAsync()는 비동기 삭제 작업을 나타내는 ValueTask를 반환합니다.
 
-```
+```cs
 public interface IAsyncDisposable
 {
     ValueTask DisposeAsync();
@@ -21,7 +21,7 @@ public interface IAsyncDisposable
 - DisposeAsync 는 비동기적으로 (관리되는, 관리되지 않는)자원 정리 작업을 수행하거나, 종료자가 (있다면) 호출될 필요가 없음을 지정합니다.
   - Dispose 패턴에서 파생 클래스에 대해 자원 정리 동작을 재정의할 여지를 제공하기 위해 Dispose(bool) virtual 메서드를 작성하는 것처럼, DisposeAsync 의 경우에는 이를 위해 DisposeAsyncCore virtual 메서드를 작성합니다.
 
-```
+```cs
 protected virtual ValueTask DisposeAsyncCore()
 {
 }
@@ -33,7 +33,7 @@ protected virtual ValueTask DisposeAsyncCore()
   - DisposeAsync 에서는 dispose(false)를 호출합니다. 이는 관리되지 않는 자원을 정리하기 위함입니다. DisposeAsync에서 dispose(true)를 호출하는 것이 안되는 것은 아닙니다. 하지만 이는 관리되지 않는 작업을 동기적으로 정리하는 것과 동일한 맥락이기에 DisposeAsync를 사용하는 의미를 잃게 될 수도 있습니다. 따라서 DisposeAsync 내에서는 관리되지 않는 자원 정리를 위해 Dispose(false)를 호출합니다.
   
 
- ```
+ ```cs
  public async ValueTask DisposeAsync()
 {
     // Perform async cleanup.
@@ -46,7 +46,7 @@ protected virtual ValueTask DisposeAsyncCore()
 }
 ```
 
-```
+```cs
 using System;
 using System.IO;
 using System.Text.Json;
