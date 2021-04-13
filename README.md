@@ -27,6 +27,7 @@ Today I Learned
 - [GoogleDrive : 1000 C Sharp Dot NET (C#.NET) Interview Questions and Answers... / BookMark](https://docs.google.com/document/d/1GieMjzml18N60lTDsRyHaUvivQM2f6SiMfMP6DUw-yA/edit?usp=sharing)
 - [.NET 유닛 테스트 도구](https://github.com/wlsvy/TIL/blob/master/Document/C%23/.NET%20UnitTest%20%EB%8F%84%EA%B5%AC.md)
 - [C#의 배열은 IList를 구현](https://github.com/wlsvy/TIL/blob/master/Document/C%23/C%23%20%EC%9D%98%20%EB%B0%B0%EC%97%B4%EC%9D%80%20IList%EB%A5%BC%20%EA%B5%AC%ED%98%84.md)
+- [DisposeAsync](https://github.com/wlsvy/TIL/blob/master/Document/C%23/DisposeAsync.md)
 
 ## Git
 - [ProGit](https://github.com/wlsvy/TIL/blob/master/Document/Git/ProGit.md)
