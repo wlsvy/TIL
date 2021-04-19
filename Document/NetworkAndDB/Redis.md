@@ -6,7 +6,7 @@
 #### Reference
 - [Redis Document](https://redis.io/documentation)
 - [Redis Data Type Introduction](https://redis.io/topics/data-types-intro)
-- [Redis Master and Replica](https://jdm.kr/blog/157)
+- [Redis Master and Replica](https://ssup2.github.io/theory_analysis/Redis_Master_Slave_Cluster/)
 
 ## Data Structure In Redis
 
