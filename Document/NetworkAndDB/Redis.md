@@ -6,6 +6,7 @@
 #### Reference
 - [Redis Document](https://redis.io/documentation)
 - [Redis Data Type Introduction](https://redis.io/topics/data-types-intro)
+- [Redis Master and Replica](https://jdm.kr/blog/157)
 
 ## Data Structure In Redis
 
