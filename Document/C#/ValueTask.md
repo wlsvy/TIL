@@ -145,8 +145,7 @@ ValueTask를 다룰 때 권장되는 방법이란
 
 
 However, ValueTask / ValueTask<TResult> are great choices when 
-a) you expect consumers of your API to only await them directly, 
-b) allocation-related overhead is important to avoid for your API, and 
-c) either you expect synchronous completion to be a very common case, 
-or you’re able to effectively pool objects for use with asynchronous completion. 
+- a) you expect consumers of your API to only await them directly, 
+- b) allocation-related overhead is important to avoid for your API, and 
+- c) either you expect synchronous completion to be a very common case, or you’re able to effectively pool objects for use with asynchronous completion. 
 When adding abstract, virtual, or interface methods, you also need to consider whether these situations will exist for overrides/implementations of that method.
