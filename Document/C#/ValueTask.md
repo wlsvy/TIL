@@ -54,3 +54,16 @@ public static ValueTask<T> GetDataAsync<T>()
     return new ValueTask<T>(result);
 }
 ```
+
+<br>
+
+ValueTask의 장점에도 불구하고, 주의해야 할 점은 분명히 있습니다.
+- Task는 내부적으로 하나의 멤버 필드를 가지는 반면에, ValueTask는 두 개의 멤버 필드를 가집니다.
+- 그리고 ValueTask를 사용하는 경우에, 비동기 동작을 처리하는 state machine 이 더 커질 수 있습니다. 멤버가 하나인 Task 타입이 아닌 멤버 필드가 두 개인 구조체 타입을 다뤄야 하기 때문입니다.
+
+<br>
+
+ValueTask를 다룰 때 권장되는 방법이란
+- 어떤 동작이 장시간 비동기적으로 수행해야 한다면 Task를 사용하는 것을 권장합니다. 동작이 호출 즉시 종료되지 않는 그런 경우에 말이지요.
+- 반면에 호출된 비동기 동작이 즉시 끝나는 경우에는 ValueTask 사용을 권장합니다. 이 경우 힙에 할당되지 않아 성능적 이점을 볼 수 있을 것입니다.
+- WhenAll 메서드 등의 활용될 경우라면 Task를 활용하세요. ValueTask 를 이때 활용하게 된다면 ValueTask.AsTask()를 통해서 다시 Task객체를 생성하게 되는데, 이 때 힙 할당이 발생하게 되고 이럴 것이라면 애초에 Task를 활용하는 편이 오버헤드를 절약합니다.
