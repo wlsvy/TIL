@@ -1184,3 +1184,10 @@ ACID 일관성의 아이디어는 항상 진실이어야 하는, 데이터에 �
 ...
 
 </details>
+
+## 09장. 일관성과 합의
+
+<details>
+<summary>fold/unfold</summary>
+
+</details>
