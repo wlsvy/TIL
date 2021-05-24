@@ -1,5 +1,11 @@
 ## <span class="fontColorRed">번역문서입니다.</span>
 
+#### Reference
+
+- [BestPracticeUnderstandingPerformanceInUnity4-1](https://docs.unity3d.com/Manual/BestPracticeUnderstandingPerformanceInUnity4-1.html)
+- [feature-preview-incremental-garbage-collection](https://blog.unity.com/kr/technology/feature-preview-incremental-garbage-collection)
+- [hboehm](https://www.hboehm.info/gc/)
+
 ## 유니티의 GC
 
 유니티의 가비지 컬렉터는 Mark/Sweep 이라는 알고리즘을 사용합니다.
@@ -8,26 +14,24 @@
 
 유니티의 가비지 컬렉터는 Boehm-Demers-Weiser 가비지 컬렉터라고 부르는데요, 위와 같은 알고리즘으로 동작하며 다음과 같은 특징이 있습니다.
 
-*   **Stop The World :** GC 발생시 프로그램의 모든 스레드가 중단되고 GC가 완료될때까지 기다립니다. 유니티는 멀티스레드 GC를 지원하지 않습니다. 유니티 2019 이후부터는 Incremental GC가 도입되긴 했지만 시분할로 GC될 뿐 여전히 모든 스레드는 중단됩니다.
-     
-*   **Generation을 나누지 않음 :** 닷넷에서는 각 객체들을 세대로 나누어 최근에 생성된 낮은 세대의 객체들을 집중적으로 GC하게 되는데요. GC 속도를 빠르게 하기 위함입니다. 그러나 유니티에서는 이런 세대를 나누지 않습니다. GC가 발생하면 모든 Managed Heap에 대해 GC를 하게 됩니다. (Full GC)
-     
-*   **압축하지 않음 :** 힙에서 파편화되면 파편화 된 대로 놔두고 처리하지 않습니다. 
+- **Stop The World :** GC 발생시 프로그램의 모든 스레드가 중단되고 GC가 완료될때까지 기다립니다. 유니티는 멀티스레드 GC를 지원하지 않습니다. 유니티 2019 이후부터는 Incremental GC가 도입되긴 했지만 시분할로 GC될 뿐 여전히 모든 스레드는 중단됩니다.
+
+- **Generation을 나누지 않음 :** 닷넷에서는 각 객체들을 세대로 나누어 최근에 생성된 낮은 세대의 객체들을 집중적으로 GC하게 되는데요. GC 속도를 빠르게 하기 위함입니다. 그러나 유니티에서는 이런 세대를 나누지 않습니다. GC가 발생하면 모든 Managed Heap에 대해 GC를 하게 됩니다. (Full GC)
+
+- **압축하지 않음 :** 힙에서 파편화되면 파편화 된 대로 놔두고 처리하지 않습니다.
     ![](Image/2021-05-24-11-04-20.png)
     당연하지만 실제 메모리 사용 영역보다 많은 메모리를 잡게 됩니다.
-     
 
 ## 박싱/언박싱
 
-*   struct가 인터페이스를 구현하게 되면, 해당 struct를 인터페이스로 접근할 경우 박싱됩니다.
+- struct가 인터페이스를 구현하게 되면, 해당 struct를 인터페이스로 접근할 경우 박싱됩니다.
     모든 interface 구현체를 ReferenceType으로 보기 때문입니다.
-     
-*   ValueType 인스턴스에 대고 GetType()를 호출하면 박싱이 일어납니다.
-     
-*   Struct에 대고 ToString(), GetHashCode()를 호출할 경우 Mono에서는 박싱되지 않으나 IL2CPP에서는 박싱이 일어납니다.
+
+- ValueType 인스턴스에 대고 GetType()를 호출하면 박싱이 일어납니다.
+
+- Struct에 대고 ToString(), GetHashCode()를 호출할 경우 Mono에서는 박싱되지 않으나 IL2CPP에서는 박싱이 일어납니다.
     만일 두 메서드를 재정의했다면 박싱이 일어나지 않습니다.
     그러나 base.ToString(), base.GetHashCode()를 호출하고 있다면 여전히 박싱됩니다.
-     
 
 ## Conditional 애트리뷰트
 
@@ -57,7 +61,7 @@
 
 [https://bitbucket.org/Unity-Technologies/ui/src/2019.1/UnityEngine.UI/UI/Core/Utility/ObjectPool.cs](https://bitbucket.org/Unity-Technologies/ui/src/2019.1/UnityEngine.UI/UI/Core/Utility/ObjectPool.cs)
 
-UGUI 구현중에는 내부적으로 사용되는 오브젝트 풀이 있습니다. 
+UGUI 구현중에는 내부적으로 사용되는 오브젝트 풀이 있습니다.
 
 보통 1회용으로 반복적으로 생성되는 버퍼가 있는 경우 사용합니다.
 
@@ -97,7 +101,7 @@ C#에서 string은 Immutable입니다. 그래서 문자열 합성을 하는 경�
 
 이걸 막으려면 **Internpool** 이라 불리는 닷넷 내부의 문자열을 저장하는 풀에 집어넣을 수 있는데
 
-IsInterned 검사 및 String.Intern()을 호출하여 그게 가능합니다. 
+IsInterned 검사 및 String.Intern()을 호출하여 그게 가능합니다.
 
 원문 저자는 이런식으로 미리 사용될 문자열에 대해 풀링을 해놓고, 필요없을때 해제하라고 합니다.
 
@@ -179,6 +183,6 @@ IsInterned 검사 및 String.Intern()을 호출하여 그게 가능합니다. 
 
 이것도 흔히 잘 모르고 넘어갈 수 있는 부분인데, 프리팹 인스턴시에이트시 만일 내부에 빈 Text가 많이 존재한다면 심각한 GC Alloc이 발생합니다.
 
-이것의 원인은 TextGenerator가 인스턴시에이트될때 만일 내부의 Text가 비어있다면 문자 50개를 초기화 값으로 넣어버리고, 50개 문자분의 UIVertex와 UICharInfo가 생성됩니다. 
+이것의 원인은 TextGenerator가 인스턴시에이트될때 만일 내부의 Text가 비어있다면 문자 50개를 초기화 값으로 넣어버리고, 50개 문자분의 UIVertex와 UICharInfo가 생성됩니다.
 
 이 문제는 Text에 값을 채워넣거나 공백 하나 넣음으로서 해결할 수 있습니다.
