@@ -21,3 +21,7 @@
 6. AWS Tool Kit 에서 Configure 설정(터미널에 aws configure 입력 후, AccessId Key 작성)
 
 </details>
+
+### 참고할 만한 글
+
+- [gentledev10 블로그](https://velog.io/@gentledev10/terraform-workspace)
