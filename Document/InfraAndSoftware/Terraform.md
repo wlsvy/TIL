@@ -24,6 +24,7 @@
 
 ### 참고할 만한 글
 
+- [HashcorpLearn](https://learn.hashicorp.com/)
 - [blog/what-is-terraform-and-why-is-it-important](https://www.fairwinds.com/blog/what-is-terraform-and-why-is-it-important)
 - [gentledev10 블로그](https://velog.io/@gentledev10/terraform-workspace)
 
