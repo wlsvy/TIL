@@ -26,3 +26,25 @@ To see all local and remote branches, run this command:
 - git branch -a
 
 출처 : [Git Branches: List, Create, Switch to, Merge, Push, & Delete](https://www.nobledesktop.com/learn/git/git-branches)
+
+### Alias MultipleCommand
+
+This targets Windows batch / msysgit bash; might not work on other environments.
+
+As Olivier Verdier and Lily Ballard have said
+
+> [alias] chs = !git checkout $1 && git status
+
+almost works, but gives a spurious extra insertion of the argument ...
+
+> git chs demo -> git checkout demo && git status demo
+
+But if you add `&& :` to the end of your alias, then the spurious argument is consumed into a location tag.
+
+So
+
+> [alias] chs = !git checkout $1 && git status && :
+
+gives the correct output ... `git chs demo -> git checkout demo && git status`
+
+- 출처 : [stackoverflow](https://stackoverflow.com/questions/7534184/git-alias-multiple-commands-and-parameters)
