@@ -136,6 +136,14 @@ Git으로 하는 일은 기본적으로 아래와 같다.
 <img src="https://git-scm.com/book/en/v2/images/basic-merging-1.png" width="60%" height="60%">
 <img src="https://git-scm.com/book/en/v2/images/basic-merging-2.png" width="60%" height="60%">
 
+![](ProGit_Image/2022-03-18-10-05-47.png)
+
+- 3-way Merge 라 부르는 이유는 머지 커밋이 세 개의 이전 커밋을 바탕으로 생성되기 때문이다. 
+  - 두 브랜치의 베이스 지점에 해당되는 커밋. 그림에서는 C3
+  - 마스터 브랜치의 끝부분에 해당되는 커밋. 그림에서는 C6
+  - 머지 소스 브랜치의 끝부분에 해당되는 커밋. 그림에서는 C5
+- 출처 : [What is 3-way merge or merge commit in Git?](https://www.tutorialspoint.com/what-is-3-way-merge-or-merge-commit-in-git)
+
 <br>
 
 [브랜치 관리](https://git-scm.com/book/ko/v2/Git-%EB%B8%8C%EB%9E%9C%EC%B9%98-%EB%B8%8C%EB%9E%9C%EC%B9%98-%EA%B4%80%EB%A6%AC)
