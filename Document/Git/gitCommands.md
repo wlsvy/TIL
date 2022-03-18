@@ -24,3 +24,5 @@ To see remote branches, run this command:
 To see all local and remote branches, run this command:
 
 - git branch -a
+
+출처 : [Git Branches: List, Create, Switch to, Merge, Push, & Delete](https://www.nobledesktop.com/learn/git/git-branches)
