@@ -14,3 +14,36 @@ There are several options you can use to launch the program in special modes. Yo
 This guide will cover the different aspects of redis-cli, starting from the simplest and ending with the more advanced features.
 
 출처 : [redis.io](https://redis.io/docs/manual/cli/)
+
+## Info
+
+The INFO command returns information and statistics about the server in a format that is simple to parse by computers and easy to read by humans.
+
+The optional parameter can be used to select a specific section of information:
+
+- server: General information about the Redis server
+- clients: Client connections section
+- memory: Memory consumption related information
+- persistence: RDB and AOF related information
+- stats: General statistics
+- replication: Master/replica replication information
+- cpu: CPU consumption statistics
+- commandstats: Redis command statistics
+- latencystats: Redis command latency percentile distribution statistics
+- cluster: Redis Cluster section
+- modules: Modules section
+- keyspace: Database related statistics
+- modules: Module related sections
+- errorstats: Redis error statistics
+
+It can also take the following values:
+
+- all: Return all sections (excluding module generated ones)
+- default: Return only the default set of sections
+- everything: Includes all and modules
+
+When no parameter is provided, the default option is assumed.
+
+**Return** : Bulk string reply: as a collection of text lines.
+
+출처 : [redis.io](https://redis.io/commands/info/)
