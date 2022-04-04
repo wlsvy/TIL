@@ -45,7 +45,7 @@ Today I Learned
 - [Unreal5 - Nanite / Lumen](https://github.com/wlsvy/TIL/blob/master/Document/Graphics/Unreal5_NaniteAndLumen.md)
 
 ## Network And Database
-- [Redis](https://github.com/wlsvy/TIL/blob/master/Document/ETC/Redis.md)
+- [Redis](https://github.com/wlsvy/TIL/blob/master/Document/ETC/Redis.md) / [RedisCli](https://github.com/wlsvy/TIL/blob/master/Document/ETC/RedisCli.md)
 - [데이터 중심 애플리케이션 설계](https://github.com/wlsvy/TIL/blob/master/Document/ETC/Designing%20Data-Intensive%20Applications.md)
 
 ## ETC
