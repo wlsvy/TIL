@@ -48,3 +48,17 @@ So
 gives the correct output ... `git chs demo -> git checkout demo && git status`
 
 - 출처 : [stackoverflow](https://stackoverflow.com/questions/7534184/git-alias-multiple-commands-and-parameters)
+
+### Find deleted file in history
+
+If you do not know the exact path you may use
+
+> git log --all --full-history -- "**/thefile.*"
+
+If you know the path the file was at, you can do this:
+
+> git log --all --full-history -- <path-to-file>
+  
+ex : `git log --all --full-history -- "Sources/Something.cs"`
+
+- 출처 : [stackoverflow](https://stackoverflow.com/questions/7203515/how-to-find-a-deleted-file-in-the-project-commit-history)
