@@ -47,3 +47,9 @@ When no parameter is provided, the default option is assumed.
 **Return** : Bulk string reply: as a collection of text lines.
 
 출처 : [redis.io](https://redis.io/commands/info/)
+
+## MONITOR
+
+MONITOR is a debugging command that streams back every command processed by the Redis server. It can help in understanding what is happening to the database. This command can both be used via redis-cli and via telnet.
+
+출처 : [redis.io](https://redis.io/commands/monitor/)
