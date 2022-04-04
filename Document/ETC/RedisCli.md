@@ -53,3 +53,10 @@ When no parameter is provided, the default option is assumed.
 MONITOR is a debugging command that streams back every command processed by the Redis server. It can help in understanding what is happening to the database. This command can both be used via redis-cli and via telnet.
 
 출처 : [redis.io](https://redis.io/commands/monitor/)
+
+## SELECT
+
+Select the Redis logical database having the specified zero-based numeric index. New connections always use the database 0.
+
+출처 : [redis.io](https://redis.io/commands/select/)
+
