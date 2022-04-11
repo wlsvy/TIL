@@ -52,6 +52,7 @@ Today I Learned
 
 - [도메인 주도 설계 철저 입문](https://github.com/wlsvy/TIL/blob/master/Document/ETC/%EB%8F%84%EB%A9%94%EC%9D%B8%20%EC%A3%BC%EB%8F%84%20%EC%84%A4%EA%B3%84%20%EC%B2%A0%EC%A0%80%20%EC%9E%85%EB%AC%B8.md)
 - [GoF의 디자인 패턴](https://github.com/wlsvy/TIL/blob/master/Document/ETC/GoF%EC%9D%98%20%EB%94%94%EC%9E%90%EC%9D%B8%ED%8C%A8%ED%84%B4.md)
+- [Refactoring](https://github.com/wlsvy/TIL/blob/master/Document/ETC/Refactoring.md)
 - [각종 참조 웹 페이지 모음](https://gist.github.com/wlsvy/8e4762beb84729aecb6262a0fbf69b24)
 - [기술면접 참고 자료](https://github.com/wlsvy/TIL/blob/master/Document/InterviewPreparation/tech-interview-Reference.md)
 
