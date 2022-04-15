@@ -67,6 +67,7 @@ Show Head Commit Id/history
   
 > git show-ref --heads
 > git rev-parse HEAD
+> git rev-parse remotename/branchname
 > git log branchname -n 5
 > git log remotename/branchname
   
