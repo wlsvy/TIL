@@ -65,11 +65,11 @@ ex : `git log --all --full-history -- "Sources/Something.cs"`
   
 Show Head Commit Id/history
   
-> git show-ref --heads
-> git rev-parse HEAD
-> git rev-parse remotename/branchname
-> git log branchname -n 5
-> git log remotename/branchname
+> git show-ref --heads <br/>
+> git rev-parse HEAD <br/>
+> git rev-parse remotename/branchname <br/>
+> git log branchname -n 5 <br/>
+> git log remotename/branchname <br/>
   
 - 출처 : [stackoverflow](https://stackoverflow.com/questions/1967967/git-command-to-display-head-commit-id)
   
