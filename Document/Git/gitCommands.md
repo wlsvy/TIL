@@ -63,9 +63,15 @@ ex : `git log --all --full-history -- "Sources/Something.cs"`
 
 - 출처 : [stackoverflow](https://stackoverflow.com/questions/7203515/how-to-find-a-deleted-file-in-the-project-commit-history)
   
-Show Head Commit Id
+Show Head Commit Id/history
   
 > git show-ref --heads
 > git rev-parse HEAD
+> git log branchname -n 5
+> git log remotename/branchname
   
 - 출처 : [stackoverflow](https://stackoverflow.com/questions/1967967/git-command-to-display-head-commit-id)
+  
+혹은
+  
+
