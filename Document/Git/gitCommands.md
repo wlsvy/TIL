@@ -62,3 +62,9 @@ If you know the path the file was at, you can do this:
 ex : `git log --all --full-history -- "Sources/Something.cs"`
 
 - 출처 : [stackoverflow](https://stackoverflow.com/questions/7203515/how-to-find-a-deleted-file-in-the-project-commit-history)
+  
+Show Head Commit Id
+  
+> git show-ref --heads
+  
+- 출처 : [stackoverflow](https://stackoverflow.com/questions/1967967/git-command-to-display-head-commit-id)
