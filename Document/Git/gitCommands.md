@@ -66,5 +66,6 @@ ex : `git log --all --full-history -- "Sources/Something.cs"`
 Show Head Commit Id
   
 > git show-ref --heads
+> git rev-parse HEAD
   
 - 출처 : [stackoverflow](https://stackoverflow.com/questions/1967967/git-command-to-display-head-commit-id)
