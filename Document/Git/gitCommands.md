@@ -73,6 +73,4 @@ Show Head Commit Id/history
   
 - 출처 : [stackoverflow](https://stackoverflow.com/questions/1967967/git-command-to-display-head-commit-id)
   
-혹은
-  
 
