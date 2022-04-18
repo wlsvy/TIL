@@ -133,5 +133,12 @@ pick d442427 Task 3/3
 # Note that empty commits are commented out  
 ```
 
+예를 들어 순서 변경 및 Squash 수행하도록 메세지를 변경하고 싶다면 아래처럼 수정한다.
+  
+```
+pick d442427 Task 3/3
+s 7c65355 Task 1/3
+s 2639543 Task 2/3
+```
   
 - 출처 : [git ready](https://gitready.com/advanced/2009/03/20/reorder-commits-with-rebase.html)
