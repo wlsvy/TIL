@@ -32,6 +32,7 @@ Today I Learned
 
 ## Git
 - [ProGit](https://github.com/wlsvy/TIL/blob/master/Document/Git/ProGit.md)
+- [사용하는 커맨드 정리](https://github.com/wlsvy/TIL/blob/master/Document/Git/gitCommands.md)
 
 ## Computer Science
 - [컴퓨터 아키텍쳐](https://github.com/wlsvy/TIL/blob/master/Document/ComputerScience/ComputerArchitecture.md)
