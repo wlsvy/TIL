@@ -57,5 +57,5 @@
 - `:q!` : 변경사항을 보관하지 않고 종료
 - q : 수정한 파일을 저장하지 않고 파일 종료
 - `e!` : 수정 사항을 원상복구
-- 
+
 - [출처 티스토리](https://iamfreeman.tistory.com/entry/vi-vim-%ED%8E%B8%EC%A7%91%EA%B8%B0-%EB%AA%85%EB%A0%B9%EC%96%B4-%EC%A0%95%EB%A6%AC-%EB%8B%A8%EC%B6%95%ED%82%A4-%EB%AA%A8%EC%9D%8C-%EB%AA%A9%EB%A1%9D)
