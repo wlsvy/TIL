@@ -100,3 +100,38 @@ stash drop(스태시 엔트리 제거)
 stash branch (스태시 엔트리 변경사항을 브랜치로)
   
 - 출처 : [git](https://git-scm.com/docs/git-stash)
+
+### git Reorder Commit By Interactive rebase
+  
+먼저 interactive rebase를 시작
+  
+> git rebase -i HEAD~3
+  
+git bash 의 경우 vi 에디터를 통해 메시지를 수정하게 된다. 수정을 마치고 난 뒤에 종료
+  
+```
+pick 7c65355 Task 1/3
+pick 2639543 Task 2/3
+pick d442427 Task 3/3
+
+# Rebase 2260a88..d442427 onto 2260a88
+#
+# Commands:
+#  p, pick = use commit
+#  r, reword = use commit, but edit the commit message
+#  e, edit = use commit, but stop for amending
+#  s, squash = use commit, but meld into previous commit
+#  f, fixup = like "squash", but discard this commit's log message
+#  x, exec = run command (the rest of the line) using shell
+#
+# These lines can be re-ordered; they are executed from top to bottom.
+#
+# If you remove a line here THAT COMMIT WILL BE LOST.
+#
+# However, if you remove everything, the rebase will be aborted.
+#
+# Note that empty commits are commented out  
+```
+
+  
+- 출처 : [git ready](https://gitready.com/advanced/2009/03/20/reorder-commits-with-rebase.html)
