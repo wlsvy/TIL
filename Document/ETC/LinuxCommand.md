@@ -1,5 +1,8 @@
 # LinuxCommand 명령어 모음
 
+- [출처 : 티스토리 블로그](https://cocoon1787.tistory.com/717?category=888102)
+- [출처 : 티스토리 블로그](https://cocoon1787.tistory.com/197?category=888102)
+
 ## 파일 시스템 탐색
 
 - pwd : Print Work Directory. 현재 작업 중인 디렉토리를 보여준다.
