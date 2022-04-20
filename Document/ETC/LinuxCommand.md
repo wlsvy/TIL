@@ -65,7 +65,7 @@
 - alias : 명령어 별칭 지정
   - alias 를 그대로 입력 시, 현재 별칭 지정된 명령어를 확인
   - alias 별명 = '명령어 정의'
-  > alias lsa = 'ls -a'
+  > alias lsa = 'ls -a' <br/>
   > unalias lsa
 
 ## 명령어 검색 및 정규 표현식
