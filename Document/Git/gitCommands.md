@@ -1,3 +1,16 @@
+### 특정 브랜치만 git Clone
+
+클론 시에 해당 리포지토리에 브랜치가 많다면 시간이 오래 걸릴 수 있는데, 이런 경우에 아래처럼 단일 브랜치만 먼저 내려받을 수 있다.
+
+```
+git clone -b {branch_name} --single-branch {저장소 URL}
+ex) git clone -b javajigi --single-branch https://github.com/javajigi/java-racingcar
+```
+
+위와 같이 실행하면 java-racingcar의 javajigi branch만 clone할 수 있다.
+
+- [출처 : slipp](https://www.slipp.net/questions/577)
+
 ### Git Clear Unstaged Change
 
 For all unstaged files iFor all unstaged files in current working directory use:
