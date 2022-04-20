@@ -11,6 +11,15 @@ ex) git clone -b javajigi --single-branch https://github.com/javajigi/java-racin
 
 - [출처 : slipp](https://www.slipp.net/questions/577)
 
+> git clone -b <branch name> --single-branch <github url> <target directory>
+  
+위와 같이 clone한 후 새로운 브랜치를 추가하고 싶은 경우가 있으면 다음과 같이 새로운 브랜치를 추가할 수 있다.
+
+> git remote set-branches --add origin [remote-branch] <br/>
+> git fetch origin [remote-branch]:[local-branch]
+
+- [출처 : slipp](https://www.slipp.net/questions/605)
+  
 ### Git Clear Unstaged Change
 
 For all unstaged files iFor all unstaged files in current working directory use:
