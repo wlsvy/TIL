@@ -100,4 +100,9 @@ Then you can run `disown %1` (replace `1` with the process number output by `job
 
 In spite of the name, the process will still be owned by you after running `disown`, it will just be detached from the terminal you started it in.
 
+백그라운드의 작업을 다시 포그라운드 작업으로 변경할려면
+
+> fg #<Job Number> <br/>
+> ex : fg #1
+
 - [출처 : 스택오버플로우](https://serverfault.com/questions/34750/is-it-possible-to-detach-a-process-from-its-terminal-or-i-should-have-used-s)
