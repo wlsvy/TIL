@@ -20,6 +20,12 @@ ex) git clone -b javajigi --single-branch https://github.com/javajigi/java-racin
 
 - [출처 : slipp](https://www.slipp.net/questions/605)
   
+### 트랙킹 브랜치 생성
+  
+> git branch --track branch-name origin/branch-name <br/>
+> git branch -t branch-name origin/branch-name <br/>
+> ex: git branch -t SampleBranch origin/SampleBranch
+  
 ### 설정 값 확인
   
 > git config --list <br/>
