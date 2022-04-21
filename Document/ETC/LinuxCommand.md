@@ -31,6 +31,7 @@
 
 - uname : 시스템 정보(os및 커널 정보) 표시
 - ps : 현재 시스템에서 실행 중인 프로세스 시각화
+  - ps -ef : 좀더 자세히
 - kill : 프로세스 중지
 - service : 시스템 전체 서비스 호출
 - batch : 
@@ -88,3 +89,15 @@
 - sudo : 루트 
 - chmod : 시스템 파일 또는 객체의 액세스 권한 변경
 - chwon : 시스템 파일 또는 객체의 소유권 변경
+
+## 프로세스를 백그라운드에서 실행
+
+You can press `ctrl-z` to interrupt the process and then run `bg` to make it run in the background.
+
+You can show a numbered list all processes backgrounded in this manner with `jobs`.
+
+Then you can run `disown %1` (replace `1` with the process number output by `jobs`) to detach the process from the terminal.
+
+In spite of the name, the process will still be owned by you after running `disown`, it will just be detached from the terminal you started it in.
+
+- [출처 : 스택오버플로우](https://serverfault.com/questions/34750/is-it-possible-to-detach-a-process-from-its-terminal-or-i-should-have-used-s)
