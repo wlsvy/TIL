@@ -32,7 +32,12 @@
 - uname : 시스템 정보(os및 커널 정보) 표시
 - ps : 현재 시스템에서 실행 중인 프로세스 시각화
   - ps -ef : 좀더 자세히
-- kill : 프로세스 중지
+- kill : 프로세스 중지 (기본값은 TERM)
+  - kill -l : kill 시그널 목록 확인
+  - PID # 1234 인 프로세스에 kill 시그널을 보내는 예시
+    - > kill -9 1234
+    - > kill -KILL 1234
+    - > kill -SIGKILL 1234
 - service : 시스템 전체 서비스 호출
 - batch : 
 - shutdown : 시스템 종료
