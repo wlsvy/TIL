@@ -20,6 +20,19 @@ ex) git clone -b javajigi --single-branch https://github.com/javajigi/java-racin
 
 - [출처 : slipp](https://www.slipp.net/questions/605)
   
+### 설정 값 확인
+  
+> git config --list <br/>
+> git config --global --list
+
+or look at your ~/.gitconfig file. The local configuration will be in your repository's .git/config file.
+
+Use:
+  
+> git config --list --show-origin
+
+- [출처 : stackoverflow](https://stackoverflow.com/questions/12254076/how-do-i-show-my-global-git-configuration)
+  
 ### Git Clear Unstaged Change
 
 For all unstaged files iFor all unstaged files in current working directory use:
