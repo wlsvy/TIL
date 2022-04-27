@@ -26,7 +26,9 @@ ex) git clone -b javajigi --single-branch https://github.com/javajigi/java-racin
 > git branch -t branch-name origin/branch-name <br/>
 > ex: git branch -t SampleBranch origin/SampleBranch
   
-### 설정 값 확인
+### git Config
+  
+**설정 값 확인**
   
 > git config --list <br/>
 > git config --global --list
@@ -38,6 +40,11 @@ Use:
 > git config --list --show-origin
 
 - [출처 : stackoverflow](https://stackoverflow.com/questions/12254076/how-do-i-show-my-global-git-configuration)
+
+**자동 gc 꺼버리기**
+  
+> git config --global gc.auto 0
+  
   
 ### Git Clear Unstaged Change
 
