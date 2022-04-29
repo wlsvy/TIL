@@ -26,8 +26,8 @@
 - **tasklist** : display applications and related tasks
   - `tasklist /v` : 상세 정보 표시 옵션
   - `tasklist /fi` : 필터 옵션
-    - `tasklist /v /fi "PID gt 1000"` : pid 가 1000 이상인 프로세스 리스트 나열
-    - `tasklist /v /fi "windowtitle eq someWindow"` : 창 이름이 someWindow 인 프로세스 나열
+    - `tasklist /fi "PID gt 1000"` : pid 가 1000 이상인 프로세스 리스트 나열
+    - `tasklist /fi "windowtitle eq someWindow"` : 창 이름이 someWindow 인 프로세스 나열
 - time : display/edit the system time
 - timeout : wait any time
 - title : set title for prompt
@@ -92,3 +92,5 @@
 - perfmon : start performance monitor
 - prompt : change command prompt
 - reg : add/read/import/export registry entries
+
+> [출처- thomas-krenn](https://www.thomas-krenn.com/en/wiki/Cmd_commands_under_Windows)
