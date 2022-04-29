@@ -51,6 +51,7 @@ Today I Learned
 
 ## ETC
 
+- [윈도우 자주쓰는 명령어](https://github.com/wlsvy/TIL/blob/master/Document/ETC/WindowCommands.md)
 - [리눅스 자주쓰는 명령어](https://github.com/wlsvy/TIL/blob/master/Document/ETC/LinuxCommand.md)
 - [VI 에디터 자주쓰는 명령어](https://github.com/wlsvy/TIL/blob/master/Document/ETC/ViEditor.md)
 - [도메인 주도 설계 철저 입문](https://github.com/wlsvy/TIL/blob/master/Document/ETC/%EB%8F%84%EB%A9%94%EC%9D%B8%20%EC%A3%BC%EB%8F%84%20%EC%84%A4%EA%B3%84%20%EC%B2%A0%EC%A0%80%20%EC%9E%85%EB%AC%B8.md)
