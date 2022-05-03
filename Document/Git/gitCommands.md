@@ -19,6 +19,11 @@ ex) git clone -b javajigi --single-branch https://github.com/javajigi/java-racin
 > git fetch origin [remote-branch]:[local-branch]
 
 - [출처 : slipp](https://www.slipp.net/questions/605)
+
+- git clone/fetch 시에 --depth 옵션 : 원격 저장소에서 브랜치 헤드 커밋 지점으로부터 몇 개의 커밋을 불러올 것인지 지정합니다.
+  - 대신 이 경우에 압축된 히스토리를 받아오기 때문에(shallow repository라 합니다), 이 상태에서 커밋을 푸시하거나 추가 pull 을 받을 때 시스템 거부를 당할 수 있습니다.
+  - 이 때는 `git fetch --unshallow` 혹은 `git pull --allow-unrelated-histories` 로 완전한 히스토리를 다시 받아올 수 있다.
+  - [참고: 티스토리](https://bitlog.tistory.com/66), [stackoverflow: git-refusing-to-merge-unrelated-histories-on-rebase](https://stackoverflow.com/questions/37937984/git-refusing-to-merge-unrelated-histories-on-rebase)
   
 ### 트랙킹 브랜치 생성
   
