@@ -7,6 +7,11 @@ git clone -b {branch_name} --single-branch {저장소 URL}
 ex) git clone -b javajigi --single-branch https://github.com/javajigi/java-racingcar
 ```
 
+혹은 depth 옵션 사용. 축약된 히스토리를 먼저 받아온다. clone 중에 네트워크가 끊기거나 하면 clone 과정이 전부 리셋되기 때문에 저장소 사이즈가 클 경우 축약 버전을 먼저 받는 방법이 유효할 수 있다.
+
+> git clone --branch javajigi --depth 1 https://github.com/javajigi/java-racingcar
+
+
 위와 같이 실행하면 java-racingcar의 javajigi branch만 clone할 수 있다.
 
 - [출처 : slipp](https://www.slipp.net/questions/577)
