@@ -27,3 +27,10 @@ $env:<envrionment variable name> = '<environment variable value>'
 > dir env:
 
 - [출처 : tutorialspoint](https://www.tutorialspoint.com/how-to-set-environment-variables-using-powershell?msclkid=7385124bcf8e11ecadb4331475d6bd4a)
+
+**환경 변수 제거**
+
+> Set-Location Env: <br/>
+> rm SOME_ENV_VAR
+
+- [출처: stackoverflow](https://stackoverflow.com/questions/69965728/cannot-remove-powershell-environment-variables)
