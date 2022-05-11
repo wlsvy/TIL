@@ -29,7 +29,29 @@ ex) git clone -b javajigi --single-branch https://github.com/javajigi/java-racin
   - 대신 이 경우에 압축된 히스토리를 받아오기 때문에(shallow repository라 합니다), 이 상태에서 커밋을 푸시하거나 추가 pull 을 받을 때 시스템 거부를 당할 수 있습니다.
   - 이 때는 `git fetch --unshallow` 혹은 `git pull --allow-unrelated-histories` 로 완전한 히스토리를 다시 받아올 수 있다.
   - [참고: 티스토리](https://bitlog.tistory.com/66), [stackoverflow: git-refusing-to-merge-unrelated-histories-on-rebase](https://stackoverflow.com/questions/37937984/git-refusing-to-merge-unrelated-histories-on-rebase)
-  
+
+### git partial clone
+
+The "Partial Clone" feature is a performance optimization for Git that allows Git to function without having a complete copy of the repository. The goal of this work is to allow Git better handle extremely large repositories.
+
+During clone and fetch operations, Git downloads the complete contents and history of the repository. This includes all commits, trees, and blobs for the complete life of the repository. For extremely large repositories, clones can take hours (or days) and consume 100+GiB of disk space.
+
+Often in these repositories there are many blobs and trees that the user does not need such as:
+
+- files outside of the user’s work area in the tree. For example, in a repository with 500K directories and 3.5M files in every commit, we can avoid downloading many objects if the user only needs a narrow "cone" of the source tree.
+- large binary assets. For example, in a repository where large build artifacts are checked into the tree, we can avoid downloading all previous versions of these non-mergeable binary assets and only download versions that are actually referenced.
+- 즉 과거에 덩치 큰 파일이 추가되었다가 삭제된 경우, 이런 과거 파일을 반드시 받아야 할 필요가 있는 것은 아닐 텐데 해당 파일을 제외하고 clone을 수행하겠다는 것
+
+Partial clone allows us to avoid downloading such unneeded objects in advance during clone and fetch operations and thereby reduce download times and disk usage. Missing objects can later be "demand fetched" if/when needed.
+
+--filter=<filter-spec>
+
+- Use the partial clone feature and request that the server sends a subset of reachable objects according to a given object filter. When using `--filter`, the supplied `<filter-spec>` is used for the partial clone filter. For example, --filter=blob:none will filter out all blobs (file contents) until needed by Git. Also, `--filter=blob:limit=<size>` will filter out all blobs of size at least `<size>`.
+
+> git clone --filter=blob:none https://github.com/wlsvy/TIL.git
+
+- 출처 : [git : partial clone](https://git-scm.com/docs/partial-clone), [git clone](https://git-scm.com/docs/git-clone)
+
 ### 트랙킹 브랜치 생성
   
 > git branch --track branch-name origin/branch-name <br/>
