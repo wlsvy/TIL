@@ -111,3 +111,12 @@ In spite of the name, the process will still be owned by you after running `diso
 > ex : fg #1
 
 - [출처 : 스택오버플로우](https://serverfault.com/questions/34750/is-it-possible-to-detach-a-process-from-its-terminal-or-i-should-have-used-s)
+  
+## 환경 변수
+  
+- printenv : 환경변수 리스트 나열
+- `export <name>='<value>` : 환경변수 추가/업데이트
+  - > export EnvVar='environmentVariable'
+- `unset <name>` : 환경 변수 제거 
+  - > unset EnvVar
+  
