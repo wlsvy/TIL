@@ -115,6 +115,7 @@ In spite of the name, the process will still be owned by you after running `diso
 ## 환경 변수
   
 - printenv : 환경변수 리스트 나열
+  - `env | grep -i <keyword>` : keyword를 포함하는 환경변수 필터링해서 나열
 - `export <name>='<value>` : 환경변수 추가/업데이트
   - > export EnvVar='environmentVariable'
 - `unset <name>` : 환경 변수 제거 
