@@ -222,3 +222,44 @@ s 2639543 Task 2/3
 ```
   
 - 출처 : [git ready](https://gitready.com/advanced/2009/03/20/reorder-commits-with-rebase.html)
+  
+### rev-list
+  
+조건에 맞는 커밋 오브젝트를 시간 역순으로 나열합니다.
+  
+> git rev-list HEAD..origin/main <br/>
+> git rev
+  
+### Tilde / Caret Notation
+ 
+Tilde : The [“Specifying Revisions” section of the git rev-parse documentation](https://git-scm.com/docs/git-rev-parse#Documentation/git-rev-parse.txt-emltrevgtltngtemegemmaster3em) defines `~` as
+
+> A suffix `~<n>` to a revision parameter means the commit object that is the nth generation ancestor of the named commit object, following only the first parents. For example, `<rev>~3` is equivalent to `<rev>^^^` which is equivalent to `<rev>^1^1^1` …
+  
+Caret : Git history is nonlinear: a directed acyclic graph (DAG) or tree. For a commit with only one parent, `rev~` and `rev^` mean the same thing. The caret selector becomes useful with merge commits because each one is the child of two or more parents — and strains language borrowed from biology.
+  
+> A suffix `^` to a revision parameter means the first parent of that commit object. `^<n>` means the nth parent ([e.g.] `<rev>^` is equivalent to `<rev>^1`). As a special rule, `<rev>^0` means the commit itself and is used when `<rev>` is the object name of a tag object that refers to a commit object.
+
+ ```
+  G   H   I   J
+ \ /     \ /
+  D   E   F
+   \  |  / \
+    \ | /   |
+     \|/    |
+      B     C
+       \   /
+        \ /
+         A
+
+A =      = A^0
+B = A^   = A^1     = A~1
+C = A^2
+D = A^^  = A^1^1   = A~2
+E = B^2  = A^^2
+F = B^3  = A^^3
+G = A^^^ = A^1^1^1 = A~3
+H = D^2  = B^^2    = A^^^2  = A~2^2
+I = F^   = B^3^    = A^^3^
+J = F^2  = B^3^2   = A^^3^2
+```
