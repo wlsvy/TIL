@@ -228,7 +228,7 @@ s 2639543 Task 2/3
 조건에 맞는 커밋 오브젝트를 시간 역순으로 나열합니다.
   
 > git rev-list HEAD..origin/main <br/>
-> git rev
+> git rev-list --count HEAD..origin/main <br/>
   
 ### Tilde / Caret Notation
  
