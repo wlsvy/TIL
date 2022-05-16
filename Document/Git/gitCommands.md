@@ -286,3 +286,18 @@ $ git tag foo           (3)
 3. creates a new tag foo, which refers to commit f, leaving HEAD detached.
 
 - 출처 [git : detached Head](https://git-scm.com/docs/git-checkout#_detached_head)
+
+### Ref Log
+
+Reference logs란 로컬 저장소에서 브랜치의 끝점 혹은 레퍼런스가 갱신될 때마다 히스토리를 기록합니다. 로컬 저장소에서 과거 정보를 확인할 때 유용합니다.
+
+```bash
+git reflog 
+git reflog expire 
+git reflog delete 
+git reflog exists <ref>
+```
+
+- 작업하다가 실수로 이전 커밋을 잃거나, 의도치 않게 변형된 경우에 reflog 를 활용할 수 있습니다. 단순히 reflog 의 커밋 번호로 reset 하면 이전 내역으로 복구 할 수 있습니다.
+
+- 출처 [git : Reflog](https://git-scm.com/docs/git-reflog)
