@@ -91,7 +91,7 @@ For a specific file use:
 - [stackOverflow](https://stackoverflow.com/questions/52704/how-do-i-discard-unstaged-changes-in-git)
 
 
-### List All Branches
+### List All Branches, Delete Branch
 
 To see local branches, run this command:
 
@@ -104,6 +104,10 @@ To see remote branches, run this command:
 To see all local and remote branches, run this command:
 
 - git branch -a
+
+Delete Branch
+
+- git branch -d <branch-name>
 
 출처 : [Git Branches: List, Create, Switch to, Merge, Push, & Delete](https://www.nobledesktop.com/learn/git/git-branches)
 
