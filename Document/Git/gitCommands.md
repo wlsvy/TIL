@@ -267,3 +267,22 @@ H = D^2  = B^^2    = A^^^2  = A~2^2
 I = F^   = B^3^    = A^^3^
 J = F^2  = B^3^2   = A^^3^2
 ```
+
+### Detached HEAD
+
+It is sometimes useful to be able to checkout a commit that is not at the tip of any named branch, or even to create a new commit that is not referenced by a named branch.
+
+브랜치의 끝점이 아닌 과거의 특정 커밋으로 체크아웃해야할 때가 있습니다. 이때에는 어떤 브랜치와도 연관되지 않은 `Detached Head` 상태에 진입해서 목표하는 커밋으로 체크아웃 할 수 있게 됩니다.
+- `Detached Head` 상태에서는 기본 깃 동작들을 수행할 수 있습니다만, 참조하는 브랜치가 없는 상태이므로 주의할 점이 있습니다. 이 상태에서 다시 다른 브랜치로 checkout 한다면 'Detached Head` 상태에서 작업한 내역들을 잃어버리게 됩니다. (깃의 GC가 수거해갑니다.)
+- 아래처럼 새로운 브랜치를 만들어 기존작업 내역에 대해 'Detached Head'에 참조상태를 새로 갱신할 수 있습니다.
+
+```bash
+$ git checkout -b foo   (1)
+$ git branch foo        (2)
+$ git tag foo           (3)
+```
+1. creates a new branch foo, which refers to commit f, and then updates HEAD to refer to branch foo. In other words, we’ll no longer be in detached HEAD state after this command.
+2. similarly creates a new branch foo, which refers to commit f, but leaves HEAD detached.
+3. creates a new tag foo, which refers to commit f, leaving HEAD detached.
+
+- 출처 [git : detached Head](https://git-scm.com/docs/git-checkout#_detached_head)
