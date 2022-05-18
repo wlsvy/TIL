@@ -161,8 +161,9 @@ shortlog
   - `-n / --numbered` : Sort output according to the number of commits per author instead of author alphabetic order.
   - `-s / --summary` : Suppress commit description and provide a commit count summary only.
   - `-e / --email` : show email
-  - `--group=<type>` : Group commits based on `<type>`. If no --group option is specified, the default is author. `<type>` is one of: `author`, `commiter`, `trailer`
-  - `-c / --commiter` : This is an alias for --group=committer.
+  - `--group=<type>` : Group commits based on `<type>`. If no --group option is specified, the default is author. `<type>` is one of: `author`, `committer`, `trailer`
+  - `-c / --committer` : This is an alias for --group=committer.
+  - `--author=<pattern>`
 
 grep
 
