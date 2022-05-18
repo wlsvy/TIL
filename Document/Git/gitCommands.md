@@ -166,7 +166,7 @@ shortlog
 
 grep
 
-- Look for specified patterns in the tracked files in the work tree, blobs registered in the index file, or blobs in given tree objects. 
+- `git-grep` : Print lines matching a pattern. Look for specified patterns in the tracked files in the work tree, blobs registered in the index file, or blobs in given tree objects. 
 - `ex) git grep 'time_t' -- '*.[ch]'` : Looks for time_t in all tracked .c and .h files in the working directory and its subdirectories.
 - `ex) $ git grep -i 'boo*' $(git rev-list --all)` : 
 - `ex) git grep -f 'booktype.php.'` : The following output shows that the booktype.php file exists in the current repository, and the file contains a single line.
