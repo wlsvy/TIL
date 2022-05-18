@@ -122,7 +122,7 @@ gives the correct output ... `git chs demo -> git checkout demo && git status`
 
 - 출처 : [stackoverflow](https://stackoverflow.com/questions/7534184/git-alias-multiple-commands-and-parameters)
 
-### log / diff
+### log / diff / Grep
 
 log
 
@@ -164,9 +164,25 @@ shortlog
   - `--group=<type>` : Group commits based on `<type>`. If no --group option is specified, the default is author. `<type>` is one of: `author`, `commiter`, `trailer`
   - `-c / --commiter` : This is an alias for --group=committer.
 
+grep
+
+- Look for specified patterns in the tracked files in the work tree, blobs registered in the index file, or blobs in given tree objects. 
+- `ex) git grep 'time_t' -- '*.[ch]'` : Looks for time_t in all tracked .c and .h files in the working directory and its subdirectories.
+- `ex) $ git grep -i 'boo*' $(git rev-list --all)` : 
+- `ex) git grep -f 'booktype.php.'` : The following output shows that the booktype.php file exists in the current repository, and the file contains a single line.
+- `ex) git grep -e 'Book'` : The following output shows that both booklist.php and booktype.php files contain the word ‘Book’ at line number 1.
+- 옵션 몇 가지
+  - `-f <file>` : Read patterns from `<file>`, one per line.
+  - `-e` : The next parameter is the pattern. 
+  - `-i / --ignore-case` : Ignore case differences between the patterns and the files.
+  - `-F / --fixed-strings` : Use fixed strings for patterns (don’t interpret pattern as a regex).
+  - `-l / --files-with-matches / --name-only` : Instead of showing every matched line, show only the names of files that contain (or do not contain) matches.
+  - `-L / --files-without-match`
+
 - [git-log](https://git-scm.com/docs/git-log)
 - [git-diff](https://git-scm.com/docs/git-diff)
 - [git-shortlog](https://git-scm.com/docs/git-shortlog)
+- [git-Grep](https://git-scm.com/docs/git-grep)
   
 ### Find deleted file in history
 
