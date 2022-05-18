@@ -133,6 +133,32 @@ gives the correct output ... `git chs demo -> git checkout demo && git status`
 
 - 출처 : [stackoverflow](https://stackoverflow.com/questions/7534184/git-alias-multiple-commands-and-parameters)
 
+### log / diff
+
+기본 커맨드 포맷 : `git log [<options>] [<revision-range>] [[--] <path>…​]`
+
+특정 커밋 범위 내 로그 표시 :  `git log <revision-range>`
+  
+> ex) git log --oneline aad924a34e3~2...aad924a34e3
+
+옵션 몇가지
+- `--merges` : Print only merge commits. This is exactly the same as --min-parents=2.
+- `--no-merges` : Do not print commits with more than one parent. This is exactly the same as --max-parents=1.
+- `--first-parent` : When finding commits to include, follow only the first parent commit upon seeing a merge commit.
+  
+특정 커밋 범위 내 diff 표시 : `git diff <revision-range>`
+- 기본적으로 `git diff <commit>` 은 현재 커밋 위치 부터 `<commit>` 까지 diff를 표시한다.
+  
+> ex) git diff --name-status aad924a34e3~2...aad924a34e3
+
+diff 관련 옵션
+
+- '--name-status' : Show only names and status of changed files. See the description of the --diff-filter option on what the status letters mean
+  
+- [git-log](https://git-scm.com/docs/git-log)
+- [git-diff](https://git-scm.com/docs/git-diff)
+- [git-shortlog](https://git-scm.com/docs/git-shortlog)
+  
 ### Find deleted file in history
 
 If you do not know the exact path you may use
