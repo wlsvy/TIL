@@ -124,25 +124,35 @@ gives the correct output ... `git chs demo -> git checkout demo && git status`
 
 ### log / diff
 
-기본 커맨드 포맷 : `git log [<options>] [<revision-range>] [[--] <path>…​]`
+log
 
-특정 커밋 범위 내 로그 표시 :  `git log <revision-range>`
+- 기본 커맨드 포맷 : `git log [<options>] [<revision-range>] [[--] <path>…​]`
+- By CommitRange :  `git log <revision-range>`
+  - > ex) git log --oneline aad924a34e3~2...aad924a34e3
+- By Message : `ex) git log --grep="JRA-224:"`
+- By File : `ex) git log -- foo.py bar.py`
+- By Content : `ex) git log -S"Hello, World!"`
+- 옵션 몇가지
+  - `--oneline`
+  - `--graph`
+  - `--stat` : Generate a diffstat.
+    - These parameters can also be set individually with `--stat-width=<width>, --stat-name-width=<name-width> and --stat-count=<count>.`
+  - `--shortstat`
+  - `--merges` : Print only merge commits. This is exactly the same as --min-parents=2.
+  - `--no-merges` : Do not print commits with more than one parent. This is exactly the same  as --max-parents=1.
+  - `--first-parent` : When finding commits to include, follow only the first parent commit upon seeing a merge commit.
+  - `--author=<pattern>`
+  - `--committer=<pattern>`
+  - `--grep=<pattern> / --invert-grep`
+  - `--full-diff`
   
-> ex) git log --oneline aad924a34e3~2...aad924a34e3
+diff
 
-옵션 몇가지
-- `--merges` : Print only merge commits. This is exactly the same as --min-parents=2.
-- `--no-merges` : Do not print commits with more than one parent. This is exactly the same as --max-parents=1.
-- `--first-parent` : When finding commits to include, follow only the first parent commit upon seeing a merge commit.
-  
-특정 커밋 범위 내 diff 표시 : `git diff <revision-range>`
-- 기본적으로 `git diff <commit>` 은 현재 커밋 위치 부터 `<commit>` 까지 diff를 표시한다.
-  
-> ex) git diff --name-status aad924a34e3~2...aad924a34e3
-
-diff 관련 옵션
-
-- `--name-status` : Show only names and status of changed files. See the description of the --diff-filter option on what the status letters mean
+- 특정 커밋 범위 내 diff 표시 : `git diff <revision-range>`
+  - 기본적으로 `git diff <commit>` 은 현재 커밋 위치 부터 `<commit>` 까지 diff를 표시한다.
+  - > ex) git diff --name-status aad924a34e3~2...aad924a34e3
+- 옵션 몇 가지
+  - `--name-status` : Show only names and status of changed files. See the description of the --diff-filter option on what the status letters mean
   
 shortlog
 
@@ -151,7 +161,8 @@ shortlog
   - `-n / --numbered` : Sort output according to the number of commits per author instead of author alphabetic order.
   - `-s / --summary` : Suppress commit description and provide a commit count summary only.
   - `-e / --email` : show email
-  - 
+  - `--group=<type>` : Group commits based on `<type>`. If no --group option is specified, the default is author. `<type>` is one of: `author`, `commiter`, `trailer`
+  - `-c / --commiter` : This is an alias for --group=committer.
 
 - [git-log](https://git-scm.com/docs/git-log)
 - [git-diff](https://git-scm.com/docs/git-diff)
