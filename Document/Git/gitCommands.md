@@ -196,20 +196,6 @@ ls-files
 - [git-Grep](https://git-scm.com/docs/git-grep)
 - [git-ls-files](https://git-scm.com/docs/git-ls-files)
   
-### Find deleted file in history
-
-If you do not know the exact path you may use
-
-> git log --all --full-history -- "**/thefile.*"
-
-If you know the path the file was at, you can do this:
-
-> git log --all --full-history -- <path-to-file>
-  
-ex : `git log --all --full-history -- "Sources/Something.cs"`
-
-- 출처 : [stackoverflow](https://stackoverflow.com/questions/7203515/how-to-find-a-deleted-file-in-the-project-commit-history)
-  
 Show Head Commit Id/history
   
 > git show-ref --heads <br/>
