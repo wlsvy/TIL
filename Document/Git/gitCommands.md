@@ -134,6 +134,7 @@ log
 - By Content : `ex) git log -S"Hello, World!"`
 - `ex) git log --oneline --graph --perl-regexp --author='(kim|oh)'`
 - `ex) git log --since=2022.1.1 --until=2022.11.11 -- path_containing_change`
+- `ex) git log --stat --oneline --follow Some.cs`
 - 옵션 몇가지
   - `--oneline`
   - `--graph`
@@ -147,6 +148,7 @@ log
   - `--committer=<pattern>`
   - `--grep=<pattern> / --invert-grep`
   - `--full-diff`
+  - `--follow` : Continue listing the history of a file beyond renames (works only for a single file).
   
 diff
 
