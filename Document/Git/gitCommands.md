@@ -122,7 +122,7 @@ gives the correct output ... `git chs demo -> git checkout demo && git status`
 
 - 출처 : [stackoverflow](https://stackoverflow.com/questions/7534184/git-alias-multiple-commands-and-parameters)
 
-### log / diff / Grep
+### log / diff / Grep / ls-files
 
 log
 
@@ -179,10 +179,16 @@ grep
   - `-l / --files-with-matches / --name-only` : Instead of showing every matched line, show only the names of files that contain (or do not contain) matches.
   - `-L / --files-without-match`
 
+ls-files
+
+- git-ls-files - Show information about files in the index and the working tree
+- `ex) git ls-files "*item*"`
+
 - [git-log](https://git-scm.com/docs/git-log)
 - [git-diff](https://git-scm.com/docs/git-diff)
 - [git-shortlog](https://git-scm.com/docs/git-shortlog)
 - [git-Grep](https://git-scm.com/docs/git-grep)
+- [git-ls-files](https://git-scm.com/docs/git-ls-files)
   
 ### Find deleted file in history
 
