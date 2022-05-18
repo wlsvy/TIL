@@ -132,6 +132,7 @@ log
 - By Message : `ex) git log --grep="JRA-224:"`
 - By File : `ex) git log -- foo.py bar.py`
 - By Content : `ex) git log -S"Hello, World!"`
+- `ex) git log --oneline --graph --perl-regexp --author='(kim|oh)'`
 - 옵션 몇가지
   - `--oneline`
   - `--graph`
