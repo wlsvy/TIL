@@ -49,7 +49,7 @@ Today I Learned
 - [Redis](https://github.com/wlsvy/TIL/blob/master/Document/ETC/Redis.md) / [RedisCli](https://github.com/wlsvy/TIL/blob/master/Document/ETC/RedisCli.md)
 - [데이터 중심 애플리케이션 설계](https://github.com/wlsvy/TIL/blob/master/Document/ETC/Designing%20Data-Intensive%20Applications.md)
 - [Snowflake : twitter unique id worker](https://github.com/wlsvy/TIL/blob/master/Document/ComputerScience/SnowflakeUniqueIdGenerator.md)
-- [Snowflake : twitter unique id worker](https://github.com/wlsvy/TIL/blob/master/Document/ComputerScience/ServerGracefulShutdown.md)
+- [Graceful Shutdown](https://github.com/wlsvy/TIL/blob/master/Document/ComputerScience/ServerGracefulShutdown.md)
 
 ## ETC
 
