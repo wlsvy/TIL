@@ -183,29 +183,13 @@ Show Head Commit Id/history
 
 ### Stash
   
-list stash entry
-
-> git stash list
-  
-show stash entry diff
-  
-> git stash show 0
-  
-push stash
-  
-> git stash push -m "Some Stash" Sources/FileDir/File1.cs Sources/FileDir/File2.cs
-  
-apply stash(적용만)
-  
-> git apply stash 0
-  
-pop stash (적용과 동시에 스태시 엔트리 제거)
- 
-> git pop stash 0
-  
-stash drop(스태시 엔트리 제거)
-
-stash branch (스태시 엔트리 변경사항을 브랜치로)
+- list stash entry : 'git stash list'
+- show stash entry diff: 'git stash show <number>', 'ex) git stash show 0'
+- push stash: 'ex) git stash push -m "Some Stash" Sources/FileDir/File1.cs Sources/FileDir/File2.cs'
+- apply stash 'ex) git apply stash 0'
+- pop stash (적용과 동시에 스태시 엔트리 제거) : 'ex) git pop stash 0'
+- stash drop(스태시 엔트리 제거)
+- stash branch (스태시 엔트리 변경사항을 브랜치로)
   
 - 출처 : [git](https://git-scm.com/docs/git-stash)
 
