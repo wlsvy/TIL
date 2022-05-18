@@ -133,6 +133,7 @@ log
 - By File : `ex) git log -- foo.py bar.py`
 - By Content : `ex) git log -S"Hello, World!"`
 - `ex) git log --oneline --graph --perl-regexp --author='(kim|oh)'`
+- `ex) git log --since=2022.1.1 --until=2022.11.11 -- path_containing_change`
 - 옵션 몇가지
   - `--oneline`
   - `--graph`
