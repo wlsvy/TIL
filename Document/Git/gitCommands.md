@@ -65,7 +65,7 @@ Partial clone allows us to avoid downloading such unneeded objects in advance du
 > git config --list <br/>
 > git config --global --list
 
-or look at your ~/.gitconfig file. The local configuration will be in your repository's .git/config file.
+or look at your ~/.gitconfig file. The local configuration will be in your repository`s .git/config file.
 
 Use:
   
@@ -93,10 +93,10 @@ For a specific file use:
 
 ### List All Branches, Delete Branch
 
-- To see local branches, run this command: 'git branch'
-- To see remote branches, run this command: 'git branch -r'
-- To see all local and remote branches, run this command: 'git branch -a'
-- Delete Branch: 'git branch -d <branch-name>'
+- To see local branches, run this command: `git branch`
+- To see remote branches, run this command: `git branch -r`
+- To see all local and remote branches, run this command: `git branch -a`
+- Delete Branch: `git branch -d <branch-name>`
 
 출처 : [Git Branches: List, Create, Switch to, Merge, Push, & Delete](https://www.nobledesktop.com/learn/git/git-branches)
 
@@ -142,15 +142,15 @@ gives the correct output ... `git chs demo -> git checkout demo && git status`
 
 diff 관련 옵션
 
-- '--name-status' : Show only names and status of changed files. See the description of the --diff-filter option on what the status letters mean
+- `--name-status` : Show only names and status of changed files. See the description of the --diff-filter option on what the status letters mean
   
 shortlog
 
-- 기본 커맨드 포맷 : 'git shortlog [<options>] [<revision-range>] [[--] <path>…​]'
+- 기본 커맨드 포맷 : `git shortlog [<options>] [<revision-range>] [[--] <path>…​]`
 - 옵션 몇가지
-  - '-n / --numbered' : Sort output according to the number of commits per author instead of author alphabetic order.
-  - '-s / --summary' : Suppress commit description and provide a commit count summary only.
-  - '-e / --email' : show email
+  - `-n / --numbered` : Sort output according to the number of commits per author instead of author alphabetic order.
+  - `-s / --summary` : Suppress commit description and provide a commit count summary only.
+  - `-e / --email` : show email
   - 
 
 - [git-log](https://git-scm.com/docs/git-log)
@@ -183,11 +183,11 @@ Show Head Commit Id/history
 
 ### Stash
   
-- list stash entry : 'git stash list'
-- show stash entry diff: 'git stash show <number>', 'ex) git stash show 0'
-- push stash: 'ex) git stash push -m "Some Stash" Sources/FileDir/File1.cs Sources/FileDir/File2.cs'
-- apply stash 'ex) git apply stash 0'
-- pop stash (적용과 동시에 스태시 엔트리 제거) : 'ex) git pop stash 0'
+- list stash entry : `git stash list`
+- show stash entry diff: `git stash show <number>`, `ex) git stash show 0`
+- push stash: `ex) git stash push -m "Some Stash" Sources/FileDir/File1.cs Sources/FileDir/File2.cs`
+- apply stash `ex) git apply stash 0`
+- pop stash (적용과 동시에 스태시 엔트리 제거) : `ex) git pop stash 0`
 - stash drop(스태시 엔트리 제거)
 - stash branch (스태시 엔트리 변경사항을 브랜치로)
   
@@ -213,7 +213,7 @@ pick d442427 Task 3/3
 #  r, reword = use commit, but edit the commit message
 #  e, edit = use commit, but stop for amending
 #  s, squash = use commit, but meld into previous commit
-#  f, fixup = like "squash", but discard this commit's log message
+#  f, fixup = like "squash", but discard this commit`s log message
 #  x, exec = run command (the rest of the line) using shell
 #
 # These lines can be re-ordered; they are executed from top to bottom.
@@ -281,8 +281,8 @@ J = F^2  = B^3^2   = A^^3^2
 It is sometimes useful to be able to checkout a commit that is not at the tip of any named branch, or even to create a new commit that is not referenced by a named branch.
 
 브랜치의 끝점이 아닌 과거의 특정 커밋으로 체크아웃해야할 때가 있습니다. 이때에는 어떤 브랜치와도 연관되지 않은 `Detached Head` 상태에 진입해서 목표하는 커밋으로 체크아웃 할 수 있게 됩니다.
-- `Detached Head` 상태에서는 기본 깃 동작들을 수행할 수 있습니다만, 참조하는 브랜치가 없는 상태이므로 주의할 점이 있습니다. 이 상태에서 다시 다른 브랜치로 checkout 한다면 'Detached Head` 상태에서 작업한 내역들을 잃어버리게 됩니다. (깃의 GC가 수거해갑니다.)
-- 아래처럼 새로운 브랜치를 만들어 기존작업 내역에 대해 'Detached Head'에 참조상태를 새로 갱신할 수 있습니다.
+- `Detached Head` 상태에서는 기본 깃 동작들을 수행할 수 있습니다만, 참조하는 브랜치가 없는 상태이므로 주의할 점이 있습니다. 이 상태에서 다시 다른 브랜치로 checkout 한다면 `Detached Head` 상태에서 작업한 내역들을 잃어버리게 됩니다. (깃의 GC가 수거해갑니다.)
+- 아래처럼 새로운 브랜치를 만들어 기존작업 내역에 대해 `Detached Head`에 참조상태를 새로 갱신할 수 있습니다.
 
 ```bash
 $ git checkout -b foo   (1)
