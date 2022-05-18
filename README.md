@@ -38,7 +38,6 @@ Today I Learned
 - [컴퓨터 아키텍쳐](https://github.com/wlsvy/TIL/blob/master/Document/ComputerScience/ComputerArchitecture.md)
 - [OS](https://github.com/wlsvy/TIL/blob/master/Document/ComputerScience/OperatingSystem.md)
 - [Coroutine](https://github.com/wlsvy/TIL/blob/master/Document/ComputerScience/Coroutine.md)
-- [Snowflake : twitter unique id worker](https://github.com/wlsvy/TIL/blob/master/Document/ComputerScience/SnowflakeUniqueIdGenerator.md)
 
 ## Graphics
 - [2020 DirectX 개인 프로젝트 정리](https://github.com/wlsvy/TIL/blob/master/Document/Graphics/2020_DirectX_Project.md)
@@ -49,6 +48,7 @@ Today I Learned
 ## Network And Database
 - [Redis](https://github.com/wlsvy/TIL/blob/master/Document/ETC/Redis.md) / [RedisCli](https://github.com/wlsvy/TIL/blob/master/Document/ETC/RedisCli.md)
 - [데이터 중심 애플리케이션 설계](https://github.com/wlsvy/TIL/blob/master/Document/ETC/Designing%20Data-Intensive%20Applications.md)
+- [Snowflake : twitter unique id worker](https://github.com/wlsvy/TIL/blob/master/Document/ComputerScience/SnowflakeUniqueIdGenerator.md)
 
 ## ETC
 
