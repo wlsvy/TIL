@@ -135,6 +135,7 @@ log
 - `ex) git log --oneline --graph --perl-regexp --author='(kim|oh)'`
 - `ex) git log --since=2022.1.1 --until=2022.11.11 -- path_containing_change`
 - `ex) git log --stat --oneline --follow Some.cs`
+- 과거에 삭제된 파일도 찾을 수 있다. `ex) git log --stat --all --oneline -- */Some*Script.cs`
 - 옵션 몇가지
   - `--oneline`
   - `--graph`
