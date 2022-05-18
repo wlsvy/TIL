@@ -93,21 +93,10 @@ For a specific file use:
 
 ### List All Branches, Delete Branch
 
-To see local branches, run this command:
-
-- git branch
-
-To see remote branches, run this command:
-
-- git branch -r
-
-To see all local and remote branches, run this command:
-
-- git branch -a
-
-Delete Branch
-
-- git branch -d <branch-name>
+- To see local branches, run this command: 'git branch'
+- To see remote branches, run this command: 'git branch -r'
+- To see all local and remote branches, run this command: 'git branch -a'
+- Delete Branch: 'git branch -d <branch-name>'
 
 출처 : [Git Branches: List, Create, Switch to, Merge, Push, & Delete](https://www.nobledesktop.com/learn/git/git-branches)
 
@@ -155,6 +144,15 @@ diff 관련 옵션
 
 - '--name-status' : Show only names and status of changed files. See the description of the --diff-filter option on what the status letters mean
   
+shortlog
+
+- 기본 커맨드 포맷 : 'git shortlog [<options>] [<revision-range>] [[--] <path>…​]'
+- 옵션 몇가지
+  - '-n / --numbered' : Sort output according to the number of commits per author instead of author alphabetic order.
+  - '-s / --summary' : Suppress commit description and provide a commit count summary only.
+  - '-e / --email' : show email
+  - 
+
 - [git-log](https://git-scm.com/docs/git-log)
 - [git-diff](https://git-scm.com/docs/git-diff)
 - [git-shortlog](https://git-scm.com/docs/git-shortlog)
