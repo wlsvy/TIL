@@ -57,7 +57,13 @@ Partial clone allows us to avoid downloading such unneeded objects in advance du
 > git branch --track branch-name origin/branch-name <br/>
 > git branch -t branch-name origin/branch-name <br/>
 > ex: git branch -t SampleBranch origin/SampleBranch
-  
+
+기존 브랜치에 트랙킹 설정
+
+- `git branch --set-upstream foo upstream/foo`
+- `git branch -u upstream/foo foo`
+- `git branch -u upstream/foo`
+
 ### git Config
   
 **설정 값 확인**
@@ -96,7 +102,9 @@ For a specific file use:
 - To see local branches, run this command: `git branch`
 - To see remote branches, run this command: `git branch -r`
 - To see all local and remote branches, run this command: `git branch -a`
-- Delete Branch: `git branch -d <branch-name>`
+- Delete Branch: `git branch -d <branch-name>` (-D 옵션을 쓸 수도 있는데, 이 경우 --delete --force)
+- Delete Remote Branche : `git push <remote_name> --delete <branch_name>`
+  - Or : `git push <remote_name> :<branch_name>`
 
 출처 : [Git Branches: List, Create, Switch to, Merge, Push, & Delete](https://www.nobledesktop.com/learn/git/git-branches)
 
