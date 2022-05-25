@@ -342,3 +342,9 @@ git reflog exists <ref>
 - 작업하다가 실수로 이전 커밋을 잃거나, 의도치 않게 변형된 경우에 reflog 를 활용할 수 있습니다. 단순히 reflog 의 커밋 번호로 reset 하면 이전 내역으로 복구 할 수 있습니다.
 
 - 출처 [git : Reflog](https://git-scm.com/docs/git-reflog)
+
+### FSCK
+
+git-fsck - Verifies the connectivity and validity of the objects in the database
+
+- 출처 [git : fsck](https://git-scm.com/docs/git-fsck)
