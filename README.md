@@ -60,7 +60,7 @@ Today I Learned
 - [도메인 주도 설계 철저 입문](https://github.com/wlsvy/TIL/blob/master/Document/ETC/%EB%8F%84%EB%A9%94%EC%9D%B8%20%EC%A3%BC%EB%8F%84%20%EC%84%A4%EA%B3%84%20%EC%B2%A0%EC%A0%80%20%EC%9E%85%EB%AC%B8.md)
 - [GoF의 디자인 패턴](https://github.com/wlsvy/TIL/blob/master/Document/ETC/GoF%EC%9D%98%20%EB%94%94%EC%9E%90%EC%9D%B8%ED%8C%A8%ED%84%B4.md)
 - [Refactoring](https://github.com/wlsvy/TIL/blob/master/Document/ETC/Refactoring.md)
-- [웹 개발자를 위한 대규모 서비스를 지탱하는 기술](https://github.com/wlsvy/TIL/blob/master/Document/ETC/웹 개발자를 위한 대규모 서비스를 지탱하는 기술.md)
+- [웹 개발자를 위한 대규모 서비스를 지탱하는 기술](https://github.com/wlsvy/TIL/blob/master/Document/ETC/%EC%9B%B9%20%EA%B0%9C%EB%B0%9C%EC%9E%90%EB%A5%BC%20%EC%9C%84%ED%95%9C%20%EB%8C%80%EA%B7%9C%EB%AA%A8%20%EC%84%9C%EB%B9%84%EC%8A%A4%EB%A5%BC%20%EC%A7%80%ED%83%B1%ED%95%98%EB%8A%94%20%EA%B8%B0%EC%88%A0.md)
 - [각종 참조 웹 페이지 모음](https://gist.github.com/wlsvy/8e4762beb84729aecb6262a0fbf69b24)
 - [기술면접 참고 자료](https://github.com/wlsvy/TIL/blob/master/Document/InterviewPreparation/tech-interview-Reference.md)
 
