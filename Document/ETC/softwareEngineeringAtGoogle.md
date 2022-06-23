@@ -22,3 +22,34 @@
 ![](SoftwareEngineeringAtGoogle_Image/2022-06-22-18-54-12.png)
 
 ![](SoftwareEngineeringAtGoogle_Image/2022-06-22-19-00-05.png)
+
+**원점 회귀(왼쪽으로 옮기기)**
+
+![](SoftwareEngineeringAtGoogle_Image/2022-06-23-19-35-31.png)
+
+왼쪽으로 옮기는 행위를 원점 회귀shift left 라 하는데, 보안성 점검을 개발 프로세스의 마지막으로 연기하면 안 된다고 호소하며 '보안을 고려하는 시점을 왼쪽으로 이동시켜라shift left on security'라고 한 말에서 유래한 듯 합니다. 제품을 고객에게 배포한 후에야 취약점이 발견되면 해결하는 데 막대한 비용이 들 것입니다. 다행히 프로덕션 배포 직전에 발견하면 문제를 식별하고 조치하는 데 여전히 큰 비용이 들겠지만 더 저렴할 게 분명합니다.
+
+**트레이드 오프와 비용**
+
+비용cost은 금액만을 지칭하는 게 아닙니다. 투입된 노력과 다음의 요소들까지 모두 포괄합니다.
+
+![](SoftwareEngineeringAtGoogle_Image/2022-06-23-19-40-21.png)
+
+![](SoftwareEngineeringAtGoogle_Image/2022-06-23-19-43-40.png)
+
+![](SoftwareEngineeringAtGoogle_Image/2022-06-23-19-43-53.png)
+
+결국 엔지니어링 조직의 선택을 결정짓는 요인은 다음의 몇 가지로 압축됩니다.
+
+- 반드시 해야 하는 일(법적 요구사항, 고객 요구사항)
+- 근거에 기반하여 당시 내릴 수 있는 최선의 선택(적절한 결정권자가 확정)
+
+의사결정이 '내가 시켰으니까'가 되어서는 안 됩니다.
+
+<br/>
+
+로컬 빌드 사례
+
+![](SoftwareEngineeringAtGoogle_Image/2022-06-23-19-54-43.png)
+
+![](SoftwareEngineeringAtGoogle_Image/2022-06-23-19-55-48.png)
