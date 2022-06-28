@@ -109,3 +109,9 @@
 - 구글에서는 '누글러Noogler : 구글에 새로 입사한 직원'가 합류하자마자 분위기를 만들어주려 노력합니다. 멘토 정해주기는 누글러에게 심리적 안전을 심어주는 효과적인 방법입니다. 멘토의 공식 역할은 궁금한 점에 답해주고 누글러의 성장을 돕는 것입니다.
 - ![](SoftwareEngineeringAtGoogle_Image/2022-06-27-18-28-39.png)
 - ![](SoftwareEngineeringAtGoogle_Image/2022-06-27-18-29-29.png)
+
+### 공정 사회를 위한 엔지니어링
+
+**단일한 접근 방식 거부하기**
+
+![](SoftwareEngineeringAtGoogle_Image/2022-06-28-18-17-09.png)
