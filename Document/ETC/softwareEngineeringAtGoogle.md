@@ -155,3 +155,5 @@
 ## 성장하는 조직 이끌기
 
 ![](SoftwareEngineeringAtGoogle_Image/2022-06-30-12-58-51.png)
+
+### 엔지니어링 생산성 측정하기
