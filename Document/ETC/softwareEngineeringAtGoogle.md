@@ -151,3 +151,7 @@
 ![](SoftwareEngineeringAtGoogle_Image/2022-06-30-12-50-44.png)
 
 ![](SoftwareEngineeringAtGoogle_Image/2022-06-30-12-51-56.png)
+
+## 성장하는 조직 이끌기
+
+![](SoftwareEngineeringAtGoogle_Image/2022-06-30-12-58-51.png)
