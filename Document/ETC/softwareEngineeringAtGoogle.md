@@ -137,3 +137,17 @@
 - 명확한 목표 세우기
 - 정직하기
 - 행복한지 확인하기
+
+### 그 외 조언과 요령
+
+![](SoftwareEngineeringAtGoogle_Image/2022-06-30-12-48-32.png)
+
+![](SoftwareEngineeringAtGoogle_Image/2022-06-30-12-47-12.png)
+
+### 사람은 식물과 같다
+
+![](SoftwareEngineeringAtGoogle_Image/2022-06-30-12-50-32.png)
+
+![](SoftwareEngineeringAtGoogle_Image/2022-06-30-12-50-44.png)
+
+![](SoftwareEngineeringAtGoogle_Image/2022-06-30-12-51-56.png)
