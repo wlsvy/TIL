@@ -348,3 +348,9 @@ git reflog exists <ref>
 git-fsck - Verifies the connectivity and validity of the objects in the database
 
 - 출처 [git : fsck](https://git-scm.com/docs/git-fsck)
+
+### Blame
+
+git-blame - Show what revision and author last modified each line of a file
+
+- 출처 [git : blame](https://git-scm.com/docs/git-blame)
