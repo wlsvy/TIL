@@ -188,5 +188,40 @@
 
 ![](SoftwareEngineeringAtGoogle_Image/2022-07-05-20-10-51.png)
 
-# Part 3 : 프로세스
+# Part 3 프로세스
 
+## 스타일 가이드와 규칙
+
+**규칙이 필요한 이유**
+
+규칙을 관리하는 목표는 '좋은' 행동을 장려하고 '나쁜' 행동을 억제하기 위함입니다. '좋은'과 '나쁜'의 해석은 조직마다 차이가 있습니다. 관심사가 다르기 때문이죠.
+
+확립된 규칙과 지침은 커지더라도 일관되게 통용되는 공통의 코딩 어휘가 되어줍니다. 어휘가 통일되면 엔지니어들은 코드를 표현하는 '형식'보다 코드에 담을 '내용'에 집중할 수 있습니다. 공통 어휘를 형성하면 엔지니어들은 무의식적으로 '좋은' 코드를 작성하는 경향이 생깁니다. 이처럼 규칙은 일상의 개발 패턴을 조직이 원하는 방향으로 슬쩍 밀어주는 역할로 푝넓게 활용됩니다.
+
+**규칙 만들기**
+
+![](SoftwareEngineeringAtGoogle_Image/2022-07-05-20-17-51.png)
+
+![](SoftwareEngineeringAtGoogle_Image/2022-07-05-20-18-34.png)
+
+![](SoftwareEngineeringAtGoogle_Image/2022-07-05-20-18-50.png)
+
+규칙의 양을 최소화한다
+
+![](SoftwareEngineeringAtGoogle_Image/2022-07-05-20-22-09.png)
+
+읽는 사람에게 맞춘다
+
+![](SoftwareEngineeringAtGoogle_Image/2022-07-05-20-26-20.png)
+
+일관되어야 한다
+
+일관성이 안겨주는 이점
+
+![](SoftwareEngineeringAtGoogle_Image/2022-07-05-20-32-11.png)
+
+![](SoftwareEngineeringAtGoogle_Image/2022-07-05-20-32-25.png)
+
+실용적 측면을 인정하자
+
+![](SoftwareEngineeringAtGoogle_Image2022-07-05-20-38-40.png)
