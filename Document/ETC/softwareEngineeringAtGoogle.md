@@ -183,3 +183,10 @@
 - 측정할 수 있는 지표들이 문제를 평가하기에 충분히 정확하지 않으며, 다른 요인들 때문에 혼탁해질 우려가 크다.
 
 ![](SoftwareEngineeringAtGoogle_Image/2022-07-05-20-09-28.png)
+
+**신호**
+
+![](SoftwareEngineeringAtGoogle_Image/2022-07-05-20-10-51.png)
+
+# Part 3 : 프로세스
+
