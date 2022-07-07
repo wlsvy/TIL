@@ -123,6 +123,47 @@ extends Snowflake.Iface {
 }
 ```
 
+위 코드에서는 timestamp와 sequence를 갱신하는 동작이 얽히게 되서 스레드 세이프한 동작은 아닙니다. 그래서 동기적(synchronized)으로 실행되게끔 장치를 걸어두고 있습니다.
+
+그렇지만 스레드 세이프하게 코드를 수정할 방법이 있습니다. (CLR via C# 에서 morph 패턴으로 소개된 방식과 비슷 => 원자적으로 수정되는 값을 검증하면서 멀티스레드 환경에서 오염된 값을 읽는 다면 동작을 처음부터 다시 반복하는 것)
+
+- 출처 : [godruoyi/go-snowflake](https://github.com/godruoyi/go-snowflake/blob/master/atomic_resolver.go)
+
+```go
+package snowflake
+
+import "sync/atomic"
+
+var lastTime int64
+var lastSeq uint32
+
+// AtomicResolver define as atomic sequence resolver, base on standard sync/atomic.
+func AtomicResolver(ms int64) (uint16, error) {
+	var last int64
+	var seq, localSeq uint32
+
+	for {
+		last = atomic.LoadInt64(&lastTime)
+		localSeq = atomic.LoadUint32(&lastSeq)
+		if last > ms {
+			return MaxSequence, nil
+		}
+
+		if last == ms {
+			seq = MaxSequence & (localSeq + 1)
+			if seq == 0 {
+				return MaxSequence, nil
+			}
+		}
+
+		if atomic.CompareAndSwapInt64(&lastTime, last, ms) && atomic.CompareAndSwapUint32(&lastSeq, localSeq, seq) {
+			return uint16(seq), nil
+		}
+	}
+}
+```
+
+
 We currently use MySQL to store most of our online data. In the beginning, the data was in one small database instance which in turn became one large database instance and eventually many large database clusters. For various reasons, the details of which merit a whole blog post, we’re working to replace many of these systems with the Cassandra distributed database or horizontally sharded MySQL (using gizzard).
 
 Unlike MySQL, Cassandra has no built-in way of generating unique ids – nor should it, since at the scale where Cassandra becomes interesting, it would be difficult to provide a one-size-fits-all solution for ids. Same goes for sharded MySQL.
