@@ -224,13 +224,13 @@
 
 실용적 측면을 인정하자
 
-![](SoftwareEngineeringAtGoogle_Image2022-07-05-20-38-40.png)
+![](SoftwareEngineeringAtGoogle_Image/2022-07-05-20-38-40.png)
 
 **규칙 변경하기**
 
 코딩 컨벤션을 변경한 사례
 
-![](SoftwareEngineeringAtGoogle_Image2022/2022-07-07-16-53-23.png)
+![](SoftwareEngineeringAtGoogle_Image/2022-07-07-16-53-23.png)
 
 **규칙 적용하기**
 
@@ -243,4 +243,22 @@
 
 **코드 리뷰 @구글**
 
-![](SoftwareEngineeringAtGoogle_Image2022/2022-07-07-17-17-23.png)
+![](SoftwareEngineeringAtGoogle_Image/2022-07-07-17-17-23.png)
+
+### 문서 자료
+
+문서자료documentation란 엔지니어가 작업을 끝마치기 위해 작성해야 하는 모든 부수적인 텍스트를 의미합니다. 별도로 작성한 문서뿐 아니라 코드 주석까지 포함된다는 뜻입니다. (사실 구글에서 엔지니어가 작성하는 문서자료 대부분은 코드 주석입니다.)
+
+**문서 자료가 필요한 이유**
+
+![](SoftwareEngineeringAtGoogle_Image/2022-07-08-14-29-50.png)
+
+![](SoftwareEngineeringAtGoogle_Image/2022-07-08-14-33-11.png)
+
+![](SoftwareEngineeringAtGoogle_Image/2022-07-08-14-36-40.png)
+
+![](SoftwareEngineeringAtGoogle_Image/2022-07-08-14-36-52.png)
+
+**문서자료는 코드와 같다**
+
+![](SoftwareEngineeringAtGoogle_Image/2022-07-08-14-42-08.png)
