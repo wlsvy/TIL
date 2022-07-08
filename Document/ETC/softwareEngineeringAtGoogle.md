@@ -262,3 +262,13 @@
 **문서자료는 코드와 같다**
 
 ![](SoftwareEngineeringAtGoogle_Image/2022-07-08-14-42-08.png)
+
+![](SoftwareEngineeringAtGoogle_Image/2022-07-08-16-39-44.png)
+
+![](SoftwareEngineeringAtGoogle_Image/2022-07-08-16-40-29.png)
+
+**독자 유형**
+
+![](SoftwareEngineeringAtGoogle_Image/2022-07-08-16-46-58.png)
+
+![](SoftwareEngineeringAtGoogle_Image/2022-07-08-16-46-42.png)
