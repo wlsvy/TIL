@@ -272,3 +272,9 @@
 ![](SoftwareEngineeringAtGoogle_Image/2022-07-08-16-46-58.png)
 
 ![](SoftwareEngineeringAtGoogle_Image/2022-07-08-16-46-42.png)
+
+### 테스트 개요
+
+**테스트를 작성하는 이유**
+
+![](SoftwareEngineeringAtGoogle_Image/2022-07-11-11-15-27.png)
