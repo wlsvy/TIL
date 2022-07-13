@@ -278,3 +278,14 @@
 **테스트를 작성하는 이유**
 
 ![](SoftwareEngineeringAtGoogle_Image/2022-07-11-11-15-27.png)
+
+**구글의 테스트 역사**
+
+![](SoftwareEngineeringAtGoogle_Image/2022-07-13-11-41-44.png)
+
+- 오리엔테이션 수업
+- ![](SoftwareEngineeringAtGoogle_Image/2022-07-13-12-34-35.png)
+- 테스트 인증
+- ![](SoftwareEngineeringAtGoogle_Image/2022-07-13-12-37-03.png)
+- 화장실에서도 테스트
+- ![](SoftwareEngineeringAtGoogle_Image/2022-07-13-12-39-10.png)
