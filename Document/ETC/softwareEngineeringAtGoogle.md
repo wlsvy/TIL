@@ -307,3 +307,23 @@
 **깨지기 쉬운 테스트 예방하기**
 
 ![](SoftwareEngineeringAtGoogle_Image/2022-07-13-12-55-06.png)
+
+![](SoftwareEngineeringAtGoogle_Image/2022-07-15-18-54-01.png)
+
+**상호작용이 아니라 상태를 테스트하자**
+
+![](SoftwareEngineeringAtGoogle_Image/2022-07-15-19-02-06.png)
+
+**메서드가 아니라 행위를 테스트하자**
+
+메서드 하나의 전반을 검사하다 보면 자연스럽게 불명확한 테스트로 이어진다는 게 문제입니다. 메서드 하나가 몇 가지 일을 하는 경우도 종종 있으며 까다롭고 예외적인 상황도 포함할 수 있기 때문이죠. 다행히 더 나은 방법이 있습니다. 테스트를 메서드별로 작성하지 말고 행위별로 작성하는 방법입니다. 여기서 행위behavior란 특정 상태에서 특정한 일련의 입력을 받았을 때 시스템이 보장하는 '반응'을 뜻합니다.
+
+- 테스트의 구조는 행위가 부각되도록 구성하자
+- 테스트 이름은 검사하는 행위에 어울리게 짓자
+
+**테스트와 코드 공유 DRY가 아니라 DAMP**
+
+- DRY : 반복하지 말라 Don'y Repeat Yourself
+- DAMP : 서술적이고 의미 있는 문구 Descriptive And Meaningful Phrase
+
+![](SoftwareEngineeringAtGoogle_Image/2022-07-15-19-12-14.png)
