@@ -337,3 +337,20 @@
 ![](SoftwareEngineeringAtGoogle_Image/2022-07-18-19-25-12.png)
 
 ![](SoftwareEngineeringAtGoogle_Image/2022-07-18-19-27-37.png)
+
+### 더 큰 테스트
+
+![](SoftwareEngineeringAtGoogle_Image/2022-07-18-19-47-09.png)
+
+**충실성fidelity**
+
+![](SoftwareEngineeringAtGoogle_Image/2022-07-18-19-49-29.png)
+
+**단위 테스트가 손 대기 어려운 영역**
+
+- 부정확한 테스트 대역
+- 설정 문제
+- 과부하 시 나타나는 문제
+- 예기치 못한 동작, 입력, 부작용
+- 창발적 행위와 '진공 효과'
+  - 창발적 행위 : 전혀 예기치 않은 행동 양식이 갑자기 나타나는 것
