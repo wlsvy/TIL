@@ -331,3 +331,9 @@
 **테스트 인프라 정의하기**
 
 ![](SoftwareEngineeringAtGoogle_Image/2022-07-18-14-53-41.png)
+
+### 테스트 대역
+
+![](SoftwareEngineeringAtGoogle_Image/2022-07-18-19-25-12.png)
+
+![](SoftwareEngineeringAtGoogle_Image/2022-07-18-19-27-37.png)
