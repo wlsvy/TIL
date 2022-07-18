@@ -327,3 +327,7 @@
 - DAMP : 서술적이고 의미 있는 문구 Descriptive And Meaningful Phrase
 
 ![](SoftwareEngineeringAtGoogle_Image/2022-07-15-19-12-14.png)
+
+**테스트 인프라 정의하기**
+
+![](SoftwareEngineeringAtGoogle_Image/2022-07-18-14-53-41.png)
