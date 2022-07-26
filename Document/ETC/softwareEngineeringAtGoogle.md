@@ -391,3 +391,8 @@
 
 **아티팩트 기반 빌드 시스템**
 
+**모듈과 의존성 다루기**
+
+---
+
+![](SoftwareEngineeringAtGoogle_Image/2022-07-26-18-52-56.png)
