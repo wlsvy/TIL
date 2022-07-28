@@ -449,3 +449,35 @@
 반려동물과 가축
 
 ![](SoftwareEngineeringAtGoogle_Image/2022-07-28-15-28-35.png)
+
+### 지속적 통합
+
+지속적 통합continuous integration(CI)은 다음과 같이 정의할 수 있습니다.
+
+- 팀원들이 작업 결과를 자주 통합하는 소프트웨어 개발 방식이다. [...] 통합할 때마다자동 빌드(테스트 포함)하여 통합 오류를 빠르게 찾아낸다.
+
+간단히 말해서 CI 의 기본 목적은 문제를 일으키는 변경을 가능한 한 조기에 자동으로 발견해내는 것입니다.
+
+![](SoftwareEngineeringAtGoogle_Image/2022-07-28-15-50-21.png)
+
+![](SoftwareEngineeringAtGoogle_Image/2022-07-28-15-50-44.png)
+
+**지속적 통합이란**
+
+![](SoftwareEngineeringAtGoogle_Image/2022-07-28-15-52-40.png)
+
+![](SoftwareEngineeringAtGoogle_Image/2022-07-28-15-54-15.png)
+
+**지속적 테스트**
+
+아래 그림의 화살표는 하나의 코드 변경이 로컬 개발부터 프로덕션까지 전파되는 과정을 뜻합니다. 이 과정에서 무슨what 테스트를 언제when 실행할지를 정하는 게 CI의 주도니 목표입니다.
+
+![](SoftwareEngineeringAtGoogle_Image/2022-07-28-16-00-59.png)
+
+![](SoftwareEngineeringAtGoogle_Image/2022-07-28-16-06-19.png)
+
+![](SoftwareEngineeringAtGoogle_Image/2022-07-28-16-07-03.png)
+
+![](SoftwareEngineeringAtGoogle_Image/2022-07-28-16-07-54.png)
+
+![](SoftwareEngineeringAtGoogle_Image/2022-07-28-16-08-27.png)
