@@ -431,3 +431,9 @@
 ![](SoftwareEngineeringAtGoogle_Image/2022-07-28-13-39-31.png)
 
 ![](SoftwareEngineeringAtGoogle_Image/2022-07-28-13-39-48.png)
+
+**의존성 내보내기**
+
+실패 사례 :
+
+![](SoftwareEngineeringAtGoogle_Image/2022-07-28-14-09-21.png)
