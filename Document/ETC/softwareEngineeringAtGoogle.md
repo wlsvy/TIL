@@ -437,3 +437,15 @@
 실패 사례 :
 
 ![](SoftwareEngineeringAtGoogle_Image/2022-07-28-14-09-21.png)
+
+### 대규모 변경
+
+사례 연구
+
+![](SoftwareEngineeringAtGoogle_Image/2022-07-28-15-21-21.png)
+
+![](SoftwareEngineeringAtGoogle_Image/2022-07-28-15-21-32.png)
+
+반려동물과 가축
+
+![](SoftwareEngineeringAtGoogle_Image/2022-07-28-15-28-35.png)
