@@ -413,3 +413,21 @@
 - 버전을 기술하는 방법은 무엇일까요?
 - 의존성에서 어떤 유형의 변경이 허용되거나 예상되나요?
 - 다른 조직에서 만든 코드에 의존하는 게 직접 만드는 것보다 낫다고 판단하는 기준은 무엇인가요?
+
+![](SoftwareEngineeringAtGoogle_Image/2022-07-28-13-29-07.png)
+
+**의존성 관리가 어려운 이유**
+
+![](SoftwareEngineeringAtGoogle_Image/2022-07-28-13-31-48.png)
+
+- 요구사항 충돌과 다이아몬드 의존성
+
+![](SoftwareEngineeringAtGoogle_Image/2022-07-28-13-34-05.png)
+
+![](SoftwareEngineeringAtGoogle_Image/2022-07-28-13-34-38.png)
+
+**임포트 시 고려사항**
+
+![](SoftwareEngineeringAtGoogle_Image/2022-07-28-13-39-31.png)
+
+![](SoftwareEngineeringAtGoogle_Image/2022-07-28-13-39-48.png)
