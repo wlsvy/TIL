@@ -481,3 +481,9 @@
 ![](SoftwareEngineeringAtGoogle_Image/2022-07-28-16-07-54.png)
 
 ![](SoftwareEngineeringAtGoogle_Image/2022-07-28-16-08-27.png)
+
+### 지속적 배포
+
+![](SoftwareEngineeringAtGoogle_Image/2022-07-29-12-48-29.png)
+
+![](SoftwareEngineeringAtGoogle_Image/2022-07-29-12-51-09.png)
