@@ -505,3 +505,13 @@
 **관리형 컴퓨트에 적합한 소프트웨어 작성하기**
 
 ![](SoftwareEngineeringAtGoogle_Image/2022-08-01-16-35-18.png)
+
+**배치 vs 서빙**
+
+![](SoftwareEngineeringAtGoogle_Image/2022-08-01-16-38-04.png)
+
+![](SoftwareEngineeringAtGoogle_Image/2022-08-01-16-39-46.png)
+
+![](SoftwareEngineeringAtGoogle_Image/2022-08-01-16-42-20.png)
+
+![](SoftwareEngineeringAtGoogle_Image/2022-08-01-16-43-38.png)
