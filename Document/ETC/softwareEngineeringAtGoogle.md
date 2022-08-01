@@ -487,3 +487,21 @@
 ![](SoftwareEngineeringAtGoogle_Image/2022-07-29-12-48-29.png)
 
 ![](SoftwareEngineeringAtGoogle_Image/2022-07-29-12-51-09.png)
+
+### 서비스형 컴퓨트
+
+![](SoftwareEngineeringAtGoogle_Image/2022-08-01-16-08-16.png)
+
+**자동화된 태스크 처리**
+
+![](SoftwareEngineeringAtGoogle_Image/2022-08-01-16-22-42.png)
+
+![](SoftwareEngineeringAtGoogle_Image/2022-08-01-16-27-10.png)
+
+**스케쥴링 자동화**
+
+![](SoftwareEngineeringAtGoogle_Image/2022-08-01-16-30-14.png)
+
+**관리형 컴퓨트에 적합한 소프트웨어 작성하기**
+
+![](SoftwareEngineeringAtGoogle_Image/2022-08-01-16-35-18.png)
