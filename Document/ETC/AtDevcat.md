@@ -19,3 +19,7 @@
 ## 22/09/02
 
 MM 서버 모니터링 도구로는 [Grafana](https://grafana.com/) 를 사용합니다.
+
+에러 리포트 용 서버를 따로 올리고, 주기적으로 수집한 오류를 요약해서 팀즈로 보고합니다. 팀즈로 보고할 때는 [Incoming WebHook](https://docs.microsoft.com/en-us/microsoftteams/platform/webhooks-and-connectors/how-to/add-incoming-webhook)을 사용합니다.
+
+- [MessageCard PlayGround](https://messagecardplayground.azurewebsites.net/)
