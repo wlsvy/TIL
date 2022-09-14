@@ -23,3 +23,7 @@ MM 서버 모니터링 도구로는 [Grafana](https://grafana.com/) 를 사용�
 에러 리포트 용 서버를 따로 올리고, 주기적으로 수집한 오류를 요약해서 팀즈로 보고합니다. 팀즈로 보고할 때는 [Incoming WebHook](https://docs.microsoft.com/en-us/microsoftteams/platform/webhooks-and-connectors/how-to/add-incoming-webhook)을 사용합니다.
 
 - [MessageCard PlayGround](https://messagecardplayground.azurewebsites.net/)
+
+## 22/09/14
+
+게임 실행 전에 패치 데이터 다운로드 속도가 150Mbps 를 넘지 못해서 기술실에서 잠시 소동이 있었는데, 알고보니 사내 wifi 의 최대 속도가 150Mbps로 제한되어 있었다. 인터넷 기사 아저씨가 사기 친 것이었다....
