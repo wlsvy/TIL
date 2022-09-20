@@ -234,3 +234,23 @@ DRY 법칙은 다음과 같다. ‘모든 지식은 시스템 내에서 단 한 
 ![](ThePragmaticProgrammer_Image/2022-09-19-16-45-34.png)
 
 ![](ThePragmaticProgrammer_Image/2022-09-19-16-45-44.png)
+
+## 9장 실용주의 프로젝트
+
+**깨진 창문을 없애라**
+
+**삶은 개구리**
+
+**사용자를 기쁘게 해라**
+
+![](ThePragmaticProgrammer_Image/2022-09-20-14-32-16.png)
+
+![](ThePragmaticProgrammer_Image/2022-09-20-14-33-32.png)
+
+**오만과 편견**
+
+![](ThePragmaticProgrammer_Image/2022-09-20-14-34-59.png)
+
+![](ThePragmaticProgrammer_Image/2022-09-20-14-35-58.png)
+
+![](ThePragmaticProgrammer_Image/022-09-20-14-36-10.png)
