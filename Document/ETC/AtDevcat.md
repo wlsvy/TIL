@@ -81,3 +81,9 @@ aws 관련 테라폼 설정을 잘못 만졌다가 AMI(Amazon Machine Image)가 
 참다 못해서 gitLab 서버를 독립하기로 결정. 프로젝트 저장소를 이주한다.
 
 ![](GitlabServerExodus.png)
+
+## 22/10/07
+
+갤럭시의 GOS(Game Optimizing Service) 덕분에 기기들이 성능 제한 당하고 있다. 게임 플레이가 어려울 정도로 프레임이 나오지 않고 있다. 해상도/cpu 클럭/gpu 클럭/ 소리/ 밝기 까지 전부 제한된다고 하니 소비자 입장에서는 좋은 기기를 구매했어도 쾌적한 경험을 누릴 수가 없다.
+
+[유니티에서 Samsung AdaptivePerformance를 적용하면 GOS를 해제할 수 있다는 말이 있다.](https://docs.unity3d.com/Packages/com.unity.adaptiveperformance@4.0/manual/user-guide.html)
