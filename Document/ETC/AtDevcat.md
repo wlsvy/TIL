@@ -89,3 +89,9 @@ aws 관련 테라폼 설정을 잘못 만졌다가 AMI(Amazon Machine Image)가 
 [유니티에서 Samsung AdaptivePerformance를 적용하면 GOS를 해제할 수 있다는 말이 있다.](https://docs.unity3d.com/Packages/com.unity.adaptiveperformance@4.0/manual/user-guide.html)
 
 [삼성 FAQs](https://developer.samsung.com/galaxy-gamedev/ap-userguide/faq_kor.html#:~:text=Adaptive%20Performance%20%EC%A7%80%EC%9B%90%20%EB%8B%A8%EB%A7%90%EC%9D%B4,%EB%8B%A8%EB%A7%90%EC%97%90%EC%84%9C%EB%8A%94%20%EB%8C%80%EB%B6%80%EB%B6%84%20%EC%A7%80%EC%9B%90%ED%95%A9%EB%8B%88%EB%8B%A4)
+
+## 22/10/11
+
+.NET이 제공하는 API로 만든 Windows Service 프로젝트에서 빌드된 프로젝트를 참조하여 진입점(main)을 직접 호출한다. 그런데 프로세스의 stdout, stderr 등이 그대로 유실되는데 이것이 문제
+
+- 프로젝트를 WindowService 형태로 구동하면서 stdout/stderr를 유실하지 않게끔 하는 방법을 찾아야 하는데 [nssm](https://nssm.cc/) 이라는 도구가 있다. 프로세스 우아한 종료, 표준출력 로그 및 로그 파일 로테이션, 자동 재시작 등 다양한 기능을 제공한다.
