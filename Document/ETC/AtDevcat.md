@@ -184,3 +184,10 @@ C#으로 만든 프로그램을 IOS에서 돌리려면 인터프리팅 해야해
 - 클라이언트 UI 이벤트에서 타이밍 문제가 발생했다. 로그인 버튼을 누른 뒤에 서버로 로그인 요청을 보내게 되는데, 로그인 요청을 동시에 여러 개를 보낼 이유는 없으니 한번 누른 버튼을 또 누르지 않게끔 락을 걸어야 한다.
   - ui 이벤트는 큐를 거쳐서 지연 처리되고 있는데 락 거는 시점이 이벤트 지연 처리될 때이다. 그러니 로그인 버튼을 동시에 따닥 연타했을 때 운이 나쁘다면 서버로 로그인 요청을 두 번 보내서 말썽을 일으키게 된다.
 - 과거 클라이언트 프로파일링을 진행하면서 화면에 다수의 캐릭터가 있을 때 메모리 점유정도를 측정했는데, 시연기기 기준 화면에 캐릭터 10명이 넘어가면 메모리 크래시가 발생하는 모양이다. 그래서 서버팀에게 미션이 내려왔는데, 채널에 캐릭터를 분배할 때 가급적이면 미리 결정된 정원 수 (10명)을 넘기지 않게끔 조치하는 것
+
+## 22/11/07
+
+- .NET 의 시스템 타이머는 15.6msec 마다 운영체제로 부터 인터럽트를 받는다. 즉... 1msec 단위의 해상도가 필요하다면 큰 곤란을 겪게 될 것이라는 것...
+
+- [AutoResetEvent.WaitOne Intervals](https://social.msdn.microsoft.com/Forums/vstudio/en-US/2befa8c3-7be6-48ca-b999-46697c78d55b/autoreseteventwaitone-intervals?forum=vbgeneral)
+- 윈도우 환경이라면 일단 대안이 있다. [how to set timer resolution from C# to 1 ms?](https://stackoverflow.com/questions/15071359/how-to-set-timer-resolution-from-c-sharp-to-1-ms)
