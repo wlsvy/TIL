@@ -191,3 +191,9 @@ C#으로 만든 프로그램을 IOS에서 돌리려면 인터프리팅 해야해
 
 - [AutoResetEvent.WaitOne Intervals](https://social.msdn.microsoft.com/Forums/vstudio/en-US/2befa8c3-7be6-48ca-b999-46697c78d55b/autoreseteventwaitone-intervals?forum=vbgeneral)
 - 윈도우 환경이라면 일단 대안이 있다. [how to set timer resolution from C# to 1 ms?](https://stackoverflow.com/questions/15071359/how-to-set-timer-resolution-from-c-sharp-to-1-ms)
+- 리눅스라면 커널 옵션을 수정할 수 있다고 한다.
+
+## 22/11/08
+
+- [Change assembly name](https://answers.unity.com/questions/1200398/change-assembly-name.html)
+- 유니티의 어셈블리 이름 (Assembly-CSharp)을 수정하는 방법. 참 보면서 어떻게 바꾸는 건가 싶었다.
