@@ -208,3 +208,35 @@ C#으로 만든 프로그램을 IOS에서 돌리려면 인터프리팅 해야해
 
 - 서버에서 클라가 보낸 패킷을 처리하는데 패킷 핸들링 동작을 수행하는 스레드는 중간에 다른 스레드로 교체되지 말아야 하는 대전제가 깨졌다. DB 정보를 기록하는 패킷은 금전적 가치를 가진다. 절대 안전이 철칙인데, 이런 현상이 발생하자 DB 데이터 갱신 순서가 꼬여버렸다.
 - 라이브에서 발생했다면 얼마나 끔찍했을지 상상이 안가는 수준이다. 가챠 패킷에서 터진다면 회사로 소송이 들어올 수도 있다...
+
+## 22/11/15
+
+- 클라이언트 쪽에 메모리 풀 관련 이야기가 나왔다.
+  - 풀에서 꺼낸 자원을 돌려보내야 하는데 그냥 버렸다. -> GC가 처리하므로 크게 문제가 아님
+  - 풀로 돌려보낸 뒤에 건드렸다. -> 고약한 버그가 터질 수 있음.
+
+대략 보니 풀로 돌아간 객체 참조가 남아서 문제가 생겼던 모양이다. 레퍼런스 버전을 관리하는 래퍼 타입이 해결책으로 제시됐다.
+
+```cs
+struct UniquePtr<T>
+    where T: class
+{
+    public T Ref =>
+    {
+        get
+        {
+        #if UNITY_EDITOR
+            if (vholder.Version != this.version) { throw new NullException(); }
+        #endif
+            return this.ptr;
+        }
+    }
+
+    private T ptr;
+    
+    #if UNITY_EDITOR
+        private VersionHolder vholder;
+        int version;
+    #endif
+}
+```
