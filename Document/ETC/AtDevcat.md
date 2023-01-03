@@ -396,3 +396,16 @@ MM에 또 신규 피처가 추가되는데 이거 굉장히 기대된다. 모바
 이렇게 채널 업데이트 틱을 도입하는 형태는 FPS 게임 서버 말고는 별로 없다. 생각해보면 굳이 뭣하러 부하 큰 업데이트 시퀀스를 서버에 적용해야 할까.
 
 우리 프로젝트가 별난 이유는 아무래도 유저간 끈끈한 상호작용을 욕심내는 대표님 고집이 아니었을까. (캐릭터간 세밀한 충돌 처리 등....) 멀티스레딩 코드를 짜는 것은 굉장히 위험성이 높다는 말이 있지만, 시스템 코드를 잘 짠다면 넘지 못할 허들은 아니다.
+
+## 23/01/03
+
+해시 충돌 해결기법으로는 open Address, Seperate Chaining, 이차 조사 등등 이 대표적이다.
+
+.NET dictionary의 방식은 SeperateChaining 이다. 컨테이너 안에서는 해쉬 키 값을 모듈러 해서 보관하는 bucket 이 있고, 실제 데이터가 들어가는 Entry가 있다. 해시 충돌이 나면 bucket을 링크드 리스트 방식으로 연결해준다.
+
+- 삽입, 삭제가 빈번할 시 메모리 단편화를 대비한 전략이 준비되어 있다. free Count / free List를 활용하는데, 놀고 있는 bucket 이 없도록 한다.
+
+
+- [참고: dotnetos.org/blog](https://dotnetos.org/blog/2022-03-28-dictionary-implementation/)
+
+![](DotnetDictionaryImpl.png)
