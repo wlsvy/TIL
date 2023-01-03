@@ -399,13 +399,29 @@ MM에 또 신규 피처가 추가되는데 이거 굉장히 기대된다. 모바
 
 ## 23/01/03
 
+문제의 유니티가 c# Dictionary 구현을 IL2CPP 빌드하고 c++ 포팅할 때 또 골치를 썩히는지 프로젝트 차원에서 해시맵 자체 구현을 고민중이신가 보다
+
+해시 처리 구현을 이것저것 찾아보고 괜찮은 거 있으면 도입하라는 미션이 떨어진 듯... 주로 고려하는 부분은 역시 메모리. 메모리. 메모리
+
+성능을 희생하더라도 메모리를 챙기는 해시 구현을 찾아 도입한다.
+
+**닷넷**
+
 해시 충돌 해결기법으로는 open Address, Seperate Chaining, 이차 조사 등등 이 대표적이다.
 
 .NET dictionary의 방식은 SeperateChaining 이다. 컨테이너 안에서는 해쉬 키 값을 모듈러 해서 보관하는 bucket 이 있고, 실제 데이터가 들어가는 Entry가 있다. 해시 충돌이 나면 bucket을 링크드 리스트 방식으로 연결해준다.
 
 - 삽입, 삭제가 빈번할 시 메모리 단편화를 대비한 전략이 준비되어 있다. free Count / free List를 활용하는데, 놀고 있는 bucket 이 없도록 한다.
-
-
+- 해시 알고리즘은 메모리 <-> 성능을 트레이드 한다. 닷넷 딕셔너리는 메모리를 희생하고 성능을 챙기는 쪽에 속한다.
+- 해시 컨테이너 전체에서 사용량이 50 ~ 60% 를 넘어가게 되면 슬슬 해시 충돌이 많아져서 오버헤드가 발생하고 키 탐색 비용이 O(1) 을 보장하지 못하게 된다. Resize 정책도 중요한 부분.
 - [참고: dotnetos.org/blog](https://dotnetos.org/blog/2022-03-28-dictionary-implementation/)
 
 ![](DotnetDictionaryImpl.png)
+
+
+**해시 알고리즘 탐색 중**
+
+- [patchmap 해시 알고리즘 벤치마크](https://1ykos.github.io/patchmap/#The%20algorithm)
+- Facebook 의 F14
+- 구글의 Sparsehash
+- c++ stl
