@@ -36,5 +36,7 @@ ipch/
 *.sdf
 *.cachefile
 
+.DS_Store
+
 wlsvySSSH
 wlsvySSSH.pub
