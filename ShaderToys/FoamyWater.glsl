@@ -5,7 +5,7 @@
 #define TAU 6.28318530718
 
 #define TILING_FACTOR 1.0
-#define MAX_ITER 8
+#define MAX_ITER 1
 
 
 float waterHighlight(vec2 p, float time, float foaminess)
@@ -30,7 +30,6 @@ float waterHighlight(vec2 p, float time, float foaminess)
 
 void mainImage( out vec4 fragColor, in vec2 fragCoord ) 
 {
-	float time = iTime * 0.1+23.0;
 	vec2 uv = fragCoord.xy / iResolution.xy;
 	vec2 uv_square = vec2(uv.x * iResolution.x / iResolution.y, uv.y);
     float dist_center = pow(2.0*length(uv - 0.5), 2.0);
@@ -40,6 +39,7 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
     
 	vec2 p = mod(uv_square*TAU*TILING_FACTOR, TAU)-250.0;
     
+	float time = iTime * 0.1+23.0;
     float c = waterHighlight(p, time, foaminess);
     
     vec3 water_color = vec3(0.0, 0.35, 0.5);

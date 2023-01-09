@@ -12,7 +12,7 @@
 // The compiler is a dunce I tells-ya!!
 #define GOLDEN_ANGLE 2.3999632
 
-#define ITERATIONS 150
+#iUniform int ITERATIONS = 150 in { 0, 300 } step 5 
 
 mat2 rot = mat2(cos(GOLDEN_ANGLE), sin(GOLDEN_ANGLE), -sin(GOLDEN_ANGLE), cos(GOLDEN_ANGLE));
 
