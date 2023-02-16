@@ -523,13 +523,15 @@ Fast Reload 그러니까 유니티 런타임 동작 중에 코드를 수정해�
 
 ## 23/02/16
 
+- [NDC : 모바일 디바이스에서 게임 플레이 테스트 자동화](https://youtu.be/ckqUzRyIPoA)
+
 **Android 애플리케이션 테스트를 위한 monkeyRunner**
 
 - [android Developer: monkey Runner](https://developer.android.com/studio/test/monkeyrunner?hl=ko)
 - 안드로이드 기기를 제어하는 api 를 제공함.
 - 파이썬을 쓰고
 - 원래는 단위 테스트 실행을 위해 설계되었는데 좀더 광범위하게 쓰이는 듯
-- 현재 프로젝트 환경에서 당장 적용할 수 있었다고 함
+- 현재 프로젝트 환경에서 당장 적용할 수 있었다고 함. 초기 비용이 굉장히 저렴하다.
   - 안드로이드 애플리케이션 테스트 자동화를 할 수 있다. 모바일 디바이스 에서 앱 설치 -> 실행 -> 러프한 ui 조작까지 자동화한다.
   - OpenCV 까지 사용하면 스크린샷 캡쳐 후 이미지 비교도 가능하다고 한다.
 
@@ -538,4 +540,5 @@ Fast Reload 그러니까 유니티 런타임 동작 중에 코드를 수정해�
 - [Appium](https://appium.io/docs/en/about-appium/intro/?lang=ko)
 - 오픈소스
 - 언어를 가리지 않고, appium 의 api 가 애플리케이션 코드 내부로 스며들어가는게 아니라서 자동화 코드를 수정 후 애플리케이션을 재컴파일 하지 않아도 된다. 
+- Appium 서버가 존재하는 클라이언트/서버 디자인이고, REST API를 지원해서 정보를 수신받는다.
 - 장기적으로 모바일 디바이스 자동화를 고려할 때 monkey runner 보다 appium을 선호한다고 한다.
