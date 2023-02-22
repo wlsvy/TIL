@@ -542,3 +542,17 @@ Fast Reload 그러니까 유니티 런타임 동작 중에 코드를 수정해�
 - 언어를 가리지 않고, appium 의 api 가 애플리케이션 코드 내부로 스며들어가는게 아니라서 자동화 코드를 수정 후 애플리케이션을 재컴파일 하지 않아도 된다. 
 - Appium 서버가 존재하는 클라이언트/서버 디자인이고, REST API를 지원해서 정보를 수신받는다.
 - 장기적으로 모바일 디바이스 자동화를 고려할 때 monkey runner 보다 appium을 선호한다고 한다.
+
+
+## 23/02/22
+
+float 타입과 관련된 사소하지만 중요한 실수
+
+- [floating-point-gui.de](https://floating-point-gui.de/basic/)
+
+Why don’t my numbers, like 0.1 + 0.2 add up to a nice round 0.3, and instead I get a weird result like 0.30000000000000004?
+
+- 부동소수점 표현식은 0.2 혹은 0.3 같은 수치값을 우리가 의도한대로 정밀하게 표현할 수는 없기 때문이다. (0.5는 가능)
+- single / float 타입의 경우 지수 비트가 8개이기 때문에 2의 -126 ~ +127 승 범위를 표현할 수 있지만 이때의 최소 정밀도는 2의 -126 승이다. 그러니 아주 살짝 값이 틀려질 수도 있는 것이다.
+- float 타입에 대해 a == b 와 같이 비교하는 것은 굉장히 주의해야 한다.
+- IEEE 754 를 참고하자 [IEEE 754](https://en.wikipedia.org/wiki/IEEE_754)
