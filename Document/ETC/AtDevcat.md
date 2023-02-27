@@ -556,3 +556,13 @@ Why don’t my numbers, like 0.1 + 0.2 add up to a nice round 0.3, and instead I
 - single / float 타입의 경우 지수 비트가 8개이기 때문에 2의 -126 ~ +127 승 범위를 표현할 수 있지만 이때의 최소 정밀도는 2의 -126 승이다. 그러니 아주 살짝 값이 틀려질 수도 있는 것이다.
 - float 타입에 대해 a == b 와 같이 비교하는 것은 굉장히 주의해야 한다.
 - IEEE 754 를 참고하자 [IEEE 754](https://en.wikipedia.org/wiki/IEEE_754)
+
+## 23/02/27
+
+- [DailyWTF:Batch-of-Trouble](https://thedailywtf.com/articles/Batch-of-Trouble)
+
+대학교 수강신청 사이트에서 새로 온 개발자가 기존 시스템을 전부 바꾸고 이직한 일화. 새로운 시스템은 잘 모듈화되 있고 새로운 기법들로 잘 빠졌지만, 기존의 못생긴 시스템과 다르게 내용에 대해 설명하는 문서가 부족했고, 선형적 진행 절차 중간 단계에서 실패하면 fallback 기능이 없어서 DB 데이터가 오염될 수 있고, 문제 원인에 대해 제대로 전파하지 않고 있었다. 새로운 시스템을 잘 아는 그 개발자는 스타트업으로 이직했기 때문에, 남아있는 관리자는 모든 걸 롤백하고 과거 시스템을 복구시켰다는 이야기.
+
+- [expert-beginner](https://daedtech.com/how-software-groups-rot-legacy-of-the-expert-beginner/)
+![](ExpertBeginner.png)
+
