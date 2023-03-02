@@ -566,3 +566,11 @@ Why don’t my numbers, like 0.1 + 0.2 add up to a nice round 0.3, and instead I
 - [expert-beginner](https://daedtech.com/how-software-groups-rot-legacy-of-the-expert-beginner/)
 ![](ExpertBeginner.png)
 
+
+## 23/03/02
+
+ChatGPT 관련 보안 공고가 올라왔다. 주요 내용은
+
+- 회사 중요 정보를 chatGPT 에게 알려주지 말 것 : chatGPT 에게 입력한 정보는 chatGPT가 임의로 사용할 수 있기 때문. 사내 소스코드를 절대 여기 올리면 안된다.
+- ChatGPT 결과를 100% 신뢰하지 말 것 : ChatGPT의 AI 모델이 단어의 의미를 이해하고 답변하는 것이 아니라, 확률적으로 다음 단어가 무엇일지 예측하는 모델이기 때문이다.
+- ChatGPT로 위장한 악성코드가 많다. : ChatGPT 관련 프로그램 중에 이런 사례가 많은 모양이다.
