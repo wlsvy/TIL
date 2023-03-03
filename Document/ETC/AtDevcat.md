@@ -601,3 +601,8 @@ ChatGPT 는 그래도 굉장히 똑똑하게 느껴지는데 이유는 api로 �
 그렇지만 이건 금방 해결될 문제입니다.
 
 openAI의 API는 GPT라는 모델을 사용하지만 LLM이라는 모델을 사용하면 제대로 ‘기억’을 할 수 있게 됩니다.
+
+**Character.AI**
+
+- [character.AI](https://beta.character.ai/)
+- 가상 캐릭터와 대화할 수 있는 챗봇 사이트.
