@@ -620,3 +620,10 @@ openAI의 API는 GPT라는 모델을 사용하지만 LLM이라는 모델을 사�
 
 - 사건 발생 시 명령을 전달하는 방식 (event) : 말 그대로 명령의 출처가 한 곳이면 문제가 없지만, 두 군데 이상이면 추적하기가 어렵다. 특정 명령으로 외부세계를 수정하는 동작이 있다고 하자. 그리고 또 다른 명령으로 외부 수정사항을 원상 복구 시킨다고 하자. 변경 or 복구 명령을 번갈아서 보내는 출처가 두 군데 이상이면 버그가 발생하기 쉽다.
 - 지속적으로 상태를 추적하는 방식 (poll) : 게임으로 치면 매 프레임마다 상태를 체크하는 방식이다. 모든 순간 상태를 확인하다면 버그가 자라날 틈을 줄일 수 있겠다. 하지만 빈번한 트리거링 비용을 지불해야한다. 이 비용은 꽤 비쌀 수 있다.
+
+## 23/03/13
+
+**[ngrok](https://ngrok.com/)**
+
+ngrok is the fastest way to host and secure your applications and services on the internet. Learn how by following our getting started guide, or dive straight into our products and offerings.
+
