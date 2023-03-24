@@ -51,6 +51,8 @@
   - cat file1 file2 | more : file1과 file2의 내용을 페이지별로 출력
   - cat file1 file2 | head : file1과 file2의 내용을 처음부터 10번째 줄까지만 출력
   - cat file1 file2 | tail : file1과 file2의 내용을 끝에서부터 10번째 줄까지만 출력
+  - head -3 file1 : file1 내용을 앞에서 3줄 출력
+  - tail -3 file1 : file1 내용을 끝에서 3줄 출력
 - cp : 파일 복사
   - cp file1 file2 : file1을 file2라는 이름으로 복사
   - cp -f file1 file2 : 강제 복사(file2라는 파일이 이미 있을 경우 강제로 기존 file2를 지우고 복사 진행)
