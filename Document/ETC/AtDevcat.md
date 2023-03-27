@@ -942,3 +942,10 @@ ngrok is the fastest way to host and secure your applications and services on th
 
    (표 7.1. 생각의 오류<sub>(150쪽)</sub> 목록 참조)
 
+## 23/03/28
+
+- [Render Doc](https://renderdoc.org/)
+
+오픈 소스로 사용할 수 있는 프레임 디버거.
+
+클라이언트 디바이스에 렌더독 호스트를 두면, 이제 pc 에서 명령을 내릴 때마다 디바이스의 프레임 디버깅 정보를 pc 로 보내준다.
