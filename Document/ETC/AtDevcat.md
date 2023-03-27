@@ -949,3 +949,7 @@ ngrok is the fastest way to host and secure your applications and services on th
 오픈 소스로 사용할 수 있는 프레임 디버거.
 
 클라이언트 디바이스에 렌더독 호스트를 두면, 이제 pc 에서 명령을 내릴 때마다 디바이스의 프레임 디버깅 정보를 pc 로 보내준다.
+
+- [C# Await Anything](https://devblogs.microsoft.com/pfxteam/await-anything/)
+  - await는 동작 방식상 어떤 식으로든 GetAwaiter()함수만 있으면 await할 수 있음.
+  - 즉, GetAwaiter가 내부 함수여도 되고 확장 함수꼴이도 됨.
