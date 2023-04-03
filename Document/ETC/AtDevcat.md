@@ -953,3 +953,14 @@ ngrok is the fastest way to host and secure your applications and services on th
 - [C# Await Anything](https://devblogs.microsoft.com/pfxteam/await-anything/)
   - await는 동작 방식상 어떤 식으로든 GetAwaiter()함수만 있으면 await할 수 있음.
   - 즉, GetAwaiter가 내부 함수여도 되고 확장 함수꼴이도 됨.
+
+
+## 23/04/04
+
+- [MSDN : accessviolationexception](https://learn.microsoft.com/en-us/dotnet/api/system.accessviolationexception?view=net-7.0)
+
+사내테스트애서 unhandled exception 발생.
+원인을 살펴보니  'Access Violation reading location' / 'AccessViolationException' 같은 메모리 접근 오류는 unhandled Exception 으로 취급되는 것.
+
+예외 핸들링이 정상 동작한다는 보장을 할 수 없기 때문에, 사내 테스트 도중 예외 처리가 되지 못하고 상태가 오염되버리는 상황이 있었다.
+
