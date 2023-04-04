@@ -955,7 +955,7 @@ ngrok is the fastest way to host and secure your applications and services on th
   - 즉, GetAwaiter가 내부 함수여도 되고 확장 함수꼴이도 됨.
 
 
-## 23/04/04
+## 23/04/03
 
 - [MSDN : accessviolationexception](https://learn.microsoft.com/en-us/dotnet/api/system.accessviolationexception?view=net-7.0)
 
@@ -963,4 +963,12 @@ ngrok is the fastest way to host and secure your applications and services on th
 원인을 살펴보니  'Access Violation reading location' / 'AccessViolationException' 같은 메모리 접근 오류는 unhandled Exception 으로 취급되는 것.
 
 예외 핸들링이 정상 동작한다는 보장을 할 수 없기 때문에, 사내 테스트 도중 예외 처리가 되지 못하고 상태가 오염되버리는 상황이 있었다.
+
+## 23/04/04
+
+어제 발생한 오류는, 프로젝트 내 unsafe 코드를 활용하는 인하우스 라이브러리에서 발생했다.
+
+이런 라이브러리가 왜 있냐면... 유니티가 메모리 관리를 더럽게 하기 때문에... 눈물을 머금고 자체 구현을 도입한 것. 
+
+그러니 AccessViolationException 을 명시적으로 catch 하는 방법으로 대응
 
