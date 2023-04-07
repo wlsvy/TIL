@@ -972,3 +972,65 @@ ngrok is the fastest way to host and secure your applications and services on th
 
 그러니 AccessViolationException 을 명시적으로 catch 하는 방법으로 대응
 
+**Kagi 컨텐츠 요약기**
+
+- [Kagi](https://labs.kagi.com/ai/sum)
+
+**OpenAI Cookbook**
+
+= [github: OpenAI Cookbook](https://github.com/openai/openai-cookbook)
+
+**TalkToSql**
+
+- [github: TalkToSql](https://github.com/woniesong92/talktosql)
+
+모습이 특이한데 코드가 이렇다.
+
+```bash
+$ talktosql learn
+Successfully saved the DB Schema Info to /Users/woniesong92/.talktosql_schema_info
+
+$ talktosql ask --q "Find the total sales per author for books published after the year 1800"
+SELECT a.name, SUM(b.price * o.quantity) as total_sales
+FROM authors a
+JOIN books b ON a.id = b.author_id
+JOIN orders o ON b.id = o.book_id
+WHERE b.publication_date > '1800-12-31'
+GROUP BY a.name;
++--------------------+-------------+
+|        name        | total_sales |
++--------------------+-------------+
+|    J.K. Rowling    |    10.99    |
+| George R.R. Martin |    12.99    |
+|   J.R.R. Tolkien   |    23.98    |
+|  Haruki Murakami   |    14.99    |
+|    Jane Austen     |    29.97    |
++--------------------+-------------+
+
+$ talktosql ask --q "1800년 이후로 출간된 책들의 매출을 작가별로 알려줘"
+SELECT a.name, SUM(b.price * o.quantity) as total_sales
+FROM authors a
+JOIN books b ON a.id = b.author_id
+JOIN orders o ON b.id = o.book_id
+WHERE b.publication_date > '1800-12-31'
+GROUP BY a.name;
++--------------------+-------------+
+|        name        | total_sales |
++--------------------+-------------+
+|    J.K. Rowling    |    10.99    |
+| George R.R. Martin |    12.99    |
+|   J.R.R. Tolkien   |    23.98    |
+|  Haruki Murakami   |    14.99    |
+|    Jane Austen     |    29.97    |
++--------------------+-------------+
+```
+
+## 23.04.07
+
+- [grpc](https://grpc.io/)
+
+made by Google
+
+gRPC는 모든 환경에서 실행할 수 있는 최신 오픈 소스 고성능 RPC(원격 프로시저 호출) 프레임워크입니다. 로드 밸런싱, 추적, 상태 확인 및 인증을 위한 플러그형 지원을 통해 데이터 센터 안팎에서 서비스를 효율적으로 연결할 수 있습니다. 또한 디바이스, 모바일 애플리케이션 및 브라우저를 백엔드 서비스에 연결하기 위해 라스트 마일 분산 컴퓨팅에 적용할 수 있습니다.
+
+운영툴 만들때 사용한다. 많은 도구가 있어서 시간을 크게 절약해줄 수 있다고 추천받았다.
