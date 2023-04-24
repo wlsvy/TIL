@@ -1044,3 +1044,28 @@ HybridCLR은 Focus-Creative-Games(코드 철학) 회사의 대표 작품으로, 
 ![](https://github.com/focus-creative-games/hybridclr/raw/main/docs/images/architecture.png)
 
 끄응...
+
+## 23.04.24
+
+유니티 Untracked Memory
+
+- Untracked memory 값은 OS로 부터 가져온 process가 차지하는 memory 사용량에서 Unity가 추적하고 있는 memory 사용량을 뺀 값입니다.
+
+이 차이인 untracked memory는 외부 plugin과 같이 Unity의 memory allocator를 사용하지 않는 메모리 할당이 포함되며,  
+공식 문서에서는 untracked memory에 포함되는 요소를 다음 처럼 정리하고 있습니다.  
+
+> -   Native Plugin allocations
+> -   The size of Executable and DLLs on some platforms
+> -   Virtual Machine memory used by [IL2CPP](https://docs.unity3d.com/Manual/IL2CPP.html)
+> -   Application Stack memory
+> -   Memory allocated using [Marshal.AllocHGlobal](https://docs.microsoft.com/en-us/dotnet/api/system.runtime.interopservices.marshal.allochglobal)
+> 
+> [https://docs.unity3d.com/Packages/com.unity.memoryprofiler@0.7/manual/index.html](https://docs.unity3d.com/Packages/com.unity.memoryprofiler@0.7/manual/index.html)
+
+여기서 `Virtual Machine memory used by IL2CPP` 가 무엇인고 하니
+
+- il2cpp가 차지하는 메모리 영역은 reflection과 generic 사용 규모에 영향을 많이 받습니다.
+- 때문에 Reflection의 사용빈도를 낮추고 Generic의 경우 value type에 의한 타입별 함수와 구조체가 증가하는 것을 주의해야 합니다.
+- Native profiler에서 확인할 수 있는 ::il2cpp label에 붙는 다음 할당 크기들로 영역의 크기를 어느정도 확인 가능합니다.
+
+너무 황당하다... 아니 무슨... 제네릭을 쓰거나 리플렉션을 사용하면 그 메모리는 추적을 못한다고...??
