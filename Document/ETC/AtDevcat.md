@@ -1143,3 +1143,7 @@ go
 - [Go!](https://kristoff.it/blog/why-go-and-not-rust/)
 
 ![](Image/2023-05-11-18-09-13.png)
+
+"장인정신"보다는 "공학적인 접근"에 더 가까운 언어같습니다. 
+
+Google 개발팀이 소프트웨어를 대하는 태도랑 비슷한 것 같아요
