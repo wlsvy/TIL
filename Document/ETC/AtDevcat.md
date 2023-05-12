@@ -1147,3 +1147,61 @@ go
 "장인정신"보다는 "공학적인 접근"에 더 가까운 언어같습니다. 
 
 Google 개발팀이 소프트웨어를 대하는 태도랑 비슷한 것 같아요
+
+## 23.05.12
+
+[Why Go and not Rust  Loris Cro's Blog](https://kristoff.it/blog/why-go-and-not-rust/)
+
+개발자로서, 우리는 종종 어떤 언어를 선택해야 할지에 대한 질문에 직면하게 됩니다. 이에 대해 Go와 Rust라는 두 언어를 가지고 비교를 해보았습니다. Go는 Google에서 개발하였고, Rust는 Mozilla에서 개발하였습니다. 두 언어 모두 시스템 수준의 프로그래밍에 적합하며, 메모리 관리와 동시성에 중점을 두고 있습니다. 그러나 각 언어는 서로 다른 철학을 가지고 있습니다.
+
+|  | Go | Rust |
+| --- | --- | --- |
+| **속도** | 빠름 | 더 빠름 |
+| **메모리 관리** | 효율적인 가비지 컬렉터 | 정적 메모리 관리 |
+| **동시성** | 좋음 | 증명 가능한 동시성 |
+| **추상화** | 인터페이스 | 트레이트와 기타 제로 비용 추상화 |
+| **학습 난이도** | 낮음 | 높음 |
+| **복잡성** | 낮음 | 높음 |
+| **사용 사례** | 서비스 작성, 엔터프라이즈 소프트웨어 | 시스템 수준의 프로그래밍 |
+
+먼저, Go는 서비스를 작성하는 데에 매우 유용합니다. Go는 구글에서 구글의 문제를 해결하기 위해 만들어졌습니다. 이는 주로 네트워크 서비스를 다루는 것을 의미하며, Go의 동시성 모델은 주로 여러 독립적인 요청을 처리해야 하는 서버 측 응용 프로그램에 적합합니다. Go는 HTTP와 관련 프로토콜에 대한 훌륭한 지원을 제공하며, 만족스러운 웹 서비스를 빠르게 작성할 수 있습니다.
+
+|  | Go |
+| --- | --- |
+| **서비스 작성** | Go는 네트워크 서비스를 처리하는 데에 적합한 동시성 모델을 제공하며, HTTP 및 관련 프로토콜에 대한 훌륭한 지원을 제공합니다. |
+
+또한, Go는 복잡성을 줄이는 데 초점을 맞춘 언어입니다. Go는 내장된 기능의 제한된 세트를 제공함으로써 쉽게 배울 수 있습니다. 더 중요한 것은, Go 프로젝트가 크기가 커져도 이해할 수 있도록 보장한다는 것입니다. Go의 창시자들은 Go를 "지루한" 언어라고 부르는데, 이는 Go가 "더 적은 것으로 더 많이 하도록 강요"하는 아이디어가 매우 성공적이었음을 보여줍니다.
+
+|  | Go |
+| --- | --- |
+| **단순성** | Go는 제한된 언어 기능을 제공하여 배우기 쉽고, 프로젝트가 커져도 이해하기 쉽습니다. |
+
+마지막으로, Go는 엔터프라이즈 소프트웨어 개발에 매우 유용합니다. 엔터프라이즈 소프트웨어 개발은 다른 종류의 개발과는 매우 다른 특성을 가지고 있습니다. 이는 큰 범위의 도메인을 다루고, 복잡한 프로세스를 관리해야 하는 것을 의미합니다. Go는 이러한 복잡성을 관리하는 데 매우 효과적입니다.
+
+### Go is great for enterprise software
+
+**As I already mentioned, Go was created to solve Google problems, and Google problems are definitely enterprise-scale problems.** Whether this was the direct aim of the creators or just the natural result of using it at a Big Corp, Go is indubitably an amazing breath of fresh air in enterprise software development.
+
+#### Enterprise software development is about scale
+
+Not in terms of total number of users, or amount of data. Often that’s the case too, but the defining characteristics are scale of **scope** and **process**.
+
+**Enterprise software always has a big scope.** The domain can be big and wide, or narrow but stupidly complex. Sometimes it’s both. When creating software to model such domains, normal programming wisdom falls incredibly short because non-technological concerns out-weight most technological ones.
+
+Because of the environment resulting from this general premise, a few well-known enterprise development “quirks” have emerged over time. I’ll name three relevant to my point.
+
+1.  **There are a lot of junior developers** who learn on the job how to program and most are not lucky enough to find a job that will truly teach them anything. In some places, after you’re hired, you are stationed for one week in front of PluralSight and then you’re considered ready to go.
+2.  **Software projects quickly become huge and complex for all the wrong reasons.** Big projects take time to build and people (or whole teams) will come and go in the meantime. Constant refactoring is never an option so each will leave behind a lot of code written with very varying levels of quality. Multiple teams working in parallel will produce redundant code. The domain shifts over time, inevitably invalidating older assumptions and consequently causing abstractions to leak. The more sophisticated an abstraction is, the higher the risk that it will become a problem when business comes back with a serious change request.
+3.  **The toolchain is very often lousy and/or dated.** This is pretty much the inevitable result of all that I described so far. Huge amounts of old code tie you down to a specific toolset, junior developers will learn the status-quo at best, and the people on top (managers and stakeholders) are extremely often not prepared for making technological decisions based on first-hand experience, the general nature of the endeavor makes them risk-averse, causing them to mainly mimic what other successful players in their space do or, more precisely, what analysts _claim_ other successful players do.
+
+#### Go is about suppressing complexity at scale
+
+Go makes teams more successful, partially by giving them more than what they would get with other ecosystems, and partially by taking tools away from them, to prevent common pitfalls.
+
+**Go is much easier to learn than Java or C#.** A faster ramp-up is generally good, but it becomes fundamental when the project is lagging behind, the deadline is approaching, and management inevitably resorts to hiring more people, hoping (in vain) to speed things up.
+
+**The Go community regards as anti-patterns many abstractions regularly employed by Java / C#**, like IoC containers, or OOP inheritance, for example. There are only two levels of visibility for variables, and the only concurrency model is CSP. It’s way harder to fall into incomprehensible pitfalls when writing in Go than it is in Java / C#.
+
+**The Go compiler is fast.** Which means that running tests is going to be faster in general, that deployments will take less time, increasing the overall productivity.
+
+**With Go, it’s easier as a junior developer to be more productive, and harder as a mid-level developer to introduce brittle abstractions that will cause problems down the line.**
