@@ -1205,3 +1205,235 @@ Go makes teams more successful, partially by giving them more than what they wou
 **The Go compiler is fast.** Which means that running tests is going to be faster in general, that deployments will take less time, increasing the overall productivity.
 
 **With Go, it’s easier as a junior developer to be more productive, and harder as a mid-level developer to introduce brittle abstractions that will cause problems down the line.**
+
+## 23.05.19
+
+**쉽게 설명한 유니티 엔진 관점에서의 메모리 최적화**
+
+- [출처](https://zhuanlan.zhihu.com/p/603847226)
+
+# 내용(기계번역)
+
+귀하의 게임이 PC에서 출시된 후 인기를 얻었고 리더가 게임이 휴대폰, 콘솔 등과 같은 더 많은 플랫폼과 모델에 도달할 수 있도록 게임 시장을 확장하기로 결정한 시나리오를 상상해 보십시오. 이때 귀하의 팀은 그러한 임무를 받았는데 한쪽은 매우 높은 기준과 높은 시각적 효과를 가진 게임을 제작하는 것이고 다른 한쪽은 성능을 위한 새로운 대상 플랫폼입니다.원래 게임의 모든 콘텐츠를 유지해야 합니다. 기존 플랫폼의 운영에 지장을 주지 않는 선에서 게임 콘텐츠의 업데이트를 지속적으로 이어가는 것도 필요하다. 이것은 매우 어려운 작업처럼 보입니다.
+
+팀이 예비 교차 플랫폼 포팅 작업을 완료했고 게임이 이미 새 플랫폼에서 실행될 수 있다고 가정할 때 이 때 자주 발생하는 첫 번째 문제는 메모리 부족입니다. 현재 별도의 그래픽카드를 탑재한 PC 플랫폼의 가용 메모리는 기본적으로 시스템 메모리 8GB 이상 + 비디오 메모리 3GB 이상이며, 부족할 경우 디스크로 스왑이 가능하므로 일반 PC 게임은 메모리가 부족한 상황을 특별히 고려하지 않습니다.
+
+![](Image/2023-05-19-13-23-46.png)
+
+> 현재 PC 플랫폼의 주류 메모리/비디오 메모리 구성 비율
+
+모바일 단말기와 호스트 단말기와 같은 플랫폼에서는 사용 가능한 메모리가 늘어나는 경우가 많으며 CPU와 GPU의 사용을 모두 고려해야 합니다. 엔진 개발 엔지니어로서 엔진 측에서 메모리를 최적화하는 방법은 무엇입니까? 저자는 다음과 같은 측면에서 생각해 볼 수 있다고 생각한다.
+
+### 1\. 방만하게 쓰이는 부분들 예의주시하기
+
+이 방법은 최적화 초기 단계에 더 적합하며 비교적 일반적인 최적화 방법이기도 합니다. 이 단계에서 메모리 프로파일의 데이터를 잘 분석해보면 '낭비'하는 곳이 많은 경우가 많은데, 몇 가지 변경만으로도 수백 메가바이트의 메모리를 절약할 수 있을지도 모른다. 저자는 특별히 주목해야 할 몇 가지 부분을 생각합니다.
+
+-   텍스처, RT
+
+구성이 낮은 플랫폼에 이식할 때 텍스처에 많은 공간이 압축될 수 있습니다. 렌더링 해상도가 낮아지면 텍스처도 적절하게 해상도가 낮아질 수 있습니다. 특히 일부 개체와 특수 효과는 화면 공간의 작은 부분을 차지합니다. 1080P 해상도에서 복잡한 디테일이 있는 패션의 경우 512x512의 해상도로 디테일을 유지하기에 충분하며, 큰 색상 블록이 있는 패션과 같이 디테일이 적은 패션의 경우 256x256 또는 128x128로도 충분합니다. 720P 해상도에서는 1080P에 비해 한 단계 낮출 수 있습니다. 메모리 요구 사항을 충족할 수 없는 경우 기본 텍스처(확산)의 해상도를 변경하지 않고 유지하면서 다른 텍스처의 해상도를 압축할 수 있습니다.
+
+RT도 메모리를 많이 짜낼 수 있는 곳인데 각 RT의 크기에 더 신경을 써서 시간상 무리한 부분을 찾아보면 됩니다 예를 들어 아래 사진에서 R8 포맷의 RT는 실제로 동일한 해상도의 ARGB32 크기 조심스럽게 조사한 후 R8 형식의 RT에 깊이가 있음을 알 수 있으며 이 MaterialId RT에는 분명히 깊이 버퍼가 필요하지 않습니다.
+
+![](Image/UnityRenderTextureMemory_230519.png)
+
+동일한 해상도의 여러 RT도 최대한 재사용 가능 예를 들어 후처리 단계에서 화면 크기의 여러 RT가 필요한 경우가 많으며 후처리 효과는 이전에 포스트에 사용했던 RT를 재사용할 수 있습니다. - 가공 효과. 이러한 임시 RT를 관리하기 위해 글로벌 RT 풀을 구현할 수 있으며 RT 해상도, 형식, 밉맵 및 깊이 비트에 따라 해시를 계산하여 프레임 내 다중화 효과를 얻을 수 있습니다. 동시에 풀의 RT 사용량에 대한 통계를 생성하여 오랫동안 사용하지 않은 RT를 자동으로 정리할 수 있습니다.
+
+-   압축 옵션
+
+Unity3D에서 일부 압축 옵션도 메모리에 상대적으로 큰 영향을 미칩니다. 예를 들어 Unity3D는 메쉬에 대한 정점 압축 및 메쉬 압축을 제공합니다. 그 중 꼭지점 압축을 켜면 메모리 사용에 일정한 최적화 효과가 있습니다.비용은 꼭지점의 정확도를 잃어 측정 정확도에 거의 영향을 미치지 않습니다.메시 압축을 켠 후 파일 크기는 에서 차지하는 메모리 공간이 증가하고 측정된 메모리 사용량이 거의 두 배가 될 수 있으므로 메쉬 압축을 해제할 수 있습니다.
+
+![](Image/UnityMeshCompression_230519.png)
+
+-   일부 데이터 구조의 오버헤드
+
+해시 테이블과 같은 일부 컨테이너는 원래 문자열을 키로 사용할 수 있음 저장해야 할 것이 많은 경우 문자열을 저장하는 것은 큰 오버헤드, 일부 구조는 불필요한 문자열을 포함하거나 대용량 기타 속성을 직접 제거하여 저장 공간을 줄일 수 있음 많은 수로 할당될 일부 구조체의 경우 구조체의 패딩을 제거하여 일정량의 메모리 사용량을 줄일 수도 있습니다.
+
+### 2\. 메모리 할당자의 공간 이용률 높이기
+
+메모리 할당자는 엔진에서 가장 많이 사용되는 모듈 중 하나로 실제 프로젝트에서 메모리 할당자는 할당 성능과 공간 활용 사이의 균형을 추구하는 경우가 많으므로 메모리가 부족한 플랫폼의 경우 메모리 할당에 각별한 주의가 필요합니다. 서버의 오버헤드. 메모리 프로파일러 분석에서 게임의 메모리 할당자 공간 활용도가 매우 낮은 것으로 나타나면 메모리 할당자 최적화를 고려할 수 있습니다.
+
+[Unity3D의 경우 영구 네이티브 메모리를 할당하는 데 사용되는 할당자는 주로 동적 힙 할당자와 버킷 할당자입니다(자세한 내용은 메모리 할당자 사용자 지정](https://link.zhihu.com/?target=https%3A//docs.unity3d.com/2021.2/Documentation/Manual/memory-allocator-customization.html) 참조 ). 그 중 버킷 할당자는 바이트 수준에서 작은 메모리를 할당하고 동적 힙 할당자는 더 큰 메모리를 할당합니다. Unity3D의 동적 힙 할당자는 TLSF 알고리즘을 사용하여 메모리를 할당합니다. TLSF 알고리즘의 구체적인 세부 사항은 여기에서 설명하지 않습니다. 관련 소스 코드는 이 저장소를 확인하십시오 [:](https://link.zhihu.com/?target=https%3A//github.com/mattconte/tlsf) [https://github.com/mattconte/tl sf](https://link.zhihu.com/?target=https%3A//github.com/mattconte/tlsf).
+
+간단히 말해서 TLSF는 블록 형태로 메모리를 관리합니다. 즉, 먼저 시스템에서 큰 메모리 공간을 신청한 다음 이 공간을 분할하여 다양한 크기의 메모리 할당 요청을 충족시킵니다. 일반적으로 할당 성능을 고려하기 위해 블록의 크기는 수 메가바이트(Unity3D는 기본적으로 16MB)이며 TLSF 내부 메모리 할당의 세분성은 상대적으로 크므로 할당자 내부에 사용할 수 없는 일부 공간이 생성됩니다.
+
+실제 프로젝트에서 각 크기 범위의 메모리 할당 수를 세어 보면 Unity3D 네이티브 메모리를 할당할 때 1k 바이트 미만의 메모리 할당이 대부분을 차지하는 것을 관찰할 수도 있습니다. 각 블록의 할당에 대한 통계를 만들면 수십 또는 수백 바이트의 개체가 많은 블록을 점유하고 해제할 수 없는 것을 관찰할 수 있습니다. 이는 아마도 다음과 같은 상황일 것입니다.
+
+![](Image/UnityTLSFmemoryAlloc_230519.png)
+
+TLSF의 각 블록의 크기는 이 부분의 메모리 사용량을 줄이기 위해 적절하게 줄일 수 있습니다. 그러나 실제 테스트에서는 개선의 이 부분이 명확하지 않습니다. 이때 Unity3D에서 제공하는 다른 할당자인 버킷 할당자를 사용할 수 있습니다. Bucket allocator는 작은 메모리 할당에 특별히 사용되는 lock-free 할당자로서 메모리 할당의 세분성을 더 세밀하게 설정할 수 있기 때문에 내부 단편화 비율은 TLSF 할당자보다 낮습니다.
+
+![](Image/2023-05-19-13-36-15.png)
+
+Unity3D는 할당 세분성, 버킷 수, 블록 크기 및 수의 네 가지 구성 옵션이 있는 버킷 할당자를 제공합니다. 블록의 개념은 TLSF 블록과 유사합니다. 버킷 할당자는 시스템에서 한 번에 대용량 메모리를 신청한 다음 블록을 나눕니다. 서로 다른 크기의 하나의 버킷에 넣고 실제 메모리 할당 시 가장 가까운 크기의 버킷 주소를 반환합니다.
+
+버킷의 크기는 할당 세분성 및 버킷 수에 의해 결정됩니다. 기본 16B 및 8 버킷을 예로 들면 8 버킷의 크기는 16B, 32B, 48B, 64B, 80B, 96B, 112B 및 128B. 이 두 매개변수는 또한 버킷 할당자가 할당할 수 있는 메모리 크기의 상한(128B)을 결정합니다. 블록의 수와 블록의 크기는 버킷 할당자가 총 할당할 수 있는 메모리 양을 결정하며, 기본 4MB와 1을 예로 들면 총 4MB의 메모리를 할당할 수 있습니다. 초과분은 TLSF를 사용하여 할당됩니다.
+
+일부 소규모 프로젝트에서는 기본 매개변수가 충분할 수 있지만 이 설정은 우리 프로젝트에서 너무 보수적입니다.실제 테스트 후 1k바이트 미만의 메모리 할당 크기는 400~500MB에 이를 수 있습니다. -효과적인. 버킷 수를 64개로 설정하고 버킷이 할당할 수 있는 총 크기를 512MB로 설정하면 해당 요구 사항이 충족되고 기본 메모리의 예약률도 감소합니다.
+
+![](Image/UnityBucketMemoryOptimization_230519.png)
+
+### 3\. 게임 오브젝트 제거링크 복사
+
+먼저 일반적으로 Unity 장면이 어떻게 구성되는지 생각해 보세요. 아티스트가 생성된 장면 개체의 FBX를 Unity3D 프로젝트로 가져온 후 LOD, 재료, 일부 매개변수를 조정하면 런타임 시 프로그램에서 작성한 관련 로직이 프리팹을 로드하고 이를 장면의 게임 오브젝트로 인스턴스화합니다.
+
+대규모 장면의 경우 동시에 관리되는 GamaObject의 수는 수만 개가 될 수 있으며 일반적으로 이러한 GameObject를 관리하기 위해 장면 스트리밍을 사용합니다. 즉, 전체 장면을 mxm 블록으로 나누고 주변 nxn 블록 캐릭터를 중심으로 로드되며, 그 외 지역은 HLOD를 사용합니다. 블록의 로딩 창은 일반적으로 5 x 5, 3 x 3, 1 x 1 등입니다. 로드 및 언로드에 대한 더 복잡한 판단 메커니즘이 있을 수 있으므로 여기에서 확장하지 않습니다.
+
+메모리를 분석해본 결과, Mesh만 해도 10,000개 이상으로 많으며, 800MB 이상의 메모리를 점유하고 있으며, GameObjects, Transforms, MeshRenderer가 수만 개가 넘는다는 것을 알 수 있습니다. 이는 메모리를 점유할 뿐만 아니라 내부 메모리 조각화를 심화시키고 성능에 영향을 미칩니다. 따라서 이 부분을 최적화하는 것이 중요합니다.
+
+|   | 수량 | 사용된 내부 메모리 |
+| --- | --- | --- |
+| 망사 | 10169 | 0.82GB |
+| 게임오브젝트 | 85071 | 18.8MB |
+| 변환 | 74641 | 20.9MB |
+| 메쉬렌더러 | 34892 | 20.9MB |
+| 총 메모리(목록에 없는 항목 포함) | / | 5.4GB |
+
+최적화 방향은 불필요한 GameObjects의 로딩을 줄이는 것뿐만 아니라 이러한 GameObjects의 상당 부분이 정적 개체라는 점에 유의하는 것입니다. 이러한 정적 개체의 경우 런타임에만 필요합니다.메시, 재료 및 변환 데이터 GameObject 자체의 메모리 오버헤드와 엔진에 연결된 구성 요소 외에도 instanceID 및 종속 번들의 증가로 인해 일부 내부 컨테이너가 확장되고 숨겨진 비용 등이 있습니다.
+
+따라서 우리는 두 가지 각도에서 최적화할 수 있습니다: 자체 파이프라인을 사용하여 정적 객체를 렌더링하고 Unity GameObject의 오버헤드를 피하고 장면에서 불필요한 객체를 언로드합니다.
+
+첫 번째 사항을 수행하려면 먼저 GameObject에서 관리하는 데이터 구조로 장면 구성 데이터를 내보내야 합니다. 원본 GameObject(프리팹 형태)의 구성 구조는 아래 그림과 같습니다. LOD의 각 수준은 여러 렌더러에 해당하며 각 렌더러에는 고유한 변환, 메시 및 재질이 있습니다.
+
+
+`RendererData`세 가지 구조를 개별적으로 정의하고 원본 GameObject의 각 LOD 레벨 렌더러의 해당 메시 및 재료 데이터를 두 개의 목록으로 전달하고 해당 데이터를 기록 `ScenePrefab`하고 데이터를 변환할 수 있습니다. GameObject LOD의 각 레벨에 포함된 렌더러는 타일링되어 다른 배열 에 저장되며 각 LOD의 해당 합계는 에 기록 됩니다 . 마지막으로 원본 GameObject를 교체하여 런타임에 개체를 설명하면 장면 스트리밍 동적 처리에 편리합니다.`SceneObject``meshIndex``materialIndex``RendererData``RendererData``allRenderers``allRenderers``lodXRendererStart``lodXRendererLength``ScenePrefab``SceneObject`
+
+```
+public struct RendererData
+{
+    public int prefabIndex;
+    public int meshIndex;
+    public int materialIndex;
+
+    public ShadowCastingMode shadowCastMode;
+
+    public Unity.Mathematics.float4x4 localToObject;
+    public short enableTransparent;
+}
+
+struct ScenePrefab
+{
+    public int prefabValidFlag;
+
+    public int lod0RendererStart;
+    public int lod0RendererLength;
+    public int lod1RendererStart;
+    public int lod1RendererLength;
+    public int lod2RendererStart;
+    public int lod2RendererLength;
+
+    public float lod0Distance;
+    public float lod1Distance;
+    public float lod2Distance;
+}
+
+public struct SceneObject
+{
+    public float loadPriority;
+    public float3 worldPosition;
+    public quaternion worldQuaternion;
+    public float3 worldScale;
+
+    public float3 aabbCenter;
+    public float3 aabbExtents;
+
+    public int prefabIndex;
+    public int idInScene;
+}
+
+```
+
+원본 데이터가 처리된 후 다음과 같은 형태로 재구성됩니다. 이와 같이 GameObject(prefab)로 정리된 원본 씬 데이터를 자체 씬 데이터로 교체하여 GameObject를 사용하여 발생하는 추가 오버헤드를 버리고 필요에 따라 해당 리소스를 로드/언로드하는 것도 편리합니다.
+
+예를 들어 LOD의 다른 레벨은 현재 표시된 LOD 레벨에 필요한 리소스만 로드하면 됩니다.실제 테스트에서 장면의 오브젝트 중 60% 이상이 LOD2입니다.LOD1 및 LOD0과 비교할 때 LOD2의 볼륨은 의심 할 여지없이 매우 작습니다. 기본 LOD 그룹은 LOD 레벨에서 참조하는 모든 메시를 로드해야 하며 요청 시 LOD를 로드하면 메모리의 절반 이상을 절약할 수 있습니다. `AssetDatabase`단, FBX를 Unity3D로 임포트한 후 FBX 자체가 Unity3D에서 메인 에셋이고 메시, 애니메이션 클립 등은 모두 서브 에셋이라는 점에 유의해야 합니다 .
+
+현재 GameObject가 없기 때문에 사용자 정의 데이터 구조를 통해 메시를 직접 인덱싱해야 하며 Unity3D는 `AssetBundle.LoadAsync<Mesh>("xxxxxx.fbx")`. 그러나 Unity3D의 로딩 메커니즘은 전체 FBX의 모든 서브 에셋을 로드하게 되므로 온 디맨드 로딩의 목적을 달성할 수 없기 때문에 서브 에셋을 정확하게 로드하거나 전처리를 위한 새로운 인터페이스를 구현해야 합니다. FBX 메시를 생성하고 새 자산으로 저장합니다.
+
+
+런타임에 장면 스트리밍은 여전히 원래 논리로 장면을 관리하지만 로드 요청이 시작되면 로드할 프리팹이 사전 처리된 리소스 목록에 없으면 원래 로드 및 렌더링 프로세스가 계속 사용됩니다. 기존 프로세스는 건너뛰고, 일부 프로세스는 새로운 프로세스가 관리되기를 기다리고 있으며, 해당 의사 코드는 다음과 같습니다. `foreach`의사 코드의 /는 `for`데모용일 뿐이며 실제 사용 시 잡 시스템에서 병렬화해야 합니다 .
+
+```
+void MainTick()
+{
+    ...
+    // Scene streaming更新, 更新相机位置，要加载的区块等
+    SceneStreamingUpdate();
+
+    // loading流程
+    while (loadTasks.Count > 0)
+    {
+        var loadTask = loadTasks.Dequeue();
+         var prefabIndex = GetLoadingPrefabIndex(loadTask);
+         // allSceneObjectPrefabIndex预处理时生成, 记录了所有SceneObject的prefabIndex
+         if (allSceneObjectPrefabIndex.Contains(prefabIndex))
+             continue;
+         // 原先的加载逻辑
+         LoadPrefab(prefabIndex);
+         ...
+    }
+
+    // 新的加载流程
+    // 从SceneStreaming中获得当前加载的Section，将原先的GameObject信息转为SceneObject格式
+    foreach (var sectionIndex in loadingSectionIndices)
+    {
+        // sectionStaticObjects预处理时生成，记录了每个区块中的静态物体
+        foreach(SceneObject staticObj in sectionStaticObjects[sectionIndex])
+        {
+            staticObjectInSections.Add(staticObj);
+        }
+    }
+    // 对要加载的区块内的物体进行裁剪
+    foreach (SceneObject sceneObj in staticObjectInSections)
+    {
+        if(IsVisible())
+            visibleObjects.Add(sceneObj);
+    }
+    // 计算每个可见物体的LOD
+    for (int i = 0; i < visibleObjects.Count; ++i)
+    {
+        int lod = CalculateLOD(visibleObjects[i], currentCamera);
+        visibleObjectLODs[i] = lod;
+    }
+    // 根据LOD，索引得到正确的ScenePrefab和RendererData数据
+    for (int objIndex = 0; objIndex < visibleObjects.Count; ++objIndex)
+    {
+        SceneObject sceneObj = visibleObjects[objIndex];
+        // allPrefabs预处理时生成
+        ScenePrefab prefab = allPrefabs[sceneObj.prefabIndex]
+        int lod = visibleObjectLODs[objIndex];
+        // 从ScenePrefab获取对应LOD的lodXRendererStart和lodXRendererLength
+        LODToRendererInfo(lod, ref prefab, out int rendererStart, out int rendererLength);
+        for (int i = rendererStart; i < rendererLength; ++i)
+        {
+            int rendererIndex = rendererStart + i;
+            // allRenderers即上文的allRenderers
+            RendererData renderer = allRenderers[rendererIndex];
+            // 判断一下当前LOD的sceneObj是否需要加载
+            if (NeedLoadRenderer(lod, sceneObj))
+                needLoadRenderers.Add(renderer);
+            // 将renderer添加到待渲染列表
+            validRenderers.Add(renderer);
+        }
+    }
+
+    // 加载renderers
+    LoadRenderers(needLoadRenderers);
+
+    // 渲染renderers
+    DrawRenderers(vaildRenderers);
+}
+
+```
+
+장면에서 개체를 자를 때 SSD가 있는 일부 장치의 경우 IO를 메모리로 교환할 수 있습니다. 따라서 로드할 블록의 오브젝트에 대해 사전에 프러스텀 컬링을 수행할 수 있습니다. PVS에 의해 컬링된 개체도 언로딩 대기열에 직접 들어갈 수 있습니다. 이것은 시야에 넓은 차단 영역이 있을 때 매우 잘 작동합니다. 절두체 컬링 외에도 빛의 방향으로 그림자 컬링을 수행하여 화면 밖에 있지만 그림자가 여전히 화면에 있는 객체를 유지합니다.
+
+SSD가 없는 장치의 경우 HDD의 IO 속도에 의해 제한되며 보기 원뿔 외부의 모든 개체를 언로드하는 전략으로 인해 보기 각도가 회전할 때 새 메시가 너무 늦게 로드됩니다. 따라서 가까운 오브젝트는 정상적으로 렌더링되고 멀리 있는 오브젝트는 비동기 IO를 통해 점진적으로 로드되도록 카메라 근처의 특정 범위 내 오브젝트를 유지하도록 컬링 전략도 수정해야 합니다.
+
+최적화가 완료되고 메모리를 카운트한 후 메시가 차지하는 메모리는 적정량에 관계없이 크게 줄었고 GameObjects, Transforms, MeshRenderer의 수는 절반 이상 줄었고 총 메모리 사용량은 881MB로 줄었습니다 최적화 효과는 매우 분명합니다.
+
+|   | 최적화 전 수량 | 최적화된 수량 | 줄이다 | 최적화 전 메모리 | 최적화된 메모리 | 줄이다 |
+| --- | --- | --- | --- | --- | --- | --- |
+| 망사 | 10169 | 3097 | 7072 | 0.82GB | 281.5MB | 558.18MB |
+| 게임오브젝트 | 85071 | 38352 | 46719 | 18.8MB | 10.1MB | 8.7MB |
+| 변환 | 74641 | 28017 | 46624 | 20.9MB | 10.0MB | 10.9MB |
+| 메쉬렌더러 | 34892 | 4885 | 30007 | 20.9MB | 2.9MB | 18MB |
+| 총 메모리(목록에 없는 항목 포함) | / | / | / | 5.29GB | 4.43GB | 881MB |
