@@ -1538,3 +1538,12 @@ SSD가 없는 장치의 경우 HDD의 IO 속도에 의해 제한되며 보기 �
 # 코드 리뷰 테스트의 효과
 
 코드 리뷰 테스트의 도입으로 **인터뷰 전 테스트의 변별력이 2배 이상 올라가서 인터뷰 시간이 50% 이상, 한 달에 30시간가량 감소했습니다.** 합격자 수와 수준을 그대로 유지하면서요. 지원자의 코드 리뷰를 보고 같이 일하고 싶은 사람인지 아닌지에 대해 높은 확신을 가지고 판단할 수 있었습니다.
+
+## 23.07.04
+
+- The file 'none' is corrupted! Remove it and launch unity again!
+
+희안한 일인데 애셋 번들을 언로드 했다가 다시 로드하는 경우, 
+그 번들의 주소를 갱신하지 못한 프로그램의 어딘가에서 '번들' 내부의 '애셋'에 접근 시도하는 순간 예외가 터진다.......
+
+[loaded Asset bundle reporting 'file none is corrupted' - Unity Forum](https://forum.unity.com/)
