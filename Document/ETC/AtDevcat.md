@@ -1566,3 +1566,16 @@ ui 버튼을 추가하는 것이 궁색해 보일 수 있지만, 게임 흐름�
 - 끼임 탈출을 명령어나 UI로 사용할 수 있다.
 - 끼임 탈출은 재사용 시간이 있다.
 - 끼임 탈출을 사용하면 프로젝트에서 정의하는 “적당히 널직한 공간”으로 워프를 시켜 준다.
+
+## 23.07.13
+
+**HLOD**
+
+[Hierarchical Level of Detail Overview  Unreal Engine 4.27 Documentation](chrome-extension://pcmpcfapbekmbjjkdalcgopdkipoggdi/4.27/en-US/BuildingWorlds/HLOD/Overview/)
+
+Hierarchical Level of Detail (or HLOD), in its simplest form, is a way to combine pre-existing Static Mesh Actors into a single HLOD Proxy Mesh and Material (with atlased Textures). Using HLOD may lead to increased performance as they reduce draw calls down to one call per Proxy Mesh as opposed to a draw call for each individual Static Mesh Actor. When generating HLOD Proxy Meshes, there several parameters you can adjust which help define how Static Mesh Actors are grouped together as clusters that will ultimately be built into Proxy Meshes. 
+
+- 계층형 LOD. 그러니까 카메라가 멀어지면 로우 디테일 메쉬로 스왑하는 것은 일반 LOD 와 동일한데 HLOD 의 경우는 다수의 메쉬를 하나의 통합된 로우 디테일 메쉬로 통합해 버리는 형태다.
+- 오브젝트가 많을 때 로우 디테일 메쉬라도 하나하나 일일이 그리는게 부담이 된다. 그래서 전부 컬링해 버리고 하나의 거대한 로우 폴리로 대체하는 것
+
+![](HLOD_230713.png)
