@@ -1586,3 +1586,19 @@ Hierarchical Level of Detail (or HLOD), in its simplest form, is a way to combin
 
 - 유니티는 내부에서 무슨 일을 하는지 모르기 때문에 에셋 증분 번들 빌드가 느리면 개발자만 속 터진다.
 - 번들 의존성을 미리 알 수 있다면(AssetBundleBuild[]) 수동으로 빌드를 걸 수 있다고 한다. (BuildPipeline.BuildAssetBundles)
+
+[Unity - Scripting API BuildPipeline.BuildAssetBundles](https://docs.unity3d.com/ScriptReference/BuildPipeline.BuildAssetBundles.html)
+
+**서버성능 부하테스트**
+
+서버 부하테스트를 진행하는데, 멀티스레딩 작업에 일감을 투입하면 부하가 선형적(linear)으로 늘어나는게 아니라 급격하게 뛰어오른다.
+
+논의되는 내용으로는...
+
+- IOCP 리시브 스레드에서 락 컨텐션 줄이기
+  - 오늘날의 머신은 CPU 속도가 빨라지고 코어 개수가 많아지고 상대적으로 캐시 미스 비용은 늘어났기 떄문에 CPU 사이클을 좀 낭비해도 캐시미스를 피하는게 최선일 것. 락 컨텐션도 줄여야 한다.
+  - C# BlockingCollection이 추천됨
+- dynamic_cast 는 피한다
+- 패킷 send는 한꺼번에 몰아서 하자
+- GC는 피한다. 모든 스레드를 브레이크하는 것은 역시 부담이 크기 때문에
+  - 서버 코드도 가능하면 메모리 낭비없이 풀링하는 것으로
