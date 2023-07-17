@@ -1579,3 +1579,10 @@ Hierarchical Level of Detail (or HLOD), in its simplest form, is a way to combin
 - 오브젝트가 많을 때 로우 디테일 메쉬라도 하나하나 일일이 그리는게 부담이 된다. 그래서 전부 컬링해 버리고 하나의 거대한 로우 폴리로 대체하는 것
 
 ![](HLOD_230713.png)
+
+## 23.07.17
+
+**유니티 에셋 번들 수동 빌드**
+
+- 유니티는 내부에서 무슨 일을 하는지 모르기 때문에 에셋 증분 번들 빌드가 느리면 개발자만 속 터진다.
+- 번들 의존성을 미리 알 수 있다면(AssetBundleBuild[]) 수동으로 빌드를 걸 수 있다고 한다. (BuildPipeline.BuildAssetBundles)
