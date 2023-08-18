@@ -1717,3 +1717,102 @@ c# 인터페이스에서 선언한 메서드를 구현하면 반드시 virtual �
 - 인라인도 불가능하다. 그러니까 느리다.
 
 빡센 최적화가 필요하다면 눈여겨봐야 한다.
+
+[Stop Using React - DEV Community](https://dev.to/ender_minyard/why-you-should-stop-using-react-g7c)
+
+- 쓰지 말라고 한다.
+- 느려서
+- 인터넷이란 원래 HTML 등의 컨텐츠를 '스트리밍'하지만 리액트는 그러지 않는댄다. 시대를 역행하는 녀석이라고...
+
+[이제 React.js 를 버릴 때가 왔다](https://www.seokjun.kim/time-to-stop-react/)
+
+React 가 SPA 로 인기가 있었던 이유는 내가 볼때는 SSR 이 가장 컸다. 당시 angular로 만든 프로젝트는 SSR 이 불가능했기 때문에 javascript 가 로드되는 시간동안 로딩화면을 보여줄 수 밖에 없었고, 당시 google 로봇 또한 SPA 를 이해하지 못했다. React 는 javascript 로 dom tree 를 만들고 이를 브라우저에 렌더링 하는 형식이라 SSR 에 유리했고, 초기 React 의 인기는 여기에서 유래했다고 해도 과언이 아니다. “SEO 가 가능한 SPA 라고?”
+
+2. hooks 는 좋지 않은 선택이었다.
+나는 솔직히 class Button extends React.Component 가 그립다. hook 과 functional component 가 간결하다는 것은 분명히 인정한다. 간결하다는 것이 항상 구조적으로 단단하다는 의미는 아니고, functional 에 너무 집착해서 오히려 functional programming 에서 멀어진 것이 현재 React 의 hook 컨셉이라고 본다.
+
+어떤 data 가 하나 변경될때마다 해당 dom 을 찾아서 그 값을 바꾸는 방식은 매우 귀찮고 고된 일이었고, 이에 대한 부담을 거의 없애버린 React 는 당연히 매력적인 컴포넌트를 만드는 방식이었다. 어떤 복잡한 일련의 프로세스를 컴포넌트에서 처리해야 하는 경우일수록 React 는 매력적이었다. 그런데 지금은? hooks 의 장점을 살리려면 side effect 에 의존한 state sync 방식으로 코딩을 해야 하는데, 이는 솔직히 매우 가독성이 떨어지고 버그를 양산할 수 밖에 없다. 반면 Component 의 Lifecycle 메소드들은 이해하기 쉬웠고, 절차적으로 처리해야 하는 경우 코드의 흐름을 파악하기 적당히 용이했다. (솔직히 이전에도 편하진 않았다.) 
+
+웹을 구성하는 렌더링 요소의 대부분은 Component 로 만들어야 할 필요가 없다. 아니 Component 의 장점은 분명히 존재하는데, 그게 꼭 라이프 싸이클을 가진 Reactive 컴포넌트일 필요는 없다는 말이다. 대부분의 경우 class 네임으로 처리가 가능하고, React 가 필요할만한 복잡한 컴포넌트는 프로젝트에서 비중이 높지 않다. 아니 오히려 React 화 되면서 괜히 더 복잡해지고 어려워진 면이 없지 않다. Component 기반의 개발이 유용한 것은 하나의 페이지에 복잡한 일을 하는 UI 요소들이 존재할 때, 이 상태를 트래킹하며 UI 를 렌더링 하는 동작을 구현하기 어렵기 때문이다. 이를 vanilla javascript 로 하면 더더욱 그렇다. 한 page 를 여러개의 component 로 분리하고 개별 component 안에서 변경되는 데이터를 단순화하면 테스트 하기도 편하고 각 요소당 써야하는 코드의 양이 줄어들기 때문에 훨씬 구조적인 어플리케이션을 개발하기 좋다.
+
+React 는 초기 컨셉이었던 뷰 라이브러리로서도 많은 문제를 가지고 있다. setState 의 변태성으로 인한 피곤함, functional 이라면서 side effect 를 장려하는 기묘한 컨셉, lifecycle method 들이 기피대상이 되고 hook 이 새로 등장하며 난해해진 컴포넌트 가독성 등 설계부터 잘못된 부분이 있다고 본다. React 만이 가지고 있던 장점은 이미 후발주자들이 훨씬 진보된(?) 형태로 보여주고 있고, 웹 개발 씬에서 SPA 자체에 대한 회의가 점점 커지고 있다는 것도 무시할 수 없다. GraphQL 은 React 와 별개로 존재하는 것이 어렵지 않고, redux 는 GraphQL 과 궁합이 매우 안좋다보니 벌써 사라져간다.
+
+[GitHub - tc39proposal-pipeline-operator A proposal for adding a useful pipe operator to JavaScript.](https://github.com/tc39/proposal-pipeline-operator)
+
+### Deep nesting is hard to read
+
+- 왼쪽을 보다가.. 오른쪽을 보다가...
+  
+Consider this [real-world code from React](https://github.com/facebook/react/blob/17.0.2/scripts/jest/jest-cli.js#L295).
+
+```js
+console.log(
+  chalk.dim(
+    `$ ${Object.keys(envars)
+      .map(envar =>
+        `${envar}=${envars[envar]}`)
+      .join(' ')
+    }`,
+    'node',
+    args.join(' ')));
+```
+
+This real-world code is made of **deeply nested expressions**. In order to read its flow of data, a human’s eyes must first:
+
+1.  Find the **initial data** (the innermost expression, `envars`).
+    
+2.  And then scan **back and forth** repeatedly from **inside out** for each data transformation, each one either an easily missed prefix operator on the left or a suffix operators on the right:
+    1.  `Object.keys()` (left side),
+    2.  `.map()` (right side),
+    3.  `.join()` (right side),
+    4.  A template literal (both sides),
+    5.  `chalk.dim()` (left side), then
+    6.  `console.log()` (left side).
+
+…we can **untangle** it as such using a pipe operator and a placeholder token (`%`) standing in for the previous operation’s value:
+
+```js
+Object.keys(envars)
+  .map(envar => `${envar}=${envars[envar]}`)
+  .join(' ')
+  |> `$ ${%}`
+  |> chalk.dim(%, 'node', args.join(' '))
+  |> console.log(%);
+```
+
+Now, the human reader can **rapidly find** the **initial data** (what had been the most innermost expression, `envars`), then **linearly** read, from **left to right**, each transformation on the data.
+
+
+### Temporary variables are often tedious
+
+- 많은 프로그래들은 괴로운 네이밍 고민을 피해갈 수 없는데, 메서드 체이닝으로 명명에 대한 부담을 줄일 수 있다. 이름을 짓지 않게끔 코드를 짜는 것이다.
+
+One could argue that using **temporary variables** should be the only way to untangle deeply nested code. Explicitly naming every step’s variable causes something similar to method chaining to happen, with similar benefits to reading and writing code.
+
+For example, using our previous modified [real-world example from React](https://github.com/facebook/react/blob/17.0.2/scripts/jest/jest-cli.js):
+
+```js
+Object.keys(envars)
+  .map(envar => `${envar}=${envars[envar]}`)
+  .join(' ')
+  |> `$ ${%}`
+  |> chalk.dim(%, 'node', args.join(' '))
+  |> console.log(%);
+```
+
+…a version using temporary variables would look like this:
+
+```js
+const envarString = Object.keys(envars)
+  .map(envar => `${envar}=${envars[envar]}`)
+  .join(' ');
+const consoleText = `$ ${envarString}`;
+const coloredConsoleText = chalk.dim(consoleText, 'node', args.join(' '));
+console.log(coloredConsoleText);
+```
+
+But there are reasons why we encounter deeply nested expressions in each other’s code **all the time in the real world**, **rather than** lines of temporary variables. And there are reasons why the **method-chain-based [fluent interfaces](https://en.wikipedia.org/wiki/Fluent_interface)** of jQuery, Mocha, and so on are still **popular**.
+
+It is often simply too **tedious and wordy** to **write** code with a long sequence of temporary, single-use variables. It is arguably even tedious and visually noisy for a human to **read**, too.
+
+If [**naming** is one of the **most difficult tasks** in programming](https://martinfowler.com/bliki/TwoHardThings.html), then programmers will **inevitably avoid naming** variables when they perceive their benefit to be relatively small.
