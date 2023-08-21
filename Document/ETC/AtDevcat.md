@@ -1816,3 +1816,7 @@ But there are reasons why we encounter deeply nested expressions in each other�
 It is often simply too **tedious and wordy** to **write** code with a long sequence of temporary, single-use variables. It is arguably even tedious and visually noisy for a human to **read**, too.
 
 If [**naming** is one of the **most difficult tasks** in programming](https://martinfowler.com/bliki/TwoHardThings.html), then programmers will **inevitably avoid naming** variables when they perceive their benefit to be relatively small.
+
+## 23.08.21
+
+게임 프로젝트 DB 사용 패턴에서 데이터 '삭제'를 수행하는 경우, 실제 데이터를 DELETE 하지 않고 해당 데이터의 삭제 시간 컬럼을 수정하는 식으로 우회함. 혹시라도 오동작이 있는 경우 데이터 복구를 편하게 하기 위함인데, 대부분의 테이블은 보존 가치가 적고 UPDATE 보다 DELETE가 퍼포먼스가 더 좋다고 한다.
