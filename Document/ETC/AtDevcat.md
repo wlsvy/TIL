@@ -1870,3 +1870,10 @@ IOS 앱 패치를 하려면 애플 검수를 받아야 하는데 이 과정이 �
 4.  외부 서비스의 장애로 인하여 데이터를 수신하지 못해 네이버 메인 서비스에도 장애가 발생한다.
 
 일시적인 경우라면 2, 3회 재시도로 정상 데이터를 수신할 수 있다. 하지만 장애 상황이라면 계속 재시도하는 것이 의미도 없을 뿐 아니라 외부 서비스의 장애 복구에 악영향을 미칠 수 있다. 이럴 때는 외부 서비스에서 데이터를 받아오는 것을 포기하고 미리 준비된 응답을 사용자에게 전달하는 것이 시스템 안정성 및 사용 편의성 측면에서 옳다고 할 수 있다.
+
+## 23.09.19
+
+프로젝트에서 사용한 gui 프레임워크 몇 가지
+
+- [picoeEto Cross platform GUI framework for desktop and mobile applications in .NET](https://github.com/picoe/Eto)
+- [tryphotinophotino.NET](https://github.com/tryphotino/photino.NET)
