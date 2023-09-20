@@ -1892,3 +1892,17 @@ IOS 앱 패치를 하려면 애플 검수를 받아야 하는데 이 과정이 �
 - 프로젝트 작업자 분들 중에서는 맥 사용자도 있다. 멀티플랫폼 대응이 가능한가
 - 너무 무겁지는 않은가
 - c# 으로 처음부터 끝까지 완성할 수 있는가. 다른 애플리케이션 프레임워크처럼 javaScript / typeScript를 붙이는지
+
+## 23.09.20
+
+[How Discord Stores Trillions of Messages](https://discord.com/blog/how-discord-stores-trillions-of-messages)
+
+Discord 에서 메세지 보관 DB 를 Cassandra -> ScyllaDB 로 변경한 사례
+
+- Cassandra 는 자바로 작성되었기 때문에 GC 가 레이턴시를 유발할 수 있음
+- ScyllaDB는 C / C++ 로 작성되어져 그렇지 않다. 
+  - ScyllaDB 역시 단점은 있지만은 GC에 의해 성능 이슈를 유발하지 않는 게 큰 장점
+- 엄청난 트래픽을 감당해내기 위해, DB Cluster와 API monolith 중간에 data service 레이어를 추가했다. 이 레이어는 Rust로 작성했다.
+  - C/C++ 은 type safety 를 보장하지 않는데 Rust 를 사용했더니 컴파일 단계에서 경고를 받을 수 있어 좋았다고 한다. Rust 가 c/c++ 이랑 비슷한 퍼포먼스 보여주는 것도 장점
+  - Rust 로 병렬 처리 동작을 작성할 때 유리했다. 예컨대 비슷한 시간대에 DB 의 같은 위치의 데이터를 읽는 요청이 중복해서 날아온다면, 이 요청을 데이터 서비스 레이어에서 묶어서(request coalescing) DB 측에는 한번의 요청만 가도록
+  - 데이터 서비스 레이어에는 비즈니스 로직이 없고, 각 쿼리마다 대응하는 gRPC 로 구성되었다.
