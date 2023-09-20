@@ -1877,3 +1877,18 @@ IOS 앱 패치를 하려면 애플 검수를 받아야 하는데 이 과정이 �
 
 - [picoeEto Cross platform GUI framework for desktop and mobile applications in .NET](https://github.com/picoe/Eto)
 - [tryphotinophotino.NET](https://github.com/tryphotino/photino.NET)
+
+이래저래 고민한 지점들을 나열하면
+
+- 유니티가 너무 느리다. 독립적으로 실행할 수 있는 애플리케이션이 필요하다.
+- 프로젝트에서 C# 언어를 사용한다. 게임 쪽 공용 코드를 gui 에 붙일 수 있는가
+- IMGUI 컨셉으로 가자. 코드레벨에서 뷰 로직을 다 해결 볼 수 있으면 좋겠다.
+  - Retained Mode API(MFC, WinForms, 웹 브라우저 DOM 등)
+    - 애플리케이션 코드가 화면에 그려질 요소들을 객체 트리로 만들어 놓으면 렌더러가 가져가서 그린다.
+    - 애플리케이션 데이터가 변경될 때, 그에 맞춰 화면에 그릴 요소들을 변경하는 코드를 짜야한다.
+  - Immediate Mode API(DirectX, OpenGL, Dear ImGui)
+    - 애플리케이션 코드가 화면에 그려질 요소들을 매 프레임마다 그리기 명령을 만들어서 넘겨주면 렌더러가 명령을 받아서 그린다.
+    - 애플리케이션 최신 데이터를 읽어서 화면에 그려지기 위한 명령어로 번역하는 코드만 짜면 된다.
+- 프로젝트 작업자 분들 중에서는 맥 사용자도 있다. 멀티플랫폼 대응이 가능한가
+- 너무 무겁지는 않은가
+- c# 으로 처음부터 끝까지 완성할 수 있는가. 다른 애플리케이션 프레임워크처럼 javaScript / typeScript를 붙이는지
