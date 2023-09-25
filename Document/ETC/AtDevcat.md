@@ -1906,3 +1906,23 @@ Discord 에서 메세지 보관 DB 를 Cassandra -> ScyllaDB 로 변경한 사�
   - C/C++ 은 type safety 를 보장하지 않는데 Rust 를 사용했더니 컴파일 단계에서 경고를 받을 수 있어 좋았다고 한다. Rust 가 c/c++ 이랑 비슷한 퍼포먼스 보여주는 것도 장점
   - Rust 로 병렬 처리 동작을 작성할 때 유리했다. 예컨대 비슷한 시간대에 DB 의 같은 위치의 데이터를 읽는 요청이 중복해서 날아온다면, 이 요청을 데이터 서비스 레이어에서 묶어서(request coalescing) DB 측에는 한번의 요청만 가도록
   - 데이터 서비스 레이어에는 비즈니스 로직이 없고, 각 쿼리마다 대응하는 gRPC 로 구성되었다.
+
+## 23.09.25
+
+[Discord가 Go에서 Rust로 전환하는 이유](https://discord.com/blog/why-discord-is-switching-from-go-to-rust)
+
+- Go 언어가 가진 특성 중 메모리 모델과 가비지 컬렉터가 cpu 성능 스파이크를 유발합니다.
+- Go의 [Garbage collector 구현](https://github.com/golang/go/blob/895b7c85addfffe19b66d8ca71c31799d6e55990/src/runtime/proc.go#L4481-L4486)을 보면 반드시 2분 간격으로 gc 를 구동하도록 작성되었기 때문에, 실제 2분마다 스파이크가 발생했다.
+- Rust 는 메모리를 엄격하게 관리하는 메모리 모델이기 때문에 (GC 가 따로 없고) Rust를 사용한다면 이 문제를 해결할 수 있었다.
+  - 하지만 Rust 도입 당시 언어 내적으로 비동기 기능이 약했다고 한다. (네트워크 서비스에서 비동기 루틴은 필수) 커뮤니티 라이브러리가 있지만 에러메세지가 비직관적인다던가 등 팀에서 채택하기에는 위험성이 있었다.
+  - Rust 언어팀에서 아직 개발중인 비동기 기능을 채택함. 디스코드는 Rust 의 잠재력을 일찌감치 알아봤다구
+
+We kept digging and learned the spikes were huge not because of a massive amount of ready-to-free memory, but because the garbage collector needed to scan the entire LRU cache in order to determine if the memory was truly free from references. Thus, we figured a smaller LRU cache would be faster because the garbage collector would have less to scan. So we added another setting to the service to change the size of the LRU cache and changed the architecture to have many partitioned LRU caches per server.
+
+We were right. With the LRU cache smaller, garbage collection resulted in smaller spikes.
+
+Unfortunately, the trade off of making the LRU cache smaller resulted in higher 99th latency times. This is because if the cache is smaller it’s less likely for a user’s Read State to be in the cache. If it’s not in the cache then we have to do a database load.
+
+우리는 계속해서 조사를 했고, 즉시 해제 가능한 메모리의 양이 많아서가 아니라 메모리에 참조가 없는지 확인하기 위해 가비지 수집기가 전체 LRU 캐시를 스캔해야 했기 때문에 급증이 엄청났다는 것을 알게 되었습니다.
+
+- 그래서 LRU Cache를 줄였더니 GC 시간이 줄어들었다. 하지만 당연하게도 캐시가 작으면 각 유저 서비스가 읽어들어야 할 정보가 캐시에 포함되기 어려워진다.
