@@ -1929,6 +1929,8 @@ Unfortunately, the trade off of making the LRU cache smaller resulted in higher 
 
 ## 23.09.26
 
+**WebAuthn**
+
 [How Discord Rolled Out Yubikeys for All Employees](https://discord.com/blog/how-discord-rolled-out-yubikeys-for-all-employees)
 
 either time-based one-time passwords (TOTP) or push-based MFA? Either method adds friction for users by necessitating a second device for logins while increasing the cost to attackers. However, both have problems. SMS MFA is widely regarded as insecure because of the proliferation of SIM jacking attacks that allows for intercepting SMS-delivered MFA codes— but TOTP MFA is also phishable.
@@ -1942,3 +1944,26 @@ MFA push notifications are also trivially easy to overcome. People’s attention
 이런 걸 쓴다더라
 
 [패스워드가 필요없는 인증 ”WebAuthn”이란  ODO Bang](https://odo.jiran.com/jtg/?q=YToxOntzOjEyOiJrZXl3b3JkX3R5cGUiO3M6MzoiYWxsIjt9&bmode=view&idx=9449123&t=board)
+
+**시간 다루기**
+
+- Wall clock: 현실 시각을 나타냅니다. 수동 조정이나 서머타임 변경 등으로 미래로 건너뛰거나 앞으로 되감길 수 있습니다.
+- Monotonic clock: 항상 일정한 속도로 증가하는 시계입니다. 이전 시점과 비교한 시간간격으로만 얻을 수 있습니다.
+
+고려해야 할 것
+
+- 클라이언트의 시계(wall clock 하드웨어)가 영 엉뚱하게 맞춰져 있을 수 있습니다.  
+    PC에서는 메인보드에 내장된 배터리가 다 떨어지면 부팅할 때마다 시계가 리셋되곤 했습니다.  
+    유저는 자기 컴퓨터 시간 설정이 이상한 것을 눈치채지 못하고 UI에 이상한 숫자가 보이면 스샷 찍어서 올립니다.
+- 게임을 실행하는 도중에 Wall clock 설정을 변경해서 시간을 건너뛸 수 있습니다.
+- 클라이언트 하드웨어가 고장나거나 스피드핵을 사용해서 시간이 빨리 흐를 수 있습니다.
+- 클라이언트마다 시간대 설정이 다를 수 있습니다.
+- 현실 시간 흐름에 따른 게임 동작을 테스트하기 위한 방법이 필요합니다.
+
+그러니까
+
+- 클라이언트에서 wall clock을 얻는 API는 사용하지 않습니다. 예: DateTime.Now, DateTime.UtcNow
+- 클라이언트가 우리 서버와 통신하는 시점에 서버로부터 wall clock 정보를 받아오고,
+그것으로부터 monotonic clock API가 돌려준 값(예: Stopwatch)을 더해서 현재 시점의 시각을 얻습니다.
+- Monotonic clock API가 돌려주는 값이 비정상적인 속도로 흐르는 경우에 게임이 정상적으로 동작하는 것은
+과감하게 포기해도 됩니다. 단, 유저가 이를 통해 이득을 얻지 못하게만 합시다.
