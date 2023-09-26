@@ -1926,3 +1926,19 @@ Unfortunately, the trade off of making the LRU cache smaller resulted in higher 
 우리는 계속해서 조사를 했고, 즉시 해제 가능한 메모리의 양이 많아서가 아니라 메모리에 참조가 없는지 확인하기 위해 가비지 수집기가 전체 LRU 캐시를 스캔해야 했기 때문에 급증이 엄청났다는 것을 알게 되었습니다.
 
 - 그래서 LRU Cache를 줄였더니 GC 시간이 줄어들었다. 하지만 당연하게도 캐시가 작으면 각 유저 서비스가 읽어들어야 할 정보가 캐시에 포함되기 어려워진다.
+
+## 23.09.26
+
+[How Discord Rolled Out Yubikeys for All Employees](https://discord.com/blog/how-discord-rolled-out-yubikeys-for-all-employees)
+
+either time-based one-time passwords (TOTP) or push-based MFA? Either method adds friction for users by necessitating a second device for logins while increasing the cost to attackers. However, both have problems. SMS MFA is widely regarded as insecure because of the proliferation of SIM jacking attacks that allows for intercepting SMS-delivered MFA codes— but TOTP MFA is also phishable.
+
+MFA push notifications are also trivially easy to overcome. People’s attention can easily be exhausted.
+
+타이머 기반 one time password / SMS 혹은 푸시 알림 기반 Multi factor authentication 방식 둘다 약점이 있다. 알림이 하이재킹 되거나 하는 등 언제든지 피싱 가능성은 있는 것
+
+[Web Authentication An API for accessing Public Key Credentials - Level](https://w3c.github.io/webauthn/)
+
+이런 걸 쓴다더라
+
+[패스워드가 필요없는 인증 ”WebAuthn”이란  ODO Bang](https://odo.jiran.com/jtg/?q=YToxOntzOjEyOiJrZXl3b3JkX3R5cGUiO3M6MzoiYWxsIjt9&bmode=view&idx=9449123&t=board)
