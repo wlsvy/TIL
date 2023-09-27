@@ -1969,3 +1969,12 @@ MFA push notifications are also trivially easy to overcome. People’s attention
 그것으로부터 monotonic clock API가 돌려준 값(예: Stopwatch)을 더해서 현재 시점의 시각을 얻습니다.
 - Monotonic clock API가 돌려주는 값이 비정상적인 속도로 흐르는 경우에 게임이 정상적으로 동작하는 것은
 과감하게 포기해도 됩니다. 단, 유저가 이를 통해 이득을 얻지 못하게만 합시다.
+
+## 23.09.27
+
+**게임 컨텐츠 데이터 시트**
+
+- 엑셀을 열어서 볼텐데, 
+  - 컨텐츠 데이터를 편집할 때 시트 파일을 두 개 이상 열어서 볼 일이 자주 있고
+  - 여러 팀에서 작업하는 공통 시트라면 저장소 충돌이 발생할 수 있다.
+- 그러니 시트 설계, 정규화 할 때에는 굉장히 주의할 것
