@@ -1978,3 +1978,30 @@ MFA push notifications are also trivially easy to overcome. People’s attention
   - 컨텐츠 데이터를 편집할 때 시트 파일을 두 개 이상 열어서 볼 일이 자주 있고
   - 여러 팀에서 작업하는 공통 시트라면 저장소 충돌이 발생할 수 있다.
 - 그러니 시트 설계, 정규화 할 때에는 굉장히 주의할 것
+
+**G마켓 기술블로그 : 인증 / 인가**
+
+[인증인가는 어디에 어떻게 구현해야 할까](https://dev.gmarket.com/45)
+
+인증이란 사용자의 신원을 검증하는 프로세스를 뜻합니다. 가장 간단한 예시로는 ID와 PW를 통해 로그인하는 행위를 인증이라 할 수 있죠. 인가는 인증 이후의 프로세스입니다. 인증된 사용자가 어떠한 자원에 접근할 수 있는지를 확인하는 절차가 바로 인가이죠. 로그인을 예시로 들었듯이 거의 모든 웹 사이트에서는 인증/인가를 필요로 합니다.
+
+- HTTP는 stateless 한 특성이 있기 때문에 클라이언트의 상태를 기억하지 않는다. 그래서 인증 / 인가 상태를 어디선가 유지하지 않으면 요청을 보낼때마다 인증 과정을 되풀이해야 하는 셈
+
+그래서 어떻게 구현하느냐
+
+1. Cookie : 사용자 브라우저에 저장되는 정보
+2. Session : 사용자 요청 정보를 추적
+3. Access Token
+
+**G마켓 DB 샤딩**
+
+[Sharded MySQL Cluster 도입 배경과 개발기 (부제 우당탕탕 좌충우돌 개발기)](https://dev.gmarket.com/61)
+
+[Apache ShardingSphere](https://shardingsphere.apache.org/)
+
+mySQL Cluster 로 대규모 데이터 서비스에 대응함
+
+- ShardingSphere 를 도입하던 중에 애로사항이 있었는데,
+  - 서비스 실행 직후 첫 요청은 굉장히 느린 이슈가 있다고 함.
+  - 애플리케이션을 예열하는 Warm Up 코드가 필요했다고 함. (Lazy Loading 대기)
+  - 그런데 이 원인을 찾는데 굉장히 애먹은 듯 하다. 공식 문서에서 헤매다가 결국에는 돌고돌아 git repo쪽 closed issue 탭에서 단서를 찾았다는 걸 보면
