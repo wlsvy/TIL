@@ -2005,3 +2005,24 @@ mySQL Cluster 로 대규모 데이터 서비스에 대응함
   - 서비스 실행 직후 첫 요청은 굉장히 느린 이슈가 있다고 함.
   - 애플리케이션을 예열하는 Warm Up 코드가 필요했다고 함. (Lazy Loading 대기)
   - 그런데 이 원인을 찾는데 굉장히 애먹은 듯 하다. 공식 문서에서 헤매다가 결국에는 돌고돌아 git repo쪽 closed issue 탭에서 단서를 찾았다는 걸 보면
+
+## 23.10.04
+
+[influxdb officially made the switch from Go = Rust  rust](https://old.reddit.com/r/rust/comments/16v13l5/influxdb_officially_made_the_switch_from_go_rust/)
+
+> InfluxDB is an open source time series database written in Rust, using Apache Arrow, Apache Parquet, and Apache DataFusion as its foundational building blocks
+
+Cofounder and CTO of InfluxDB here, so I can comment on it. As someone in the thread already mentioned, there are all the normal reasons:
+
+-   No garbage collector (가비지 컬렉터)
+-   Fearless concurrency (thanks Rust compiler) (러스트 컴파일러가 동시성 문제를 사전에 캐치)
+-   Performance (성능)
+-   Error handling (예외 핸들링)
+-   Crates
+
+
+Q : 프로그램을 새 언어로 밑바닥부터 다시 짜올리는 일이 쉽지 않은데, 작업이 어떻게 이루어졌나요? 점진적으로 코드를 일부분 씩 Rust로 통합했나요? 아니면 별개의 브랜치에서 Rust로 작업하셨나요?
+A : 
+So this isn't the approach I'd recommend for this kind of project, but we started fresh from scratch. We had the first production release earlier this year about 3 years after we started researching and building.  It was a painfully long development process, but for the first year of that it was scoped to just me and two other people. Then we added 7 people to the team all at once and that was the group that developed the bulk of it over the next 2 years. Finally at the end we brought in most of the rest of engineering to put it into production in our cloud environment.  In the beginning, I started by first implementing a basic structure like we had before (inverted index and time series storage), but kept in LevelDB (not a custom storage engine). That was mostly to get my head back in the game since I hadn't written significant amounts of code for a while. It started very much as a research project.  Then we started looking into the different libraries and tools we'd use. Andrew evaluated some existing query engines including DuckDB, which was just a postdoc research project at CWI at the time, and ClickHouse in addition to DataFusion, which is what we settled on.  We built a parser for the InfluxDB write protocol (Line Protocol), and API endpoints for the v2 write API. We spent a bunch of effort improving and adding to DataFusion so we could do the time series queries we had to do.  About a year ago we sent a gifted programmer off on the task of creating an InfluxQL native implementation for this Rust based InfluxDB. He wrote a parser and then converted the AST into DataFusion Logical Plan(s). So the InfluxQL implementation is actually just a frontend on top of DataFusion, a fully featured SQL engine.  Then we wrote an API bridge to support the v1 query API into Arrow Flight so that we could have v3 be an API drop in replacement (mostly) for v1.  We tried to bring Flux support over by replicating the gRPC API that our Cloud2 environment has on top of the TSM storage engine (what InfluxDB v1 and v2 use), but it ended up being brittle and performed very poorly.  V2 just has a massive API and feature surface area and we aren't able to bring all of that forward. We'll see what we can do over the next few years.  Ultimately, if I did it again, I'd do it more incrementally by replacing parts of the existing system in Rust, but we probably wouldn't have ended up at the same place. So who knows.
+
+그래서 이것은 이런 종류의 프로젝트에 대해 제가 권장하는 접근 방식은 아니지만 우리는 처음부터 새로 시작했습니다. 우리는 연구와 구축을 시작한 지 약 3년 만에 올해 초 첫 번째 제품 출시를 가졌습니다. 고통스러울 정도로 긴 개발 과정이었지만 첫 해에는 저와 다른 두 사람만 작업할 수 있었습니다. 그런 다음 우리는 한꺼번에 7명을 팀에 추가했고 그 그룹이 향후 2년 동안 대부분의 팀을 발전시켰습니다. 마지막으로 우리는 나머지 엔지니어링의 대부분을 가져와 클라우드 환경의 프로덕션에 투입했습니다. 처음에는 먼저 이전과 같은 기본 구조(역 인덱스 및 시계열 저장소)를 구현했지만 LevelDB(사용자 지정 저장소 엔진 아님)에 보관했습니다. 한동안 상당한 양의 코드를 작성하지 않았기 때문에 그것은 주로 게임에 다시 집중하기 위한 것이었습니다. 그것은 연구 프로젝트로 시작되었습니다. 그런 다음 사용할 다양한 라이브러리와 도구를 조사하기 시작했습니다. Andrew는 당시 CWI의 박사후 연구 프로젝트에 불과했던 DuckDB와 우리가 결정한 DataFusion 외에 ClickHouse를 포함한 일부 기존 쿼리 엔진을 평가했습니다. InfluxDB 쓰기 프로토콜(라인 프로토콜)용 파서와 v2 쓰기 API용 API 엔드포인트를 구축했습니다. 우리는 해야 했던 시계열 쿼리를 수행할 수 있도록 DataFusion을 개선하고 추가하는 데 많은 노력을 기울였습니다. 약 1년 전 우리는 Rust 기반 InfluxDB에 대한 InfluxQL 기본 구현을 만드는 작업에 재능 있는 프로그래머를 보냈습니다. 그는 파서를 작성한 다음 AST를 DataFusion 논리적 계획으로 변환했습니다. 따라서 InfluxQL 구현은 실제로 완전한 기능을 갖춘 SQL 엔진인 DataFusion 위에 있는 프런트엔드일 뿐입니다. 그런 다음 v1 쿼리 API를 Arrow Flight에 지원하는 API 브리지를 작성하여 v3가 v1을 대체하는 API 드롭이 되도록 할 수 있었습니다. Cloud2 환경에 있는 gRPC API를 TSM 스토리지 엔진(InfluxDB v1 및 v2에서 사용하는 것) 위에 복제하여 Flux 지원을 가져오려고 했지만 결과적으로 취약하고 성능이 매우 나빴습니다. V2는 방대한 API와 기능 표면적을 갖고 있지만 우리는 그 모든 것을 발전시킬 수는 없습니다. 우리는 앞으로 몇 년 동안 무엇을 할 수 있는지 살펴보겠습니다. 궁극적으로 다시 했다면 Rust에서 기존 시스템의 일부를 교체하여 더 점진적으로 하겠지만 아마도 같은 위치에 도달하지는 않았을 것입니다. 그래서 누가 압니까.
