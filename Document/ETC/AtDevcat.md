@@ -2034,3 +2034,25 @@ So this isn't the approach I'd recommend for this kind of project, but we starte
 - ip hash 방식으로 커넥션을 맺을 서버 선택 (flow hash algorithm based on the protocol, source IP address, source port, destination IP address, destination port, and TCP sequence number.)
 - 통신사 무선망을 갈아탈 때나 wifi전환 등으로 source ip가 바뀌면 다른 서버와 커넥션을 다시 맺을 수 있고
 - 반대로 source ip만 동일하게 유지한다면 커넥션을 새로 맺더라도 동일한 서버와 연결될 듯
+
+## 23.10.11
+
+[비동기 서버에서 이벤트 루프를 블록하면 안 되는 이유 1부 - 멀티플렉싱 기반의 다중 접속 서버로 가기까지](https://engineering.linecorp.com/ko/blog/do-not-block-the-event-loop-part1)
+
+### 소켓을 통한 네트워크 I/O
+
+![](https://vos.line-scdn.net/landpress-content-v2_954/1663603039179.png?updatedAt=1663603039000)
+
+소켓은 네트워크에서 서버와 클라이언트, 두 개의 프로세스가 특정 포트를 통해 양방향 통신이 가능하도록 만들어 주는 추상화된 장치입니다. 메모리의 사용자 공간에 존재하는 프로세스(서버, 클라이언트)는 커널 공간에 생성된 소켓을 통해 데이터를 송수신할 수 있습니다.
+
+![](https://vos.line-scdn.net/landpress-content-v2_1761/1672029326745.png?updatedAt=1672029327000)
+
+서버
+
+-   클라이언트의 연결 요청도 일종의 데이터 전송입니다. 따라서 연결 요청을 받아들이기 위해서도 하나의 소켓이 필요하고, 이 소켓을 가리켜 서버 소켓 또는 리스닝 소켓이라고 합니다. listen 함수 호출은 소켓을 리스닝 소켓으로 만들어 연결 요청을 받을 수 있도록 합니다.
+-   accept 함수의 결과로 서버 소켓을 통해 클라이언트의 연결 요청을 받으면, 연결 요청 정보를 참조해 클라이언트 소켓과의 통신을 위한 별도의 소켓을 하나 더 생성합니다. 그리고 이렇게 생성된 소켓을 대상으로 데이터의 송수신이 진행됩니다.
+
+클라이언트
+
+-   소켓을 생성하고 연결 요청을 위해서 connect 함수를 호출하는 것이 전부입니다.
+-   서버의 listen 함수 호출 이후(서버 소켓이 준비된 이후)에야 connect 함수 호출을 통해 연결이 가능합니다.
