@@ -2056,3 +2056,25 @@ So this isn't the approach I'd recommend for this kind of project, but we starte
 
 -   소켓을 생성하고 연결 요청을 위해서 connect 함수를 호출하는 것이 전부입니다.
 -   서버의 listen 함수 호출 이후(서버 소켓이 준비된 이후)에야 connect 함수 호출을 통해 연결이 가능합니다.
+
+## 23.10.16
+
+[How Honkai Star Rail Reveals Cracks in the HoYoverse  Naavik](https://naavik.co/deep-dives/how-honkai-star-rail-reveals-cracks-in-the-hoyoverse/)
+
+성공 요인
+		
+- 우수한 사전 등록 캠페인(1천만) - 인센티브 기반 시스템 + 공유 보상	
+- 옴니채널 접근 방식(특히 인플루언서 마케팅)으로 서구 기업을 추격했습니다.	
+- 접근성이 뛰어난 크로스 플랫폼 턴제 RPG입니다. (게임디자인, FTUE, 내러티브 측면에서)
+	
+다운로드 대비 수익이 과거 원신 추이보다 좋지 못한데, 장기적으로는 원신의 수익을 잡아먹고 있는 것으로 보이는 상황
+		
+- 게임 초반에 매우 관대한 가챠	
+- 최종 게임 콘텐츠 부족	
+- 실시간 운영 기반 참여 부족 - 게임 플레이를 요구하는 이벤트가 부족함
+	
+왜 이런 결과가 됐을까?
+		
+- 미호요는 클로즈 베타를 진행할 때, 선별적으로 진행하기 때문에 선택 편향이 들어감
+- 클로즈 베타 기간 동안은 어떤 종류의 수익 창출 테스트도 진행하지 않음	
+- 클로즈 베타 방식으로는 포트폴리오 잠식의 영향을 측정하기가 어려움
