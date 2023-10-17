@@ -2116,3 +2116,9 @@ So this isn't the approach I'd recommend for this kind of project, but we starte
   - 해킹 클라이언트가 특정 패킷을 1초에 수백 ~ 수천 번 전송하는 등
   - 서버 측이 자꾸 메모리를 과다 할당하도록 유발하거나
   - 서버 측 로직 허점을 공략하는 경우
+
+**웹 페이지 캡쳐하는 방법(개발자 기능)**
+
+개발자 도구를 사용할 수 있다.
+
+![](HowToCaptureBrowserWebPage.png)
