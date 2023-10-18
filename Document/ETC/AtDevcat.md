@@ -2122,3 +2122,10 @@ So this isn't the approach I'd recommend for this kind of project, but we starte
 개발자 도구를 사용할 수 있다.
 
 ![](HowToCaptureBrowserWebPage.png)
+
+## 23.10.18
+
+통합테스트에서 서버 측 멀티스레딩 이슈 발견
+
+- 유저 캐릭터들이 접속할 채널 테이블을 배정하는 현황판 시스템에 멀티스레딩 이슈가 있음을 알아냄
+- 이런 문제 특징 상 QA 에서 잡아내기가 굉장히 어렵고, 라이브까지 갔으면 정말 큰일 났다.
