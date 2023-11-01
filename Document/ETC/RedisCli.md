@@ -60,3 +60,10 @@ Select the Redis logical database having the specified zero-based numeric index.
 
 출처 : [redis.io](https://redis.io/commands/select/)
 
+## KEYS
+
+> KEYS pattern
+
+> Keys * <-- 모든 키를 조회
+
+[KEYS  Redis](https://redis.io/commands/keys/)
