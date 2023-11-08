@@ -2203,3 +2203,9 @@ B -> C -> A 로 바뀔 때 무슨 사이드 이펙트가 발생할지 사전에 
 > C 가 동작할 때 여전히 A의 값을 덮어씌울 테니, 이제 A가 Update 될 때는 이전과 다른 동작을 할 수 있다.
 
 - 컴포넌트를 참조할 때 해당 프레임에 모든 동작이 완결된 컴포넌트만 참조하는 설계 ... 이 대안이 있긴 하겠다.
+
+**git fire**
+
+[GitHub - qw3rtmangit-fire fire Save Your Code in an Emergency](https://github.com/qw3rtman/git-fire)
+
+![](https://camo.githubusercontent.com/4e77be2b39f1aa47f66f80ef8c4566c7828d838710159efb6b069c36bd141f19/68747470733a2f2f692e696d6775722e636f6d2f33504f747665432e6a7067)
