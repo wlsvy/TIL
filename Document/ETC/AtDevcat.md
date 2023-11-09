@@ -2211,3 +2211,9 @@ B -> C -> A 로 바뀔 때 무슨 사이드 이펙트가 발생할지 사전에 
 ![](https://camo.githubusercontent.com/4e77be2b39f1aa47f66f80ef8c4566c7828d838710159efb6b069c36bd141f19/68747470733a2f2f692e696d6775722e636f6d2f33504f747665432e6a7067)
 
 ![](git_fire.png)
+
+## 23.11.09
+
+**dotnet ArrayPool**
+
+[.NET Framework 997. C - ArrayPoolT 소개](https://www.sysnet.pe.kr/2/0/12478)
