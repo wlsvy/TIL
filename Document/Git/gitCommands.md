@@ -354,3 +354,11 @@ git-fsck - Verifies the connectivity and validity of the objects in the database
 git-blame - Show what revision and author last modified each line of a file
 
 - 출처 [git : blame](https://git-scm.com/docs/git-blame)
+
+### cherry-pick
+
+- 현재 브랜치가 'branchA' 일때
+- git cherry-pick branchA..branchB
+  - => branchB의 모든 커밋을 branchA 로 체리픽
+
+[Git - Revision Selection](https://git-scm.com/book/en/v2/Git-Tools-Revision-Selection)
