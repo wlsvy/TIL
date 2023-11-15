@@ -2224,3 +2224,15 @@ B -> C -> A 로 바뀔 때 무슨 사이드 이펙트가 발생할지 사전에 
 
 - 서버 성능 부하테스트 : 봇들을 뿌려놓고 성능 부하를 주기. 봇들이 계정 생성 / 로그인까지 전부 진행하며 DB 부하를 특히 유심히 관찰하게 됩니다.
 - 클라 - 서버 통신 검증 : 클라 - 서버 사이의 모든 패킷 종류를g 하나씩 검증합니다. 이때 기존에 작성해두었던 테스트 코드를 사용할 수 있겠네요.
+
+## 23.11.15
+
+[Solved redis.exceptions.busyloadingerror redis is loading the dataset in memory](https://www.dragonflydb.io/error-solutions/redis-exceptions-busyloadingerror-redis-is-loading-the-dataset-in-memory)
+
+[Redis persistence  Redis](https://redis.io/docs/management/persistence/)
+
+> (error) LOADING Redis is loading the dataset in memory
+
+레디스 연결이 안되길래 확인해봤더니 초기화 도중 BusyLoading 상태가 오래 지속되는 게 문제
+
+- appendonly 상태에서 생성되는 .aof 파일 사이즈가 15기가 바이트였다... 
