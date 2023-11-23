@@ -2236,3 +2236,8 @@ B -> C -> A 로 바뀔 때 무슨 사이드 이펙트가 발생할지 사전에 
 레디스 연결이 안되길래 확인해봤더니 초기화 도중 BusyLoading 상태가 오래 지속되는 게 문제
 
 - appendonly 상태에서 생성되는 .aof 파일 사이즈가 15기가 바이트였다... 
+
+## 23.11.23
+
+[노마드코더 유튜브: CSS 태극기 그리는 법](https://www.youtube.com/shorts/lO06917DXn8?feature=share)
+
