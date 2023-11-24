@@ -2241,3 +2241,12 @@ B -> C -> A 로 바뀔 때 무슨 사이드 이펙트가 발생할지 사전에 
 
 [노마드코더 유튜브: CSS 태극기 그리는 법](https://www.youtube.com/shorts/lO06917DXn8?feature=share)
 
+
+## 23.11.24
+
+[Wireshark · Go Deep](https://www.wireshark.org/)
+
+- [GitHub - wiresharkwireshark Read-only mirror of Wireshark's Git repository at httpsgitlab.comwiresharkwireshark. ⚠️ GitHub won't let us disable pull requests. ⚠️ THEY WILL BE IGNORED HERE ⚠️ Upload them at GitLab instead.](https://github.com/wireshark/wireshark)
+- 네트워크 프로토콜 분석 도구 (오픈 소스)
+- Wireshark is a network protocol analyzer, or an application that captures packets from a network connection, such as from your computer to your home office or the internet. Packet is the name given to a discrete unit of data in a typical Ethernet network. Wireshark is the most often-used packet sniffer in the world.
+- Wireshark isn’t an intrusion detection system. It will not warn you when someone does strange things on your network that he/she isn’t allowed to do. However, if strange things happen, Wireshark might help you figure out what is really going on.
