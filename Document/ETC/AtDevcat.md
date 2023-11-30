@@ -2250,3 +2250,61 @@ B -> C -> A 로 바뀔 때 무슨 사이드 이펙트가 발생할지 사전에 
 - 네트워크 프로토콜 분석 도구 (오픈 소스)
 - Wireshark is a network protocol analyzer, or an application that captures packets from a network connection, such as from your computer to your home office or the internet. Packet is the name given to a discrete unit of data in a typical Ethernet network. Wireshark is the most often-used packet sniffer in the world.
 - Wireshark isn’t an intrusion detection system. It will not warn you when someone does strange things on your network that he/she isn’t allowed to do. However, if strange things happen, Wireshark might help you figure out what is really going on.
+
+## 23.11.30
+
+**Inko**
+
+[Inko Programming Language](https://inko-lang.org/)
+[Inko - Concurrent 소프트웨어 개발을 위한 프로그래밍 언어  GeekNews](https://news.hada.io/topic?id=11913)
+
+- Concurrent 소프트웨어를 쉽게 구축할 수 있게 해주며, 예측 불가능한 성능, 런타임 오류, 데이터 경쟁, 타입 오류에 대한 걱정 없이 개발 가능
+- 자동 메모리 관리, move semantics, 정적 타이핑, 타입 안전 동시성, 효율적인 오류 처리, 편리한 패턴 매칭 등의 특징
+
+[Hacker News 의견](https://news.ycombinator.com/item?id=38270265)
+
+- Inko의 동시성 모델은 Erlang과 Pony에서 영감을 받았으며, 가벼운 프로세스를 사용함.
+  - 프로세스는 서로 격리되어 있고 메시지를 통해 통신함.
+  - 프로세스와 메시지는 클래스와 메소드로 정의되며, 컴파일러가 타입 검사를 통해 정확성을 보장함.
+  - 데이터는 프로세스 간에 유일하게 전송되어 데이터 레이스가 불가능하며, 깊은 복사의 필요성을 제거함.
+  - 다중 생산자와 다중 소비자 채널을 지원하여 프로세스 간 명시적 참조 없이 통신이 가능함.
+- Inko 패키지를 추가하려면 GitHub 저장소를 생성해야 함.
+  
+  - Inko의 패키지 관리자는 GitLab 등 다른 Git 저장소도 지원하지만, 목록은 GitHub 저장소를 사용하여 구성됨.
+  - 커뮤니티가 마이크로소프트 제품과 Git에 종속되려는 경향에 대한 우려 표현.
+- Inko 관련 토론 링크 제공:
+  
+  - "Show HN: Inko 0.10.0 – build concurrent software with confidence" (2022년 9월, 3개의 댓글)
+  - "Inko 0.5.0 released, featuring the first steps towards a self-hosting compiler" (2019년 9월, 7개의 댓글)
+  - "Inko (a gradually-typed object-oriented programming language) 0.4.0 released" (2019년 5월, 1개의 댓글)
+  - "Show HN: Inko – A safe and concurrent object-oriented programming language" (2018년 8월, 45개의 댓글)
+- Rust와의 유사성에 대한 의문 제기:
+  
+  - Inko가 Rust와 충분히 비슷하여 Rust 대신 Inko를 선택할 이유에 대한 질문.
+  - Rust에서 어렵거나 번거로운 프로그램이 Inko에서는 쉽게 작성될 수 있는 예시 필요.
+- Inko에 대한 관심과 Golang이 되었으면 하는 바람 표현:
+  
+  - Inko가 GitLab에서 시작된 것으로 보이며, Golang이 되었으면 하는 바람과 함께 GC의 필요성 언급.
+  - Gleam과의 차별점에 대한 질문과 JVM 생태계를 활용할 수 있는 방안에 대한 관심.
+- Inko의 이름이 텔루구어로 "하나 더"라는 뜻이라는 재미있는 사실 공유.
+  
+- Rust와의 문법적 차이점에 대한 논의:
+  
+  - Rust와 Inko의 문법적 차이점에 대한 세부적인 비교.
+  - 함수 선언, 제네릭 표현 등의 작은 차이점에 대한 언급.
+- Inko의 설계 결정에 대한 긍정적인 평가:
+  
+  - C/Java 계열 언어와 유사한 문법으로 많은 사람들에게 친숙함을 제공.
+  - 오류 처리 섹션의 명명 결정에 대한 의문 제기.
+- 사전 빌드된 바이너리의 필요성 언급:
+  
+  - LLVM 문제로 인한 컴파일 어려움과 그로 인한 Inko에 대한 관심 부족 언급.
+- 관련 토론 링크 추가 제공.
+
+**Elixir**
+
+[The Elixir programming language](https://elixir-lang.org/)
+[Elixir Examples](https://elixir-examples.github.io/)
+
+- pipe 연산자 [elixir Pipe operator](https://elixir-examples.github.io/examples/pipe-operator)
+- 여기선 atom 이라는 개념이 있네요 [Atom — Elixir v1.12.3](https://hexdocs.pm/elixir/1.12/Atom.html)
