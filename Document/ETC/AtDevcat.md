@@ -2308,3 +2308,10 @@ B -> C -> A 로 바뀔 때 무슨 사이드 이펙트가 발생할지 사전에 
 
 - pipe 연산자 [elixir Pipe operator](https://elixir-examples.github.io/examples/pipe-operator)
 - 여기선 atom 이라는 개념이 있네요 [Atom — Elixir v1.12.3](https://hexdocs.pm/elixir/1.12/Atom.html)
+
+## 23.12.04
+
+**책장 넘기기 이펙트**
+
+- [X: About that book menu 📖](https://twitter.com/i/status/1731003909647348023)
+- [(390) How I made a book pause menu, step by step - YouTube](https://www.youtube.com/shorts/qXJKNtnVmno)
