@@ -2315,3 +2315,67 @@ B -> C -> A 로 바뀔 때 무슨 사이드 이펙트가 발생할지 사전에 
 
 - [X: About that book menu 📖](https://twitter.com/i/status/1731003909647348023)
 - [(390) How I made a book pause menu, step by step - YouTube](https://www.youtube.com/shorts/qXJKNtnVmno)
+
+**Git Query Language**
+
+- [GitHub - AmrDeveloperGQL Git Query language is a SQL like language to perform queries on .git files with supports of most of SQL features such as grouping, ordering and aggregations functions](https://github.com/AmrDeveloper/GQL)
+- git 명령을 SQL 로 표현. (신기해서 가져와봤다)
+
+> Sample
+
+```sql
+SELECT 1
+SELECT 1 + 2
+SELECT LEN("Git Query Language")
+SELECT "One" IN ("One", "Two", "Three")
+SELECT "Git Query Language" LIKE "%Query%"
+
+SELECT DISTINCT title AS tt FROM commits
+SELECT name, COUNT(name) AS commit_num FROM commits GROUP BY name ORDER BY commit_num DESC LIMIT 10
+SELECT commit_count FROM branches WHERE commit_count BETWEEN 0 .. 10
+
+SELECT * FROM refs WHERE type = "branch"
+SELECT * FROM refs ORDER BY type
+
+SELECT * FROM commits
+SELECT name, email FROM commits
+SELECT name, email FROM commits ORDER BY name DESC, email ASC
+SELECT name, email FROM commits WHERE name LIKE "%gmail%" ORDER BY name
+SELECT * FROM commits WHERE LOWER(name) = "amrdeveloper"
+SELECT name FROM commits GROUP By name
+SELECT name FROM commits GROUP By name having name = "AmrDeveloper"
+
+SELECT * FROM branches
+SELECT * FROM branches WHERE is_head = true
+SELECT name, LEN(name) FROM branches
+
+SELECT * FROM tags
+SELECT * FROM tags OFFSET 1 LIMIT 1
+```
+
+[The Developer Ecosystem in 2023 Key Trends for C  The .NET Tools Blog](https://blog.jetbrains.com/dotnet/2023/11/30/the-developer-ecosystem-in-2023-key-trends-for-csharp/?ref=dailydev)
+
+- [Unit Tests 통계](https://blog.jetbrains.com/dotnet/2023/11/30/the-developer-ecosystem-in-2023-key-trends-for-csharp/#unit-tests)
+- ![](https://lh7-us.googleusercontent.com/MmQxRdltJdmRBSXHOZX8BAJ8rEzmxtSfSEUvMTubsEu-LkC3OKF07cwcs_qMdWq5ljm9kItjVMPVS6PM9JsbI7AMBfHjYowTFwhvmOLWEAfIYGFQOldHxa3tMxOYPwI7Jv_LP4PxyKTgTpgLM0zscxc)
+- MSTest 거의 안쓰고, 사용한다면 XUnit / NUnit 테스트 프레임워크를 많이 사용
+
+[Microsoft: Dotnet - Native AOT deployment](https://learn.microsoft.com/en-us/dotnet/core/deploying/native-aot/?tabs=net7%2Cwindows)
+
+- .Net7 부터 AOT 컴파일을 '제한적으로' 지원함
+
+[Functional Error Handling in .NET With the Result Pattern](https://www.milanjovanovic.tech/blog/functional-error-handling-in-dotnet-with-the-result-pattern)
+
+- Result 패턴
+  - 서비스 예외를 처리하는 방법 중에 하나이다.
+  - 실패 시 사유를 명시적으로 반환하고, 호출처는 결과에 따른 핸들러 코드를 준비한다.
+- No more throwing exceptions
+- The `Result` return type is explicit
+- It's clear which errors the method returns
+
+[The Road to QUIC](https://blog.cloudflare.com/the-road-to-quic/)
+
+- QUIC (Quick UDP Internet Connections) is a new encrypted-by-default Internet transport protocol, that provides a number of improvements designed to accelerate HTTP traffic as well as make it more secure, with the intended goal of eventually replacing TCP and TLS on the web. In this blog post we are going to outline some of the key features of QUIC and how they benefit the web, and also some of the challenges of supporting this radical new protocol.
+
+![](https://blog.cloudflare.com/content/images/2018/07/http-request-over-tcp-tls@2x.png)
+
+![](https://blog.cloudflare.com/content/images/2018/07/http-request-over-quic@2x.png)
