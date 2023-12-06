@@ -40,6 +40,7 @@
 - ftype : display file type and mapping
 - getmac : display MAC address
 - ipconfig : display IP network settings
+  - ipconfig /all : more Information
 - netsh : configure/control/display network components
 - netstat : display TCP/IP connections and status
 - nslookup : query the DNS

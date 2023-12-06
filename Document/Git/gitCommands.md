@@ -362,3 +362,14 @@ git-blame - Show what revision and author last modified each line of a file
   - => branchB의 모든 커밋을 branchA 로 체리픽
 
 [Git - Revision Selection](https://git-scm.com/book/en/v2/Git-Tools-Revision-Selection)
+
+### sh - while / do / done
+
+foreach 문 처럼 사용하기
+
+```sh
+> git rev-list HEAD...origin/main | while read commit; \
+do git log -1 $commit; \
+done
+
+```
