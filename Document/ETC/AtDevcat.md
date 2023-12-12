@@ -2379,3 +2379,42 @@ SELECT * FROM tags OFFSET 1 LIMIT 1
 ![](https://blog.cloudflare.com/content/images/2018/07/http-request-over-tcp-tls@2x.png)
 
 ![](https://blog.cloudflare.com/content/images/2018/07/http-request-over-quic@2x.png)
+
+## 23.12.12
+
+[IP address spoofing - Wikipedia](https://en.wikipedia.org/wiki/IP_address_spoofing)
+
+In computer networking, IP address spoofing or IP spoofing is the creation of Internet Protocol (IP) packets with a false source IP address, for the purpose of impersonating another computing system.
+
+[Reflections on reflection (attacks)](https://blog.cloudflare.com/reflections-on-reflections/)
+
+![](https://blog.cloudflare.com/content/images/2017/05/Untitled-2.001saaa.png)
+
+![](https://www.cloudflare.com/img/learning/ddos/glossary/ip-spoofing/ip-spoofing.png)
+
+Let's start with a brief reminder on how reflection attacks (often called "amplification attacks") work.
+
+To bake a reflection attack, the villain needs four ingredients:
+
+- A server capable of performing IP address spoofing.
+- A protocol vulnerable to reflection/amplification. Any badly designed UDP-based request-response protocol will do.
+- A list of "reflectors": servers that support the vulnerable protocol.
+- A victim IP address.
+
+The general idea:
+
+- The villain sends fake UDP requests.
+- The source IP address in these packets is spoofed: the attacker sticks the victim's IP address in the source IP address field, not their own IP address as they normally would.
+- Each packet is destined to a random reflector server.
+- The spoofed packets traverse the Internet and eventually are delivered to the reflector server.
+- The reflector server receives the fake packet. It looks at it carefully and thinks: "Oh, what a nice request from the victim! I must be polite and respond!". It sends the response in good faith.
+- The response, though, is directed to the victim.
+
+The victim will end up receiving a large volume of response packets it never had requested. With a large enough attack the victim may end up with congested network and an interrupt storm.
+
+**마이너스 재화**
+
+> 내 지갑에 돈이 '-100,000' 이 있음을 표현
+
+- 시스템 적으로 유저 제재를 가하기 위해 이 개념이 필요하다. 어뷰징을 저지른 유저가 비정상적인 방법으로 백만 골드 가치의 게임 재화를 얻었다면, 백만 골드 만큼 정확하게 몰수해야 한다. 그렇지만 어뷰징 유저가 이미 재화를 다 탕진해버렸다고 백만 골드 중에 십만 골드만 되돌려받을 수는 없기 때문에 아예 마이너스 재화(마이너스 구십만 지정)로 조치한다. 빚 갚을 때까진 어디서 돈 못쓰고 다니는 셈
+
