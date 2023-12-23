@@ -2435,3 +2435,27 @@ GC 중에 모든 스레드가 멈춰버리니 외부에서 보기에 로그도 �
 
 ## 23.12.23
 
+**기술 리뷰 체크리스트 (Redis)**
+
+- 'keys', '*', 'scan' 명령어는 서비스 로직에서 절대 사용해서는 안된다.
+- 모든 key에 TTL 적용은 필수이고, 하나의 key에 대량의 데이터가 몰리면 안되고, 특정 기간 유지되어야 하는 데이터 / 휘발되어도 무방한 데이터는 물리적인 레디스 분리
+- 트래픽이 높을 때 DEL 명령을 최소화 해야 한다.
+- 백업 철저하게. aof / rdb 파일 여부를 확인합니다.
+- 랭킹 데이터를 특히 레디스에서 많이 다루는데, 이때는 과거 데이터를 기간별로 분리하고 TTL 을 확실히 지정 (rank_radi_2018W1 등)
+  - CS 요청에 대응 / 데이터 추적을 고려해서, 과거 데이터는 파티션을 따로 뺄 수도 있나보더라.
+- 채팅 등 데이터 브로드 캐스팅은 pub/sub 권장
+
+
+
+[Discord가 WebRTC를 사용하여 250만 명의 동시 음성 사용자를 처리하는 방법](https://discord.com/blog/how-discord-handles-two-and-half-million-concurrent-voice-users-using-webrtc)
+
+클라 아키텍쳐
+
+- Web (Chrome/Firefox/Edge, etc.)
+- Standalone app (Windows, MacOS, Linux)
+- Phone (iOS/Android).
+
+
+WebRTC 사용
+
+서버 elixir 로 작성
