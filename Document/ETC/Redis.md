@@ -43,3 +43,12 @@
   - 참고 : https://jupiny.com/2020/03/28/redis-sorted-set/
   
 <img src="https://www.redislabs.com/wp-content/images/academy/redis-in-action/RIA_fig1-05.svg" width="60%" height="60%">
+
+
+## Slowlog
+
+[SLOWLOG GET  Redis](https://redis.io/commands/slowlog-get/)
+
+- 특별히 오래 걸린 명령에 대한 로그 -> slowlog
+
+The Redis Slow Log is a system to log queries that exceeded a specified execution time. The execution time does not include I/O operations like talking with the client, sending the reply and so forth, but just the time needed to actually execute the command (this is the only stage of command execution where the thread is blocked and can not serve other requests in the meantime).
