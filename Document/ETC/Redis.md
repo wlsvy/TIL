@@ -39,6 +39,7 @@
 - [Sorted Sets in Redis](https://redislabs.com/ebook/part-1-getting-started/chapter-1-getting-to-know-redis/1-2-what-redis-data-structures-look-like/1-2-5-sorted-sets-in-redis/)
   - member는 유일한 값만 포함될 수 있습니다.
   - score라고 불리는 values 값은 부동 수소점만을 포함할 수 있습니다.
+  - score는 -2^53 ~ 2^53 의 정수 까지 정확하게 표현가능합니다. 범위 바깥의 정수값은 정확한 정밀도를 보장하지 못합니다.
   - 내부 멤버는 정렬된 순서로 접근 가능합니다.
   - 참고 : https://jupiny.com/2020/03/28/redis-sorted-set/
   
