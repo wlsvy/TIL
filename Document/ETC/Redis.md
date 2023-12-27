@@ -53,3 +53,14 @@
 - 특별히 오래 걸린 명령에 대한 로그 -> slowlog
 
 The Redis Slow Log is a system to log queries that exceeded a specified execution time. The execution time does not include I/O operations like talking with the client, sending the reply and so forth, but just the time needed to actually execute the command (this is the only stage of command execution where the thread is blocked and can not serve other requests in the meantime).
+
+## stream
+
+[Redis Streams  Redis](https://redis.io/docs/data-types/streams/)
+
+- id 를 redis에서 자동발급합니다.
+  - 이때 id는 <unix millisecond timestamp>-<sequnece number> 로 구성됩니다.  
+  - id이면서 동시에 채팅 작성 시각 정보 입니다.
+- 컨테이너 random 접근이 가능합니다.  
+  - ([Radix tree](https://en.wikipedia.org/wiki/Radix_tree) 기반, 대부분 동작의 시간복잡도는 O(n), n: id의 길이)
+- id 가 시간 정보로 구성되기 때문에, 조회 / 제거 동작을 할 때에도 시간 정보 범위를 지정할 수 있습니다.
