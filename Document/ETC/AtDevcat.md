@@ -2474,3 +2474,51 @@ WebRTC 사용
 - 각 계층에 맞지 않는 코드가 영역을 침범하게 되는데, 맥락 없고 정리되지 않은 구현들이 무한정 자라나게 된다. A계층에서 B 일을 하는 코드 / B계층에서 A일을 하는 코드
 - 이럴 때에는 공통 기능을 찾기가 어렵기 때문에 비슷한 동작을 하는 중복 코드가 무시무시하게 생겨난다. 후속 작업자들은 구현 맥락을 따라잡을 수 없기 때문에 본인 작업을 위해 코드 위에 코드를 '얹게' 된다.
 - 누군가가 책임지고 정리하지 않는 한 스파게티 코드 현상은 점점 걷잡을 수 없이 번진다.
+
+## 24.01.09
+
+[String Interpolation in C 10 and .NET 6 - .NET Blog](https://devblogs.microsoft.com/dotnet/string-interpolation-in-c-10-and-net-6/?WT.mc_id=DT-MVP-4038148)
+
+- .NET 6 부터 보간 문자열 처리 방식이 수정되었다.
+  - `$"{major}.{minor}.{build}.{revision}"` 같은 문자열은 컴파일러가 아래처럼 처리해준다.
+  - NET 6.0 신규 버전부터는 Object 타입으로 받지 않으니 박싱으로 인한 메모리 추가 할당이 없음
+  - `ArrayPool<char>.Shared` 을 사용하므로 배열 할당에 대한 힙 할당 부담이 없음
+
+```cs
+using BenchmarkDotNet.Attributes;
+using BenchmarkDotNet.Running;
+using System.Runtime.CompilerServices;
+
+[MemoryDiagnoser]
+public class Program
+{
+    static void Main(string[] args) => BenchmarkSwitcher.FromAssemblies(new[] { typeof(Program).Assembly }).Run(args);
+
+    private int major = 6, minor = 0, build = 100, revision = 7;
+
+    [Benchmark(Baseline = true)]
+    public string Old()
+    {
+        var array = new object[4];
+        array[0] = major;
+        array[1] = minor;
+        array[2] = build;
+        array[3] = revision;
+        return string.Format("{0}.{1}.{2}.{3}", array);
+    }
+
+    [Benchmark]
+    public string New()
+    {
+        var builder = new DefaultInterpolatedStringHandler(3, 4);
+        builder.AppendFormatted(major);
+        builder.AppendLiteral(".");
+        builder.AppendFormatted(minor);
+        builder.AppendLiteral(".");
+        builder.AppendFormatted(build);
+        builder.AppendLiteral(".");
+        builder.AppendFormatted(revision);
+        return builder.ToStringAndClear();
+    }
+}
+```
