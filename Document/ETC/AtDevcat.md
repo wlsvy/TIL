@@ -2217,6 +2217,19 @@ B -> C -> A 로 바뀔 때 무슨 사이드 이펙트가 발생할지 사전에 
 **dotnet ArrayPool**
 
 [.NET Framework 997. C - ArrayPoolT 소개](https://www.sysnet.pe.kr/2/0/12478)
+[Pooling large arrays with ArrayPool – Adam Sitnik – .NET Performance and Reliability](https://adamsitnik.com/Array-Pool/)
+
+
+Large Object Heap (LOH)
+
+When GC is promoting objects to next generation it’s copying the memory. As you can imagine, it would be very time-consuming for large objects like big arrays or strings. This is why GC has another optimization. Any object that is bigger than 85 000 bytes is considered to be large. Large objects are stored in a separate part of the managed heap, called Large Object Heap (LOH). This part is managed with free list algorithm. It means that GC has a list of free segments of memory, and when we want to allocate something big, it’s searching through the list to find a feasible segment of memory for it. So large objects are by default never moved in memory. 
+However, if you run into LOH fragmentation issues you need to compact LOH. Since .NET 4.5.1 you can do this on demand.
+
+The Problem
+
+When a large object is allocated, it’s marked as Gen 2 object. Not Gen 0 as for small objects. The consequences are that if you run out of memory in LOH, GC cleans up whole managed heap, not only LOH. So it cleans up Gen 0, Gen 1 and Gen 2 including LOH. This is called full garbage collection and is the most time-consuming garbage collection. For many applications, it can be acceptable. But definitely not for high-performance web servers, where few big memory buffers are needed to handle an average web request (read from a socket, decompress, decode JSON & more).
+
+
 
 ## 23.11.14
 
@@ -2522,3 +2535,21 @@ public class Program
     }
 }
 ```
+
+**싱글톤 중복 초기화 버그**
+
+멀티 스레드 환경에서 싱글톤 중복 초기화 문제로, 데이터 로드 중에 경합이 발생하는데 이게 또 오류를 던지지는 않아서 겉에 나타나는 증상이 없었던 희안한 버그.
+
+- 디버그 모드에서 데이터를 뚫어지게 봤지만 소득이 없었고, 결국은 시니어 분이 추적하시더니 감으로 얼추 알아내시고는 바로 원인 알려주셨다. 중복 초기화 되고 있었다고....
+
+## 24.01.17
+
+- 주기적으로 특정 시각에 호출되는 로직
+  - 예를 들면, 매일 자정마다 날짜가 넘어갈 때 뭔가를 수행하는 행동 -> 동접 수치가 높을 때는 큰 부하가 발생할 수 있으니 가능한 처리 시간을 분산시킬 우회책을 찾는게 좋다. 예를 들면 클라이언트 측에서 데이터 조회 요청을 보냈을 때 갱신하는 것.
+  
+**Unity Shader Warmup + LOD**
+
+- 필요한 쉐이더는 GPU 에서 사용하기 전에 미리 구워줘야한다. 필요할 때 로드하면 그때는 게임 랙이 발생할 수 있으니,
+- 그래서 Warmup 절차를 만들었지만, 일부 쉐이더가 미리 만들어지지 않는데 가설을 세우고 추적해본 끝에 알아낸 것은 LOD 값이 안드로이드 Low 퀄리티 세팅 LOD 범위에 포함되지 않았다는 것. 그래서 warmup 을 해도 유니티가 로드를 미리 하지 않고 카메라에 물체가 보이는 시점에 쉐이더를 만들게 됨
+
+어렵다 어려워...
