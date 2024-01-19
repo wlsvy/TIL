@@ -2563,3 +2563,11 @@ public class Program
   - 그치만 문제는 서로 다른 타입에 대해 Equals 호출하면 Equals(Object) 가 불리기 때문에 값 타입 인자라면 박싱이 발생한다.
   - 정말 실수하기 좋은 예시는 int 형 값에 Equals 를 호출할 때 int? (nullable) 타입을 집어넣는 것. 보기에는 엇비슷해서 실수하기 굉장히 쉽고, 컴파일상에서 문제는 없지만 박싱이 발생한다.
   - Equals 보다 `==` 연산자를 사용하기로 팀 내 합의함
+
+
+**Netfilx Hystrix**
+
+[NetflixHystrix Hystrix is a latency and fault tolerance library designed to isolate points of access to remote systems, services and 3rd party libraries, stop cascading failure and enable resilience in complex distributed systems where failure is inevitable.](https://github.com/Netflix/Hystrix)
+
+서킷 브레이커 (circuit breaker) 관련해서 참조해보면 좋다고 함.
+
