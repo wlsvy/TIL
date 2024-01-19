@@ -2571,3 +2571,16 @@ public class Program
 
 서킷 브레이커 (circuit breaker) 관련해서 참조해보면 좋다고 함.
 
+
+
+[[요즘IT]SI 회사는 가면 안되나요?](https://yozm.wishket.com/magazine/detail/2407/)
+
+[Feedback Ladders The Code Review System We Follow at Netlify](https://www.netlify.com/blog/2020/03/05/feedback-ladders-how-we-encode-code-reviews-at-netlify/)
+
+- Mountain / Blocking and requires immediate action
+- Boulder / Blocking
+- Pebble / Non-blocking but requires future action
+- Sand / Non-blocking but requires future consideration
+- Dust / Non-blocking, "take it or leave it"
+
+연극하는 느낌이라 뭔가 마음에 들진 않는다.
