@@ -2584,3 +2584,9 @@ public class Program
 - Dust / Non-blocking, "take it or leave it"
 
 연극하는 느낌이라 뭔가 마음에 들진 않는다.
+
+## 24.01.23
+
+[Unity - Scripting API ListPoolT0](https://docs.unity3d.com/ScriptReference/Pool.ListPool_1.html)
+
+- 유니티에 ListPool 이 있네??
