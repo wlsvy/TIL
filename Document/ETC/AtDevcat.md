@@ -2590,3 +2590,17 @@ public class Program
 [Unity - Scripting API ListPoolT0](https://docs.unity3d.com/ScriptReference/Pool.ListPool_1.html)
 
 - 유니티에 ListPool 이 있네??
+
+## 24.01.26
+
+[Upgrading GitHub.com to MySQL 8.0 - The GitHub Blog](https://github.blog/2023-12-07-upgrading-github-com-to-mysql-8-0/)
+
+mysql 5.7 버전 장기 지원이 끝나가는 시기에, mysql 8.0 으로 마이그레이션 하는 내용
+
+**부하**
+
+로그를 작성하는 경우 문자열 보간을 자주 활용할텐데, 이때 문자열 조합하면서 발생하는 메모리가 부담이 되는 경우 FormattedString(C#) 을 사용하는 대안이 있음
+
+Concurrent 시리즈의 경우 사용 방식에 따라 lock 을 잡는 구현이 많이 사용될 수 있어서 idle cpu 현상이 자주 발생할 수 있다.
+
+- ex: ConcurrentQueue 를 활용할 때 병렬 producer 스레드가 여럿 / consumer 스레드가 하나인 경우
