@@ -166,6 +166,7 @@ diff
   - > ex) git diff --name-status aad924a34e3~2...aad924a34e3
 - 옵션 몇 가지
   - `--name-status` : Show only names and status of changed files. See the description of the --diff-filter option on what the status letters mean
+  - `--name-only` : Show only names of changed files. 
   
 shortlog
 
@@ -197,6 +198,13 @@ ls-files
 
 - git-ls-files - Show information about files in the index and the working tree
 - `ex) git ls-files "*item*"`
+- --cached: Show all files cached in Git’s index, i.e. all tracked files.
+- -m, --modified: Show files with an unstaged modification (note that an unstaged deletion also counts as an unstaged modification)
+- -o, --others: Show other (i.e. untracked) files in the output
+- -i, --ignored : Show only ignored files in the output. 
+- -s, --stage: Show staged contents' mode bits, object name and stage number in the output.
+- --directory: If a whole directory is classified as "other", show just its name (with a trailing slash) and not its whole contents. Has no effect without -o/--others.
+- -x <pattern>, --exclude=<pattern>: Skip untracked files matching pattern. Note that pattern is a shell wildcard pattern. See EXCLUDE PATTERNS below for more information.
 
 - [git-log](https://git-scm.com/docs/git-log)
 - [git-diff](https://git-scm.com/docs/git-diff)
