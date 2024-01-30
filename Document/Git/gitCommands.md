@@ -206,6 +206,14 @@ ls-files
 - --directory: If a whole directory is classified as "other", show just its name (with a trailing slash) and not its whole contents. Has no effect without -o/--others.
 - -x <pattern>, --exclude=<pattern>: Skip untracked files matching pattern. Note that pattern is a shell wildcard pattern. See EXCLUDE PATTERNS below for more information.
 
+특정 브랜치를 대상으로 ->
+
+> git ls-files --with-tree=<branch-name>
+
+예를 들어, develop 브랜치의 파일 목록을 확인하려면 아래와 같이 입력합니다.
+
+> git ls-files --with-tree=develop
+
 - [git-log](https://git-scm.com/docs/git-log)
 - [git-diff](https://git-scm.com/docs/git-diff)
 - [git-shortlog](https://git-scm.com/docs/git-shortlog)
