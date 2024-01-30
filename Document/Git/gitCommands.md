@@ -222,6 +222,15 @@ Show Head Commit Id/history
   
 - 출처 : [stackoverflow](https://stackoverflow.com/questions/1967967/git-command-to-display-head-commit-id)
 
+### Show
+
+git-show - Show various types of objects
+
+- git show [<options>] [<object>…​]
+- 특정 커밋의 변경 내용 확인: git show 커밋ID
+- 최신 커밋의 변경 내용 확인: git show HEAD
+- 특정 파일의 특정 커밋에서의 변경 내용 확인: git show 커밋ID 파일이름
+
 ### Stash
   
 - list stash entry : `git stash list`
@@ -360,6 +369,8 @@ git-fsck - Verifies the connectivity and validity of the objects in the database
 ### Blame
 
 git-blame - Show what revision and author last modified each line of a file
+
+- git blame -- <filepath>
 
 - 출처 [git : blame](https://git-scm.com/docs/git-blame)
 
