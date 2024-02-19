@@ -2625,3 +2625,20 @@ Throttle은 일정 주기 동안에 한 번만 이벤트 핸들러를 호출합�
 간단한 예제로 설명하면, 디바운스는 사용자가 텍스트를 입력할 때, 마지막 글자를 입력한 후 일정 시간이 경과할 때까지 검색을 시작하지 않습니다. 쓰로틀은 스크롤 이벤트에서 일정 주기 동안 한 번만 스크롤 이벤트를 처리합니다.
 
 요약하면, Debounce는 마지막 이벤트 발생 이후 지연된 후에 이벤트를 처리하고, Throttle은 일정 주기 동안 한 번만 이벤트를 처리합니다.
+
+## 24.02.19
+
+[(12) 문서는 웬만하면 마크다운(markdown)으로 씁시다 - YouTube](https://www.youtube.com/watch?v=8z2SRtYpJuQ&list=WL&index=8)
+
+> Chat GPT 가 번역해줌
+
+포프는 마크다운(Markdown)에 대해 설명하며, 그가 직접 사용하고 마크다운 변환기에 버그를 수정하는 공헌을 했던 경험을 공유했습니다. 마크다운은 단순한 텍스트 문서 형식으로, 텍스트를 워드나 웹 문서와 같은 포맷으로 표현할 수 있게 해줍니다. 이는 순수 텍스트 기반으로, 복잡한 서식 변경 없이도 제목, 목록, 헤딩 등을 간단한 문법으로 표현할 수 있습니다. 마크다운의 장점은 단순함과 변환의 용이성에 있으며, HTML, ePub 등 다양한 포맷으로 쉽게 변환될 수 있다는 점입니다. 포프는 문서 변환에 있어서 Pandoc을 강력하게 추천하며, 마크다운을 사용함으로써 문서 작성이 더 빠르고 효율적이 될 수 있다고 말합니다.
+
+또한, 마크다운의 다양한 표준 중에서 CommonMark를 현재 가장 많이 사용되는 표준으로 언급했습니다. 그러나 마크다운이 모든 상황에 완벽한 해결책은 아니며, 특히 표 형식의 문서 작성이나 복잡한 문서 협업에서는 한계가 있다고 지적합니다. 예를 들어, 표가 많은 문서는 마크다운보다는 스프레드시트 프로그램을 사용하는 것이 낫고, 피드백이 많이 필요한 문서는 Google Docs나 Word의 변경 내용 추적 기능을 활용하는 것이 더 효율적입니다.
+
+마크다운은 프로그래머에게 익숙한 문법을 제공하며, 빠른 문서 작성을 가능하게 해주지만, 디자인 중심의 작업에는 적합하지 않을 수 있습니다. 포프는 마크다운을 사용해볼 것을 권장하며, 그것이 문서 작성 프로세스를 얼마나 편리하게 만들 수 있는지 강조합니다. 또한, Git 호스팅 서비스를 통한 온라인 문서 편집과 버전 관리의 장점을 언급하며, 마크다운의 범용성과 호환성을 강조했습니다.
+
+- [GitHub - markdown-itmarkdown-it Markdown parser, done right. 100% CommonMark support, extensions, syntax plugins & high speed](https://github.com/markdown-it/markdown-it)
+- [markdown-it demo](https://markdown-it.github.io/)
+- [Pandoc - index](https://pandoc.org/) -> 개쩌는 문서 변환기
+- [Jekyll • Simple, blog-aware, static sites  Transform your plain text into static websites and blogs](https://jekyllrb.com/) -> 문서 기반 웹 페이지 생성기
