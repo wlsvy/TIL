@@ -1,4 +1,6 @@
-### 특정 브랜치만 git Clone
+# GitCommand
+
+## 특정 브랜치만 git Clone
 
 클론 시에 해당 리포지토리에 브랜치가 많다면 시간이 오래 걸릴 수 있는데, 이런 경우에 아래처럼 단일 브랜치만 먼저 내려받을 수 있다.
 
@@ -30,7 +32,7 @@ ex) git clone -b javajigi --single-branch https://github.com/javajigi/java-racin
   - 이 때는 `git fetch --unshallow` 혹은 `git pull --allow-unrelated-histories` 로 완전한 히스토리를 다시 받아올 수 있다.
   - [참고: 티스토리](https://bitlog.tistory.com/66), [stackoverflow: git-refusing-to-merge-unrelated-histories-on-rebase](https://stackoverflow.com/questions/37937984/git-refusing-to-merge-unrelated-histories-on-rebase)
 
-### git partial clone
+## git partial clone
 
 The "Partial Clone" feature is a performance optimization for Git that allows Git to function without having a complete copy of the repository. The goal of this work is to allow Git better handle extremely large repositories.
 
@@ -52,7 +54,7 @@ Partial clone allows us to avoid downloading such unneeded objects in advance du
 
 - 출처 : [git : partial clone](https://git-scm.com/docs/partial-clone), [git clone](https://git-scm.com/docs/git-clone)
 
-### 트랙킹 브랜치 생성
+## 트랙킹 브랜치 생성
   
 > git branch --track branch-name origin/branch-name <br/>
 > git branch -t branch-name origin/branch-name <br/>
@@ -64,7 +66,7 @@ Partial clone allows us to avoid downloading such unneeded objects in advance du
 - `git branch -u upstream/foo foo`
 - `git branch -u upstream/foo`
 
-### git Config
+## git Config
   
 **설정 값 확인**
   
@@ -84,7 +86,7 @@ Use:
 > git config --global gc.auto 0
   
   
-### Git Clear Unstaged Change
+## Git Clear Unstaged Change
 
 For all unstaged files iFor all unstaged files in current working directory use:
 
@@ -97,7 +99,7 @@ For a specific file use:
 - [stackOverflow](https://stackoverflow.com/questions/52704/how-do-i-discard-unstaged-changes-in-git)
 
 
-### List All Branches, Delete Branch
+## List All Branches, Delete Branch
 
 - To see local branches, run this command: `git branch`
 - To see remote branches, run this command: `git branch -r`
@@ -108,7 +110,7 @@ For a specific file use:
 
 출처 : [Git Branches: List, Create, Switch to, Merge, Push, & Delete](https://www.nobledesktop.com/learn/git/git-branches)
 
-### Alias MultipleCommand
+## Alias MultipleCommand
 
 This targets Windows batch / msysgit bash; might not work on other environments.
 
@@ -130,7 +132,7 @@ gives the correct output ... `git chs demo -> git checkout demo && git status`
 
 - 출처 : [stackoverflow](https://stackoverflow.com/questions/7534184/git-alias-multiple-commands-and-parameters)
 
-### log / diff / Grep / ls-files
+## log / diff / Grep / ls-files
 
 log
 
@@ -230,7 +232,7 @@ Show Head Commit Id/history
   
 - 출처 : [stackoverflow](https://stackoverflow.com/questions/1967967/git-command-to-display-head-commit-id)
 
-### Show
+## Show
 
 git-show - Show various types of objects
 
@@ -239,7 +241,7 @@ git-show - Show various types of objects
 - 최신 커밋의 변경 내용 확인: git show HEAD
 - 특정 파일의 특정 커밋에서의 변경 내용 확인: git show 커밋ID 파일이름
 
-### Stash
+## Stash
   
 - list stash entry : `git stash list`
 - show stash entry diff: `git stash show <number>`, `ex) git stash show 0`
@@ -251,7 +253,7 @@ git-show - Show various types of objects
   
 - 출처 : [git](https://git-scm.com/docs/git-stash)
 
-### git Reorder Commit By Interactive rebase
+## git Reorder Commit By Interactive rebase
   
 먼저 interactive rebase를 시작
   
@@ -293,14 +295,14 @@ s 2639543 Task 2/3
   
 - 출처 : [git ready](https://gitready.com/advanced/2009/03/20/reorder-commits-with-rebase.html)
   
-### rev-list
+## rev-list
   
 조건에 맞는 커밋 오브젝트를 시간 역순으로 나열합니다.
   
 > git rev-list HEAD..origin/main <br/>
 > git rev-list --count HEAD..origin/main <br/>
   
-### Tilde / Caret Notation
+## Tilde / Caret Notation
  
 Tilde : The [“Specifying Revisions” section of the git rev-parse documentation](https://git-scm.com/docs/git-rev-parse#Documentation/git-rev-parse.txt-emltrevgtltngtemegemmaster3em) defines `~` as
 
@@ -334,7 +336,7 @@ I = F^   = B^3^    = A^^3^
 J = F^2  = B^3^2   = A^^3^2
 ```
 
-### Detached HEAD
+## Detached HEAD
 
 It is sometimes useful to be able to checkout a commit that is not at the tip of any named branch, or even to create a new commit that is not referenced by a named branch.
 
@@ -353,7 +355,7 @@ $ git tag foo           (3)
 
 - 출처 [git : detached Head](https://git-scm.com/docs/git-checkout#_detached_head)
 
-### Ref Log
+## Ref Log
 
 Reference logs란 로컬 저장소에서 브랜치의 끝점 혹은 레퍼런스가 갱신될 때마다 히스토리를 기록합니다. 로컬 저장소에서 과거 정보를 확인할 때 유용합니다.
 
@@ -368,13 +370,13 @@ git reflog exists <ref>
 
 - 출처 [git : Reflog](https://git-scm.com/docs/git-reflog)
 
-### FSCK
+## FSCK
 
 git-fsck - Verifies the connectivity and validity of the objects in the database
 
 - 출처 [git : fsck](https://git-scm.com/docs/git-fsck)
 
-### Blame
+## Blame
 
 git-blame - Show what revision and author last modified each line of a file
 
@@ -382,7 +384,7 @@ git-blame - Show what revision and author last modified each line of a file
 
 - 출처 [git : blame](https://git-scm.com/docs/git-blame)
 
-### cherry-pick
+## cherry-pick
 
 - 현재 브랜치가 'branchA' 일때
 - git cherry-pick branchA..branchB
@@ -390,7 +392,7 @@ git-blame - Show what revision and author last modified each line of a file
 
 [Git - Revision Selection](https://git-scm.com/book/en/v2/Git-Tools-Revision-Selection)
 
-### sh - while / do / done
+## sh - while / do / done
 
 foreach 문 처럼 사용하기
 
@@ -401,11 +403,11 @@ done
 
 ```
 
-### Worktree
+## Worktree
 
 Manage multiple working trees attached to the same repository.
 
-**아래는 ChatGPT 설명**
+### 아래는 ChatGPT 설명
 
 Git의 `worktree` 기능은 여러 작업 트리를 동시에 관리할 수 있게 해주는 고급 기능입니다. 기본적으로 Git 저장소는 하나의 작업 트리(일반적으로 저장소의 최상위 디렉토리)를 가지고 있습니다. 그러나 `git worktree` 명령을 사용하면, 같은 저장소의 다른 브랜치를 병렬로 체크아웃하여 여러 작업을 동시에 진행할 수 있습니다. 이는 각각 독립적인 작업 디렉토리에서 이루어집니다.
 
@@ -415,7 +417,7 @@ Git의 `worktree` 기능은 여러 작업 트리를 동시에 관리할 수 있�
 - **컨텍스트 전환 최소화**: 브랜치 간 전환 시 발생하는 컨텍스트 전환의 오버헤드를 줄일 수 있습니다. `git worktree`를 사용하면, 다른 브랜치로 전환하기 위해 현재 변경 사항을 stash 하거나 커밋할 필요가 없습니다.
 - **리뷰 및 테스트 용이**: 코드 리뷰나 테스트를 위해 다른 브랜치의 내용을 쉽게 체크아웃하여 사용할 수 있습니다. 이는 복잡한 병합 과정 없이 여러 버전의 코드를 동시에 관리하고 비교하는 데 유용합니다.
 
-**사용 방법**
+### 사용 방법
 
 `git worktree` 명령은 다음과 같은 형태로 사용됩니다:
 
