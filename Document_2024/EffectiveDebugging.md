@@ -80,3 +80,31 @@
 - Item 19: 디버깅 작업 자동화하기
 - Item 20: 디버깅 전과 후에 정리하기
 - Item 21: 비슷한 문제 모두 고치기
+
+## Chapter3 범용 도구를 활용한 기법
+
+[GitHub - jlevythe-art-of-command-line Master the command line, in one page](https://github.com/jlevy/the-art-of-command-line)
+
+![](img/2024-03-07-19-53-53.png)
+
+- Item 22: 유닉스 명령줄 도구로 디버깅 데이터 분석하기
+
+![](img/2024-03-07-20-00-37.png)
+
+![](img/2024-03-07-20-04-07.png)
+
+![](img/2024-03-07-20-06-08.png)
+
+- Item 23: 명령줄 도구 옵션과 관용 표현 활용하기
+
+![](img/2024-03-07-20-14-57.png)
+
+- Item 25: 작업 환경 최적화하기
+- Item 26: 버전 관리 시스템으로 버그 원인과 히스토리 추적하기
+- Item 27: 독립적인 프로세스로 구성된 시스템에서 모니터링 도구 사용하기
+
+![](img/2024-03-07-20-28-20.png)
+
+![](img/2024-03-07-20-28-33.png)
+
+## Chapter 4 : 디버거 활용법
