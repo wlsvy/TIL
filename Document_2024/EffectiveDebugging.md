@@ -108,3 +108,15 @@
 ![](img/2024-03-07-20-28-33.png)
 
 ## Chapter 4 : 디버거 활용법
+
+- Item 28: 디버깅 버전으로 컴파일하기
+- Item 29: 한 단계씩 코드 실행하기
+- Item 30: 코드와 데이터 중단점 확인하기
+- Item 31: 리버스 디버깅
+
+![](img/2024-03-08-15-58-20.png)
+
+[Visual Studio의 IntelliTrace](chrome-extension://hajanaajapkhaabfcofdjgjnlgkdkknm/_generated_background_page.html)
+
+- Item 32: 루틴 사이의 호출 흐름 추적하기
+- Item 33: 변수화 표현식의 값을 분석하여 에러 찾기
