@@ -157,3 +157,123 @@ Whether you are a developer, designer, product manager, or anyone involved in cr
 - Stopwatch ticks are different from DateTime.Ticks. Each tick in the DateTime.Ticks value represents one 100-nanosecond interval. Each tick in the ElapsedTicks value represents the time interval equal to 1 second divided by the Frequency.
   - 1 Stopwatch.ElapsedTicks는 하드웨어 클락에 기반해서 측정
   - Stopwatch.ElapsedTicks = 1 second / Stopwatch.Frequency
+
+## 24.03.13
+
+[페이스북이 Git을 사용하지 않는 이유  GeekNews](https://news.hada.io/topic?id=13769)
+
+- Mercurial 을 사용한다고 함
+- [Mercurial SCM](https://www.mercurial-scm.org/)
+- [Scaling Mercurial at Facebook - Engineering at Meta](https://engineering.fb.com/2014/01/07/core-infra/scaling-mercurial-at-facebook/)
+
+===
+
+**Graphite 개발자 Greg Foster가 이에 관심을 가진 이유**
+
+- 왜 페이스북은 Git 대신 Mercurial을 채택하고 그 위에 커스텀 워크플로우를 구축했을까 ?
+- 구글도 Git을 사용하지 않지만, 그건 Google의 엔지니어링이 Git보다 5년 이상 앞서 있기 때문
+- 반면에 Facebook은 Git이 만들어진 시기와 비슷한 시기인 2004년에 설립되었으며, Facebook이 소스 제어 도구를 진지하게 검토할 무렵에는 Mercurial보다 Git이 더 인기가 있었음
+- 그런데 왜 Facebook은 Git을 사용하지 않을까?
+  - 그의 생각에 Facebook이 Git을 도입하고 2010년대 초반에 기여했다면 엔지니어링 세계는 달라졌을 것
+  - Git이 더 사용자 친화적이고, 네이티브하게 Stacked Changes를 지원하게 되었을 수도
+- 초기 페이스북 직원들이 만든 Uber와 Pinterest 같은 회사들도 Mercurial 대신 Git과 GitHub를 소스 컨트롤로 사용하여 지난 10년 동안 덜 파편화된 생태계를 만들었을 것
+- 하지만 Facebook은 (기본 모노리포지토리를 위해) Git을 고수하지 않았음. 대신 버전 관리를 위해 Mercurial을 채택하고 그 위에 사용자 지정 도구를 점진적으로 추가함
+  - 페이스북에 올라온 Scaling Mercurial at Facebook 글을 발견
+  - 10년전 글이고, 그 이후에 몇개의 유튜브를 통해서 "성능 때문이지" 라는 해답을 얻었음
+  - 하지만, 더 깊게 들어가서 그 당시 결정권자들의 생각을 들어보고 싶었고, Mercurial 마이그레이션 프로젝트에 참여했던 두명의 엔지니어에게 물어봤음
+  - 그들과의 비공식적인 얘기를 통해 이 내용을 정리함
+
+**페이스북이 Git을 버리고 Mercurial로 이주한 이유**
+
+- 페이스북은 처음에 Git을 사용했으나, 2012년경 코드베이스 규모가 커지면서 성능 문제를 겪기 시작
+- Git의 파일 "stat-ing" 과정이 병목 현상을 일으키며, 기본 Git 명령어 실행 시간이 45분 이상 소요
+- Git 유지보수자들은 페이스북의 대규모 리포지토리 문제에 대해 협력적이지 않았고, 대신 리포지토리 분할을 권장
+
+**고려된 대안들**
+
+- 2012년 당시 Git의 대안은 많지 않았으며, 페이스북은 Perforce와 같은 폐쇄 소스 솔루션을 고려했으나 기술적 문제가 있었음
+- Mercurial은 Git과 유사한 성능을 가졌으나, 더 깔끔한 아키텍처와 확장성을 가지고 있었음
+- 페이스북 팀은 Mercurial 해커톤에 참여하여 Mercurial의 확장성과 커뮤니티의 개방성에 감명받음
+
+**전체 엔지니어링 조직의 이주**
+
+- 페이스북 팀은 나머지 회사를 설득하기 위해 Git과 Mercurial 간의 명령어 및 워크플로우를 매핑하고, 개발자들의 우려를 듣는 시간을 가짐
+- 이주 과정은 신중하게 진행되었으며, 결국 페이스북은 Mercurial로 전환함
+- 페이스북은 Mercurial의 성능을 향상시키고, "stacked diffs"를 통해 코드 리뷰 병렬화를 가능하게 하는 등의 기여를 함
+
+**마무리 생각**
+
+- 이 이야기는 "많은 주요 기술적 결정은 기술이 주도하는 것이 아니라 사람이 주도한다"는 점을 상기시킴
+- 페이스북은 Mercurial이 Git보다 성능이 뛰어나서가 아니라, Mercurial 유지보수자들과의 협업이 더 개방적이었기 때문에 선택함
+- 전체 엔지니어링 조직을 설득하는 과정에서 한 기술이 다른 기술보다 더 우수해서가 아니라 "사려 깊은 커뮤니케이션"이 중요했음
+- "소통과 친절함"이 개발 도구 세계에서 중요한 가치임을 강조
+
+[Go로 10억 행 처리하기 도전 9개의 방법으로 1분45초에서 4초로 단축  GeekNews](https://news.hada.io/topic?id=13627)
+
+- 1BRC : 10억행이 있는 텍스트 파일에서 온도 측정값을 읽어 관측소별 최소/평균/최대 온도를 계산하는 코드를 작성하는 챌린지
+- 2024년 1월 1일부터 1월 31일까지 진행했으며, 최신 Java를 최대한 활용하는 것이 목표였음
+- 이에 대해 사람들이 관심을 가지고 다양한 언어(Rust,Go,C++,SQL)로 도전하기 시작
+- Go로 작성한 9가지 솔루션에 대해서 상세 소개 (느린것부터 빠른 것순으로)
+- [gunnarmorling1brc 1️⃣🐝🏎️ The One Billion Row Challenge -- A fun exploration of how quickly 1B rows from a text file can be aggregated with Java](https://github.com/gunnarmorling/1brc)
+
+**기본 측정값**
+
+- cat 명령어를 사용하여 10억행 텍스트데이터(13GB) 데이터를 읽는 데 걸리는 시간은 1.052초임.
+- 실제로 파일을 처리하는 wc 명령어는 거의 1분이 걸림(55.710초).
+- AWK 솔루션을 사용하여 문제를 해결하는 데 걸리는 시간은 7분 35초임.
+
+**솔루션 1: 간단하고 관용적인 Go**
+
+- Go 표준 라이브러리를 사용한 첫 번째 솔루션은 1분 45초가 걸림.
+- bufio.Scanner로 줄을 읽고, strings.Cut으로 ';'를 기준으로 분리함.
+- strconv.ParseFloat로 온도를 파싱하고, Go 맵을 사용하여 결과를 누적함.
+
+**솔루션 2: 포인터 값이 있는 맵**
+
+- 맵에서 두 번의 해싱을 피하기 위해 map[string]*stats를 사용함.
+- 포인터 값을 사용하여 시간을 1분 45초에서 1분 31초로 단축함.
+
+**솔루션 3: strconv.ParseFloat 피하기**
+
+- strconv.ParseFloat 대신 사용자 정의 코드를 사용하여 온도를 파싱함.
+- 시간을 1분 31초에서 55.8초로 단축함.
+
+**솔루션 4: 고정 소수점 정수 사용**
+
+- 온도를 정수로 표현하여 부동 소수점 연산을 피함.
+- 시간을 55.8초에서 51.0초로 단축함.
+
+**솔루션 5: bytes.Cut 피하기**
+
+- ';'를 찾기 위해 전체 스테이션 이름을 스캔하는 대신 끝에서부터 파싱함.
+- 시간을 51.0초에서 46.0초로 단축함.
+
+**솔루션 6: bufio.Scanner 피하기**
+
+- bufio.Scanner를 제거하고 파일을 큰 청크로 읽음.
+- 시간을 46.0초에서 41.3초로 단축함.
+
+**솔루션 7: 사용자 정의 해시 테이블**
+
+- Go의 맵 대신 사용자 정의 해시 테이블을 구현함.
+- 시간을 41.3초에서 25.8초로 단축함.
+
+**솔루션 8: 청크 병렬 처리**
+
+- 간단하고 관용적인 코드를 병렬화하여 시간을 1분 45초에서 24.3초로 단축함.
+
+**솔루션 9: 모든 최적화 및 병렬 처리**
+
+- 모든 최적화를 병렬 처리와 결합하여 시간을 24.3초에서 3.99초로 단축함.
+
+**결과 테이블**
+
+- 모든 Go 솔루션과 가장 빠른 Go 및 Java 솔루션을 비교한 표 제공.
+- Go 버전 중 가장 빠른 것은 2.90초, Java 버전은 0.953초로 처리함.
+- 1초도 안걸리는 Java버전은 Thomas Wuerthinger(GraalVM 제작자)가 한 것으로, 이 분야 전문가이기 때문에 가능한듯
+
+**최종 코멘트**
+
+- 일상적인 프로그래밍 작업에서는 간단하고 관용적인 코드가 좋은 출발점임.
+- 데이터 처리 파이프라인을 구축하는 경우, 코드를 4배 또는 26배 빠르게 만들면 사용자 만족도를 높이고 컴퓨팅 비용을 절약할 수 있음.
+- 런타임이나 인터프리터를 구축하는 경우, 성능 향상이 중요함.
