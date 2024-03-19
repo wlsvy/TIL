@@ -340,3 +340,103 @@ Enabling the remotefilelog extension for employees at Facebook has made **Mercur
 
 - [FsMonitorExtension - Mercurial](https://wiki.mercurial-scm.org/FsMonitorExtension)
   - This extension was previously known as hgwatchman before being merged into Mercurial.
+
+## 24.03.19
+
+[Frozen collections in .NET 8](chrome-extension://hajanaajapkhaabfcofdjgjnlgkdkknm/)
+
+- .NET8의 Frozen Collection 의 성능은 일반 컬렉션 도구와 Immutable 컬렉션 도구보다 빠르다.
+- Immutable 컬렉션 도구들이 생각보다 벤치마크 성능이 좋지 않았다. 이유는 포스트에 나와있지 않지만, 이것도 .net 7에 비해 개선된 것이라고
+
+[Don't Block on Async Code](https://blog.stephencleary.com/2012/07/dont-block-on-async-code.html)
+
+> ASP.NET Example
+
+```cs
+// My "library" method.
+public static async Task<JObject> GetJsonAsync(Uri uri)
+{
+  // (real-world code shouldn't use HttpClient in a using block; this is just example code)
+  using (var client = new HttpClient())
+  {
+    var jsonString = await client.GetStringAsync(uri);
+    return JObject.Parse(jsonString);
+  }
+}
+
+// My "top-level" method.
+public class MyController : ApiController
+{
+  public string Get()
+  {
+    var jsonTask = GetJsonAsync(...);
+    return jsonTask.Result.ToString();
+  }
+}
+```
+
+So this is what happens, starting with the top-level method (Button1_Click for UI / MyController.Get for ASP.NET):
+
+1. The top-level method calls GetJsonAsync (within the UI/ASP.NET context).
+1. GetJsonAsync starts the REST request by calling HttpClient.GetStringAsync (still within the context).
+1. GetStringAsync returns an uncompleted Task, indicating the REST request is not complete.
+1. GetJsonAsync awaits the Task returned by GetStringAsync. The context is captured and will be used to continue running the GetJsonAsync method later. GetJsonAsync returns an uncompleted Task, indicating that the GetJsonAsync method is not complete.
+1. The top-level method synchronously blocks on the Task returned by GetJsonAsync. This blocks the context thread.
+1. … Eventually, the REST request will complete. This completes the Task that was returned by GetStringAsync.
+1. The continuation for GetJsonAsync is now ready to run, and it waits for the context to be available so it can execute in the context.
+1. Deadlock. The top-level method is blocking the context thread, waiting for GetJsonAsync to complete, and GetJsonAsync is waiting for the context to be free so it can complete.
+
+**Preventing Deadlock**
+
+There are two best practices (both covered in my intro post) that avoid this situation:
+
+1. In your “library” async methods, use ConfigureAwait(false) wherever possible.
+2. Don’t block on Tasks; use async all the way down.
+
+```cs
+public static async Task<JObject> GetJsonAsync(Uri uri)
+{
+  // (real-world code shouldn't use HttpClient in a using block; this is just example code)
+  using (var client = new HttpClient())
+  {
+    var jsonString = await client.GetStringAsync(uri).ConfigureAwait(false);
+    return JObject.Parse(jsonString);
+  }
+}
+```
+
+This changes the continuation behavior of GetJsonAsync so that it does not resume on the context. Instead, GetJsonAsync will resume on a thread pool thread. This enables GetJsonAsync to complete the Task it returned without having to re-enter the context. The top-level methods, meanwhile, do require the context, so they cannot use ConfigureAwait(false).
+
+```cs
+public async void Button1_Click(...)
+{
+  var json = await GetJsonAsync(...);
+  textBox1.Text = json;
+}
+
+public class MyController : ApiController
+{
+  public async Task<string> Get()
+  {
+    var json = await GetJsonAsync(...);
+    return json.ToString();
+  }
+}
+```
+
+- [.NET Framework 394. asyncawait 사용 시 hang 문제가 발생하는 경우](https://www.sysnet.pe.kr/2/0/1541)
+- [닷넷 2224. C - WPF의 Dispatcher Queue로 알아보는 await 호출의 hang 현상](https://www.sysnet.pe.kr/2/0/13572#SetOnInvokeMres)
+
+```cs
+private void Window_Loaded(object sender, RoutedEventArgs e)
+{
+    Task<string> task = GetMyText();
+    this.textBox1.Text = task.Result; // 무한 대기!!!
+}
+
+async Task<string> GetMyText()
+{
+    await Task.Delay(1);
+    return "Hello World";
+}
+```
