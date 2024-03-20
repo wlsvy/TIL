@@ -440,3 +440,17 @@ async Task<string> GetMyText()
     return "Hello World";
 }
 ```
+
+## 24.03.20
+
+[Unity Mathematics  Mathematics  1.3.2](https://docs.unity3d.com/Packages/com.unity.mathematics@1.3/manual/index.html)
+
+- [Unity-TechnologiesUnity.Mathematics The C math library used in Unity providing vector types and math functions with a shader like syntax](https://github.com/Unity-Technologies/Unity.Mathematics)
+- Unity 의 버스트 컴파일러를 활용. 수학 연산 타입들의 하드웨어 가속 지원
+  - 그치만 Unity.Mathmatics 라이브러리 제공되는 타입을 활용해야 하고 + AOT 컴파일 환경이어야 함
+  - 닷넷 생태계의 System.Numerics 타입들은 지원해주지 않는다는 얘기
+- System.Numerics 의 경우에는 또 JIT 컴파일 환경에서 하드웨어 가속을 제공함
+- 현재 프로젝트가 서버와 클라가 동일한 c# 언어를 사용하고, 이걸로 서버 클라 간의 공용 코드 공간을 구성할 수 있었지만
+  - 수학 코드에 대해서는 예외적으로 골치 아프게 됨.
+  - AOT 컴파일 환경의 유니티에서는 Unity.Mathmatics로 하드웨어 가속 지원이 필수지만
+  - JIT 컴파일 환경의 서버에서는 저걸 사용할 이유가 없는 상태
