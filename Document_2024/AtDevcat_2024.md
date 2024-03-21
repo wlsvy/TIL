@@ -454,3 +454,25 @@ async Task<string> GetMyText()
   - 수학 코드에 대해서는 예외적으로 골치 아프게 됨.
   - AOT 컴파일 환경의 유니티에서는 Unity.Mathmatics로 하드웨어 가속 지원이 필수지만
   - JIT 컴파일 환경의 서버에서는 저걸 사용할 이유가 없는 상태
+
+## 24.03.21
+
+[C 코딩 표준  포프의 문서창고](https://docs.popekim.com/ko/coding-standards/csharp)
+
+기본 원칙
+
+1. 가독성을 최우선으로 삼는다. (대부분의 경우 코드는 그 자체가 문서의 역할을 해야 함)
+2. 정말 합당한 이유가 있지 않는 한, 통합개발환경(IDE)의 자동 서식을 따른다. (비주얼 스튜디오의 "Ctrl + K + D" 기능)
+3. 본 코딩표준을 따라 잘 짜여진 기존의 코드에서 배운다.
+
+[Coding Standard  Epic Developer Community](chrome-extension://hajanaajapkhaabfcofdjgjnlgkdkknm/documentation/assets/)
+
+At Epic Games, we have a few simple coding standards and conventions. This document reflects the state of Epic Games' current coding standards. Following the coding standards is mandatory.
+
+Code conventions are important to programmers for several reasons:
+
+- 80% of the lifetime cost of a piece of software goes to maintenance.
+- Hardly any software is maintained for its whole life by the original author.
+- Code conventions improve the readability of software, allowing engineers to understand new code quickly and thoroughly.
+- If we decide to expose source code to mod community developers, we want it to be easily understood.
+- Many of these conventions are required for cross-compiler compatibility.
