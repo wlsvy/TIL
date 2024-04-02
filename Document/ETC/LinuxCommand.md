@@ -83,6 +83,15 @@
   - alias 별명 = '명령어 정의'
   > alias lsa = 'ls -a' <br/>
   > unalias lsa
+- lsof (list open files)
+  - lsof -i :<포트번호> 명령을 실행하면 해당 포트를 사용하고 있는 프로세스의 PID를 확인할 수 있습니다. 
+  - -u 옵션으로 사용자를 지정
+  - -i 옵션은 모든 네트워크 포트를 표시
+  - -U(대문자) 옵션을 사용하면 유닉스 도메인 소켓만 표시
+  - -t 옵션은 자세한 정보를 출력하지 않고 pid 정보만 출력
+  - > $ lsof -u^lesstif -u ^root
+    - ^ 특정 사용자 제외
+  - [lsof 사용법](https://www.lesstif.com/system-admin/lsof-20776078.html)
 
 ## 명령어 검색 및 정규 표현식
 
