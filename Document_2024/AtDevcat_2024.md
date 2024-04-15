@@ -521,3 +521,14 @@ Code conventions are important to programmers for several reasons:
 [프로그래밍 대회 참여시 만나는 상대  유머 게시판  RULIWEB](https://m.ruliweb.com/best/board/300143/read/65427663)
 
 ![](img/2024-03-27-21-55-23.png)
+
+## 24.04.15
+
+[(129) What can I make with C - YouTube](https://www.youtube.com/watch?v=P_6MQZpXgrc)
+
+- c# 으로 뭘 할 수 있나요
+  - 당뇨를 가진 개발자가 자신의 인공 췌장에 c# 으로 작성된 코드를 적용. RestAPI 를 호출한다고 함
+
+![](img/2024-04-15-23-34-38.png)
+
+![](img/2024-04-15-23-35-32.png)
