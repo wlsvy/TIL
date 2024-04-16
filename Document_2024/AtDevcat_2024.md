@@ -637,7 +637,7 @@ inlining 이 메서드 호출 오버헤드를 제거하게 해줌. 메서드 코
 
 > A “peephole optimization” is one in which a small sequence of instructions is replaced by a different sequence that is expected to perform better. This could include getting rid of instructions deemed unnecessary or replacing two instructions with one instruction that can accomplish the same task. Every release of .NET features a multitude of new peephole optimizations, often inspired by real-world examples where some overhead could be trimmed by slightly increasing code quality, and .NET 8 is no exception.
 
-- 각종 프로젝트에서 공통적으로 발견되는 사례들을 최적화하는 기법들
+- 광범위하게 발견되는 사례들을 (그러나 카테고리를 만들고 분류하기에는 너무 사소한) 최적화하는 기법들
 - 작은 크기의 명령어 집합이 더 나은 성능이 기대되는 다른 명령어로 대체하는 것
 - 불필요한 명령어를 제거하거나 두 개의 명령어를 동일한 작업을 수행할 수 있는 하나의 명령어로 대체 등등
 
@@ -657,3 +657,108 @@ inlining 이 메서드 호출 오버헤드를 제거하게 해줌. 메서드 코
 > - dotnet/runtime#79550 replaces mul/neg sequences on Arm with mneg.
 
 - 기타 등등...
+
+## 24.04.17
+
+[The Single Language Productivity Myth](https://www.breakneck.dev/blog/single-language-myth)
+
+프로젝트를 단일 언어로 구성할 시 기대할 수 있는 장점
+
+    You only have to learn a single language
+    You can share code between frontend and backend
+    You get type safety between backend and frontend
+    Easier deployment
+
+그래서 정말 그럴지...?? 파고들어보는데
+
+1. 단 하나의 언어만 공부하면 된다.
+
+In any real project, you already use so many languages and tool.
+
+    Html
+    Css
+    Javascript
+    Typescript
+    Tailwind
+    SQL
+    Prisma
+    Vite
+    Yaml
+    Docker
+    Vercel
+    Serverless vs Server
+    8 .config.js files
+
+> You switch between so many languages, tools and systems constantly. One more is not gonna kill your productivity.
+
+- 이미 많은 언어와 도구를 알고 있거나 사용하고 있을 것이고 여기서 하나를 더 추가한다고 생산성이 비극적으로 감소하진 않을 것
+
+> Knowing "frontend" javascript gives you almost no advantage once want to create a server that takes in requests and responds back with json.
+
+- "프론트 엔드" 자바스크립트에 익숙하다는 점이 당신이 서버를 새로 만들 때 큰 도움이 되진 않을 것이다.
+
+If you want to learn that you have to learn
+
+    SQL
+    How to model your tables / entities
+    Prisma (ORM)
+    How to authenticate on the server
+    How to run long running, expensive stuff in the background
+    How do you even route incoming requests?
+    How do you respond back with json?
+    How do you respond with a 404? When do you respond with a 404?
+    How do you do middleware?
+    How do you accept a file upload and store it somewhere?
+    How do you generate an openAPI definition? What even is that?
+    Wtf is this cors thing?
+    Where do you host it?
+    How do you set up your pipelines to deploy automatically?
+
+> Imagine having to figure all these out for the first time in a node app vs a c# app.
+> 
+> No matter how experienced you are in frontend javascript, you gain basically nothing by choosing node over c# over go over django.
+> 
+> Knowing react does not significantly improve your speed in learning or implementing any of these.
+
+2. 백엔드와 프론트엔드 간의 공유되는 코드를 사용할 수 있다.
+
+It's amazing in theory, it just doesn't really work out in reality. What happens most of the time is that one class tries to do too much.
+
+This is especially appearant in the case of entity classes that also describe the shape of the database tables.
+
+  This goes out of control every single time.  
+  Most people have caught onto different dto or model classes by now.
+
+Especially validation trips people up, because they think about "the" validation.  
+But there are actually 3 different types of validation here. Client side, api level, database level.
+
+These 3 levels of the system just don't map 1:1 and if you try to make it work (which sadly you can) you will find yourself drowning in complexity.
+
+- 공유 코드의 단점은 분명히 있음. 서버와 클라에서 둘 다 쓰이는 코드라면 하는 일이 너무 많아질 수 있다.
+  - ORM 에 대응하는 dto 역할의 클래스가 클라에서도 사용되는 경우
+  - 서버 <-> 클라 간 인터페이스에서 이 dto 객체에 대해 추가 검증 요구 사항이 새로 생기고 + 데이터베이스 레이어에서 마찬가지로 dto 에 대해 추가 검증을 요구하는 경우
+  - 하나의 dto 타입에 대해 DB 레이어 검증/ 통신 레이어 검증 코드가 자라나게 된다.
+- 이 부분은 주장이 좀 빈약하지 싶다
+
+1. 백엔드와 프론트엔드 간 타입 세이프를 보장 가능
+
+This is just not really a big deal with modern tools like openAPI / swagger.
+
+I have type safety between my AspNetCore backend and my NextJs frontend too.
+I just have to generate a client from my automatically generated openAPI contract with one command.
+npx swagger-typescript-api -p ./../backend/Schema.yaml -o ./src/api -n api.ts --axios
+
+and now I call my typesafe endpoints like this
+let launches = await api.getTodaysLaunchesEndpoint();
+
+- 상호 언어간 이런 사례들에 대비하는 도구들은 얼마든지 있다.
+
+4. 쉬운 배포
+
+Honestly, yea.
+It definitely is easier to deploy a singular nextjs app than a nextjs app + a backend server in c#, go or even javascript.
+
+However figuring it out shouldnt cost you any more than a day. That's if you never done it before.
+
+- 맞는 말이지만, 그럼 둘 이상의 언어를 사용할 때 배포가 어려워지는가? 
+  - 그렇게 하기 위한 방법을 배우는 것은 하루 정도 밖에 시간이 들지 않을 것이다. 배포가 크게 어렵지 않다.
