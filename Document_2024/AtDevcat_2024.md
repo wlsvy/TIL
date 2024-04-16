@@ -580,9 +580,8 @@ ChatGPT: 프로그래밍에서 "loop hoisting"은 일반적으로 코드 최적�
 
 [performance_improvements_in_net_7/#folding-propagation-and-substitution](https://devblogs.microsoft.com/dotnet/performance_improvements_in_net_7/#folding-propagation-and-substitution)
 
-- 상수 표현 압축(folding)
-  
-상수 전파(Propagation)
+- 상수 폴딩(Constant Folding): 이 최적화 기법은 실행 시간이 아닌 컴파일 시간에 상수 표현식을 평가하는 것을 포함합니다. 예를 들어, 2 + 2와 같은 표현을 컴파일 중에 4로 대체하면 프로그램 실행 시 필요한 계산이 줄어듭니다.
+- 상수 전파(Constant Propagation): 이 기법은 알려진 상수의 값을 표현식에 대체하는 것을 포함합니다. 변수가 상수 값에 할당되면 이 값은 변수가 사용되는 곳마다 직접 대체됩니다. 예를 들어, x = 3이라면 y = x + 2 표현식은 컴파일 중에 y = 5로 대체됩니다.
 
 > Constant propagation is intricately linked to constant folding and is essentially just the idea that you can substitute a constant value (typically one computed via constant folding) into further expressions, at which point they may also be able to be folded.
 
@@ -604,7 +603,7 @@ inlining 이 메서드 호출 오버헤드를 제거하게 해줌. 메서드 코
 
 [performance-improvements-in-net-8/#branching](https://devblogs.microsoft.com/dotnet/performance-improvements-in-net-8/#branching)
 
-Branching is integral to all meaningful code; while some algorithms are written in a branch-free manner, branch-free algorithms typically are challenging to get right and complicated to read, and typically are isolated to only small regions of code. For everything else, branching is the name of the game. Loops, if/else blocks, ternaries… it’s hard to imagine any real code without them. Yet they can also represent one of the more significant costs in an application. Modern hardware gets big speed boosts from pipelining, for example from being able to start reading and decoding the next instruction while the previous ones are still processing. That, of course, relies on the hardware knowing what the next instruction is. If there’s no branching, that’s easy, it’s whatever instruction comes next in the sequence. For when there is branching, CPUs have built-in support in the form of branch predictors, used to determine what the next instruction most likely will be, and they’re often right… but when they’re wrong, the cost incurred from that incorrect branch prediction can be huge. Compilers thus strive to minimize branching.
+> Branching is integral to all meaningful code; while some algorithms are written in a branch-free manner, branch-free algorithms typically are challenging to get right and complicated to read, and typically are isolated to only small regions of code. For everything else, branching is the name of the game. Loops, if/else blocks, ternaries… it’s hard to imagine any real code without them. Yet they can also represent one of the more significant costs in an application. Modern hardware gets big speed boosts from pipelining, for example from being able to start reading and decoding the next instruction while the previous ones are still processing. That, of course, relies on the hardware knowing what the next instruction is. If there’s no branching, that’s easy, it’s whatever instruction comes next in the sequence. For when there is branching, CPUs have built-in support in the form of branch predictors, used to determine what the next instruction most likely will be, and they’re often right… but when they’re wrong, the cost incurred from that incorrect branch prediction can be huge. Compilers thus strive to minimize branching.
 
 - 브랜치는 모든 의미 있는 코드에 필수적인 요소
   - 루프, if/else 블록, 삼항식... 분기가 없는 실제 코드는 상상하기 어려움.
@@ -614,3 +613,47 @@ Branching is integral to all meaningful code; while some algorithms are written 
   - 분기가 있는 경우 CPU는 분기 예측기(branch predictors)라는 내장 기능을 통해 다음 명령어 예측
     - 보통은 맞아 떨어지지만 얘측이 틀리는 경우에는 큰 비용이 발생할 수 있다.
 - 따라서 dotnet8 컴파일러는 브랜치를 최소화하기 위해 노력
+
+[performance-improvements-in-net-8/#non-gc-heap](https://devblogs.microsoft.com/dotnet/performance-improvements-in-net-8/#non-gc-heap)
+
+> What if we could ensure that the string object for this literal is created some place where it would never move, for example on the Pinned Object Heap (POH)? Then the JIT could avoid the indirection and instead just hardcode the address of the string, knowing that it would never move. Of course, the POH guarantees objects on it will never move, but it doesn’t guarantee addresses to them will always be valid; after all, it doesn’t root the objects, so objects on the POH are still collectible by the GC, and if they were collected, their addresses would be pointing at garbage or other data that ended up reusing the space.
+>
+> To address that, .NET 8 introduces a new mechanism used by the JIT for these kinds of situations: the Non-GC Heap (an evolution of the older “Frozen Segments” concept used by Native AOT). The JIT can ensure relevant objects are allocated on the Non-GC Heap, which is, as the name suggests, not managed by the GC and is intended to store objects where the JIT can prove the object has no references the GC needs to be aware of and will be rooted for the lifetime of the process, which in turn implies it can’t be part of an unloadable context.
+
+- Non-GC 힙(네이티브 AOT에서 사용하던 "Frozen Segments” 개념의 발전된 형태인)
+- JIT는 이름에서 알 수 있듯이 GC가 관리하지 않는 비 GC 힙에 관련 객체가 할당되도록 할 수 있으며, JIT가 객체에 GC가 알아야 할 참조가 없고 프로세스 수명 동안 루팅될 것임을 증명할 수 있는 객체를 저장하기 위한 것으로, 이는 다시 말해 언로드할 수 없는 컨텍스트의 일부가 될 수 없음을 뜻합니다.
+
+![](img/2024-04-16-21-11-31.png)
+
+[performance-improvements-in-net-8/#constant-folding#zeroing](https://devblogs.microsoft.com/dotnet/performance-improvements-in-net-8/#constant-folding#zeroing)
+
+> The JIT frequently needs to generate code that zeroes out memory. Unless you’ve used **[SkipLocalsInit]**, for example, any stack space allocated with **stackalloc** needs to be zeroed, and it’s the JIT’s responsibility to generate the code that does so. Consider this benchmark:
+
+- zeroing 수행 시 벡터 연산(SIMD) 활용
+
+[performance-improvements-in-net-8/#constant-folding#peephole-optimizations](https://devblogs.microsoft.com/dotnet/performance-improvements-in-net-8/#constant-folding#peephole-optimizations)
+
+- 엿보기 구멍 최적화
+
+> A “peephole optimization” is one in which a small sequence of instructions is replaced by a different sequence that is expected to perform better. This could include getting rid of instructions deemed unnecessary or replacing two instructions with one instruction that can accomplish the same task. Every release of .NET features a multitude of new peephole optimizations, often inspired by real-world examples where some overhead could be trimmed by slightly increasing code quality, and .NET 8 is no exception.
+
+- 각종 프로젝트에서 공통적으로 발견되는 사례들을 최적화하는 기법들
+- 작은 크기의 명령어 집합이 더 나은 성능이 기대되는 다른 명령어로 대체하는 것
+- 불필요한 명령어를 제거하거나 두 개의 명령어를 동일한 작업을 수행할 수 있는 하나의 명령어로 대체 등등
+
+> - dotnet/runtime#73120 from @dubiousconst282 and dotnet/runtime#74806 from @En3Tho improved the handling of the common bit-test patterns like (x & 1) != 0.
+> - dotnet/runtime#77874 gets rid of some unnecessary casts in a method like short Add(short x, short y) => (short)(x + y).
+> - dotnet/runtime#76981 improves the performance of multiplying by a number that’s one away from a power of two, by replacing an imul instruction with a three-instruction mov/shl/add sequence, and dotnet/runtime#77137 improves other multiplications by a constant via replacing a mov/shl sequence with a single lea.
+> - dotnet/runtime#78786 from @pedrobsaila fuses together separate conditions like value < 0 || value == 0 into the equivalent of value <= 0.
+> - dotnet/runtime#82750 eliminates some redundant cmp instructions.
+> - dotnet/runtime#79630 avoids an unnecessary and in a method like static byte Mod(uint i) => (byte)(i % 256).
+> - dotnet/runtime#77540 from @AndyJGraham, dotnet/runtime#84399, and dotnet/runtime#85032 optimize pairs of load and store instructions and replace them with a single ldp or stp instruction on Arm.
+> - dotnet/runtime#84350 similarly optimizes pairs of str wzr instructions to be str xzr instructions.
+> - dotnet/runtime#83458 from @SwapnilGaikwad optimizes some redundant memory loads on Arm by replacing some ldr instructions with mov instructions.
+> - dotnet/runtime#83176 optimizes an x < 0 expression from emitting a cmp/cset sequence on Arm to instead emitting an lsr instruction.
+> - dotnet/runtime#82924 removes a redundant overflow check on Arm for some division operations.
+> - dotnet/runtime#84605 combines an lsl/cmp sequence on Arm into a single cmp.
+> - dotnet/runtime#84667 combines neg and cmp sequences into use of cmn on Arm.
+> - dotnet/runtime#79550 replaces mul/neg sequences on Arm with mneg.
+
+- 기타 등등...
