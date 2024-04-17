@@ -40,3 +40,6 @@ ipch/
 
 wlsvySSSH
 wlsvySSSH.pub
+
+# Visual Studio Code
+.vscode/
