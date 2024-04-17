@@ -762,3 +762,13 @@ However figuring it out shouldnt cost you any more than a day. That's if you nev
 
 - 맞는 말이지만, 그럼 둘 이상의 언어를 사용할 때 배포가 어려워지는가? 
   - 그렇게 하기 위한 방법을 배우는 것은 하루 정도 밖에 시간이 들지 않을 것이다. 배포가 크게 어렵지 않다.
+
+## 24.04.17
+
+**JIT 역가상화(Devirtualize) 최적화**
+
+[Performance Improvements in .NET 8 - .NET Blog](https://devblogs.microsoft.com/dotnet/performance-improvements-in-net-8/)
+
+> Beyond the mechanisms used to enable tiering and dynamic PGO getting better (and, did I mention, being on by default?!) in .NET 8, the optimizations it performs also get better. One of the main optimizations dynamic PGO feeds is the ability to devirtualize virtual and interface calls per call site. As noted, the JIT tracks what concrete types are used, and then can generate a fast path for the most common type; this is known as guarded devirtualization (GDV). Consider this benchmark:
+
+- 동적 PGO 의 주요 최적화 기능 중 하나는 call site별로 가상 및 인터페이스 호출을 가상화하는 능입니다. 앞서 언급했듯이 JIT는 어떤 콘크리트 타입이 사용되는지 파악한 다음 가장 일반적인 타입에 대한 패스트 패스를 생성할 수 있으며, 이를 guarded devirtualization(GDV)라고 합니다.
