@@ -1,0 +1,207 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="소스 파일">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="헤더 파일">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="리소스 파일">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="소스 파일\ECPP">
+      <UniqueIdentifier>{786aa0d0-aec1-4c8e-bac4-27ce14384c09}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="pch.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="EffectiveC++\Item31.h">
+      <Filter>소스 파일\ECPP</Filter>
+    </ClInclude>
+    <ClInclude Include="EffectiveC++\Item02.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="EffectiveC++\Item05.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="EffectiveC++\Item01.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="EffectiveC++\Item19.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="EffectiveC++\Item22.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="EffectiveC++\Item32.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="EffectiveC++\Item34.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="EffectiveC++\Item36.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="EffectiveC++\Item38.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="EffectiveC++\Item52.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="EffectiveC++\Item53.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="EffectiveC++\Item54.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="EffectiveC++\Item55.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="pch.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectiveCPP.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectiveC++\Item03.cpp">
+      <Filter>소스 파일\ECPP</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectiveC++\Item04.cpp">
+      <Filter>소스 파일\ECPP</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectiveC++\Item06.cpp">
+      <Filter>소스 파일\ECPP</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectiveC++\item07.cpp">
+      <Filter>소스 파일\ECPP</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectiveC++\item08.cpp">
+      <Filter>소스 파일\ECPP</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectiveC++\Item09.cpp">
+      <Filter>소스 파일\ECPP</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectiveC++\item10.cpp">
+      <Filter>소스 파일\ECPP</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectiveC++\item11.cpp">
+      <Filter>소스 파일\ECPP</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectiveC++\item12.cpp">
+      <Filter>소스 파일\ECPP</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectiveC++\Item13.cpp">
+      <Filter>소스 파일\ECPP</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectiveC++\Item14.cpp">
+      <Filter>소스 파일\ECPP</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectiveC++\Item15.cpp">
+      <Filter>소스 파일\ECPP</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectiveC++\Item16.cpp">
+      <Filter>소스 파일\ECPP</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectiveC++\Item17.cpp">
+      <Filter>소스 파일\ECPP</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectiveC++\Item18.cpp">
+      <Filter>소스 파일\ECPP</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectiveC++\Item20.cpp">
+      <Filter>소스 파일\ECPP</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectiveC++\Item21.cpp">
+      <Filter>소스 파일\ECPP</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectiveC++\Item23.cpp">
+      <Filter>소스 파일\ECPP</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectiveC++\Item24.cpp">
+      <Filter>소스 파일\ECPP</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectiveC++\Item25.cpp">
+      <Filter>소스 파일\ECPP</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectiveC++\Item26.cpp">
+      <Filter>소스 파일\ECPP</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectiveC++\Item27.cpp">
+      <Filter>소스 파일\ECPP</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectiveC++\Item28.cpp">
+      <Filter>소스 파일\ECPP</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectiveC++\Item29.cpp">
+      <Filter>소스 파일\ECPP</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectiveC++\Item30.cpp">
+      <Filter>소스 파일\ECPP</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectiveC++\Item31.cpp">
+      <Filter>소스 파일\ECPP</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectiveC++\Item33.cpp">
+      <Filter>소스 파일\ECPP</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectiveC++\Item35.cpp">
+      <Filter>소스 파일\ECPP</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectiveC++\Item37.cpp">
+      <Filter>소스 파일\ECPP</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectiveC++\Item39.cpp">
+      <Filter>소스 파일\ECPP</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectiveC++\Item40.cpp">
+      <Filter>소스 파일\ECPP</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectiveC++\Item41.cpp">
+      <Filter>소스 파일\ECPP</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectiveC++\Item42.cpp">
+      <Filter>소스 파일\ECPP</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectiveC++\Item43.cpp">
+      <Filter>소스 파일\ECPP</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectiveC++\Item44.cpp">
+      <Filter>소스 파일\ECPP</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectiveC++\Item45.cpp">
+      <Filter>소스 파일\ECPP</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectiveC++\Item46.cpp">
+      <Filter>소스 파일\ECPP</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectiveC++\Item47.cpp">
+      <Filter>소스 파일\ECPP</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectiveC++\Item48.cpp">
+      <Filter>소스 파일\ECPP</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectiveC++\Item49.cpp">
+      <Filter>소스 파일\ECPP</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectiveC++\Item50.cpp">
+      <Filter>소스 파일\ECPP</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectiveC++\Item51.cpp">
+      <Filter>소스 파일\ECPP</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectiveC++\Item31_Impl.h">
+      <Filter>소스 파일\ECPP</Filter>
+    </ClCompile>
+    <ClCompile Include="casting_Study.hpp">
+      <Filter>소스 파일\ECPP</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
