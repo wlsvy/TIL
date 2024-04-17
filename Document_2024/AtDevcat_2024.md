@@ -791,3 +791,39 @@ However figuring it out shouldnt cost you any more than a day. That's if you nev
 > Here are some of the things that should be DTOs, and should be named according to their particular use, rather than naming them "FooDTO"
 
 ![](img/2024-04-17-20-18-40.png)
+
+[(132) .NET Configuration In Depth  .NET Conf 2023 - YouTube](https://www.youtube.com/watch?v=aOXaBZFB0-0)
+
+![](img/2024-04-17-20-47-35.png)
+
+![](img/2024-04-17-20-47-51.png)
+
+![](img/2024-04-17-20-48-15.png)
+
+![](img/2024-04-17-20-49-16.png)
+
+dotnet 의 configuration 기능에 대한 강연 세션
+
+- 애플리케이션의 구성 및 옵션 정보에 대한 분류를 설명
+- 다양한 사례를 수집해 일반화된 기능을 제공함.
+  - config 정보를 정적 혹은 동적으로 제공할 수 있음
+  - config 의 소스는 파일 형태(Json) / Azure 등 외부 서비스의 데이터 / 프로세스 실행 인자(args)
+    - config 의 소스가 어느 곳이라도 맞춤 솔루션을 가지고 있음
+  - config 의 사용처가, 범주에 따라 필요한 option 을 전달받도록 제한
+
+[Fearless Security Memory Safety - Mozilla Hacks - the Web developer blog](https://hacks.mozilla.org/2019/01/fearless-security-memory-safety/)
+
+**What Is Memory Safety**
+
+> When we talk about building secure applications, we often focus on memory safety. Informally, this means that in all possible executions of a program, there is no access to invalid memory. Violations include:
+
+- use after free / 이미 반환된 메모리를 사용
+- double free / 중복 반환
+  - 스마트 포인터 / GC / 혹은 ownership (Rust) 로 방지
+- null pointer dereference / Null 포인터 참조
+  - Rust prevents null pointer dereferencing two ways:
+    - Avoiding nullable pointers (with special OptionType)
+    - Avoiding raw pointer dereferencing
+- using uninitialized memory / 초기화되지 않은 메모리 사용
+- buffer overflow / 버퍼 오버플로우
+  - - bound checks 로 방지
