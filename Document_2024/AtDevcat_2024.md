@@ -827,3 +827,44 @@ dotnet 의 configuration 기능에 대한 강연 세션
 - using uninitialized memory / 초기화되지 않은 메모리 사용
 - buffer overflow / 버퍼 오버플로우
   - - bound checks 로 방지
+
+## 24.04.18
+
+[LRitzdorfTheJeffDeanFacts A consolidated list of the Jeff Dean Facts!](https://github.com/LRitzdorf/TheJeffDeanFacts)
+
+- [구글 천재 프로그래머 - YouTube](https://www.youtube.com/watch?v=VfBOPOwc1UI&list=WL&index=16)
+- 구글 천재 프로그래머 제프 딘(Jeff Dean) 에 관한 밈
+
+> Compilers don't warn Jeff Dean. Jeff Dean warns compilers.
+
+- 컴파일러는 Jeff Dean 에게 경고를 하지 않는다. Jeff Dean 은 컴파일러에게 경고를 한다.
+
+[Latency Numbers Every Programmer Should Know](https://gist.github.com/jboner/2841832)
+
+### Latency numbers every programmer should know
+    L1 cache reference ......................... 0.5 ns
+    Branch mispredict ............................ 5 ns
+    L2 cache reference ........................... 7 ns
+    Mutex lock/unlock ........................... 25 ns
+    Main memory reference ...................... 100 ns             
+    Compress 1K bytes with Zippy ............. 3,000 ns  =   3 µs
+    Send 2K bytes over 1 Gbps network ....... 20,000 ns  =  20 µs
+    SSD random read ........................ 150,000 ns  = 150 µs
+    Read 1 MB sequentially from memory ..... 250,000 ns  = 250 µs
+    Round trip within same datacenter ...... 500,000 ns  = 0.5 ms
+    Read 1 MB sequentially from SSD* ..... 1,000,000 ns  =   1 ms
+    Disk seek ........................... 10,000,000 ns  =  10 ms
+    Read 1 MB sequentially from disk .... 20,000,000 ns  =  20 ms
+    Send packet CA->Netherlands->CA .... 150,000,000 ns  = 150 ms
+
+Assuming ~1GB/sec SSD
+
+![](img/2024-04-18-16-33-36.png)
+
+Visual chart provided by [ayshen](https://gist.github.com/ayshen)
+
+Data by [Jeff Dean](http://research.google.com/people/jeff/)
+
+Originally by [Peter Norvig](http://norvig.com/21-days.html#answers)
+
+Compiled by [github.com/hellerbarde](https://gist.github.com/hellerbarde/2843375)
