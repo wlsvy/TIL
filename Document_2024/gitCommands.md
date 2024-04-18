@@ -434,3 +434,13 @@ Git의 `worktree` 기능은 여러 작업 트리를 동시에 관리할 수 있�
 `git worktree`는 복잡한 프로젝트 관리나 동시에 여러 이슈를 처리해야 하는 경우 매우 유용한 도구입니다. 하지만, 각 작업 트리는 동일한 Git 저장소 데이터를 공유하기 때문에, 여러 작업 트리에서 동일한 브랜치에 대해 동시에 작업하는 것은 권장되지 않습니다.
 
 [Git - git-worktree Documentation](https://git-scm.com/docs/git-worktree)
+
+## Bisect
+
+- [Git - git-bisect Documentation](https://git-scm.com/docs/git-bisect)
+
+> This command uses a binary search algorithm to find which commit in your project’s history introduced a bug. You use it by first telling it a "bad" commit that is known to contain the bug, and a "good" commit that is known to be before the bug was introduced. Then git bisect picks a commit between those two endpoints and asks you whether the selected commit is "good" or "bad". It continues narrowing down the range until it finds the exact commit that introduced the change.
+
+    $ git bisect start
+    $ git bisect bad                 # Current version is bad
+    $ git bisect good v2.6.13-rc2    # v2.6.13-rc2 is known to be good
