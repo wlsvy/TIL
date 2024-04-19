@@ -936,3 +936,82 @@ Compiled by [github.com/hellerbarde](https://gist.github.com/hellerbarde/2843375
 > The NuGet based delivery also turns the .NET Core platform into an app-local framework. The modular design of .NET Core ensures that each application only needs to deploy what it needs. We’re also working on enabling smart sharing if multiple applications use the same framework bits. However, the goal is to ensure that each application is logically having its own framework so that upgrading doesn’t interfere with other applications running on the same machine.
 > 
 > Our decision to use NuGet as a delivery mechanism doesn’t change our commitment to compatibility. We continue to take compatibility extremely seriously and will not perform API or behavioral breaking changes once a package is marked as stable. However, the app-local deployment ensures that the rare case where a change that is considered additive breaks an application is isolated to development time only. In other words, for .NET Core these breaks can only occur after you upgraded a package reference. In that very moment, you have two options: addressing the compat glitch in your application or rolling back to the previous version of the NuGet package. But in contrast to the .NET Framework those breaks will not occur after you deployed the application to a customer or the production server.
+
+## 24.04.20
+
+[Dynamic PGO in .NET 6.0.md](https://gist.github.com/EgorBo/dc181796683da3d905a5295bfd3dd95b)
+
+## What exactly PGO can optimize for us?
+1) **Profile-driving inlining** - inliner relies on PGO data and can be very aggressive for hot paths and care less about cold ones, see [dotnet/runtime#52708](https://github.com/dotnet/runtime/pull/52708) and [dotnet/runtime#55478](https://github.com/dotnet/runtime/pull/55478). A good example where it has visible effects is [this](https://twitter.com/EgorBo/status/1451149444183990273) StringBuilder benchmark:
+
+
+2) **Guarded devirtualization** - most monomorphic virtual/interface calls can be devirtualized using PGO data, e.g.:
+```csharp
+void DisposeMe(IDisposable d)
+{
+    d.Dispose();
+}
+```
+It looks like nothing can be optimized here, right? Just an ordinary virtual (interface) call on top of an unknown object that will go through several indirects to call the actual Dispose() implementation and its body will never be inlined here. Now let's see what PGO can do here.  
+With Dynamic PGO on, this method will be compiled to something like this in tier0 (in machine code):
+```diff
+void DisposeMe(IDisposable d)
+{
++   call CORINFO_HELP_CLASSPROFILE32(d, offset);
+    d.Dispose();
+}
+```
+We now poll that `d` for its underlying type every call of that method. Yes, it makes it slightly slower, but eventually it will be re-compiled to tier1 to something like this:
+
+```diff
+void DisposeMe(IDisposable d)
+{
++   if (d is MyType)           // E.g. Profile states that Dispose here is 'mostly' called on MyType.
++       ((MyType)d).Dispose(); // Direct call - can be inlined now!
++   else
+        d.Dispose();           // a cold fallback, just in case
+}
+```
+![image](https://user-images.githubusercontent.com/523221/126960839-6bc3b110-014a-4680-abd8-44c9e7e01765.png)
+&nbsp;&nbsp;&nbsp;&nbsp;*^ codegen diff for a case where MyType::Dispose is empty*
+
+  
+3) **Hot-cold block reordering** - JIT re-orders blocks to keep hot ones closer to each other and pushes cold ones to the end of the method. The following code:
+```csharp
+void DoWork(int a)
+{
+    if (a > 0)
+        DoWork1();
+    else
+        DoWork2();
+}
+```
+Is compiled like this in tier0:
+```diff
+void DoWork(int a)
+{
+    if (a > 0)
++       __block_0_counter++;
+        DoWork1();
+    else
++       __block_1_counter++;
+        DoWork2();
+}
+```
+And again: once it's recompiled to tier1 it is optimized into:
+```diff
+void DoWork(int a)
+{
+    // E.g. __block_0_counter is smaller or even zero => DoWork1 is rarely (never) taken
+    // and JIT re-orders DoWork2 with DoWork1:
+-   if (a > 0)
++   if (a <= 0)
+-       DoWork2();
++       DoWork1();
+    else
+-       DoWork1();
++       DoWork2();
+}
+```
+4) **Register allocation** - realistic block weights allow JIT to pick a better strategy on what to keep in registers and what to spill
+5) **Misc** - some optimizations such as Loop Clonning, Inlined Casts, etc. aren't applied in cold blocks.
