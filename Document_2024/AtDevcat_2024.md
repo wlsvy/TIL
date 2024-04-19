@@ -1015,3 +1015,21 @@ void DoWork(int a)
 ```
 4) **Register allocation** - realistic block weights allow JIT to pick a better strategy on what to keep in registers and what to spill
 5) **Misc** - some optimizations such as Loop Clonning, Inlined Casts, etc. aren't applied in cold blocks.
+
+[Java의 미래, Virtual Thread  우아한형제들 기술블로그](https://techblog.woowahan.com/15398/)
+
+![](img/2024-04-20-01-36-55.png)
+
+Virtual Thread는 기존 Java의 스레드 모델과 달리, 플랫폼 스레드와 가상 스레드로 나뉩니다. 플랫폼 스레드 위에서 여러 Virtual Thread가 번갈아 가며 실행되는 형태로 동작합니다. 마치 커널 스레드와 유저 스레드가 매핑되는 형태랑 비슷합니다.
+
+여기서 가장 큰 특징은 Virtual Thread는 컨텍스트 스위칭 비용이 저렴하다는 것입니다.
+
+|Thread | Virtual | Thread |
+| ------- | ----------- | ----- |
+|Stack 사이즈 |	~2MB |	~10KB|
+|생성시간 |	~1ms |	~1µs| 
+컨텍스트 스위칭 |	~100µs |	~10µs
+
+Thread는 기본적으로 최대 2MB의 스택 메모리 사이즈를 가지기 때문에, 컨텍스트 스위칭 시 메모리 이동량이 큽니다. 또한 생성을 위해선 커널과 통신하여 스케줄링해야 하므로, 시스템 콜을 이용하기 때문에 생성 비용도 적지 않습니다.
+
+하지만 Virtual Thread는 JVM에 의해 생성되기 때문에 시스템 콜과 같은 커널 영역의 호출이 적고, 메모리 크기가 일반 스레드의 1%에 불과합니다. 따라서 Thread에 비해 컨텍스트 스위칭 비용이 적습니다.
