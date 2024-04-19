@@ -923,8 +923,6 @@ Compiled by [github.com/hellerbarde](https://gist.github.com/hellerbarde/2843375
 > 
 > This enables us to release updates in a much more agile fashion. NuGet also provides the notion of preview versions which allow us to release bits without yet committing on a specific API or behavior. This supports a workflow where we can provide you with our latest design and – if you don’t like it – simply change it. A good example of this is immutable collections. It had a beta period of about nine months. We spend a lot of time trying to get the design right before we shipped the very first version. Needless to say that the final design – thanks to the extensive feedback you provided – is way better than the initial version.
 
-Contracts. 수직 구조 간의 api 를 정의한다.
-
 - 닷넷 코어 -> Nuget Package 의 집합으로 구성시켜버리기
 
 ![](img/2024-04-19-15-41-41.png)
