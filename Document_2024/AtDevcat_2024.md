@@ -1033,3 +1033,31 @@ Virtual Thread는 기존 Java의 스레드 모델과 달리, 플랫폼 스레드
 Thread는 기본적으로 최대 2MB의 스택 메모리 사이즈를 가지기 때문에, 컨텍스트 스위칭 시 메모리 이동량이 큽니다. 또한 생성을 위해선 커널과 통신하여 스케줄링해야 하므로, 시스템 콜을 이용하기 때문에 생성 비용도 적지 않습니다.
 
 하지만 Virtual Thread는 JVM에 의해 생성되기 때문에 시스템 콜과 같은 커널 영역의 호출이 적고, 메모리 크기가 일반 스레드의 1%에 불과합니다. 따라서 Thread에 비해 컨텍스트 스위칭 비용이 적습니다.
+
+## 24.04.22
+
+[Introducing .NET Standard - .NET Blog](https://devblogs.microsoft.com/dotnet/introducing-net-standard/)
+
+..NET Standard : 닷넷 생태계에서 지원하는 API 집합
+
+    .NET Standard is a set of APIs that all .NET platforms have to implement. This unifies the .NET platforms and prevents future fragmentation.
+    .NET Standard 2.0 will be implemented by .NET Framework, .NET Core, and Xamarin. For .NET Core, this will add many of the existing APIs that have been requested.
+    .NET Standard 2.0 includes a compatibility shim for .NET Framework binaries, significantly increasing the set of libraries that you can reference from your .NET Standard libraries.
+    .NET Standard will replace Portable Class Libraries (PCLs) as the tooling story for building multi-platform .NET libraries.
+
+![](img/2024-04-22-13-41-38.png)
+
+    But on the other hand, this forking poses a massive problem for developers writing code for multiple .NET platforms because there isn’t a unified class library to target:
+    There are currently three major flavors of .NET, which means you have to master three different base class libraries in order to write code that works across all of them. Since the industry is much more diverse now than when .NET was originally created it’s safe to assume that we’re not done with creating new .NET platforms. Either Microsoft or someone else will build new flavors of .NET in order to support new operating systems or to tailor it for specific device capabilities.
+
+![](img/2024-04-22-13-41-55.png)
+
+    This is where the .NET Standard comes in:
+    For developers, this means they only have to master one base class library. Libraries targeting .NET Standard will be able to run on all .NET platforms. And platform providers don’t have to guess which APIs they need to offer in order to consume the libraries available on NuGet.
+
+**What does this mean for .NET Core?**
+
+- .NET Core 와 .NET Standard 는 엄연히 분리되어 있는 상태
+- .NET Standard는 모든 플랫폼에서 검증된 API 이기 때문에, 기존 API 집합에서 새로운 것을 추가하기 위해 검증 절차가 복잡할 것임
+- .NET Core는 out-of-band 들 그러니까 닷넷 전체 생태계에서 검증되지는 않았지만 닷넷 팀이 실험 운용하기 위한 도구들을 .NET Core에 실을 수 있다.
+  - 개발자 피드백들을 미리 받아보고 그 후에 .NET Standard에 태우기도 한다고 함.
