@@ -1148,3 +1148,5 @@ xkcd에 [Dependency](https://xkcd.com/2347/)라는 다음과 같은 만화가 �
 
 ![](img/2024-04-30-16-03-45.png)
 
+- 패킷 전송 시에 정수형 타입 바이트 사이즈를 압축하기 위해 적용
+- 깃허브 코드 예시: [kstenerudgo-vlq Go implementation of the Variable Length Quantity (VLQ) type](https://github.com/kstenerud/go-vlq)
