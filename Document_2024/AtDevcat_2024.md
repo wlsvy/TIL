@@ -1137,3 +1137,14 @@ xkcd에 [Dependency](https://xkcd.com/2347/)라는 다음과 같은 만화가 �
     Quora는 AI를 통해 질문과 답변을 생성하고, 사용자의 답변을 AI 모델 훈련에 사용할 수 있도록 서비스 약관을 변경함
     많은 사용자들이 새로운 약관에 동의하지 않고 자신의 작업을 삭제하거나 사이트를 떠남
     AI로 인해 커뮤니티의 정체성이 훼손되고, Quora가 과거의 커뮤니티와 전문성을 자동화 시스템으로 대체하려는 시도는 실패로 끝날 것으로 예상됨
+
+## 24.04.30
+
+[Variable-length quantity - Wikipedia](https://en.wikipedia.org/wiki/Variable-length_quantity)
+
+- VLQ
+
+> A variable-length quantity (VLQ) was defined for use in the standard MIDI file format[2] to save additional space for a resource-constrained system, and is also used in the later Extensible Music Format (XMF).
+
+![](img/2024-04-30-16-03-45.png)
+
