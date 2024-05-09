@@ -1150,3 +1150,31 @@ xkcd에 [Dependency](https://xkcd.com/2347/)라는 다음과 같은 만화가 �
 
 - 패킷 전송 시에 정수형 타입 바이트 사이즈를 압축하기 위해 적용
 - 깃허브 코드 예시: [kstenerudgo-vlq Go implementation of the Variable Length Quantity (VLQ) type](https://github.com/kstenerud/go-vlq)
+
+## 24.05.09
+
+**mstsc**
+
+- [Microsoft Learn: mstsc](https://learn.microsoft.com/ko-kr/windows-server/administration/windows-commands/mstsc)
+
+> Creates connections to Remote Desktop Session Host servers or other remote computers and edits an existing Remote Desktop Connection (.rdp) configuration file.
+>
+> `mstsc.exe [<connectionfile>] [/v:<server>[:<port>]] [/g:<gateway>] [/admin] [/f <fullscreen>] [/w:<width> /h:<height>] [/public] [/multimon] [/l] [/restrictedadmin] [/remoteguard] [/prompt] [/shadow:<sessionid>] [/control] [/noconsentprompt]
+mstsc.exe /edit <connectionfile>`
+
+ChatGPT: MSTSC는 Microsoft Terminal Services Client의 약자로, Microsoft Windows 운영 체제에서 사용되는 원격 데스크톱 프로토콜의 클라이언트 응용 프로그램입니다. 이 프로그램은 원격 데스크톱 서비스를 사용하여 원격 컴퓨터에 연결하고 그 컴퓨터를 제어할 수 있도록 해줍니다. MSTSC를 사용하면 지리적으로 떨어진 컴퓨터에 원격으로 액세스하여 파일을 전송하거나 작업을 수행할 수 있습니다.
+
+[The Decorator Pattern is sometimes helpful – The Shade Tree Developer](https://jeremydmiller.com/2024/04/29/the-decorator-pattern-is-sometimes-helpful/)
+
+    The most common usage of a decorator for me has been to separate out some kind of infrastructural concern like logging, error handling, or security from the core behavior. Just think on this. Instrumentation, security, and error handling are all very important elements of successful production code, but how many times in your career have you struggled to comprehend, modify, or debug code that is almost completely obfuscated by technical concerns.
+    
+    According to the original Gang of Four book, the “Decorator Pattern”:
+    
+    …dynamically adds/overrides behavior in an existing method of an object.
+
+- decorator 패턴을 wrapper 형태로 사용하는 사례
+- DB로부터 데이터를 조회해 .NET object 로 바꿔주는 LoadAsync() 메서드가 있다고 하면
+  - LoadAsync() 메서드를 정의하는 인터페이스 (A 인터페이스)
+  - LoadAsync 메서드의 코어 역할을 수행하는 버전 (B 클래스)
+  - A 인터페이스 객체를 필드로 쥐고 있으며(Nested 객체 활용), LoadAsync 호출 시 해당 객체의 LoadAsync를 호출되 에러 핸들링을 책임지는 버전 (C 클래스)
+- B 클래스는 이제 코어 역할에만 집중하고, C 클래스는 Resilient 하게 역할을 수행하는 것에 초점을 맞추기 -> 역할에 분리를 달성할 수 있다.
