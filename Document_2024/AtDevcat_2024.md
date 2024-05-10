@@ -1178,3 +1178,35 @@ ChatGPT: MSTSC는 Microsoft Terminal Services Client의 약자로, Microsoft Win
   - LoadAsync 메서드의 코어 역할을 수행하는 버전 (B 클래스)
   - A 인터페이스 객체를 필드로 쥐고 있으며(Nested 객체 활용), LoadAsync 호출 시 해당 객체의 LoadAsync를 호출되 에러 핸들링을 책임지는 버전 (C 클래스)
 - B 클래스는 이제 코어 역할에만 집중하고, C 클래스는 Resilient 하게 역할을 수행하는 것에 초점을 맞추기 -> 역할에 분리를 달성할 수 있다.
+
+## 24.05.10
+
+[Don't write clean code, write CRISP code — Bitfield Consulting](https://bitfieldconsulting.com/posts/crisp-code)
+
+- Correct
+- Readable
+- Idiomatic
+
+    An obvious example of a universal convention is err: Go programmers always use this name to refer to an arbitrary error value. While we wouldn’t usually re-use variable names within the same function, we do re-use err for all the various errors that there can be throughout the function. It’s a mistake to try to avoid this by creating variant names like err2, err3, and so on.
+    
+    Why? Because it requires a tiny bit more cognitive effort from the reader. If you see err, your mind glides right over it with perfect understanding. If you see some other name, your mind has to stop to resolve the puzzle.
+    
+    I call these tiny roadblocks “cognitive microaggressions”. Each is so tiny that its individual effect is almost unnoticeable, yet they soon pile up, and if you encounter them all day and every day, they have a significant effect on your quality of life.
+    
+    As you write each line of code, you should be thinking “How much effort does it take to understand this? Could I reduce that somehow?” The secret of great software engineering is doing a lot of little things well.
+
+- Simple
+
+    One attribute that simple code tends to have is directness: it does just what it says on the tin. It doesn’t have weird and unexpected side effects, or conflate several unrelated things. Directness is inversely related to concision: if there are three similar tasks to do, a simple program will do it with three similar functions.
+    
+    This is one reason people find it hard to write simple code: we’re all terrified of repeating ourselves. The DRY principle is so ingrained that we even use it as a verb: “we need to DRY up this function” (as Calvin noted, verbing weirds language).
+    
+    But there’s nothing wrong with repetition in itself. I say again, there’s nothing wrong with repetition in itself (see?) It can be a valuable way of conveying emphasis. And if we find ourselves creating new abstractions to no purpose other than avoiding repetition, then we’ve gone wrong somewhere: that makes the program more complex, not more simple.
+
+- Performant
+
+    The idea of “mechanical sympathy” is helpful to bear in mind when you’re programming. It means that you have some understanding of how the machine works, fundamentally, and you take care not to abuse it or get in its way. For example, if you don’t know what memory is, how can you write efficient programs?
+    
+    I often see code that blithely slurps in entire data files into a single structure, then proceeds to actually process them just a few bytes at a time. I learned to program on a machine with 1K of memory, or about a thousand words, and that will teach you the value of a byte, believe me.
+    
+    I’m writing this, some years later, on a machine with about 16 million words of memory, and don’t run out of them quite so frequently, but nonetheless, memory matters.
