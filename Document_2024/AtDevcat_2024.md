@@ -1210,3 +1210,12 @@ ChatGPT: MSTSC는 Microsoft Terminal Services Client의 약자로, Microsoft Win
     I often see code that blithely slurps in entire data files into a single structure, then proceeds to actually process them just a few bytes at a time. I learned to program on a machine with 1K of memory, or about a thousand words, and that will teach you the value of a byte, believe me.
     
     I’m writing this, some years later, on a machine with about 16 million words of memory, and don’t run out of them quite so frequently, but nonetheless, memory matters.
+
+    ## 24.05.13
+
+[(167) Cognitive Prompting(인지적 프롬프팅) 공유회 full ver.](https://www.youtube.com/watch?v=CkCL8dV_mPk&list=WL&index=5)
+
+![](img/2024-05-13-02-26-42.png)
+
+![](img/2024-05-13-02-27-40.png)
+
