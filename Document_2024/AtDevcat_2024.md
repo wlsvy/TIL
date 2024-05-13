@@ -1223,3 +1223,12 @@ ChatGPT: MSTSC는 Microsoft Terminal Services Client의 약자로, Microsoft Win
 
 - 무손실 파일 압축 및 파일 해제. 업계 표준인 Deflate 알고리즘
 - [Deflate - Wikipedia](https://en.wikipedia.org/wiki/Deflate)
+
+**Go 문법 비판하는 내용**
+
+[GitHub - ksimkago-is-not-good A curated list of articles complaining that go (golang) isn't good enough](https://github.com/ksimka/go-is-not-good)
+
+> - stuck in 70's
+> - no oop
+> - c style
+> - poor error handling
