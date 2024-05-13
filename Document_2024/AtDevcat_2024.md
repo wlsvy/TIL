@@ -1219,3 +1219,7 @@ ChatGPT: MSTSC는 Microsoft Terminal Services Client의 약자로, Microsoft Win
 
 ![](img/2024-05-13-02-27-40.png)
 
+[MSDN: DeflateStream](https://learn.microsoft.com/ko-kr/dotnet/api/system.io.compression.deflatestream?view=net-8.0)
+
+- 무손실 파일 압축 및 파일 해제. 업계 표준인 Deflate 알고리즘
+- [Deflate - Wikipedia](https://en.wikipedia.org/wiki/Deflate)
