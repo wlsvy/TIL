@@ -1294,3 +1294,26 @@ ChatGPT: MSTSC는 Microsoft Terminal Services Client의 약자로, Microsoft Win
     - 그런 것들 중 하나라도 해당 된다면, 기업가 정신은 당신에게 너무 벅찬 여정일 수 있음
     - 스타트업에 온 마음을 쏟고, 밤낮으로 일하고, 많은 실수를 하는 데 기술적일 필요는 없음
     - 단순히 **배우는 것에 개방적**이기만 하면 됨
+
+[LogLog Games](https://loglog.games/blog/leaving-rust-gamedev/#gui-situation-in-rust-is-terrible)
+
+**Leaving Rust gamedev after 3 years**
+
+내용이 굉장히 길다...
+
+- Rust being great at big refactorings solves a largely self-inflicted issues with the borrow checker
+- Indirection only solves some problems, and always at the cost of dev ergonomics
+- ECS solves the wrong kind problem
+- Generalized systems don't lead to fun gameplay
+- Making a fun & interesting games is about rapid prototyping and iteration, Rust's values are everything but that
+- Procedural macros are not even "we have reflection at home"
+- Hot reloading is more important for iteration speed than people give it credit for
+- Abstraction isn't a choice
+- GUI situation in Rust is terrible
+- Reactive UI is not the answer to making highly visual, unique and interactive game UI
+- Orphan rule should be optional
+- Compile times have improved, but not with proc macros
+- Rust gamedev ecosystem lives on hype
+- Global state is annoying/inconvenient for the wrong reasons, games are single threaded.
+- Dynamic borrow checking causes unexpected crashes after refactorings
+- Context objects aren't flexible enough
