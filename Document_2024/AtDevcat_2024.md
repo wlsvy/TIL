@@ -1304,6 +1304,13 @@ ChatGPT: MSTSC는 Microsoft Terminal Services Client의 약자로, Microsoft Win
 - Rust being great at big refactorings solves a largely self-inflicted issues with the borrow checker
 - Indirection only solves some problems, and always at the cost of dev ergonomics
 - ECS solves the wrong kind problem
+
+    Because of the way Rust's type system and borrow checker works, ECS comes up as a naturally occurring solution to the problem of "how do we have stuff reference other stuff". Unfortunately, I think there's quite a bit of terminology mixup, and not only do different people mean different things, but also that the large part of the community attributes some things to ECS that aren't actually ECS. Let's try to separate things out.
+
+  - 캐릭터 A 가 캐릭터 B를 따라다니던 중 캐릭터 B가 갑자기 사라져버리면 어떻게 할 것인가?
+  - borrowcheck 가 필수인 러스트에서는 이런 경우 포인터를 처리하는게 고달프다.
+  - 무엇인가를 참고하는 물건들에 대해서 코드를 작성할 때 애를 많이 먹는 듯
+
 - Generalized systems don't lead to fun gameplay
 - Making a fun & interesting games is about rapid prototyping and iteration, Rust's values are everything but that
 - Procedural macros are not even "we have reflection at home"
