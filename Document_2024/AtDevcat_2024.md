@@ -1372,3 +1372,48 @@ Output as expected:
     Cancel parent CTS
     Child CTS: True
     Parent CTS: True
+
+**False Sharing(with ChatGPT4)**
+
+False sharing은 멀티스레딩 환경에서 개별 스레드가 공유 데이터를 수정할 때 CPU 캐시 라인의 비효율적인 사용으로 발생하는 성능 저하 현상입니다. 각 CPU 코어는 데이터를 캐시 라인(대개 64바이트) 단위로 캐싱하는데, 서로 다른 스레드가 같은 캐시 라인에 위치한 데이터를 동시에 수정하려고 하면, 캐시 라인이 스레드 간에 불필요하게 전송되어 성능이 저하될 수 있습니다.
+
+> 각 스레드가 배열의 인접한 위치를 수정하는 경우 false sharing이 발생할 수 있습니다.
+
+```cs
+public class FalseSharingDemo
+{
+    private static int[] array = new int[8];
+
+    public static void Main()
+    {
+        Thread t1 = new Thread(() => UpdateArrayIndex(0));
+        Thread t2 = new Thread(() => UpdateArrayIndex(1));
+
+        t1.Start();
+        t2.Start();
+
+        t1.Join();
+        t2.Join();
+    }
+
+    private static void UpdateArrayIndex(int index)
+    {
+        for (int i = 0; i < 100000000; i++)
+        {
+            array[index]++;
+        }
+    }
+}
+```
+
+캐시 라인이 64바이트라고 가정하고,
+만약에 `int[128]` 처럼 크기가 큰 배열이 있다고 하자
+
+배열의 첫 번째 원소와 마지막 원소는 인접해 있지 않으니까, 이 둘을 각각 접근할 때는 false sharing 을 걱정하지 않아도 돼음
+
+>> OK
+
+이번에는 `int[4]` 배열이 여럿 있다고 해보자.
+서로 다른 배열 객체에 접근한다고 할때 false sharing 이 발생할 가능성이 있을까?
+
+>> 발생할 수 있음
