@@ -1337,3 +1337,38 @@ ChatGPT: MSTSC는 Microsoft Terminal Services Client의 약자로, Microsoft Win
     - 큰 배열 하나를 다수의 스레드에서 접근하면 당연히 캐시 미스가 많이 생기겠지
   - Clear 구현의 경우, head/tail 에 해당하는 segment를 얼려 놓고(freeze) 새로운 Segment를 생성해서 할당, 기존 segment는 gc 되도록
     - 무턱대고 Clear를 호출하면 가비지가 엄청 발생한다는 것
+
+[c - Linking Cancellation Tokens - Stack Overflow](https://stackoverflow.com/questions/29623178/linking-cancellation-tokens?newreg=d7d85e7f86f34ed69a90c020738c8625)
+
+I use a cancellation token that is passed around so that my service can be shut down cleanly. The service has logic that keeps trying to connect to other services, so the token is a good way to break out of these retry loops running in separate threads. My problem is that I need to make a call to a service which has internal retry logic but to return after a set period if a retry fails. I would like to create a new cancellation token with a timeout which will do this for me. The problem with this is that my new token isn't linked to the “master” token so when the master token is cancelled, my new token will still be alive until it times-out or the connection is made and it returns.
+
+- cascading cancelling
+
+이렇게 풀라네요
+
+```cs
+var parentCts = new CancellationTokenSource();
+var childCts = CancellationTokenSource.CreateLinkedTokenSource(parentCts.Token);
+        
+childCts.CancelAfter(1000);
+Console.WriteLine("Cancel child CTS");
+Thread.Sleep(2000);
+Console.WriteLine("Child CTS: {0}", childCts.IsCancellationRequested);
+Console.WriteLine("Parent CTS: {0}", parentCts.IsCancellationRequested);
+Console.WriteLine();
+        
+parentCts.Cancel();
+Console.WriteLine("Cancel parent CTS");
+Console.WriteLine("Child CTS: {0}", childCts.IsCancellationRequested);
+Console.WriteLine("Parent CTS: {0}", parentCts.IsCancellationRequested);
+```
+
+Output as expected:
+
+    Cancel child CTS
+    Child CTS: True
+    Parent CTS: False
+    
+    Cancel parent CTS
+    Child CTS: True
+    Parent CTS: True
