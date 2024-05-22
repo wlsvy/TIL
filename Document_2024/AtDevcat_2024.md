@@ -1324,3 +1324,16 @@ ChatGPT: MSTSC는 Microsoft Terminal Services Client의 약자로, Microsoft Win
 - Global state is annoying/inconvenient for the wrong reasons, games are single threaded.
 - Dynamic borrow checking causes unexpected crashes after refactorings
 - Context objects aren't flexible enough
+
+## 24.05.22
+
+**작업 이슈**
+
+- 닷넷의 ConcurrentQueue<T>
+  - Clear 할 때마다 가비지 생성
+  - ring 버퍼 형태의 구조
+  - 버퍼는 하나의 배열이 아니라 배열 크기가 32인 Segment 가 여러개 붙어 있는 형태
+    - false sharing 을 최소화 하기 위인
+    - 큰 배열 하나를 다수의 스레드에서 접근하면 당연히 캐시 미스가 많이 생기겠지
+  - Clear 구현의 경우, head/tail 에 해당하는 segment를 얼려 놓고(freeze) 새로운 Segment를 생성해서 할당, 기존 segment는 gc 되도록
+    - 무턱대고 Clear를 호출하면 가비지가 엄청 발생한다는 것
