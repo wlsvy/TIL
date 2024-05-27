@@ -1450,3 +1450,42 @@ public class FalseSharingDemo
   - read 동작을 수행하는 스레드가 가져오는 데이터를, parsing 스레드가 따라잡지를 못한다.
   - In a perfect world, reading & parsing work as a team: the reading thread consumes the data from the network and puts it in buffers while the parsing thread is responsible for constructing the appropriate data structures. Normally, parsing will take more time than just copying blocks of data from the network. As a result, the reading thread can easily overwhelm the parsing thread. The result is that the reading thread will have to either slow down or allocate more memory to store the data for the parsing thread. For optimal performance, there is a balance between frequent pauses and allocating more memory.
   - To solve this problem, the pipe has two settings to control the flow of data, the PauseWriterThreshold and the ResumeWriterThreshold. The PauseWriterThreshold determines how much data should be buffered before calls to PipeWriter.FlushAsync pauses. The ResumeWriterThreshold controls how much the reader has to consume before writing can resume.
+
+**DecoratorPattern**
+
+[The Decorator Pattern in Modern C 2024](https://blog.postsharp.net/decorator-pattern)
+
+- metalama
+- [Metalama A Framework for Clean & Concise Code in C](https://www.postsharp.net/metalama#concept)
+- 인터페이스 의존성 없이 method 로만 decorator 패턴을 구성하는 솔루션
+
+![](img/2024-05-27-18-43-05.png)
+
+[microsoftMicrosoft.IO.RecyclableMemoryStream A library to provide pooling for .NET MemoryStream objects to improve application performance.](https://github.com/microsoft/Microsoft.IO.RecyclableMemoryStream)
+
+> Microsoft.IO.RecyclableMemoryStream is a MemoryStream replacement that offers superior behavior for performance-critical systems. In particular it is optimized to do the following:
+
+    Eliminate Large Object Heap allocations by using pooled buffers
+    Incur far fewer gen 2 GCs, and spend far less time paused due to GC
+    Avoid memory leaks by having a bounded pool size
+    Avoid memory fragmentation
+    Allow for multiple ways to read and write data that will avoid extraneous allocations
+    Provide excellent debuggability and logging
+    Provide metrics for performance tracking
+
+```cs
+class Program
+{
+    private static readonly RecyclableMemoryStreamManager manager = new RecyclableMemoryStreamManager();
+
+    static void Main(string[] args)
+    {
+        var sourceBuffer = new byte[] { 0, 1, 2, 3, 4, 5, 6, 7 };
+        
+        using (var stream = manager.GetStream())
+        {
+            stream.Write(sourceBuffer, 0, sourceBuffer.Length);
+        }
+    }
+}
+```
