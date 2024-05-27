@@ -1417,3 +1417,36 @@ public class FalseSharingDemo
 서로 다른 배열 객체에 접근한다고 할때 false sharing 이 발생할 가능성이 있을까?
 
 >> 발생할 수 있음
+
+## 24.05.27
+
+**dotnet System.IO.Pipeline**
+
+[C 고성능 서버 - System.IO.Pipeline 도입 후기  leafbirddevnote](https://leafbird.github.io/devnote/2020/12/27/C-%EA%B3%A0%EC%84%B1%EB%8A%A5-%EC%84%9C%EB%B2%84-System-IO-Pipeline-%EB%8F%84%EC%9E%85-%ED%9B%84%EA%B8%B0/#%EB%8B%A8%EC%A0%90-%EB%84%88%EB%AC%B4-%EB%A7%8E%EC%9D%80-Task%EB%A5%BC-%EC%83%9D%EC%84%B1%ED%95%9C%EB%8B%A4)
+
+> System.IO.Pipeline은 ASP.NET Core의 성능을 크게 끌어올린 네트워크 버퍼 운용 라이브러리다. 이를 적용하면 네트워크 버퍼구현의 여러가지 문제점들과 boilerplate한 구현들을 손쉽게 해결할 수 있으나, 최소 2 tasks/peer를 소켓의 수명만큼 열어두어야 하기 때문에 소켓을 긴 시간 유지하는 타입의 TCP서버라면 도입 전에 신중한 성능 테스트를 거쳐야 한다.
+
+- 장점 : 불필요한 메모리 복사를 없앤다.
+- 장점 : 네트워크 버퍼의 고정길이 제약을 없애준다.
+- 단점 : 너무 많은 Task를 생성한다.
+
+    위의 두가지 장점만으로 Pipeline의 도입을 시도해볼 가치는 충분했다. 그래서 우리는 게임서버의 수신 버퍼를 Pipeline으로 대체하고, MS Azure 에서 F8s 급 인스턴스 수십대를 동원해 10만 동접 스트레스 테스트를 진행해 보았다.
+
+    결과는 기대와 완전히 달랐는데.. Pipeline 도입 전보다 영 더 못한 성능을 보여줬다. 이건 뭐… cpu 사용량이 높고 낮아지는 것이 문제가 아니라, 동접이 일정수치 이상 오르면 서버가 아무 일도 처리하지 않고 멈춰버렸다. 반응없는 프로세스에서 덤프를 떠서 디버거로 살펴보면… 대기상태인 스레드가 잔뜩 생겨있고, 일해야 할 스레드가 부족해서 추가 스레드를 계속해서 만들어내고 있는 것처럼 보였다.
+
+    원인은 Pipeline과 함께 사용하는 task (System.Threading.Tasks.Task) 들이었다. class Pipe 인스턴스 하나를 쓸 때마다 파이프라인에 ‘읽기’와 ‘쓰기’를 담당하는 class Task 객체 두 개를 사용하게 된다. 수신버퍼에만 Pipe를 달면 소켓의 2배, 송수신 버퍼에 모두 달면 소켓의 4배수 만큼의 task가 생성 되어야 하기 때문이다. 게임서버 프로세스당 5,000 명의 동접을 받는다고 하면 최대 20,000개의 task가 생성되고, 이 중 상당수는 waiting 상태로 IO 이벤트를 기다리게 된다.
+
+    task가 아무리 가볍다고 해도 네트워크 레이어에만 몇 만개의 task를 만드는 것은 그리 효율적이지 않다. TPL에 대한 이야기를 시작하면 해야 할 말이 아주 많기 때문에 별도의 포스팅으로 분리해야 할 것이다. 과감히 한 줄로 정리해보면, task는 상대적으로 OS의 커널오브젝트인 스레드보다 가볍다는 것이지 수천 수만개를 만들만큼 깃털같은 물건은 아닌 것이다.
+
+
+[https://devblogs.microsoft.com/dotnet/system-io-pipelines-high-performance-io-in-net/](https://devblogs.microsoft.com/dotnet/system-io-pipelines-high-performance-io-in-net/)
+
+이런 저런 데모 코드를 보여주는데,
+
+- ArrayPool을 활용하는 코드에서 주의 사항
+  - The byte[] we’re using from the ArrayPool<byte> are just regular managed arrays. This means whenever we do a ReadAsync or WriteAsync, those buffers get pinned for the lifetime of the asynchronous operation (in order to interop with the native IO APIs on the operating system). This has performance implications on the garbage collector since pinned memory cannot be moved which can lead to heap fragmentation. Depending on how long the async operations are pending, the pool implementation may need to change.
+- Back Pressure 와 Flow Control
+  - '소켓에서 받은 데이터를 버퍼에서 읽을 때 부하 < 읽은 데이터를 파싱할 때 부하'
+  - read 동작을 수행하는 스레드가 가져오는 데이터를, parsing 스레드가 따라잡지를 못한다.
+  - In a perfect world, reading & parsing work as a team: the reading thread consumes the data from the network and puts it in buffers while the parsing thread is responsible for constructing the appropriate data structures. Normally, parsing will take more time than just copying blocks of data from the network. As a result, the reading thread can easily overwhelm the parsing thread. The result is that the reading thread will have to either slow down or allocate more memory to store the data for the parsing thread. For optimal performance, there is a balance between frequent pauses and allocating more memory.
+  - To solve this problem, the pipe has two settings to control the flow of data, the PauseWriterThreshold and the ResumeWriterThreshold. The PauseWriterThreshold determines how much data should be buffered before calls to PipeWriter.FlushAsync pauses. The ResumeWriterThreshold controls how much the reader has to consume before writing can resume.
