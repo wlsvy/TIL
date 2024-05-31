@@ -96,7 +96,19 @@
 ## 명령어 검색 및 정규 표현식
 
 - find
+  - ex) `find *.txt SomeDirectory/` : SomeDirectory 하위에 모든 txt 파일 찾기 (재귀)
 - grep
+  - ex) `grep -H -n "문자열" *.txt` : 현재 디렉토리의 모든 txt 파일에서 문자열 검색, 라인 인버 표시(`-n`), 파일 이름 표시 (`-H`)
+  - ex) `grep -Hn "문자열" *.txt`
+  - ex) `grep -Hnr "문자열" SomeDirectory` : r 옵션은 recursivㅆ
+  - ex) `egrep 'error|warning' log.txt` : egrep 은 -E 옵션을 사용한 것과 동일 (-E : extended regular expression)
+  - ex) `grep 'pattern1' filename | grep 'pattern2` : grep 명령어 결합
+  - ex) `grep '^start.*end$' filename` : 'start'로 시작하고 'end'로 끝나는 라인
+  - ex) `egrep 'pattern1.*pattern2' filename` : pattern1 뒤에 pattern2 가 오는 라인
+  - ex) `grep -l 'pattern'` : 파일 이름만 출력
+  - ex) `grep -L 'pattern'` : 패턴과 일치하지 않는 파일 이름만 출력
+  - ex) `grep -v 'pattern'` : 패턴과 일치하지 않는 라인 력력
+
 
 ## I/O 및 소유권
 

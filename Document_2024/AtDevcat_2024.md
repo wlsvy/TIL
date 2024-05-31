@@ -1489,3 +1489,17 @@ class Program
     }
 }
 ```
+
+## 24.05.31
+
+**캡슐 AmbientOcclusion**
+
+![](img/2024-05-31-11-23-44.png)
+
+- [CS2's Magic Menu](https://youtu.be/sAfC3wHmIeE)
+- [Last of Us2's Indirect Shadows](https://youtu.be/9XSWmaXfCJo)
+- [Sphere - occlusion](https://www.shadertoy.com/view/4djSDy)
+
+그림자를 드리울 때, 삼각형이 많은 캐릭터 메시를 그대로 사용한다면 무겁다.
+
+캐릭터와 비슷한 크기의 캡슐을 몸에 달게 하고, 캡슐로 간접광 그림자를 표현하는 최적화 기법
