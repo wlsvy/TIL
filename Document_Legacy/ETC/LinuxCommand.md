@@ -144,3 +144,9 @@ In spite of the name, the process will still be owned by you after running `diso
 - `unset <name>` : 환경 변수 제거 
   - > unset EnvVar
   
+
+## ETC
+
+- code : 'Visual Studio Code' 명령어
+- ex) `code filePath` : 경로의 파일을 Visual Studio Code로 열기
+- ex) `code .` : 현재 디렉토리를 Visual Studio Code 로 열기
