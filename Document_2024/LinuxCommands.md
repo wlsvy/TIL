@@ -97,10 +97,27 @@
 
 - find
   - ex) `find *.txt SomeDirectory/` : SomeDirectory 하위에 모든 txt 파일 찾기 (재귀)
+  - name '패턴': 주어진 패턴과 일치하는 파일 이름을 검색
+  - ex) `find /path/to/search -name "*.txt"`
+  - type f: 일반 파일만 검색
+  - type d: 디렉토리만 검색
+  - ex) `find /path/to/search -type d`
+  - exec 명령어 {} \;: 검색된 각 파일에 대해 지정된 명령을 실행
+  - ex) `find /path/to/search -type f -name "*.tmp" -exec rm {} \;`
+  - ex) `find . -type f -exec echo "File:" {} \;`
+    - `-exec` 옵션은 검색된 각 파일에 대해 지정된 명령을 실행합니다. 명령은 {}로 표시된 위치에 파일 이름이 대체되며, 명령의 끝은 반드시 \;로 종료되어야 합니다.
+    - 이 명령은 /path/to/search 디렉토리와 그 하위에서 .tmp 확장자를 가진 모든 파일을 찾아서 삭제합니다.
+    - `-exec` 옵션에서 {}는 검색된 각 파일의 경로와 이름을 대체하는 자리 표시자입니다
+  - delete: 검색된 파일을 삭제삭
+  - ex) `find /path/to/search -type f -name "*.bak" -delete`
+  - size +크기: 지정된 크기보다 큰 파일 검색
+  - mtime -일수: 지정된 일수 내에 수정된 파일 검색
+  - user 사용자명: 지정된 사용자가 소유한 파일 검색
+  - perm -권한: 특정 권한을 가진 파일 검색
 - grep
   - ex) `grep -H -n "문자열" *.txt` : 현재 디렉토리의 모든 txt 파일에서 문자열 검색, 라인 인버 표시(`-n`), 파일 이름 표시 (`-H`)
   - ex) `grep -Hn "문자열" *.txt`
-  - ex) `grep -Hnr "문자열" SomeDirectory` : r 옵션은 recursivㅆ
+  - ex) `grep -Hnr "문자열" SomeDirectory` : r 옵션은 recursive
   - ex) `egrep 'error|warning' log.txt` : egrep 은 -E 옵션을 사용한 것과 동일 (-E : extended regular expression)
   - ex) `grep 'pattern1' filename | grep 'pattern2` : grep 명령어 결합
   - ex) `grep '^start.*end$' filename` : 'start'로 시작하고 'end'로 끝나는 라인
@@ -108,6 +125,10 @@
   - ex) `grep -l 'pattern'` : 파일 이름만 출력
   - ex) `grep -L 'pattern'` : 패턴과 일치하지 않는 파일 이름만 출력
   - ex) `grep -v 'pattern'` : 패턴과 일치하지 않는 라인 력력
+  - C [n]: 매치되는 라인의 위아래로 n 줄씩 출력합니다.
+  - ex) `grep -C 4 '검색할 단어' 파일명` : 단어 검색 후 해당 단어가 포함된 라인의 위 아래로 4 줄을 함께 출력
+  - B [n]: 매치되는 라인의 위 n 줄을 출력합니다.
+  - A [n]: 매치되는 라인의 아래 n 줄을 출력합니다.
 
 
 ## I/O 및 소유권
@@ -130,8 +151,8 @@ In spite of the name, the process will still be owned by you after running `diso
 
 백그라운드의 작업을 다시 포그라운드 작업으로 변경할려면
 
-> fg #<Job Number> <br/>
-> ex : fg #1
+> fg %<Job Number> <br/>
+> ex : fg %1
 
 - [출처 : 스택오버플로우](https://serverfault.com/questions/34750/is-it-possible-to-detach-a-process-from-its-terminal-or-i-should-have-used-s)
   
