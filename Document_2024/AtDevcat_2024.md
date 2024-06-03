@@ -1503,3 +1503,12 @@ class Program
 그림자를 드리울 때, 삼각형이 많은 캐릭터 메시를 그대로 사용한다면 무겁다.
 
 캐릭터와 비슷한 크기의 캡슐을 몸에 달게 하고, 캡슐로 간접광 그림자를 표현하는 최적화 기법
+
+## 24.06.03
+
+[YOLO Software Architecture  DevIQ](https://deviq.com/practices/yolo-architecture)
+
+> YOLO Architecture describes a development style characterized by minimal planning, lack of organization, and an absence of clear architectural principles. 
+
+- 욜로 아키텍쳐
+- 막 사는 아키텍쳐
