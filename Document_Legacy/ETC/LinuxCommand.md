@@ -150,3 +150,19 @@ In spite of the name, the process will still be owned by you after running `diso
 - code : 'Visual Studio Code' 명령어
 - ex) `code filePath` : 경로의 파일을 Visual Studio Code로 열기
 - ex) `code .` : 현재 디렉토리를 Visual Studio Code 로 열기
+
+- vim : vim 에디터
+- ex) `vim filepath` : 경로의 파일을 vim 에디터로 열기  
+
+- vim +[num] filename - 파일을 열고 지정된 줄 번호로 이동합니다.
+  - 예: vim +10 example.txt는 example.txt 파일을 열고 10번째 줄로 이동합니다.
+- vim -o file1 file2 - 여러 파일을 가로로 분할하여 엽니다.
+- vim -O file1 file2 - 여러 파일을 세로로 분할하여 엽니다.
+- vim -b filename - 파일을 바이너리 모드로 엽니다.
+- vim -R filename - 파일을 읽기 전용 모드로 엽니다.
+- vim -u vimrc - 특정 vimrc 설정 파일을 사용하여 Vim을 엽니다.
+  - 예: vim -u ~/.myvimrc example.txt는 ~/.myvimrc 설정 파일을 사용하여 example.txt를 엽니다.
+- vim -p file1 file2 - 여러 파일을 탭으로 엽니다.
+- vim -c 'command' filename - 파일을 연 후 특정 Vim 명령을 실행합니다.
+  - 예: vim -c 'set number' example.txt는 example.txt를 열고 줄 번호를 표시합니다.
+- vim --version - Vim의 버전 정보를 출력합니다.
