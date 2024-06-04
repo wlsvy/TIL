@@ -1523,7 +1523,7 @@ UTF8Encoding 클래스에서 EncoderShouldEmitUTF8Identifier 속성의 값에 �
 
 - EncoderShouldEmitUTF8Identifier = true
   - 인코딩된 바이트 스트림의 시작 부분에 **BOM(Byte Order Mark)** 문자가 포함됩니다.
-  - BOM은 U+FEFF 코드 포인트를 가지는 **3바이트 시퀀스(EF BB BF)**입니다.
+  - BOM은 **U+FEFF 코드 포인트**를 가지는 **3바이트 시퀀스(EF BB BF)**입니다.
   - BOM을 사용하면 인코딩 방식을 쉽게 식별할 수 있습니다.
   - 일부 프로그램에서는 BOM을 필요로 하기 때문에 이 경우에 유용합니다.
 - EncoderShouldEmitUTF8Identifier = false
