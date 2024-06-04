@@ -1512,3 +1512,28 @@ class Program
 
 - 욜로 아키텍쳐
 - 막 사는 아키텍쳐
+
+## 24.06.04
+
+**UTF8Encoding**
+
+> UTF8Encoding 에서 encoderShouldEmitUTF8Identifier 가 true 일 때와 아닐 때 인코딩 후 어떤 차이가 있어?
+
+UTF8Encoding 클래스에서 EncoderShouldEmitUTF8Identifier 속성의 값에 따라 인코딩 결과에 차이가 있습니다.
+
+- EncoderShouldEmitUTF8Identifier = true
+  - 인코딩된 바이트 스트림의 시작 부분에 **BOM(Byte Order Mark)** 문자가 포함됩니다.
+  - BOM은 U+FEFF 코드 포인트를 가지는 **3바이트 시퀀스(EF BB BF)**입니다.
+  - BOM을 사용하면 인코딩 방식을 쉽게 식별할 수 있습니다.
+  - 일부 프로그램에서는 BOM을 필요로 하기 때문에 이 경우에 유용합니다.
+- EncoderShouldEmitUTF8Identifier = false
+  - 인코딩된 바이트 스트림에 BOM 문자가 포함되지 않습니다.
+  - 순수한 UTF-8 인코딩된 데이터만 포함됩니다.
+  - 파일 크기가 약간 작아질 수 있습니다.
+  - 일부 프로그램에서는 BOM이 필요 없기 때문에 이 경우에 선호될 수 있습니다.
+
+예를 들어, 문자열 "Hello, 世界!"를 인코딩한다고 가정하면:
+
+- EncoderShouldEmitUTF8Identifier = true인 경우 EF BB BF 48 65 6C 6C 6F 2C 20 E4 B8 96 E7 95 8C 21 와 같은 바이트 시퀀스가 생성됩니다.
+- EncoderShouldEmitUTF8Identifier = false인 경우 48 65 6C 6C 6F 2C 20 E4 B8 96 E7 95 8C 21 와 같은 바이트 시퀀스가 생성됩니다.
+- 대부분의 경우 EncoderShouldEmitUTF8Identifier = false가 더 적절할 것 같지만, 특정 프로그램에서 BOM이 필요한 경우에는 true로 설정하는 것이 좋습니다.
