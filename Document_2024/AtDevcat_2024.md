@@ -1552,3 +1552,84 @@ UTF8Encoding 클래스에서 EncoderShouldEmitUTF8Identifier 속성의 값에 �
 > 문신같은 후천적인 요소도 초기 프리셋에서는 “없음”이 선택되어 있으면 좋겠습니다. 커스터마이징은 게임 내에서 새롭게 태어나는 사람을 고르는 기분이 드는데, 문신을 처음부터 가지고 태어나는 사람은 없으니 기본적으로는 선택적 요소가 되어야 할 것 같습니다.
 >
 > 미리 선택된 프리셋은 대부분의 사람들이 생성할 것 같은 외형을 모조리 합친 다음 평균낸 듯한 “최대한 아무런 특징이 없는 것 같은 외모”면 좋겠습니다. (우리 게임은 커스터마이징이 그렇게 어렵진 않지만) 평균값에서 조금씩 깍아서 내가 원하는 외모를 만드는 것이 극단적 형태에서부터 시작하는 것보다 쉽기 때문입니다.
+
+[C#/.NET Method Call Performance - Facts](https://www.aloneguid.uk/posts/2021/05/csharp-method-call-performance/)
+
+```cs
+#LINQPad optimize+
+
+Util.AutoScrollResults = true;
+	BenchmarkRunner.Run<MethodCalls>();
+
+[ShortRunJob]
+[MinColumn, MaxColumn, MeanColumn, MedianColumn]
+[MemoryDiagnoser]
+[MarkdownExporter]
+public class MethodCalls
+{
+	private MethodsContainer _c = new MethodsContainer();
+	private static Func<int, int> _staticLambda = MethodsContainer.StaticMethod;
+	
+	[Benchmark]
+	public int Static() => MethodsContainer.StaticMethod(1);
+	[Benchmark]
+	public int StaticViaLambda() =>  _staticLambda(1);
+	[Benchmark]
+	public async Task<int> StaticAsync()=> await MethodsContainer.StaticAsyncMethod(1);
+	[Benchmark]
+	public int Dynamic() => _c.DynamicMethod(1);
+	[Benchmark]
+	public async Task<int> DynamicAsync() => await _c.DynamicAsyncMethod(1);
+	[Benchmark]
+	public int Virtual() => _c.VirtualMethod(1);
+	[Benchmark]
+	public async Task<int> VirtualAsync() => await _c.VirtualAsyncMethod(1);
+}
+
+public class MethodsContainer
+{
+	public static int StaticMethod(int arg) { return arg * 2; }
+	public static Task<int> StaticAsyncMethod(int arg) { return Task.FromResult<int>(arg * 2); }
+	public int DynamicMethod(int arg) { return arg * 2; }
+	public Task<int> DynamicAsyncMethod(int arg) { return Task.FromResult<int>(arg * 2); }
+	public virtual int VirtualMethod(int arg) { return arg * 2; }
+	public virtual Task<int> VirtualAsyncMethod(int arg) { return Task.FromResult<int>(arg * 2); }
+}
+```
+
+| Method          | Mean      | Error     | StdDev    | Min       | Max       | Median    | Gen 0     | Gen 1 | Gen 2 | Allocated |
+|-----------------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-------|-------|-----------|
+| Static          | 0.1086 ns | 0.6070 ns | 0.0333 ns | 0.0835 ns | 0.1464 ns | 0.0960 ns | -         | -     | -     | -         |
+| StaticViaLambda | 4.1860 ns | 1.1548 ns | 0.0633 ns | 4.1383 ns | 4.2578 ns | 4.1619 ns | -         | -     | -     | -         |
+| StaticAsync     | 20.0131 ns| 31.6018 ns| 1.7322 ns | 18.0743 ns| 21.4084 ns| 20.5566 ns| 0.0172    | -     | -     | 72 B      |
+| Dynamic         | 0.4950 ns | 0.6165 ns | 0.0338 ns | 0.4564 ns | 0.5189 ns | 0.5098 ns | -         | -     | -     | -         |
+| DynamicAsync    | 17.9998 ns| 16.0884 ns| 0.8819 ns | 17.4451 ns| 19.0167 ns| 17.5376 ns| 0.0172    | -     | -     | 72 B      |
+| Virtual         | 0.6042 ns | 0.3357 ns | 0.0184 ns | 0.5860 ns | 0.6228 ns | 0.6038 ns | -         | -     | -     | -         |
+| VirtualAsync    | 20.8322 ns| 5.6442 ns | 0.3094 ns | 20.4769 ns| 21.0419 ns| 20.9778 ns| 0.0172    | -     | -     | 72 B      |
+
+
+1. Static methods are 6 times faster than normal instance methods.
+2. Static lambda call is 38 times slower than static method call.
+
+Why? This is really odd, but not when you look at generated IL. Here’s one for static method call:
+```
+MethodCalls.Static:
+IL_0000:  ldc.i4.1    
+IL_0001:  call        UserQuery+MethodsContainer.StaticMethod
+IL_0006:  ret   
+```
+and for static lambda:
+```
+MethodCalls.StaticViaLambda:
+IL_0000:  ldsfld      UserQuery+MethodCalls._staticLambda
+IL_0005:  ldc.i4.1    
+IL_0006:  callvirt    System.Func<System.Int32,System.Int32>.Invoke
+IL_000B:  ret  
+```
+
+As you can see call is replaced with callvirt - so static lambda is actually treated as virtual method call. Thus we have an overhead of ldsfld loading wrapper instance as well.
+
+3. Static methods are 68 times faster than virtual methods.
+4. Virtual methods are 10.5 times slower than instance methods. Makes you think to carefully choose which methods should be virtual.
+5. Async calls allocate 72 bytes of memory, regardless of method signature. Normal methods have no impact on memory allocations.
+6. Regardless of method signature, all of the async method calls are really slow.
