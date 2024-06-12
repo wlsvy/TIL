@@ -1690,3 +1690,11 @@ public class StringBenchmark
 - 그렇지만 StringBuilder는 내부적으로 LinkedList 구조이다. 하나의 버퍼 사이즈가 충분히 커지면 또 다른 StringBuilder를 만드는 것
 - Gen2 GC 의 경우도 마찬가지, List는 일체형 배열이기 때문에, 8byte * 10,000 = 대략 80Kbyte => LOH(Large Object Heap) 으로 이동할 정도로 충분히 커진다. stringBuilder 보다 Gen2 GC를 더 차지하는 셈
 
+[Multitasking, parallel processing, and concurrency in Swift – The Eclectic Light Company](https://eclecticlight.co/2024/06/10/multitasking-parallel-processing-and-concurrency-in-swift/)
+
+    In computers with a single processor core, multitasking was a way of cheating to give the impression that the processor was doing several things at once, when in fact all it was doing was switching rapidly between two or more different programs. There are two fundamental models for doing that:
+    
+    - cooperative multitasking, in which individual tasks yield to give others processing time;
+    - preemptive multitasking, in which a scheduler switches between tasks at regular intervals.
+    
+    When a processor switches from one task to the next, the current task state must be saved so that it can be resumed later. Once that’s complete, the next task is loaded to complete what’s known as a context switch. That incurs overhead, both in terms of processing and in memory storage. Inevitably, switching between lightweight tasks has less overhead. There have been different strategies adopted to determine the optimum size of tasks and overhead imposed by context switching, and terminology differs between them, variously using words such as processes, threads and even fibres, which can prove thoroughly confusing.
