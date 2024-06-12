@@ -1633,3 +1633,60 @@ As you can see call is replaced with callvirt - so static lambda is actually tre
 4. Virtual methods are 10.5 times slower than instance methods. Makes you think to carefully choose which methods should be virtual.
 5. Async calls allocate 72 bytes of memory, regardless of method signature. Normal methods have no impact on memory allocations.
 6. Regardless of method signature, all of the async method calls are really slow.
+
+## 24.06.12
+
+[StringBuilders magic for very large strings](chrome-extension://hajanaajapkhaabfcofdjgjnlgkdkknm/)
+
+```cs
+[MemoryDiagnoser]
+public class StringBenchmark
+{
+    private readonly StringBuilder stringBuilder = new();
+    private readonly List<string> list = new();
+    private const int IterationCount = 1000;
+    private const string TenCharacters = "0123456789";
+    
+    [Benchmark]
+    public string StringBuilder()
+    {
+        for (var i = 0; i < IterationCount; i++)
+        {
+            stringBuilder.Append(TenCharacters);
+        }
+
+        return stringBuilder.ToString();
+    }
+    
+    [Benchmark]
+    public string List()
+    {
+        for (var i = 0; i < IterationCount; i++)
+        {
+            list.Add(TenCharacters);
+        }
+
+        return string.Concat(list);
+    }
+}
+```
+
+- 열글자 (tenCharacters) 1,000 개를 이어붙일 때
+
+| Method        | Mean     | Error     | StdDev    | Gen0   | Gen1   | Gen2   | Allocated |
+|-------------- |---------:|----------:|----------:|-------:|-------:|-------:|----------:|
+| StringBuilder | 2.613 us | 0.0142 us | 0.0126 us | 6.3477 | 0.3967 |      - |  51.95 KB |
+| List          | 6.969 us | 0.0320 us | 0.0283 us | 4.3716 | 0.0229 | 0.0076 |  35.81 KB |
+
+- 백글자 (oneHundredCharacters) 10,000 개를 이어붙일 때
+
+| Method        | Mean     | Error    | StdDev   | Gen0      | Gen1      | Gen2     | Allocated |
+|-------------- |---------:|---------:|---------:|----------:|----------:|---------:|----------:|
+| StringBuilder | 553.3 us | 17.36 us | 51.20 us |  696.2891 |  696.2891 | 210.9375 |   3.83 MB |
+| List          | 652.8 us | 16.35 us | 48.22 us | 1030.2734 | 1018.5547 | 998.0469 |   6.15 MB |
+
+- string 이 짧은 경우 List가 메모리 효율적이지만, 특정 수치 이상으로 길어진다면 어느 순간부터 stringBuilder가 더 효율적이다.
+- 이유는 List는 하나의 배열이기 때문에 덩치가 커지면서 버퍼 사이즈를 넘어서면 재할당 발생.
+- 그렇지만 StringBuilder는 내부적으로 LinkedList 구조이다. 하나의 버퍼 사이즈가 충분히 커지면 또 다른 StringBuilder를 만드는 것
+- Gen2 GC 의 경우도 마찬가지, List는 일체형 배열이기 때문에, 8byte * 10,000 = 대략 80Kbyte => LOH(Large Object Heap) 으로 이동할 정도로 충분히 커진다. stringBuilder 보다 Gen2 GC를 더 차지하는 셈
+
