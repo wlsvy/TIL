@@ -43,3 +43,6 @@ wlsvySSSH.pub
 
 # Visual Studio Code
 .vscode/
+
+# rider
+**/.idea/
