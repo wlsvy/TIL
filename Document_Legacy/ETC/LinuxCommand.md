@@ -144,6 +144,88 @@ In spite of the name, the process will still be owned by you after running `diso
 - `unset <name>` : 환경 변수 제거 
   - > unset EnvVar
   
+## SSH
+
+**SSH 키 새로 생성하고 Github 에 공개키를 등록**
+
+1. 기존 SSH 키 삭제
+
+`rm -f ~/.ssh/id_rsa ~/.ssh/id_rsa.pub`
+
+2. 새로운 SSH 키 생성 및 설정
+
+ `ssh-keygen` 명령어는 SSH 키 쌍(공개 키와 개인 키)을 생성하는 데 사용됩니다. 일반적인 사용법은 다음과 같습니다:
+
+`ssh-keygen -t rsa -b 4096 -C "your_email@example.com"`
+
+- `-t rsa`: RSA 알고리즘을 사용하여 키를 생성
+- `-b 4096`: 4096비트 길이의 키를 생성
+- `-C "your_email@example.com"`: 키에 추가할 주석(일반적으로 이메일 주소)을 설정
+
+```plaintext
+Enter file in which to save the key (/Users/your_username/.ssh/id_rsa): [Enter Path or press Enter] 
+Enter passphrase (empty for no passphrase): [Enter passphrase or press Enter]  
+Enter same passphrase again: [Repeat passphrase or press Enter]
+```
+
+3. SSH 에이전트에 새 키 추가
+
+`eval "$(ssh-agent -s)"`
+
+`ssh-add ~/.ssh/id_rsa`
+
+4. 공개 키를 GitHub에 추가
+
+`cat ~/.ssh/id_rsa.pub`
+
+- GitHub에 로그인
+- 오른쪽 상단의 프로필 아이콘 클릭 후 **Settings** 선택
+- 왼쪽 메뉴에서 **SSH and GPG keys** 선택
+- **New SSH key** 버튼 클릭
+- 제목(Title)과 키(Key) 필드에 공개 키 내용 붙여넣기
+- **Add SSH key** 버튼 클릭
+
+5. SSH 구성 파일 설정
+
+`nano ~/.ssh/config`
+
+```plaintext
+Host github.com
+  HostName github.com
+  User git
+  IdentityFile ~/.ssh/id_rsa
+```
+6. SSH 키 인증 테스트
+
+[Testing your SSH connection](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/testing-your-ssh-connection)
+
+`ssh -T` 명령어는 SSH를 통해 원격 서버에 연결할 때 터미널을 할당하지 않고 명령을 실행하는 데 사용됩니다. 특히 GitHub와 같은 서비스에 SSH 키를 사용하여 인증을 테스트할 때 유용합니다.
+
+- `-T`: "Pseudo-terminal allocation"을 비활성화합니다. 이는 원격 서버에서 명령을 실행하지만 대화형 쉘을 제공하지 않는 경우에 사용됩니다.
+
+`ssh -T git@github.com`
+
+```plaintext
+Hi <username>! You've successfully authenticated, but GitHub does not provide shell access.
+```
+
+**SSH 에이전트란 무엇인지, SSH 에이전트에 등록된 내용 확인하는 방법**
+
+SSH 에이전트는 사용자의 SSH 키를 메모리에 저장하여 여러 번 인증을 하지 않도록 도와주는 프로그램입니다. SSH 에이전트를 사용하면 비밀번호 입력 없이 여러 SSH 연결에서 키를 사용할 수 있습니다.
+
+- SSH 에이전트 시작
+
+`eval "$(ssh-agent -s)"`
+
+- SSH 키 추가
+
+`ssh-add ~/.ssh/id_rsa`
+
+- SSH 에이전트에 등록된 키 확인
+
+`ssh-add -l`
+
+이 명령어는 현재 SSH 에이전트에 로드된 모든 키를 나열합니다.
 
 ## ETC
 
