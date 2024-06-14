@@ -187,7 +187,7 @@ Enter same passphrase again: [Repeat passphrase or press Enter]
 
 5. SSH 구성 파일 설정
 
-`nano ~/.ssh/config`
+`vim ~/.ssh/config`
 
 ```plaintext
 Host github.com
