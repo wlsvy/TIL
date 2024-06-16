@@ -1698,3 +1698,19 @@ public class StringBenchmark
     - preemptive multitasking, in which a scheduler switches between tasks at regular intervals.
     
     When a processor switches from one task to the next, the current task state must be saved so that it can be resumed later. Once that’s complete, the next task is loaded to complete what’s known as a context switch. That incurs overhead, both in terms of processing and in memory storage. Inevitably, switching between lightweight tasks has less overhead. There have been different strategies adopted to determine the optimum size of tasks and overhead imposed by context switching, and terminology differs between them, variously using words such as processes, threads and even fibres, which can prove thoroughly confusing.
+
+## 24.06.16
+
+ChatGPT 만담
+
+**URL Tempering에 대해**
+
+URL tempering은 웹 애플리케이션 보안 위협 중 하나로, 사용자가 URL을 조작하여 서버가 의도하지 않은 동작을 하게 만드는 것을 말합니다. 이는 주로 인증되지 않은 액세스, 데이터 노출, 무단 변경 등을 초래할 수 있습니다. URL tempering의 주요 유형과 방지 방법에 대해 설명하겠습니다.
+
+#### 주요 유형
+
+1. **매개변수 조작 (Parameter Tampering)**: URL의 쿼리 매개변수를 변경하여 서버에 잘못된 데이터를 전송합니다. 예를 들어, 사용자가 자신의 계정 정보에 접근하기 위해 `user_id=123`을 `user_id=456`으로 변경할 수 있습니다.
+
+2. **디렉토리 트래버설 (Directory Traversal)**: URL의 경로를 조작하여 웹 루트 디렉토리 외부의 파일에 접근하려고 시도합니다. 예를 들어, `/app/docs/../etc/passwd`와 같은 URL을 사용하여 서버의 중요한 파일에 접근할 수 있습니다.
+
+3. **IDOR (Insecure Direct Object Reference)**: 사용자가 직접 객체를 참조할 수 있는 URL을 조작하여 권한이 없는 데이터를 액세스합니다. 예를 들어, `/profile/123`을 `/profile/456`으로 변경하여 다른 사용자의 프로필에 접근할 수 있습니다.

@@ -40,6 +40,14 @@
 
 - `%`: 파일 전체.
 
+**파일 열면서 명령 실행**
+
+파일을 열면서 set number 명령 실행
+
+`vim +':set number' 파일이름`\
+or
+`vim +set\ number path/to/file`
+
 **Cheat Sheet**
 
 ![](img.2024-06-01-03-59-07.png)
@@ -83,11 +91,11 @@
    5gg or 5G - go to line 5
    gd - move to local declaration
    gD - move to global declaration
-   fx - jump to next occurrence of character x
-   tx - jump to before next occurrence of character x
+   **fx - jump to next occurrence of character x**
+   **tx - jump to before next occurrence of character x**
    Fx - jump to the previous occurrence of character x
    Tx - jump to after previous occurrence of character x
-   ; - repeat previous f, t, F or T movement
+   **; - repeat previous f, t, F or T movement**
    , - repeat previous f, t, F or T movement, backwards
    } - jump to next paragraph (or function/block, when editing code)
    { - jump to previous paragraph (or function/block, when editing code)
@@ -140,7 +148,7 @@
     **u - undo**
     U - restore (undo) last changed line
     **Ctrl + r - redo**
-    . - repeat last command
+    **. - repeat last command**
     Marking text (visual mode)
     v - start visual mode, mark lines, then do a command (like y-yank)
     V - start linewise visual mode
