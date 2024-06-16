@@ -1714,3 +1714,142 @@ URL tempering은 웹 애플리케이션 보안 위협 중 하나로, 사용자�
 2. **디렉토리 트래버설 (Directory Traversal)**: URL의 경로를 조작하여 웹 루트 디렉토리 외부의 파일에 접근하려고 시도합니다. 예를 들어, `/app/docs/../etc/passwd`와 같은 URL을 사용하여 서버의 중요한 파일에 접근할 수 있습니다.
 
 3. **IDOR (Insecure Direct Object Reference)**: 사용자가 직접 객체를 참조할 수 있는 URL을 조작하여 권한이 없는 데이터를 액세스합니다. 예를 들어, `/profile/123`을 `/profile/456`으로 변경하여 다른 사용자의 프로필에 접근할 수 있습니다.
+
+## 24.06.17
+
+[C Array and List Fastest Loop in 2024 - NDepend Blog](https://blog.ndepend.com/c-array-and-list-fastest-loop/)
+
+> We listed the key findings in the introduction. Let’s conclude that future versions of .NET and C# might change these results. For example, in the future, the C# compiler might assert that a list doesn’t get modified and use the Span<T> based optimization. We will update this post regularly to find out.
+
+```cs
+using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
+using BenchmarkDotNet.Attributes;
+using BenchmarkDotNet.Running;
+ 
+BenchmarkRunner.Run<Benchmarks>();
+ 
+public class Benchmarks {
+ 
+   [Params(100, 1_000, 10_000)]
+   public int Length { get; set; }
+   private void AssertResult(int result) {
+      if (result != (Length * (Length - 1)) / 2) {
+         Environment.FailFast("");
+      }
+   }
+ 
+   private int[] m_Items;
+ 
+   [GlobalSetup]
+   public void Setup() {
+      m_Items = Enumerable.Range(0, Length).ToArray();
+   }
+ 
+   [Benchmark]
+   public void ForLoop() {
+      int result = 0;
+      for (int i = 0; i < m_Items.Length; i++) {
+         result += m_Items[i];
+      }
+      AssertResult(result);
+   }
+ 
+   [Benchmark]
+   public void ForLoop_LengthAsVariable() {
+      int result = 0;
+      int length = m_Items.Length;
+      for (int i = 0; i < length; i++) {
+         result += m_Items[i];
+      }
+      AssertResult(result);
+   }
+ 
+   [Benchmark]
+   public void ForeachLoop() {
+      int result = 0;
+      foreach (int item in m_Items) {
+         result += item;
+      }
+      AssertResult(result);
+   }
+ 
+   [Benchmark]
+   public void ArrayForEach() {
+      int result = 0;
+      Array.ForEach(m_Items, item => {
+         result += item;
+      });
+      AssertResult(result);
+   }
+ 
+   [Benchmark]
+   public void ForSpanLoop() {
+      int result = 0;
+      Span<int> span = m_Items;
+      for (int i = 0; i < span.Length; i++) {
+         result += span[i];
+      }
+      AssertResult(result);
+   }
+ 
+   [Benchmark]
+   public void ForSpanLoop_LengthAsVariable() {
+      int result = 0;
+      Span<int> span = m_Items;
+      int length = span.Length;
+      for (int i = 0; i < length; i++) {
+         result += span[i];
+      }
+      AssertResult(result);
+   }
+ 
+   [Benchmark]
+   public void ForSpanRefLoop() {
+      int result = 0;
+      Span<int> span = m_Items;
+      ref int ptr = ref MemoryMarshal.GetReference(span);
+      for (int i = 0; i < span.Length; i++) {
+         int item = Unsafe.Add(ref ptr, i);
+         result += item;
+      }
+      AssertResult(result);
+   }
+ 
+   [Benchmark]
+   public void ForSpanRefLoop_LengthAsVariable() {
+      int result = 0;
+      Span<int> span = m_Items;
+      ref int ptr = ref MemoryMarshal.GetReference(span);
+      int length = span.Length;
+      for (int i = 0; i < length; i++) {
+         int item = Unsafe.Add(ref ptr, i);
+         result += item;
+      }
+      AssertResult(result);
+   }
+ 
+   [Benchmark]
+   public void ForSpanRefLoop2() {
+      int result = 0;
+      Span<int> span = m_Items;
+      ref int start = ref MemoryMarshal.GetReference(span);
+      ref int end = ref Unsafe.Add(ref start, m_Items.Length);
+ 
+      while (Unsafe.IsAddressLessThan(ref start, ref end)) {
+         result += start;
+         start = ref Unsafe.Add(ref start, 1);
+      }
+      AssertResult(result);
+   }
+}
+```
+
+- foreach 가 for 보다 빠르다.
+  - foreach 의 경우 jit 컴파일러가 불필요한 검증을 패싱하도록 최적화 되어 있음
+- List<T> 의 경우 for 루프가 foreach 보다 빠르다.
+  - foreach loop 는 List<T> 가 중간에 수정될 수 있음을 고려했기 때문
+  - Enumerator 가 사용된다.
+- Span<T> 를 사용하는 경우. T[] 와는 동일하지만, List<T> 보다는 빠르다.
+
+![](img/2024-06-17-01-47-18.png)
