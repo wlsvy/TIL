@@ -1973,3 +1973,31 @@ Array.Copy(
 
 - 특정 서버 접속 인원 수가 한도를 초과하지 못하도록 막는 효과
 - 혹은 특정 시간 내에 동작을 수행하는 인원 수를 일정하게 유지하는 효과 (수율: throughput)
+
+[Exploring the generated code ListT and fallback cases](https://andrewlock.net/behind-the-scenes-of-collection-expressions-part-2-exploring-the-generated-code-list-and-fallback-cases/)
+
+```cs
+using System.Collections.Generic;
+
+List<int> list = [1, 2, 3, 4, 5];
+```
+
+- collection expression 사용 시 `CollectionMarshal` 을 사용한 코드를 자동 생성
+  - SharpLab 에서 쉽게 체크해볼 수 있다.
+  - https://sharplab.io/#v2:D4AQDABCCMAsDcBYAUCgMgSwM4BcA8GAdjgHwQA22OEAvBANrQA0EATCwMwuwsCsAuvCA===
+- List.Add(); 를 다섯 번 호출하는 것보다 빠름
+
+```cs
+List<int> list = new List<int>();
+CollectionsMarshal.SetCount(list, 3);
+Span<int> span = CollectionsMarshal.AsSpan(list);
+int num = 0;
+span[num] = 1;
+num++;
+span[num] = 2;
+num++;
+span[num] = 3;
+num++;
+```
+
+In this post, I showed how collection expressions can always fallback to collection initializers for types that support them. I also showed how to create your own types to support collection initializers and expressions by implementing IEnumerable and adding an Add() method. Finally I showed how List<T> is optimized for collection expressions by using the .NET 8 API CollectionsMarshal.SetCount(), and how this falls back to collection expressions if you're targeting earlier framework versions.
