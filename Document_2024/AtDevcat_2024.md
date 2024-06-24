@@ -1966,3 +1966,10 @@ Array.Copy(
     destinationArray: buffer, 
     length: webRequest.Length); // webRequest.Length != buffer.Length!!
 ```
+
+**대기큐**
+
+게임 인원 대기
+
+- 특정 서버 접속 인원 수가 한도를 초과하지 못하도록 막는 효과
+- 혹은 특정 시간 내에 동작을 수행하는 인원 수를 일정하게 유지하는 효과 (수율: throughput)
