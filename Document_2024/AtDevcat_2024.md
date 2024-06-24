@@ -1943,3 +1943,26 @@ public class Benchmarks {
 - 제로 데이 취약점
 - > A zero-day (also known as a 0-day) is a vulnerability in software or hardware that is typically unknown to the vendor and for which no patch or other fix is available.
 - > Despite developers' goal of delivering a product that works entirely as intended, virtually all software and hardware contain bugs. Many of these impair the security of the system and are thus vulnerabilities. Although the basis of only a minority of cyberattacks, zero-days are considered more dangerous than known vulnerabilities because there are fewer countermeasures possible.
+
+## 24.06.24
+
+[Pooling large arrays with ArrayPool – Adam Sitnik – .NET Performance and Reliability](https://adamsitnik.com/Array-Pool/)
+
+- How to use it?
+
+First of all you need to obtain an instance of the pool. You can do in at least three ways:
+
+- Recommended: use the ArrayPool<T>.Shared property, which returns a shared pool instance. It’s thread safe and all you need to remember is that it has a default max array length, equal to 2^20 (1024*1024 = 1 048 576).
+- Call the static ArrayPool<T>.Create method, which creates a thread safe pool with custom maxArrayLength and maxArraysPerBucket. You might need it if the default max array length is not enough for you. Please be warned, that once you create it, you are responsible for keeping it alive.
+- Derive a custom class from abstract ArrayPool<T> and handle everything on your own.
+- Next thing is to call the Rent method which requires you to specify minimum length of the buffer. Keep in mind, that what Rent returns might be bigger than what you have asked for.
+
+```cs
+byte[] webRequest = request.Bytes;
+byte[] buffer = ArrayPool<byte>.Shared.Rent(webRequest.Length);
+
+Array.Copy(
+    sourceArray: webRequest, 
+    destinationArray: buffer, 
+    length: webRequest.Length); // webRequest.Length != buffer.Length!!
+```
