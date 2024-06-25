@@ -214,7 +214,18 @@ Enter passphrase (empty for no passphrase): [Enter passphrase or press Enter]
 Enter same passphrase again: [Repeat passphrase or press Enter]
 ```
 
-3. SSH 에이전트에 새 키 추가
+    @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+    @         WARNING: UNPROTECTED PRIVATE KEY FILE!          @
+    @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+    Permissions 0644 for '/home/ubuntu/.ssh/id_rsa_github_wlsvy' are too open.
+    It is required that your private key files are NOT accessible by others.
+    This private key will be ignored.
+
+- 보안 경고 확인 시
+
+`chmod 600 <private ssh key file path>`
+
+1. SSH 에이전트에 새 키 추가
 
 `eval "$(ssh-agent -s)"`
 
