@@ -266,6 +266,10 @@ Host github.com
 Hi <username>! You've successfully authenticated, but GitHub does not provide shell access.
 ```
 
+- `eval "$(ssh-agent -s)"`: SSH 에이전트 시작
+- `ssh-add ~/.ssh/id_rsa` : SSH 키 추가
+- `ssh-add -l`: SSH 에이전트에 등록된 키 확인
+
 7. 깃 저장소에서 ssh 전용 url 로 작업
 
 - `git remote -v` : 원격 저장소 정보 확인
@@ -277,16 +281,7 @@ Hi <username>! You've successfully authenticated, but GitHub does not provide sh
 
 SSH 에이전트는 사용자의 SSH 키를 메모리에 저장하여 여러 번 인증을 하지 않도록 도와주는 프로그램입니다. SSH 에이전트를 사용하면 비밀번호 입력 없이 여러 SSH 연결에서 키를 사용할 수 있습니다.
 
-- SSH 에이전트 시작
-
-`eval "$(ssh-agent -s)"`
-
-- SSH 키 추가
-
-`ssh-add ~/.ssh/id_rsa`
-
-- SSH 에이전트에 등록된 키 확인
-
-`ssh-add -l`
-
-이 명령어는 현재 SSH 에이전트에 로드된 모든 키를 나열합니다.
+- `eval "$(ssh-agent -s)"`: SSH 에이전트 시작
+- `ssh-add ~/.ssh/id_rsa` : SSH 키 추가
+- `ssh-add -l`: SSH 에이전트에 등록된 키 확인
+  - 이 명령어는 현재 SSH 에이전트에 로드된 모든 키를 나열합니다.
