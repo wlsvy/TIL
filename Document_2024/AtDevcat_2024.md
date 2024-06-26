@@ -2001,3 +2001,27 @@ num++;
 ```
 
 In this post, I showed how collection expressions can always fallback to collection initializers for types that support them. I also showed how to create your own types to support collection initializers and expressions by implementing IEnumerable and adding an Add() method. Finally I showed how List<T> is optimized for collection expressions by using the .NET 8 API CollectionsMarshal.SetCount(), and how this falls back to collection expressions if you're targeting earlier framework versions.
+
+## 24.06.26
+
+**C# 메모리 덤프파일에서 데이터 추출하기**
+
+- [Immediate window](https://learn.microsoft.com/en-us/visualstudio/ide/reference/immediate-window)
+- 한글명으로 직접 실행 창
+
+> Use the Immediate window to debug and evaluate expressions, execute statements, and print variable values. The Immediate window evaluates expressions by building and using the currently selected project.
+>
+> To display the Immediate window, open a project for editing, and then choose Debug > Windows > Immediate or press Ctrl+Alt+I. You can also enter Debug.Immediate in the Command window.
+
+- Enter Commands
+
+| Task                                                        | Solution                                                   | Example         |
+|-------------------------------------------------------------|------------------------------------------------------------|-----------------|
+| Evaluate an expression.                                     | Preface the expression with a question mark (?).            | ? a+b           |
+| Temporarily enter Command mode while in Immediate mode      | Enter the command, prefacing it with a greater than sign (>).| >alias          |
+| Switch to the Command window.                               | Enter cmd into the window, prefacing it with a greater than sign (>).| >cmd            |
+| Switch back to the Immediate window.                        | Enter immed into the window without the greater than sign (>).| immed           |
+
+- 비쥬얼 스튜디오의 디버거 기능 중, 메모리 덤프에 대한 '직접 실행' 기능이 존재
+- 이때  immediate window 에는 c# 명령을 그대로 입력해도 동작한다!!
+- 대충 쓰는 예시는 `? new StackTrace(true).GetFrames()` 하면 현재 콜 스택을 출력한다!!
