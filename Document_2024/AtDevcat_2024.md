@@ -2025,3 +2025,13 @@ In this post, I showed how collection expressions can always fallback to collect
 - 비쥬얼 스튜디오의 디버거 기능 중, 메모리 덤프에 대한 '직접 실행' 기능이 존재
 - 이때  immediate window 에는 c# 명령을 그대로 입력해도 동작한다!!
 - 대충 쓰는 예시는 `? new StackTrace(true).GetFrames()` 하면 현재 콜 스택을 출력한다!!
+
+## 24.06.27
+
+[A Guide to Semantic Versioning  Baeldung on Computer Science](https://www.baeldung.com/cs/semantic-versioning)
+
+![](img/2024-06-27-17-14-50.png)
+
+- Major: The major version should increase when we’ve introduced new functionality which breaks our API, i.e., increase this value when we’ve added a backward-incompatible change to our project. 
+- Minor: We should increase our minor version when we’ve introduced new functionality which changes our API but is backward compatible, i.e., a non-breaking change. 
+- Patch: Under the SemVer specs, we reserve patch changes for backward-compatible bug fixes.
