@@ -116,6 +116,7 @@
   - user 사용자명: 지정된 사용자가 소유한 파일 검색
   - perm -권한: 특정 권한을 가진 파일 검색
 - grep
+  - `-i` 옵션은 대소문자 구분 ignore
   - ex) `grep -H -n "문자열" *.txt` : 현재 디렉토리의 모든 txt 파일에서 문자열 검색, 라인 인버 표시(`-n`), 파일 이름 표시 (`-H`)
   - ex) `grep -Hn "문자열" *.txt`
   - ex) `grep -Hnr "문자열" SomeDirectory` : r 옵션은 recursive
@@ -130,7 +131,7 @@
   - ex) `grep -C 4 '검색할 단어' 파일명` : 단어 검색 후 해당 단어가 포함된 라인의 위 아래로 4 줄을 함께 출력
   - B [n]: 매치되는 라인의 위 n 줄을 출력합니다.
   - A [n]: 매치되는 라인의 아래 n 줄을 출력합니다.
-  - ex) `grep -Hnr "IDBCustomType" --include=*.cs Directory/` : 지정 디렉토리 내 검색 대상인 파일 패턴을 지정(*.cs)
+  - ex) `grep -Hnir "IDBCustomType" --include=*.cs Directory/` : 지정 디렉토리 내 검색 대상인 파일 패턴을 지정(*.cs)
 - wc
   - wc(word count) 명령어는 텍스트 파일의 줄, 단어, 그리고 바이트 수를 세는 데 사용됩니다. 다음은 wc 명령어의 기본적인 옵션들과 그 사용 예시입니다:
   - l : 줄의 수를 출력합니다.
