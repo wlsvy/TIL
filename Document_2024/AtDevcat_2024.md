@@ -2035,3 +2035,15 @@ In this post, I showed how collection expressions can always fallback to collect
 - Major: The major version should increase when we’ve introduced new functionality which breaks our API, i.e., increase this value when we’ve added a backward-incompatible change to our project. 
 - Minor: We should increase our minor version when we’ve introduced new functionality which changes our API but is backward compatible, i.e., a non-breaking change. 
 - Patch: Under the SemVer specs, we reserve patch changes for backward-compatible bug fixes.
+
+**라이브 서비스 온라인 게임 SQL 작성 실수 미연에 방지**
+
+- SP(Stored Procedure) 사용이 언급 됨
+  - [SQL Stored Procedures](https://www.w3schools.com/SQL/sql_stored_procedures.asp)
+  - 정적으로 사용가능한 쿼리를 미리 정의하는 것. 코드상에서는 미리 정의된 쿼리를 대상으로 파라미터를 넘길 수 있다.
+  - 추가적으로 Database 관리자가 실시간 쿼리 모니터링 중 문제가 있는 쿼리를 제보하면, 해당 SP 사용처 코드를 빠르게 찾는 게 가능 -> 동적으로 쿼리를 구성하는 것이 아니니까
+- 정적 분석이 언급 됨
+  - Where 문 에서의 Null Check 미리 확인하는 등
+  - 아무튼 코드에서는 실수가 나고 DB 가 망가지면 큰일 남
+- 그리고 특히 거래소 로직의 Range 쿼리에 주의가 필요 (Less Than..., Greater Than...). 잘못 사용하면 부하를 일으킴
+- 특정 업데이트 이후 유저가 몰리는 타이밍에 DB가 다운되지 않도록 주의에 또 주의
