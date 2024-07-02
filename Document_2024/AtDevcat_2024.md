@@ -2183,9 +2183,11 @@ In this post, I showed how collection expressions can always fallback to collect
 
 계산식은
 
-> BitOperations.Log2((uint)bufferSize - 1 | 15) - 3
+> minimumBufferLength -> BucketIndex : BitOperations.Log2((uint)bufferSize - 1 | 15) - 3
+>
+> BucketIndex -> BufferLength : 16 << bin Index 
 
-| Input Range   | Result |
+| Buffer Size Range   | Bucket Index |
 |---------------|--------|
 | 1 ~ 16        | 0      |
 | 17 ~ 32       | 1      |
