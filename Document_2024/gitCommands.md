@@ -85,6 +85,7 @@ Use:
   
 > git config --global gc.auto 0
   
+checkout
   
 ## Git Clear Unstaged Change
 
@@ -98,6 +99,7 @@ For a specific file use:
 
 - [stackOverflow](https://stackoverflow.com/questions/52704/how-do-i-discard-unstaged-changes-in-git)
 
+- `git checkout <commit-hash> -- <file-path>` : 특정 파일을 해당 커밋의 상태로 되돌리기
 
 ## List All Branches, Delete Branch
 
