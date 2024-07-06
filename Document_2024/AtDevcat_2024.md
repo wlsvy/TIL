@@ -2248,3 +2248,20 @@ LZ4는 LZ77 계열의 알고리즘으로, 연속되는 데이터 블록에서 �
 | 1024  | 6      | 1024 (10000000000) => 1023 (1111111111) => 1023 (1111111111) => 9 (1001) => 6 |
 | 1025  | 7      | 1025 (10000000001) => 1024 (10000000000) => 1039 (10000001111) => 10 (1010) => 7 |
 | 2048  | 7      | 2048 (100000000000) => 2047 (11111111111) => 2047 (11111111111) => 10 (1010) => 7 |
+
+## 24.07.07
+
+[Concurrent Hosted Service Start and Stop in .NET 8 - Steve Gordon - Code with Steve](https://www.stevejgordon.co.uk/concurrent-hosted-service-start-and-stop-in-dotnet-8)
+
+- [(27) Concurrent Hosted Service in .NET 8 | .NET Conf 2023](https://www.youtube.com/watch?v=sD_-XwauabE&list=WL&index=2)
+
+![](img/2024-07-07-00-31-32.png)
+
+![](img/2024-07-07-00-32-16.png)
+
+![](img/2024-07-07-00-33-00.png)
+
+- 호스트 역힐에 대해서 이것저것 설명해주는 파트
+  - Periodical Background Tasks : 주기적으로 실행되는 백그라운드 직압
+  - Application Startup Actions : 원타임 스타트업 액션. 시작과 함께 단 한번 실행되는 작업
+  - Ongoing Process Handling : 지속적인 작업에 대해서 일컫는 말. 예컨대 동영상 스트리밍
