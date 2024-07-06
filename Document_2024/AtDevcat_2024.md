@@ -2277,3 +2277,114 @@ LZ4는 LZ77 계열의 알고리즘으로, 연속되는 데이터 블록에서 �
   - 블랙 프라이데이 이벤트 당일, 티켓팅 같은 서비스를 상상해보자. 접속 트래픽이 몰려서 host 스케일 업을 시도하려는데, 순차 실행하는 경우 시작 시간이 굉장히 길어질 수 있기 때문에 모든 호스트가 준비되기 이전에는 사용자 요청을 받을 수 없게 되는 상황이 왕왕 있었나 보다.
 - gracelfully shutdown 내용은
   - 종료의 경우에는 기본 종료 타임아웃이 30초 인데, 병렬 실행이 아닌 순차 종료 과정에서 30초를 넘겨버리는 경우가 있던 모양이다.
+
+[Cloned Dictionary vs. Immutable Dictionary vs. Frozen Dictionary in high traffic systems - Ayende @ Rahien](https://ayende.com/blog/201314-B/cloned-dictionary-vs-immutable-dictionary-vs-frozen-dictionary-in-high-traffic-systems?Key=5b127528-fc8b-4749-9442-eedcd34afb9b#)
+
+```cs
+IEnumerable<object> SingleDictionary()
+{
+    var dic = new Dictionary<long, object>();
+    var random = new Random(932);
+    var v = new object();
+    // number of transactions
+    for (var txCount = 0; txCount < 1000; txCount++)
+    {
+        // operations in transaction
+        for (int opCount = 0; opCount < 10,000; opCount++)
+        {
+            dic[random.NextInt64(0, 1024 * 1024 * 1024)] = v;
+        }
+        yield return dic; // publish the dictionary
+    }
+}
+
+IEnumerable<object> ClonedDictionary()
+{
+    var dic = new Dictionary<long, object>();
+    var random = new Random(932);
+    var v = new object();
+    // number of transactions
+    for (var txCount = 0; txCount < 1000; txCount++)
+    {
+        // operations in transaction
+        for (int opCount = 0; opCount < 10,000; opCount++)
+        {
+            dic[random.NextInt64(0, 1024 * 1024 * 1024)] = v;
+        }
+        // publish the dictionary
+        yield return new Dictionary<long, object>(dic);
+    }
+}
+
+IEnumerable<object> ClonedImmutableDictionary()
+{
+    var dic = ImmutableDictionary.Create<long, object>();
+    var random = new Random(932);
+    var v = new object();
+    // number of transactions
+    for (var txCount = 0; txCount < 1000; txCount++)
+    {
+        // operations in transaction
+        for (int opCount = 0; opCount < 10,000; opCount++)
+        {
+            dic = dic.Add(random.NextInt64(0, 1024 * 1024 * 1024), v);
+        }
+        // publish the dictionary
+        yield return dic;
+    }
+}
+
+IEnumerable<object> BuilderImmutableDictionary()
+{
+    var builder = ImmutableDictionary.CreateBuilder<long, object>();
+    var random = new Random(932);
+    var v = new object();
+    // number of transactions
+    for (var txCount = 0; txCount < 1000; txCount++)
+    {
+        // operations in transaction
+        for (int opCount = 0; opCount < 10,000; opCount++)
+        {
+            builder[random.NextInt64(0, 1024 * 1024 * 1024)] = v;
+        }
+        // publish the dictionary
+        yield return builder.ToImmutable();
+    }
+}
+
+IEnumerable<object> FrozenDictionary()
+{
+    var dic = new Dictionary<long, object>();
+    var random = new Random(932);
+    var v = new object();
+    // number of transactions
+    for (var txCount = 0; txCount < 1000; txCount++)
+    {
+        // operations in transaction
+        for (int opCount = 0; opCount < 10,000; opCount++)
+        {
+            dic[random.NextInt64(0, 1024 * 1024 * 1024)] = v;
+        }
+        // publish the dictionary
+        yield return dic.ToFrozenDictionary();
+    }
+}
+
+
+```
+
+벤치마크 결과
+
+| Method                               | Mean           | Ratio   |
+|--------------------------------------|----------------|---------|
+| SingleDictionaryBench                | 7.768 ms       | 1.00    |
+| BuilderImmutableDictionaryBench      | 122.508 ms     | 15.82   |
+| ClonedImmutableDictionaryBench       | 176.041 ms     | 21.95   |
+| ClonedDictionaryBench                | 1,489.614 ms   | 195.04  |
+| FrozenDictionaryBench                | 6,279.542 ms   | 807.36  |
+
+Dictionary 관련 동작에서 ImmutableDictionary의 Copy 가 빠르다고 함.
+
+> ImmutableDictionary의 복사 작업이 예상보다 빠른 이유는 내부 구현 방식 덕분입니다. ImmutableDictionary는 모든 변경 작업에서 새로운 사본을 만드는 대신 구조 공유(structure sharing)라는 기술을 사용합니다. 이 기술을 통해 변경되지 않은 부분을 재사용하면서 효율적으로 새로운 사본을 만듭니다. 구체적인 이유는 다음과 같습니다:
+
+^ by ChatGPT
