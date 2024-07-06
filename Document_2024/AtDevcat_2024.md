@@ -2265,3 +2265,15 @@ LZ4는 LZ77 계열의 알고리즘으로, 연속되는 데이터 블록에서 �
   - Periodical Background Tasks : 주기적으로 실행되는 백그라운드 직압
   - Application Startup Actions : 원타임 스타트업 액션. 시작과 함께 단 한번 실행되는 작업
   - Ongoing Process Handling : 지속적인 작업에 대해서 일컫는 말. 예컨대 동영상 스트리밍
+
+> Before .NET 8, the code that starts and stops hosted services does so sequentially. Each IHostedService registered with the DI container is started in sequence by calling the StartAsync method on the instance. Crucially, this included awaiting the completion of the StartAsync method, meaning that each StartAsync Task was required to complete before the next service was triggered. The effect of this design does not significantly impact most applications, but it is still possible for this default behaviour to cause issues.
+
+- 과거 .NET 의 멀티 호스트는 순차적으로(sequentially) 실행/종료되었다고 함
+- 대부분의 애플리케이션에서는 이 점이 문제되지 않음. 하지만 간혹 이슈가 생겼는데...
+
+![](img/2024-07-07-01-07-13.png)
+
+- 여기서 scaling issue 란
+  - 블랙 프라이데이 이벤트 당일, 티켓팅 같은 서비스를 상상해보자. 접속 트래픽이 몰려서 host 스케일 업을 시도하려는데, 순차 실행하는 경우 시작 시간이 굉장히 길어질 수 있기 때문에 모든 호스트가 준비되기 이전에는 사용자 요청을 받을 수 없게 되는 상황이 왕왕 있었나 보다.
+- gracelfully shutdown 내용은
+  - 종료의 경우에는 기본 종료 타임아웃이 30초 인데, 병렬 실행이 아닌 순차 종료 과정에서 30초를 넘겨버리는 경우가 있던 모양이다.
