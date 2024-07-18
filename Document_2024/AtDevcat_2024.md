@@ -2437,3 +2437,22 @@ Dictionary 관련 동작에서 ImmutableDictionary의 Copy 가 빠르다고 함.
 - .NET은 각 플랫폼에서 네이티브 비동기 I/O 모델을 활용하여 효율적인 네트워크 통신을 제공합니다.
   - **iOS**: .NET의 비동기 소켓 기능은 kqueue를 사용합니다.
   - **Android**: .NET의 비동기 소켓 기능은 epoll을 사용합니다.
+
+## 24.07.18
+
+[GitHub - VerifyTestsVerify Verify is a snapshot tool that simplifies the assertion of complex data models and documents.](https://github.com/VerifyTests/Verify)
+
+- 스냅샷 테스팅
+  - 각 검증 속성들을 serialize 해서 파일로 저장, 이후 테스트 실행 시에 serialize 결과를 기존 파일의 값과 비교하는 방식
+
+> Verify is a snapshot tool that simplifies the assertion of complex data models and documents.
+>
+> Verify is called on the test result during the assertion phase. It serializes that result and stores it in a file that matches the test name. On the next test execution, the result is again serialized and compared to the existing file. The test will fail if the two snapshots do not match: either the change is unexpected, or the reference snapshot needs to be updated to the new result.
+
+- 최초 검증
+
+![](img/2024-07-18-16-09-54.png)
+
+- n 회차 검증
+
+![](img/2024-07-18-16-10-38.png)
