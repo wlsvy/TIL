@@ -172,6 +172,8 @@ diff
 - 옵션 몇 가지
   - `--name-status` : Show only names and status of changed files. See the description of the --diff-filter option on what the status letters mean
   - `--name-only` : Show only names of changed files. 
+  - `--cached`: This form is to view the changes you staged for the next commit relative to the named <commit>
+    - 현재 스테이지 상태의 파일 diff 를 체크하고 싶다면 `git diff --cached`
   
 shortlog
 
