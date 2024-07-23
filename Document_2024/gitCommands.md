@@ -149,6 +149,31 @@ log
 - `ex) git log --stat --oneline --follow Some.cs`
 - By LineRange : `ex) git log -L 23,142:SomeDir/SomeFile.txt`
 - 과거에 삭제된 파일도 찾을 수 있다. `ex) git log --stat --all --oneline -- */Some*Script.cs`
+- pretty format
+  - `git log --pretty=format:"%h %an %ad %s" -10`
+    - 형식 지정자
+    - `%H`: **전체 커밋 해시**
+    - `%h`: **짧은 커밋 해시**
+    - `%T`: 전체 트리 해시
+    - `%t`: 짧은 트리 해시
+    - `%P`: 전체 부모 해시
+    - `%p`: 짧은 부모 해시
+    - `%an`: **작성자 이름**
+    - `%ae`: 작성자 이메일
+    - `%ad`: **작성자 날짜** (포맷은 `--date= 옵션`에 의해 결정)
+    - `%ar`: 작성자 날짜, 상대적
+    - `%at`: 작성자 타임스탬프
+    - `%cn`: **커미터 이름**
+    - `%ce`: 커미터 이메일
+    - `%cd`: **커미터 날짜**
+    - `%cr`: 커미터 날짜, 상대적
+    - `%ct`: 커미터 타임스탬프
+    - `%d`: ref 이름들 (예: 브랜치, 태그)
+    - `%e`: 인코딩
+    - `%s`: **커밋 메시지 제목**
+    - `%f`: 커밋 메시지 제목을 파일 이름으로 사용할 수 있게 수정 (공백을 대시로 변환)
+    - `%b`: 커밋 메시지 본문
+    - `%(trailers)`: 커밋 트레일러 (Git 2.9 이상)
 - 옵션 몇가지
   - `--oneline`
   - `--graph`
@@ -163,7 +188,7 @@ log
   - `--grep=<pattern> / --invert-grep`
   - `--full-diff`
   - `--follow` : Continue listing the history of a file beyond renames (works only for a single file).
-  
+
 diff
 
 - 특정 커밋 범위 내 diff 표시 : `git diff <revision-range>`
