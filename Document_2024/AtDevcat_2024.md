@@ -2456,3 +2456,15 @@ Dictionary 관련 동작에서 ImmutableDictionary의 Copy 가 빠르다고 함.
 - n 회차 검증
 
 ![](img/2024-07-18-16-10-38.png)
+
+## 24.07.25
+
+[(74) 왜 배열은 0부터 시작할까? 프로그래밍의 비밀](https://www.youtube.com/watch?v=TjpP1udN58k)
+
+- 프로그래밍에서 메모리를 다룰 때 배열 시작 주소, element size, offset 개념을 생각하면 된다.
+  - [0] : 시작 주소로부터 0만큼 떨어진 위치. 
+  - [1] : 시작 주소로부터 1 * size 만큼 떨어진 위치
+  - [n] : 시작 주소로부터 n * size 만큼 떨어진 위치
+
+ChatGPT
+
