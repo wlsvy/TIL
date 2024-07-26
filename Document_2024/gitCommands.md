@@ -205,6 +205,8 @@ status
 - `git status --porcelain'` | `git status --short` : Added / Modified / deleted 표기를 짧게
 - `git status --porcelain | awk '{print $2}'` : Added /Modified/ Deleted 표기를 떼고 파일 이름만 출력
 
+
+
 shortlog
 
 - 기본 커맨드 포맷 : `git shortlog [<options>] [<revision-range>] [[--] <path>…​]`

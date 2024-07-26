@@ -132,12 +132,63 @@
   - B [n]: 매치되는 라인의 위 n 줄을 출력합니다.
   - A [n]: 매치되는 라인의 아래 n 줄을 출력합니다.
   - ex) `grep -Hnir "IDBCustomType" --include=*.cs Directory/` : 지정 디렉토리 내 검색 대상인 파일 패턴을 지정(*.cs)
+
 - wc
   - wc(word count) 명령어는 텍스트 파일의 줄, 단어, 그리고 바이트 수를 세는 데 사용됩니다. 다음은 wc 명령어의 기본적인 옵션들과 그 사용 예시입니다:
   - l : 줄의 수를 출력합니다.
    -w : 단어의 수를 출력합니다.
    -c : 바이트 수를 출력합니다.
    -m : 문자의 수를 출력합니다. (멀티바이트 문자를 정확히 세기 위해 사용)
+
+- sed (stream editor) : 주로 파일 내의 문자열을 검색, 대체, 삭제하거나 삽입할 때 사용
+- `sed [옵션] '명령어' 파일명`
+  - `-e, --expression` : 여러 명령을 순차적으로 실행할 때 사용됩니다.
+    - `sed -e 's/foo/bar/' -e 's/baz/qux/' filename`
+  - `-f, --file` 스크립트 파일에 작성된 명령어를 실행합니다.
+    - `sed -f script.sed filename`
+  - `-i, --in-place`: 파일을 직접 수정합니다. 백업 파일을 생성할 수도 있습니다.
+    - `sed -i.bak 's/foo/bar/' filename`
+  - `-n --quiet, --silent`: 출력을 억제합니다. 일반적으로 `p` 명령과 함께 사용됩니다.
+    - `sed -n 's/foo/bar/p' filename`
+  - 주요 명령어
+    1. **s/정규식/대체문자열/플래그**
+     - 문자열을 대체합니다. 플래그에는 g(모든 발생), p(출력), i(대소문자 무시)가 포함됩니다.
+     - `sed 's/foo/bar/g' filename`
+    2. **d**
+     - 라인을 삭제합니다.
+     - `sed '/foo/d' filename`
+    3. **p**
+     - 라인을 출력합니다. `-n` 옵션과 함께 사용하여 특정 라인만 출력할 수 있습니다.
+     - `sed -n '/foo/p' filename`
+    4. **a\ 텍스트**
+     - 지정한 라인 이후에 텍스트를 추가합니다.
+     - `sed '/foo/a\New Text' filename`
+    5. **i\ 텍스트**
+     - 지정한 라인 이전에 텍스트를 추가합니다.
+     - `sed '/foo/i\New Text' filename`
+    6. c\ 텍스트
+     - 지정한 라인을 텍스트로 변경합니다.
+     - `sed '/foo/c\New Text' filename`
+    7. r 파일명
+     - 파일의 내용을 읽어와 삽입합니다.
+     - `sed '/foo/r file.txt' filename`
+    8. w 파일명
+     - 지정한 라인을 파일에 저장합니다.
+     - `sed -n '/foo/w output.txt' filename`
+
+### sed 예제
+
+1. **파일의 모든 'foo'를 'bar'로 대체하기**
+   - `sed 's/foo/bar/g' filename`
+
+2. **특정 패턴이 있는 라인 삭제하기**
+   - `sed '/pattern/d' filename`
+
+3. **특정 패턴이 있는 라인만 출력하기**
+   - `sed -n '/pattern/p' filename`
+
+4. **파일의 마지막에 텍스트 추가하기**
+   - `sed '$a\New Text' filename`
 
 ## I/O 및 소유권
 
