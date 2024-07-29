@@ -190,6 +190,10 @@
 4. **파일의 마지막에 텍스트 추가하기**
    - `sed '$a\New Text' filename`
 
+주의
+
+- Unix/Linux와 Windows의 라인 엔딩 차이: Unix/Linux 시스템에서는 줄 끝을 LF(Line Feed, \n)로 표시합니다. 반면에 Windows 시스템에서는 CRLF(Carriage Return + Line Feed, \r\n)로 줄 끝을 표시합니다. sed 명령어는 기본적으로 Unix 스타일(LF)로 작동하기 때문에 Windows에서 sed를 사용하면 라인 엔딩이 LF로 바뀔 수 있습니다.
+
 ## I/O 및 소유권
 
 - clear : 터미널 화면 정리
