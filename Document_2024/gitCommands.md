@@ -189,6 +189,15 @@ log
   - `--full-diff`
   - `--follow` : Continue listing the history of a file beyond renames (works only for a single file).
 
+xargs 조합
+
+- `git ls-files */ActorModelId* | xargs -I {} git log --oneline -3 -- {}`
+  - ls-files 로 조회한 파일 경로를 한 번에 하나씩 log 명령어 path 인자로 전달
+- `git ls-files */ActorModelId* | xargs -n 1 git log --oneline -3 --`
+  - - ls-files 로 조회한 파일 경로를 한번에 하나씩 log 명령어 path 인자로 전달
+- `git ls-files -z */ActorModelId* | xargs -n 2 -0 git log --oneline -3 --`
+  - 이거는 잘 안됌 ㅠ
+
 diff
 
 - 특정 커밋 범위 내 diff 표시 : `git diff <revision-range>`
