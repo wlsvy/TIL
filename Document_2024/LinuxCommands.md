@@ -194,6 +194,38 @@
 
 - Unix/Linux와 Windows의 라인 엔딩 차이: Unix/Linux 시스템에서는 줄 끝을 LF(Line Feed, \n)로 표시합니다. 반면에 Windows 시스템에서는 CRLF(Carriage Return + Line Feed, \r\n)로 줄 끝을 표시합니다. sed 명령어는 기본적으로 Unix 스타일(LF)로 작동하기 때문에 Windows에서 sed를 사용하면 라인 엔딩이 LF로 바뀔 수 있습니다.
 
+### xargs 명령어
+
+`xargs`는 표준 입력에서 읽은 데이터를 인수로 받아서 지정한 명령어를 실행하는 데 사용됩니다. 주로 명령어 결과나 파일 목록을 받아서 반복적으로 명령어를 실행해야 할 때 유용합니다.
+
+- 기본 사용법 :`xargs`는 표준 입력 또는 파일로부터 데이터를 읽고 이를 명령어의 인수로 전달합니다.
+  - `command | xargs [options] [command]`
+
+#### 주요 옵션
+- `-I {}` (Replace-strings): 입력 줄의 특정 부분을 치환하여 사용합니다.
+- `-P num` (Max-procs): 병렬로 명령을 실행할 프로세스 수를 지정합니다.
+- `-d delimiter` (Delimiter): 입력 구분자를 지정합니다.
+- `-n num` (Max-args): 한 번에 전달할 인수의 수를 지정합니다.
+- `-0` (Null): 널 문자(`\0`)를 구분자로 사용합니다. 이는 `find -print0`와 함께 사용할 때 유용합니다.
+
+#### 예제
+
+- 입력된 파일들을 한 번에 `rm` 명령어로 삭제합니다.
+  - `echo "file1 file2 file3" | xargs rm`
+- 현재 디렉토리와 하위 디렉토리에서 `.txt` 확장자를 가진 모든 파일을 찾아 삭제합니다.
+  - `find . -name "*.txt" | xargs rm`
+- -I 옵션 사용: 각 파일을 개별적으로 `mv` 명령어로 이동합니다.
+  - `echo "file1 file2 file3" | xargs -I {} mv {} /path/to/destination/`
+- 병렬 실행 : 한 번에 5개의 병렬 프로세스로 URL들을 다운로드합니다.
+  - `cat urls.txt | xargs -P 5 -I {} wget {}`
+- 다른 구분자 사용: `:`를 구분자로 사용하여 파일들을 삭제합니다.
+  - `echo "file1:file2:file3" | xargs -d ':' rm`
+- 한 번에 전달할 인수의 수 지정 : 한 번에 2개의 파일씩 `ls` 명령어로 리스트합니다.
+  - `echo "file1 file2 file3 file4" | xargs -n 2 ls`
+- 널 문자로 구분된 파일들을 `rm` 명령어로 삭제합니다.
+  - `find . -type f -print0 | xargs -0 rm`
+
+
 ## I/O 및 소유권
 
 - clear : 터미널 화면 정리
