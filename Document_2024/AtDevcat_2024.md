@@ -2485,3 +2485,58 @@ ChatGPT
 - 예를 들어, 순환 구조에서 인덱스를 모듈로 연산하는 경우, 0부터 시작하는 것이 계산이 간단해집니다.
 
 대부분의 현대 프로그래밍 언어에서는 배열이나 리스트의 인덱스를 0부터 시작하도록 설계되었습니다. 일부 언어는 1부터 시작하는 인덱싱을 사용하기도 합니다. 이는 해당 언어의 사용 용도나 설계 철학에 따라 다릅니다.
+
+## 24.08.01
+
+[Restricting a Value Lifetime With the "scoped" Keyword in C#](https://code-maze.com/csharp-scoped-keyword/)
+
+- [Low level struct improvements - C# feature specifications | Microsoft Learn](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/proposals/csharp-11.0/low-level-struct-improvements)
+- `scoped` : c# 11 feature
+
+```cs
+public class Program
+{
+    static void Main(string[] args)
+    {
+        Span<int> heights = stackalloc int[3] { -5, 10, -1 };
+        new FastStore<int>().Clone(heights); //<-- compile error!!!
+    }
+}
+
+public ref struct FastStore<T>
+{
+    private Span<T> _values;
+    public int Length { get => _values.Length; }
+    public FastStore()
+    {
+        _values = new T[3];
+    }
+    public void Clone(ReadOnlySpan<T> values)
+    {
+        if (values.Length != 3)
+            throw new ArgumentException($"'{nameof(values)}' must contain 3 items");
+        values.CopyTo(_values);
+    }
+}
+```
+> the compiler needs to ensure that the stack-allocated memory doesn’t go out of scope before the struct itself.
+
+```cs
+public ref struct FastStore<T>
+{
+    private Span<T> _values;
+    public int Length { get => _values.Length; }
+    public FastStore()
+    {
+        _values = new T[3];
+    }
+    public void Clone(scoped ReadOnlySpan<T> values)
+    {
+        if (values.Length != 3)
+            throw new ArgumentException($"'{nameof(values)}' must contain 3 items");
+        values.CopyTo(_values);
+    }
+}
+```
+
+- 이렇게 고치면 해결된다. `Clone`의 `values` 인자의 생명주기를 `scoped` 키워드를 통해, 메서드 내부에서 한정되 있다는 것을 컴파일러에게 알려줌
