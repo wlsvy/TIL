@@ -91,7 +91,7 @@ checkout
 
 For all unstaged files iFor all unstaged files in current working directory use:
 
-> git checkout -- .
+> `git checkout -- .` or `git restore .`
 
 For a specific file use:
 
@@ -257,11 +257,29 @@ ls-files
 
 특정 브랜치를 대상으로 ->
 
-> git ls-files --with-tree=<branch-name>
+> `git ls-files --with-tree=<branch-name>`
 
 예를 들어, develop 브랜치의 파일 목록을 확인하려면 아래와 같이 입력합니다.
 
-> git ls-files --with-tree=develop
+> `git ls-files --with-tree=develop`
+
+push
+
+- `--force-with-lease=<refname>`
+  - --force-with-lease 옵션은 기존의 --force 옵션보다 안전한 대안으로 제공됩니다. 이 옵션은 로컬에서 마지막으로 fetch 또는 pull한 상태가 여전히 원격 저장소의 최신 상태와 일치하는 경우에만 강제로 push를 수행합니다. 즉, 다른 누군가가 그 사이에 원격 저장소를 업데이트하지 않았다면 push가 수행됩니다. 만약 원격 저장소의 상태가 변경되었다면, 이 옵션을 사용한 push는 거부될 것입니다. 이는 실수로 다른 사람의 작업을 덮어쓰지 않도록 보호해 줍니다.
+
+> `git push origin master --force-with-lease` : 현재 로컬 HEAD를 기반으로 원격 저장소와 비교
+>
+> `git push origin feature --force-with-lease=feature`
+
+> This option allows you to say that you expect the history you are updating is what you rebased and want to replace. If the remote ref still points at the commit you specified, you can be sure that no other people did anything to the ref. It is like taking a "lease" on the ref without explicitly locking it, and the remote ref is updated only if the "lease" is still valid.
+>
+> 이 옵션은 업데이트하고자 하는 이력이 당신이 리베이스한 내용이며, 교체하고 싶다는 것을 명시할 수 있게 해줍니다. 원격 참조가 여전히 지정한 커밋을 가리키고 있다면, 다른 사람이 해당 참조에 변경을 가하지 않았다는 것을 확신할 수 있습니다. 이는 참조에 명시적으로 잠금을 걸지 않고 "임대"를 취하는 것과 같으며, "임대"가 여전히 유효한 경우에만 원격 참조가 업데이트됩니다.
+
+- `--force-if-includes`
+  - Git 2.30 버전에서 도입된 --force-if-includes 옵션은 더 구체적인 조건을 제공합니다. 이 옵션은 특정 커밋이 현재 원격 브랜치의 히스토리에 포함되어 있을 때만 강제 push를 허용합니다. 즉, 원격 브랜치에 특정 커밋이 존재하면 그 이후의 변경 사항들만 강제로 덮어쓸 수 있습니다. 이는 더 세밀한 제어를 가능하게 하며, 특정 변경사항이 포함된 상태에서만 강제 업데이트를 허용하고자 할 때 유용합니다.
+
+> `git push origin master --force-if-includes=<commit-id>`
 
 - [git-log](https://git-scm.com/docs/git-log)
 - [git-diff](https://git-scm.com/docs/git-diff)
