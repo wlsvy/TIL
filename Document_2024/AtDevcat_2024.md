@@ -2781,3 +2781,11 @@ public ref struct FastStore<T>
 
 - 비즈니스 유닛 별로 "미니 CTO" 역할을 하는 "내비게이터"를 두어 의사결정 속도를 높임
 - 현장에서 가장 많은 맥락을 가진 사람들이 가장 적합한 기술 스택 결정을 내릴 수 있도록 함
+
+## 24.08.06
+
+[AutoMapper for Object Mapping in .NET 8 | by tamami.I Web Developer | Medium](https://medium.com/@supino0017/automapper-for-object-mapping-in-net-8-5b20a034de8c)
+
+- [Simplifying Object-to-Object Mapping with AutoMapper | by Has San | Medium](https://medium.com/@Has_San/simplifying-object-to-object-mapping-with-automapper-b4fec35a45a6)
+
+object - object 매핑 코드 자동생성 솔루션
