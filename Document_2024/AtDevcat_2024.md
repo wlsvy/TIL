@@ -2870,3 +2870,94 @@ target.Init();
 $ dotnet run
 Initialized!
 ```
+
+**컴파일 단계에서 IL 조작**
+
+[Fody/PropertyChanged: Injects INotifyPropertyChanged code into properties at compile time](https://github.com/Fody/PropertyChanged)
+
+- Overview
+- **NOTE: All classes that implement `INotifyPropertyChanged` will have notification code injected into property setters.**
+
+Before code:
+
+```csharp
+public class Person : INotifyPropertyChanged
+{
+    public event PropertyChangedEventHandler PropertyChanged;
+    
+    public string GivenNames { get; set; }
+    public string FamilyName { get; set; }
+    public string FullName => $"{GivenNames} {FamilyName}";
+}
+```
+
+What gets compiled:
+
+```csharp
+public class Person : INotifyPropertyChanged
+{
+    public event PropertyChangedEventHandler PropertyChanged;
+
+    string givenNames;
+    public string GivenNames
+    {
+        get => givenNames;
+        set
+        {
+            if (value != givenNames)
+            {
+                givenNames = value;
+                OnPropertyChanged(InternalEventArgsCache.GivenNames);
+                OnPropertyChanged(InternalEventArgsCache.FullName);
+            }
+        }
+    }
+
+    string familyName;
+    public string FamilyName
+    {
+        get => familyName;
+        set 
+        {
+            if (value != familyName)
+            {
+                familyName = value;
+                OnPropertyChanged(InternalEventArgsCache.FamilyName);
+                OnPropertyChanged(InternalEventArgsCache.FullName);
+            }
+        }
+    }
+
+    public string FullName => $"{GivenNames} {FamilyName}";
+
+    protected void OnPropertyChanged(PropertyChangedEventArgs eventArgs)
+    {
+        PropertyChanged?.Invoke(this, eventArgs);
+    }
+}
+
+internal static class InternalEventArgsCache
+{
+    internal static PropertyChangedEventArgs FamilyName = new PropertyChangedEventArgs("FamilyName");
+    internal static PropertyChangedEventArgs FullName = new PropertyChangedEventArgs("FullName");
+    internal static PropertyChangedEventArgs GivenNames = new PropertyChangedEventArgs("GivenNames");
+}
+```
+
+(the actual injected type and method names are different)
+
+**metalame**
+
+[Commented examples](https://doc.postsharp.net/metalama/examples)
+
+| Example | Description |
+| ------------- | ------------- |
+| **Logging** |	Shows several logging aspects, adding complexity at every step. |
+| **Caching** |	Caches the method return value as a function of its parameters. |
+| **Exception** | Handling	Demonstrates several exception-handling strategies including retry, Polly, and adding parameter values for richer reports. |
+| **INotifyPropertyChanged** |	Automatically implements the INotifyPropertyChanged interface and instruments properties. |
+| **Change** | Tracking	Automatically implements the IChangeTracking or IRevertibleChangeTracking interface interface and instruments fields and properties accordingly. |
+| **Clone** |	Implements the Deep Clone pattern. |
+| **Memento** |	Implements the classic Memento pattern. |
+| **Enum** | View-Model	Creates a view-model class to wrap an enum value. |
+| **Shared** | Fabric	Demonstrates a fabric that targets several projects. Contributed by Whit Waldo. |
