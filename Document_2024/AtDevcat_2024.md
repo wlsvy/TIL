@@ -2946,7 +2946,7 @@ internal static class InternalEventArgsCache
 
 (the actual injected type and method names are different)
 
-**metalame**
+**metalama**
 
 [Commented examples](https://doc.postsharp.net/metalama/examples)
 
@@ -2961,3 +2961,167 @@ internal static class InternalEventArgsCache
 | **Memento** |	Implements the classic Memento pattern. |
 | **Enum** | View-Model	Creates a view-model class to wrap an enum value. |
 | **Shared** | Fabric	Demonstrates a fabric that targets several projects. Contributed by Whit Waldo. |
+
+## 24.08.08
+
+**GeekNews SaaS 시리즈**
+
+[1인 SaaS 개발자를 위한 도구 추천  GeekNews](https://news.hada.io/topic?id=5418)
+
+- [Ask HN Great tools for solo SaaS founders  Hacker News](https://news.ycombinator.com/item?id=29297229)
+	
+> I am building a web SAAS and being a developer, I want to mostly focus on development and skip the marketing, pr and other related stuff, hence I am looking for tools to automate/delegate as much as possible. I like building products after all.
+>
+> There are so many great tools and strategies, but almost all of them require you to have a person or even a team to support it - for example all social media automation tools require you to prepare a lot of content to be effective. I can't do that.
+>
+> Do you know any great tools that are more or less 0 maintenance, relatively short setup and deliver value?
+
+    Ask HN에 올라온 질문. 답변들이 좋아서 추려서 옮겨봅니다
+    * 호스팅 : AWS and Cloudflare
+    * 이메일 수신 : Rackspace
+    * 이메일 전송 및 트랜잭션 : Sendgrid
+    * 도메인 : Namecheap
+    * 결제 : Spreedly 와 판매자 계정 / Stripe / Paddle
+    * 어필리에이트 및 커미션 : ShareASale
+    * 광고 : Facebook 과 Google
+    * 이메일 캠페인과 채팅 : Crisp
+    * 파일 업로딩/처리 및 전달 : Uploadcare
+    * 분석 : Amplitude / UxWizz
+
+[Healthchecks.io – The Joy of Building a Cron Monitoring Service](https://blog.healthchecks.io/)
+
+- [9년간 운영된 1인 SaaS  GeekNews](https://news.hada.io/topic?id=16077)
+- [비 내리는 호남선 만든 이야기 (어이 없음을 위한 엔지니어링)](https://garden.postica.app/binary-honam)
+
+![](img/2024-08-08-20-19-18.png)
+
+[1인 SaaS 스타트업 6개월 운영 회고  GeekNews](https://news.hada.io/topic?id=2415)
+
+> Content Security Policy 도구 CSPer를 혼자 만드는 Stuart Larsen이라는 사람의 글
+
+- 무료 트라이얼은 조심하세요
+ㅤ→ 무료 버전이 있으면 시도해보고 훌륭하면 업그레이드 할 것 같지만.. 실제로는 그리 많지 않아요
+ㅤ→ 수많은 무료 사용자가 있어도 업그레이드 하지 않으면 비용만 나갈 뿐이에요
+ㅤ→ 무료버전을 쉽고 사용하기 편하게 기능을 추가할수록 업그레이드 할 필요가 없어질 뿐이에요.
+
+- SEO / Pipeline / 광고
+ㅤ→ 지금은 분명해 보이지만, 처음에는 이걸 활용하지 못했어요.
+ㅤ→ 사람들은 당신의 제품을 단순히 우연히 발견하지 않아요 (People aren’t just going to “stumble” onto your product.)
+ㅤ→ 처음에 제 제품(CSPer)를 발표했을때 부하가 많이 걸리지는 않을까 고민했어요. k8s 나 db 오토스케일링은 잘되나, 이슈를 트레이싱하고 모니터링할수 있는 모든 설정을 고민하고 추가했는데.. 실제로는 거의 아무도 오지 않았어요.
+ㅤ→ SEO/Marketing 은 가장 중요합니다.
+
+- 실망스러운 것
+ㅤ→ 브라우저 확장 리뷰 프로세스 : 크롬은 몇주 걸리고, Firefox 는 코드가 잘 컴파일 되고, 그게 실제 앱스토어에 있는것과 일치하는지 매우 까다롭게 확인합니다.
+ㅤ→ SaaS 의 비용 청구 : 스타트업을 위해서 다른 서비스들을 많이 쓰는데, 정작 청구할 때 이메일 한통도 보내지 않는 서비스들이 있어요.
+ㅤ→ 링크드인,구글,페이스북,트위터에 광고를 시도했지만 별로 좋지 않았어요. 내가 광고를 잘 못 했을수도 있지만, 그 광고를 멈춰도 신규가입이 줄지는 않았어요.
+ㅤㅤ그 대신 저는 SEO에 더 집중하려고 합니다. 사람들이 문제가 생기면 보통 구글링을 하고, 그럴때 내 회사가 거기에 있으면 됩니다.
+
+- 약간은 롤러코스터 같아요
+ㅤ→ 일이 안좋아질 때는 많은일이 동시에 나빠지는 것 같아요. 고객이 떠나고, 파이어폭스 확장 스토어가 내 애드온을 삭제하고, 경쟁업체가 큰 투자를 받고..
+ㅤ→ 정서적인 버퍼가 중요합니다. 내 공간에 약간의 여지를 둬서 이런 충격을 버티도록 했었던거 같아요.
+ㅤ→ 영화/책/인터넷에서 모든 스타트업은 성공적이에요. 다들 성공하고 대가와 보상이 클것 같지만 실제로는 실패할 가능성이 가장 높습니다.
+
+- 추가로, 자신을 위해 일하는건 놀랍습니다.
+ㅤ→ 일이 내 삶의 중심이고, 아침에 일어나 커피한잔 하고 12시간을 일하고 또 일하지만 계속 재미있어요.
+ㅤ→ 모든 작업에 대해서 뭘 했는지를 다 아는 것은 프로젝트를 재미있고 훌륭하게 만듭니다.
+
+[혼자서 SaaS를 1년 운영해보고 배운 것  GeekNews](https://news.hada.io/topic?id=6099)
+
+- [What I learned running a SaaS for a year - OnlineOrNot](https://onlineornot.com/what-learned-running-saas-for-year)
+
+- 문제를 해결하는 것이지, SaaS 구독을 판매하는게 아님
+  - 고객 입장에서 생각하기
+  - "이 기능을 만들면 고객이 찾아올꺼야!"가 아니라 "고객들의 이 짜증나는 문제를 해결해서 도와줘야 겠다" 가 되어야 함
+  - SaaS는 문제를 해결하는 많은 방법중 하나일 뿐
+  - > This takes you from a mindset of "I'm just going to keep building features, they'll all come eventually!" to "I should be helping my users solve this annoying problem".
+
+- 더 많은 트래픽을 가져오기는 어렵고, 현재 트래픽이 하는 것을 변경하기는 쉬움
+  - 인터넷에서 주목을 받는 것은 길고, 느린 게임
+  - 몇달에 걸쳐서 양질의 콘텐츠 마케팅을 꾸준히 한다면 독자수는 하루 1~2명에서 수백명으로 늘어날 것
+  - 사이트에 방문하는 사람 수를 늘리는 것은 정말 쉬운 일이 아님
+  - 반면에 사람들이 사이트에 방문했을 때 하는 것들은 당신이 영향을 줄 수 있고 오늘 바로 할 수 있음
+  - (OAuth 로그인 프로바이더를 추가하는 일 같은 것)
+
+- 작게 자주 배포하기
+  - 사람들은 제품 개선을 위해 특정 기능을 만들라고 제안하겠지만, 그들은 아마도 그 기능을 사용하지 않을 것
+  - 그들은 아마도 도움이 되려고 하는 것이며, 다른 제품에서 유사한 기능을 봤을 것
+  - 당신이 SaaS를 처음 운영하고 있기에, 사람들이 당신에게 얘기를 해주는 것에 기뻐하며, 그들을 위한 기능을 구축하려고 서두르게 될 것
+  - 기능을 만들지 말라는 말은 하지 않겠음(나는 그런 조언을 받았다는 거고, 어쨋든 사용하지 않는 그 기능을 만들었음)
+  - **그 기능을 어떻게 사용할 것인지 묻고, 다른 고객에게 그 문제를 어떻게 처리하는지 물어보고, 해당 기능의 가장 작은 버전을 만들어보고, 다른 사용자들이 그 기능을 쓰는지 살펴 봐야함**
+  - 한 사람만 사용하는 기능을 만들고 싶지는 않잖아요?
+  - 많은 시간을 공들여서 개발한 기능이 사용되지 않아 지워야 한다면, 그건 굉장히 괴로운 일.
+
+- 생각보다 문제 해결에 많은 시간을 들이기 어려움
+  - 1년간 프로그래밍에 쓴 시간 중 절반은 내가 해결하고 싶은 문제를 실제 해결하는데 썼음
+  - 다른 절반은 SaaS 플랫폼을 구축하는데 사용
+  - 여러 유형의 사용자 인증, 평가판, 온보딩, 팀 관리기능, 인보이스 관리기능, 수명주기 이메일 같은 SaaS 플랫폼 일들이 필요함
+  - 많은 것들을 아웃소스 할 수 있음(Stripe가 없었다면 아마 구독형태로 팔지 못했을 것)
+  - 하지만 항상 맘에 안드는 것들은 있고, 좀 다르게 처리하고 싶으면 직접 만들어야 함
+
+[지문은 쉽게 해킹 가능하다  GeekNews](https://news.hada.io/topic?id=5423)
+
+- [Your Fingerprint Can Be Hacked For $5. Here’s How. - Kraken Blog Kraken Blog](https://blog.kraken.com/product/security/your-fingerprint-can-be-hacked-for-5-heres-how)
+
+- 지문은 손잡이, 스크린, 와인잔 등에 쉽게 남음
+- 노트북/폰 화면에 남은 지문을 직접 채취하지 않아도 됨
+  - **사진 찍어서 포토샵 처리만으로 네거티브 사진을 얻을 수 있음**
+  - > To compromise your device or account, we don’t even need direct access to your fingerprint. A photo of a surface you’ve touched (from a table at the local library to the equipment at your nearest gym) will do.
+
+![](img/2024-08-08-20-43-14.png)
+
+- 사진을 레이터 프린터로 아스테이지(투명필름)에 인쇄하면 토너가 지문의 3D구조를 만들어 냄
+- 목공풀을 위에다 바르고 말린뒤 떼어내면 가짜 지문 완성
+
+![](img/2024-08-08-20-41-14.png)
+
+![](img/2024-08-08-20-41-29.png)
+
+* 즉, 지문은 절대 비밀번호 대체제로 사용해선 안됨. 적어도 2FA를 사용하는 것을 고려할 것
+
+[빌게이츠의 2021년 추천서적 5권  GeekNews](https://news.hada.io/topic?id=5426)
+
+- [5 books I loved reading this year  Bill Gates](https://www.gatesnotes.com/Holiday-Books-2021)
+
+- A Thousand Brains: A New Theory of Intelligence, by Jeff Hawkins
+- The Code Breaker: Jennifer Doudna, Gene Editing, and the Future of the Human Race, by Walter Isaacson
+- Klara and the Sun, by Kazuo Ishiguro [클라라와 태양]
+- Hamnet, by Maggie O’Farrell
+- Project Hail Mary, by Andy Weir [프로젝트 헤일메리]
+
+[TW 개발자들을 위한 테크니컬 라이팅 10계명](https://tech-kakaoenterprise.tistory.com/110)
+
+- 필수 문장 성분 생략하지 않기
+
+![](img/2024-08-08-20-25-15.png)
+
+- 문장 성분의 호응 지키기
+- 조사 올바르게 사용하기
+- 피동형/사동형 지양하기
+- 이중 부정 지양하기
+- 명확한 표현 사용하기
+
+![](img/2024-08-08-20-26-17.png)
+
+![](img/2024-08-08-20-26-49.png)
+
+![](img/2024-08-08-20-26-33.png)
+
+- 순서와 목록 구분하기
+- 개조식 활용
+
+![](img/2024-08-08-20-24-41.png)
+
+- 맞춤법/띄어쓰기 체크하기
+- 외래어 표기 체크하기
+
+[나는 어떻게 GTA Online 게임 로딩시간을 70% 줄였는가  GeekNews](https://news.hada.io/topic?id=3813)
+
+- [How I cut GTA Online loading times by 70%](https://nee.lv/2021/02/28/How-I-cut-GTA-Online-loading-times-by-70/)
+
+1. Json parsing with sscanf
+- 게임 코드는 무려 10MB 짜리 아이템 카탈로그 json 파일을 파싱하는데 각 항목(무려 약 63000개)마다 sscanf 함수가 호출했고, sscanf 함수가 호출하는 strlen 함수는 문자열의 길이를 구하기 위해 파일 맨 끝까지 한글자씩 읽었다.
+- 10MB 문자열을 연달아 63000번 읽느라 1분 30초를 더 쓰고 있었다.
+
+2. Hash key not used
+- 위의 내용에 바로 이어, 파싱했던 아이템 정보를 배열에 넣을 때 "배열 시작 위치부터" 순차 탐색을 통해 값을 삽입할 위치를 찾고 있었다.
+- 저장 내용이 중복되는지 확인하기 위해 해시값을 쓰고 있는데도 해시맵을 사용하지 않아 삽입 위치를 찾는데만 "(63000^2+63000)/2" 번의 확인 과정을 거치느라 1분 40초를 더 쓰고 있었다.
