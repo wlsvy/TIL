@@ -141,12 +141,15 @@ log
 - 기본 커맨드 포맷 : `git log [<options>] [<revision-range>] [[--] <path>…​]`
 - By CommitRange :  `git log <revision-range>`
   - > ex) git log --oneline aad924a34e3~2...aad924a34e3
-- By Message : `ex) git log --grep="JRA-224:"`
-- By File : `ex) git log -- foo.py bar.py`
-- By Content : `ex) git log -S"Hello, World!"`
+- **By Message** : `ex) git log --grep="JRA-224:"`
+- **By File** : `ex) git log -- foo.py bar.py`
+- **By Content** : `ex) git log -S"Hello, World!"`
 - `ex) git log --oneline --graph --perl-regexp --author='(kim|oh)'`
 - `ex) git log --since=2022.1.1 --until=2022.11.11 -- path_containing_change`
 - `ex) git log --stat --oneline --follow Some.cs`
+- 순서 역순으로 출력 : `ex) git log --reverse <commit>..HEAD`
+- `--merges` : **머지 커밋 출력**
+  - Print only merge commits. This is exactly the same as --min-parents=2.
 - By LineRange : `ex) git log -L 23,142:SomeDir/SomeFile.txt`
 - 과거에 삭제된 파일도 찾을 수 있다. `ex) git log --stat --all --oneline -- */Some*Script.cs`
 - pretty format
