@@ -108,6 +108,7 @@
     - `-exec` 옵션은 검색된 각 파일에 대해 지정된 명령을 실행합니다. 명령은 {}로 표시된 위치에 파일 이름이 대체되며, 명령의 끝은 반드시 \;로 종료되어야 합니다.
     - 이 명령은 /path/to/search 디렉토리와 그 하위에서 .tmp 확장자를 가진 모든 파일을 찾아서 삭제합니다.
     - `-exec` 옵션에서 {}는 검색된 각 파일의 경로와 이름을 대체하는 자리 표시자입니다
+    - `find . -name "*.png" -maxdepth 1` : recursive 하지 않게 현재 디렉토리의 png 파일 찾기
   - delete: 검색된 파일을 삭제
   - ex) `find /path/to/search -type f -name "*.bak" -delete`
   - ex) `find /path/to/directory -type f \( -name "*.txt" ! -name "*.bak" \)`: 특정 확장자를 포함하면서 다른 확장자는 제외하는 경우
