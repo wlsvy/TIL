@@ -50,7 +50,7 @@ or
 
 **Cheat Sheet**
 
-![](img.2024-06-01-03-59-07.png)
+![](img/2024-06-01-03-59-07.png)
 
 - [Vim Cheat Sheet](https://vim.rtorr.com/)
 
