@@ -13,6 +13,43 @@
 - e (end) : jump to the end of a word
 - ge : jump to the end of a word backwards
 
+**Insert 모드에서 사용할 수 있는 주요 동작**
+
+1. **커서 이동**
+   - **왼쪽 이동**: `Ctrl + h` (백스페이스처럼 동작)
+   - **오른쪽 이동**: `Ctrl + l`
+   - **위로 이동**: `Ctrl + k`
+   - **아래로 이동**: `Ctrl + j`
+
+2. **문자 삭제**
+   - **백스페이스**: `Backspace` 키를 사용하여 커서 앞의 문자를 삭제합니다.
+   - **Ctrl + w**: 커서 앞의 단어를 삭제합니다.
+   - **Ctrl + u**: 커서 앞의 전체 라인을 삭제합니다.
+
+3. **라인의 시작과 끝으로 이동**
+   - **Ctrl + a**: 라인의 맨 처음으로 커서를 이동합니다.
+   - **Ctrl + e**: 라인의 맨 끝으로 커서를 이동합니다.
+
+4. **텍스트 입력과 관련된 기능**
+   - **Esc**: Insert 모드를 종료하고 Normal 모드로 돌아갑니다.
+   - **Ctrl + o**: Insert 모드를 유지하면서 Normal 모드의 단일 명령을 실행할 수 있게 해줍니다. 예를 들어, `Ctrl + o`를 누른 후 `w`를 입력하면 다음 단어로 이동합니다. 명령이 끝나면 Insert 모드로 자동 복귀합니다.
+
+5. **자동 완성**
+   - **Ctrl + n**: 단어 자동 완성 기능을 사용하여 다음 후보를 제시합니다.
+   - **Ctrl + p**: 단어 자동 완성 기능을 사용하여 이전 후보를 제시합니다.
+
+6. **현재 라인 복사**
+   - **Ctrl + y**: 현재 라인의 한 줄 위에 있는 텍스트를 현재 커서 위치에 복사합니다.
+
+7. **삽입된 텍스트 취소**
+   - **Ctrl + u**: 커서 위치에서 현재 라인의 앞쪽 텍스트를 모두 삭제합니다.
+
+### Insert 모드에서 제한된 동작
+
+Insert 모드에서는 대부분의 커서 이동과 편집 작업이 제한됩니다. 일반적으로 Insert 모드는 텍스트 입력을 주로 수행하며, 커서 이동이나 복잡한 편집 작업은 Normal 모드에서 수행하는 것이 `vim`의 기본 철학입니다. 복잡한 이동과 편집은 `Esc`를 눌러 Normal 모드로 돌아간 후 수행하는 것이 일반적입니다.
+
+이와 같은 Insert 모드에서의 키 조합은 빠르게 텍스트를 입력하면서도 간단한 편집 작업을 수행할 수 있도록 도와줍니다.
+
 **현재 라인에서 키워드 교체**
 
 현재 라인에서 특정 키워드를 다른 키워드로 교체하려면 다음 명령을 사용할 수 있습니다.
@@ -47,6 +84,13 @@
 `vim +':set number' 파일이름`\
 or
 `vim +set\ number path/to/file`
+
+**라인 번호로 이동하기**
+
+- :숫자를 입력한 후 Enter를 누르면 해당 라인으로 이동합니다.
+- 예: `:25`를 입력하면 25번째 라인으로 이동합니다.
+- 숫자를 입력한 후 G를 사용
+- 예: `25G`를 입력하면 25번째 라인으로 이동합니다.
 
 **Cheat Sheet**
 
@@ -116,7 +160,7 @@ or
    **A - insert (append) at the end of the line**
    **o - append (open) a new line below the current line**
    **O - append (open) a new line above the current line**
-   **ea - insert (append) at the end of the word**
+   ea - insert (append) at the end of the word
    Ctrl + h - delete the character before the cursor during insert mode
    Ctrl + w - delete word before the cursor during insert mode
    Ctrl + j - add a line break at the cursor poisition during insert mode
@@ -130,7 +174,7 @@ or
 
 - Editing
 
-    r - replace a single character.
+    **r - replace a single character.**
     R - replace more than one character, until ESC is pressed.
     J - join line below to the current one with one space in between
     gJ - join line below to the current one without space in between
