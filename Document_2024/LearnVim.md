@@ -90,6 +90,8 @@ or
 
 ![](img/2024-08-14-00-22-39.png)
 
+![](img/2024-08-14-00-36-00.png)
+
 ![](img/2024-06-01-03-59-07.png)
 
 - [Vim Cheat Sheet](https://vim.rtorr.com/)
