@@ -86,6 +86,22 @@ or
 - 숫자를 입력한 후 G를 사용
 - 예: `25G`를 입력하면 25번째 라인으로 이동합니다.
 
+## neovim
+
+### Neovim 파일 경로 정보
+
+#### 1. ShaDa 파일 경로
+- **Windows**:  
+  `C:\Users\<사용자 이름>\AppData\Local\nvim-data\shada\main.shada`
+- **macOS**:  
+  `~/.local/share/nvim/shada/main.shada`
+
+#### 2. Neovim 설정 파일(`init.vim`) 경로
+- **Windows**:  
+  `C:\Users\<사용자 이름>\AppData\Local\nvim\init.vim`
+- **macOS**:  
+  `~/.config/nvim/init.vim`
+
 **Cheat Sheet**
 
 ![](img/2024-08-14-00-22-39.png)
