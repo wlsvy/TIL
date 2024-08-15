@@ -136,6 +136,19 @@ gives the correct output ... `git chs demo -> git checkout demo && git status`
 
 ## log / diff / Grep / ls-files
 
+status
+
+- `git status` 명령어는 기본적으로 변경된 파일들의 목록을 출력하지만, 디렉토리 내부의 파일들은 요약된 형태로 표시. 
+- `git status --untracked-files`, `git status -u` : 디렉토리 내부의 모든 파일을 펼쳐 보기
+- `git status --verbose` `git status -v`: 이 명령어는 변경된 파일뿐만 아니라, 변경된 파일 내의 실제 변경 사항까지 보여줌
+- 'git status -uall' : 이 명령어를 실행하면 디렉토리 구조 내의 모든 파일이 나열, 추적되지 않은 파일들도 포함
+
+#### 1. `-u` 또는 `--untracked-files` 옵션 사용
+
+```bash
+git status -uall
+
+
 log
 
 - 기본 커맨드 포맷 : `git log [<options>] [<revision-range>] [[--] <path>…​]`
