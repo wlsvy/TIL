@@ -3260,3 +3260,55 @@ internal static class InternalEventArgsCache
     이 시스템이 들어온 이후 마영전 플젝은…
     
     오탈자 때문에 빌드를 다시 묶지 않아도 되었답니다!!!! ✨
+
+## 24.08.20
+
+[“Authentic” is dead. And so is “is dead.”](https://longform.asmartbear.com/authentic-is-dead/)
+
+너무 남용되어진 나머지 신뢰를 잃어버린 단어들
+
+- Authentic
+- Solution
+- Turnkey solution
+- Genuine
+- Powerful
+- Secure
+- Simple
+- Innovative
+- Insight
+- Revolutionary
+- Unsurpassed
+- Unparalleled
+- Cutting-edge
+- World-class
+- State-of-the-art
+- Game-changing
+- Ground-breaking
+- Value-add
+
+> These words have been corrupted by those who claim to honor their meaning but do not act accordingly.
+
+> When a company claims to “put customers first” but then uses “Level 1 support” as a shield to prevent customers from intruding on profits, we realize talk is cheap.
+> 
+> When a company claims to have “secure” payments but then 100,000 credit card numbers are stolen, we realize you don’t need a permit to claim that you’re secure.
+> 
+> When a company claims to be “innovative and disruptive” but then pitches an idea you’ve heard ten times in the past month, it reminds us that if you have to say it, it’s probably not true.
+
+**Be Specific**
+
+- Instead of “easy” say “so straightforward, you won’t need a manual.”
+- Instead of “inexpensive” say “just a dollar a day.”
+- Instead of “powerful” say “processes 6,253,427 requests daily.”
+- Instead of “secure” say “blocks 96 million attacks daily.”
+- Instead of “disruptive” say “72% of our customers say they’ll never go back to a normal email client.”
+- Instead of “beloved” show your NPS or CSAT or G2 rating or a massive wall of real, unsolicited testimonials, like tweets.
+
+**Show, don't tell**
+
+- Instead of saying it’s easy, have a video demonstrating your tool solving someone’s problem in 60 seconds flat.
+- Instead of saying you have eager, responsive, intelligent tech support, put a “chat now” bar on every page of your website.
+- Instead of saying that customers love you, show testimonials from 100 customers. (No one will read them all, but you can impress with sheer quantity.)
+- Instead of saying “we’re innovative,” show your change-log, impressing the viewer with your product velocity.
+- Instead of a bullet-list of benefits, quote actual customers describing your impact on their lives.
+- Instead of generic-sounding testimonials, reproduce unsolicited tweets that show genuine love and gratitude.
+- Instead of saying you value your customers, tell them to call you to test it out, and then answer the phone on the second ring.
