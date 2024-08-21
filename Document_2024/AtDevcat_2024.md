@@ -3312,3 +3312,38 @@ internal static class InternalEventArgsCache
 - Instead of a bullet-list of benefits, quote actual customers describing your impact on their lives.
 - Instead of generic-sounding testimonials, reproduce unsolicited tweets that show genuine love and gratitude.
 - Instead of saying you value your customers, tell them to call you to test it out, and then answer the phone on the second ring.
+
+## 24.08.21
+
+[Humanizr/Humanizer: Humanizer meets all your .NET needs for manipulating and displaying strings, enums, dates, times, timespans, numbers and quantities](https://github.com/Humanizr/Humanizer?WT.mc_id=DT-MVP-5004759)
+
+```cs
+"Man".Pluralize() => "Men"
+"string".Pluralize() => "strings"
+
+"Men".Singularize() => "Man"
+"strings".Singularize() => "string"
+
+"men".ToQuantity(2) => "2 men"
+"process".ToQuantity(2) => "2 processes"
+"process".ToQuantity(1) => "1 process"
+"processes".ToQuantity(2) => "2 processes"
+"processes".ToQuantity(1) => "1 process"
+
+1.Ordinalize() => "1st"
+5.Ordinalize() => "5th"
+
+2.Milliseconds() => TimeSpan.FromMilliseconds(2)
+2.Seconds() => TimeSpan.FromSeconds(2)
+2.Minutes() => TimeSpan.FromMinutes(2)
+2.Hours() => TimeSpan.FromHours(2)
+2.Days() => TimeSpan.FromDays(2)
+2.Weeks() => TimeSpan.FromDays(14)
+
+3.Bits();
+5.Bytes();
+(10.5).Kilobytes();
+(2.5).Megabytes();
+(10.2).Gigabytes();
+(4.7).Terabytes();
+```
