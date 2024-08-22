@@ -112,6 +112,10 @@ For a specific file use:
 
 출처 : [Git Branches: List, Create, Switch to, Merge, Push, & Delete](https://www.nobledesktop.com/learn/git/git-branches)
 
+git branch 좀더
+
+- `git branch -vv` : 원격 브랜치 정보까지 표기
+
 ## Alias MultipleCommand
 
 This targets Windows batch / msysgit bash; might not work on other environments.
