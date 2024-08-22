@@ -3346,4 +3346,11 @@ internal static class InternalEventArgsCache
 (2.5).Megabytes();
 (10.2).Gigabytes();
 (4.7).Terabytes();
+
+"some_title for something".Pascalize() => "SomeTitleForSomething"
+"some_title for something".Camelize() => "someTitleForSomething"
+"SomeTitle".Underscore() => "some_title"
+"some_title".Dasherize() => "some-title"
+"some_title".Hyphenate() => "some-title"
+
 ```
