@@ -3354,3 +3354,15 @@ internal static class InternalEventArgsCache
 "some_title".Hyphenate() => "some-title"
 
 ```
+
+## 24.08.23
+
+[Unity - Scripting API Application.targetFrameRate](https://docs.unity3d.com/ScriptReference/Application-targetFrameRate.html)
+
+유니티에 Application.targetFrameRate 라는 속성이 있는데
+
+pc 환경과는 다르게 모바일 기기는 지원하는 화면주사율이 제한되어있어서 가능한 fps 가 많지 않음
+
+예를 들어 120hz 화면주사율을 지원하는 기기에서는 120hz, 60hz, 30hz, 15hz ... 이렇게 가능
+
+만약 최적화등을 위해서 정교하게 주사율을 다루고자 하는 니즈가 있다면 까다로운 상황인 것
