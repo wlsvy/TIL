@@ -3410,3 +3410,26 @@ pc 환경과는 다르게 모바일 기기는 지원하는 화면주사율이 �
 
 - '점'은 구체적인 업무
 - '점묘화'는 추상적인 업무
+
+[검은 신화 해독 오공 문자 - CSDN Blog](https://blog.csdn.net/sd7o95o/article/details/141479924)
+
+> 중국 -> 한국어 기계 번역
+>
+> 요약하자면, Black Myth: Wukong의 스크립팅 체계는 많은 사용자 정의 개선이 있는 USharp를 기반으로 하며, mono, clr 및 il2cpp를 지원하는 자체 런타임 모드를 구현했으며 PC, Mac, Linux, Android, iOS, PS5 및 Xbox를 포함한 여러 플랫폼도 지원합니다.
+
+- '검은 신화: 오공'의 exe 파일 사이즈가 이례적으로 크다 (895MB)
+
+> 게임의 exe 파일 크기는 859MB에 달하는데 이는 약간 이례적입니다. 이에 비해 오퍼레이션 델타(Operation Delta)와 같은 UE 게임의 클라이언트 크기는 140MB이며, 니드 포 스피드 어셈블(Need for Speed Assemble)의 클라이언트 크기는 105MB입니다. 게임에 불필요한 플러그인 코드가 너무 많이 포함되어 있거나 원치 않는 기호 정보를 제거하지 않는 것 같습니다.
+
+- 게임 리소스의 .data 파일을 확인
+  - 내부에서 유니티의 il2cpp 와 비슷한 역할을 수행하는 `USharp` 의 흔적을 발견
+
+![](img/2024-08-26-14-47-48.png)
+
+> 예를 들어 USharp, UnrealCLR 또는 UnrealSharp가 있습니다. 코드 기호에서 이러한 관련 문자열을 검색했는데 당연히 USharp의 흔적을 찾았고 Pak 파일에서 USharp의 uplugin 파일도 찾았습니다. 이제 그들이 USharp를 사용하고 있다는 것이 확실합니다.
+>
+> 즉, Black Myth: Wukong 팀은 USharp를 사용했을 뿐만 아니라 Unity의 il2cpp 기술을 포함하여 다양한 작동 모드를 지원할 수 있도록 많은 커스터마이징을 수행했습니다. 이것은 그들이 게임을 보다 효율적으로 실행하는 데 큰 도움이 되었음을 보여줍니다.
+>
+> Pak 파일에는 DLL이나 스크립트 파일이 없기 때문에 공식 릴리스에서 il2cpp를 사용하고 있을 가능성이 높습니다. 이러한 방식으로 C#에 정의된 
+
+- [pixeltrisUSharp C plugin for Unreal Engine 4](https://github.com/pixeltris/USharp)
