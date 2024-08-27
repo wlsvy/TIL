@@ -15,33 +15,23 @@
 
 **Insert 모드에서 사용할 수 있는 주요 동작**
 
-1. **커서 이동**
-   - **왼쪽 이동**: `Ctrl + h` (백스페이스처럼 동작)
-   - **오른쪽 이동**: `Ctrl + l`
-   - **위로 이동**: `Ctrl + k`
-   - **아래로 이동**: `Ctrl + j`
-
-2. **문자 삭제**
+1. **문자 삭제**
    - **백스페이스**: `Backspace` 키를 사용하여 커서 앞의 문자를 삭제합니다.
    - **Ctrl + w**: 커서 앞의 단어를 삭제합니다.
    - **Ctrl + u**: 커서 앞의 전체 라인을 삭제합니다.
 
-3. **라인의 시작과 끝으로 이동**
-   - **Ctrl + a**: 라인의 맨 처음으로 커서를 이동합니다.
-   - **Ctrl + e**: 라인의 맨 끝으로 커서를 이동합니다.
-
-4. **텍스트 입력과 관련된 기능**
+2. **텍스트 입력과 관련된 기능**
    - **Esc**: Insert 모드를 종료하고 Normal 모드로 돌아갑니다.
    - **Ctrl + o**: Insert 모드를 유지하면서 Normal 모드의 단일 명령을 실행할 수 있게 해줍니다. 예를 들어, `Ctrl + o`를 누른 후 `w`를 입력하면 다음 단어로 이동합니다. 명령이 끝나면 Insert 모드로 자동 복귀합니다.
 
-5. **자동 완성**
+3. **자동 완성**
    - **Ctrl + n**: 단어 자동 완성 기능을 사용하여 다음 후보를 제시합니다.
    - **Ctrl + p**: 단어 자동 완성 기능을 사용하여 이전 후보를 제시합니다.
 
-6. **현재 라인 복사**
+4. **현재 라인 복사**
    - **Ctrl + y**: 현재 라인의 한 줄 위에 있는 텍스트를 현재 커서 위치에 복사합니다.
 
-7. **삽입된 텍스트 취소**
+5. **삽입된 텍스트 취소**
    - **Ctrl + u**: 커서 위치에서 현재 라인의 앞쪽 텍스트를 모두 삭제합니다.
 
 **현재 라인에서 키워드 교체**
@@ -289,6 +279,8 @@ vim.o.smartindent = true -- Automatically indent new lines
 vim.o.wrap = false -- Disable line wrapping
 vim.o.cursorline = true -- Highlight the current line
 vim.o.termguicolors = true -- Enable 24-bit RGB colors
+vim.o.ignorecase = true
+vim.o.smartcase = true -- 패턴에 대문자가 포함되어 있다면 대소문자 구분
 
 -- Syntax highlighting and filetype plugins
 vim.cmd('syntax enable')
