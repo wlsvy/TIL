@@ -283,123 +283,141 @@ vim.o.ignorecase = true
 vim.o.smartcase = true -- 패턴에 대문자가 포함되어 있다면 대소문자 구분
 
 -- Syntax highlighting and filetype plugins
-vim.cmd('syntax enable')
-vim.cmd('filetype plugin indent on')
+vim.cmd("syntax enable")
+vim.cmd("filetype plugin indent on")
 
 -- Leader key
-vim.g.mapleader = ' ' -- Space as the leader key
+vim.g.mapleader = " " -- Space as the leader key
 
 -- 'lazy.nvim' 설치 및 경로 설정
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
-  vim.fn.system({
-    "git",
-    "clone",
-    "--filter=blob:none",
-    "https://github.com/folke/lazy.nvim.git",
-    "--branch=stable", -- latest stable release
-    lazypath,
-  })
+	vim.fn.system({
+		"git",
+		"clone",
+		"--filter=blob:none",
+		"https://github.com/folke/lazy.nvim.git",
+		"--branch=stable", -- latest stable release
+		lazypath,
+	})
 end
 vim.opt.rtp:prepend(lazypath)
 
 -- 플러그인 설정
 require("lazy").setup({
-  -- Treesitter
-  {
-    "nvim-treesitter/nvim-treesitter",
-    run = ":TSUpdate"
-  },
-  -- Telescope
-  {
-    "nvim-telescope/telescope.nvim",
-    requires = { {"nvim-lua/plenary.nvim"} }
-  },
-  -- 여기에 추가 플러그인들을 나열하세요
-    -- 자동 완성 플러그인
-  {
-    "hrsh7th/nvim-cmp",
-    requires = {
-      "hrsh7th/cmp-nvim-lsp",
-      "hrsh7th/cmp-buffer",
-      "hrsh7th/cmp-path",
-      "hrsh7th/cmp-cmdline",
-      "saadparwaiz1/cmp_luasnip",
-      "L3MON4D3/LuaSnip",
-    }
-  },
+	-- Treesitter
+	{
+		"nvim-treesitter/nvim-treesitter",
+		run = ":TSUpdate",
+	},
+	-- Telescope
+	{
+		"nvim-telescope/telescope.nvim",
+		requires = { { "nvim-lua/plenary.nvim" } },
+	},
+	-- 여기에 추가 플러그인들을 나열하세요
+	-- 자동 완성 플러그인
+	{
+		"hrsh7th/nvim-cmp",
+		requires = {
+			"hrsh7th/cmp-nvim-lsp",
+			"hrsh7th/cmp-buffer",
+			"hrsh7th/cmp-path",
+			"hrsh7th/cmp-cmdline",
+			"saadparwaiz1/cmp_luasnip",
+			"L3MON4D3/LuaSnip",
+		},
+	},
+    {
+        "img-paste-devs/img-paste.vim"
+    },
 
-  -- 코드 분석 플러그인
-  {
-    "jose-elias-alvarez/null-ls.nvim",
-    requires = { "nvim-lua/plenary.nvim" },
-    config = function()
-      local null_ls = require("null-ls")
-      null_ls.setup({
-        sources = {
-          null_ls.builtins.diagnostics.eslint,
-          null_ls.builtins.diagnostics.stylelint,
-          null_ls.builtins.formatting.prettier,
-        },
-      })
-    end
-  },
-  { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
-
+	-- 코드 분석 플러그인
+	{
+		"jose-elias-alvarez/null-ls.nvim",
+		requires = { "nvim-lua/plenary.nvim" },
+		config = function()
+			local null_ls = require("null-ls")
+			null_ls.setup({
+				sources = {
+					null_ls.builtins.diagnostics.eslint,
+					null_ls.builtins.diagnostics.stylelint,
+					null_ls.builtins.formatting.prettier,
+				},
+			})
+		end,
+	},
+	{ "catppuccin/nvim", name = "catppuccin", priority = 1000 },
 })
-
 
 require("catppuccin").setup({
-    flavour = "auto", -- latte, frappe, macchiato, mocha
-    background = { -- :h background
-        light = "latte",
-        dark = "mocha",
-    },
-    transparent_background = false, -- disables setting the background color.
-    show_end_of_buffer = false, -- shows the '~' characters after the end of buffers
-    term_colors = false, -- sets terminal colors (e.g. `g:terminal_color_0`)
-    dim_inactive = {
-        enabled = false, -- dims the background color of inactive window
-        shade = "dark",
-        percentage = 0.15, -- percentage of the shade to apply to the inactive window
-    },
-    no_italic = false, -- Force no italic
-    no_bold = false, -- Force no bold
-    no_underline = false, -- Force no underline
-    styles = { -- Handles the styles of general hi groups (see `:h highlight-args`):
-        comments = { "italic" }, -- Change the style of comments
-        conditionals = { "italic" },
-        loops = {},
-        functions = {},
-        keywords = {},
-        strings = {},
-        variables = {},
-        numbers = {},
-        booleans = {},
-        properties = {},
-        types = {},
-        operators = {},
-        -- miscs = {}, -- Uncomment to turn off hard-coded styles
-    },
-    color_overrides = {},
-    custom_highlights = {},
-    default_integrations = true,
-    integrations = {
-        cmp = true,
-        gitsigns = true,
-        nvimtree = true,
-        treesitter = true,
-        notify = false,
-        mini = {
-            enabled = true,
-            indentscope_color = "",
-        },
-        -- For more plugins integrations please scroll down (https://github.com/catppuccin/nvim#integrations)
-    },
+	flavour = "auto", -- latte, frappe, macchiato, mocha
+	background = { -- :h background
+		light = "latte",
+		dark = "mocha",
+	},
+	transparent_background = false, -- disables setting the background color.
+	show_end_of_buffer = false, -- shows the '~' characters after the end of buffers
+	term_colors = false, -- sets terminal colors (e.g. `g:terminal_color_0`)
+	dim_inactive = {
+		enabled = false, -- dims the background color of inactive window
+		shade = "dark",
+		percentage = 0.15, -- percentage of the shade to apply to the inactive window
+	},
+	no_italic = false, -- Force no italic
+	no_bold = false, -- Force no bold
+	no_underline = false, -- Force no underline
+	styles = { -- Handles the styles of general hi groups (see `:h highlight-args`):
+		comments = { "italic" }, -- Change the style of comments
+		conditionals = { "italic" },
+		loops = {},
+		functions = {},
+		keywords = {},
+		strings = {},
+		variables = {},
+		numbers = {},
+		booleans = {},
+		properties = {},
+		types = {},
+		operators = {},
+		-- miscs = {}, -- Uncomment to turn off hard-coded styles
+	},
+	color_overrides = {},
+	custom_highlights = {},
+	default_integrations = true,
+	integrations = {
+		cmp = true,
+		gitsigns = true,
+		nvimtree = true,
+		treesitter = true,
+		notify = false,
+		mini = {
+			enabled = true,
+			indentscope_color = "",
+		},
+		-- For more plugins integrations please scroll down (https://github.com/catppuccin/nvim#integrations)
+	},
 })
 
--- setup must be called before loading
-vim.cmd.colorscheme "catppuccin"
-vim.o.background = "light"
 
+-- Define the autocmd for markdown file type
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "markdown",
+  callback = function()
+    vim.api.nvim_buf_set_keymap(0, 'n', '<leader>p', ':call mdip#MarkdownClipboardImage()<CR>', { noremap = true, silent = true })
+  end
+})
+
+-- Set the image directory and image name (if you want to change the defaults)
+vim.g.mdip_imgdir = 'img'
+vim.g.mdip_imgname = 'image'
+
+-- Define the :mdip command to call the MarkdownClipboardImage function
+vim.api.nvim_create_user_command('Mdip', function()
+  vim.cmd('call mdip#MarkdownClipboardImage()')
+end, {})
+
+-- setup must be called before loading
+vim.cmd.colorscheme("catppuccin")
+vim.o.background = "light"
 ```
