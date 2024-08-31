@@ -273,7 +273,6 @@ or
 **Neovim config (Init.lua)**
 
 ```lua
-
 -- init.lua
 
 -- Basic settings
@@ -295,6 +294,48 @@ vim.cmd("filetype plugin indent on")
 
 -- Leader key
 vim.g.mapleader = " " -- Space as the leader key
+
+-- Ctrl + A: Select All
+vim.api.nvim_set_keymap('n', '<C-a>', 'ggVG', {noremap = true, silent = true})
+vim.api.nvim_set_keymap('v', '<C-a>', '<ESC>ggVG', {noremap = true, silent = true})
+
+-- Insert 모드에서 Ctrl + (h|j|k|l)가 노멀 모드에서 화살표 키와 동일하게 동작하도록 설정
+vim.api.nvim_set_keymap('i', '<C-h>', '<Left>', {noremap = true, silent = true})
+vim.api.nvim_set_keymap('i', '<C-j>', '<Down>', {noremap = true, silent = true})
+vim.api.nvim_set_keymap('i', '<C-k>', '<Up>', {noremap = true, silent = true})
+vim.api.nvim_set_keymap('i', '<C-l>', '<Right>', {noremap = true, silent = true})
+
+-- Insert/Normal/Visual 모드에서 Alt + j/k를 사용하여 라인을 아래/위로 이동시키기
+vim.api.nvim_set_keymap('i', '<A-j>', '<Esc>:m .+1<CR>gi', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('i', '<A-k>', '<Esc>:m .-2<CR>gi', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<A-j>', ':m .+1<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<A-k>', ':m .-2<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('v', '<A-j>', ":m '>+1<CR>gv=gv", { noremap = true, silent = true })
+vim.api.nvim_set_keymap('v', '<A-k>', ":m '<-2<CR>gv=gv", { noremap = true, silent = true })
+
+-- Insert/Normal/Visual 모드에서 Leader + y/p 로 시스템 클립보드에 복사/붙여넣기
+vim.api.nvim_set_keymap('i', '<A-c>', '<Esc>V"+ygi', { noremap = true, silent = true }) -- 라인 전체 복사
+vim.api.nvim_set_keymap('i', '<A-v>', '<Esc>"+pgi', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>y', '"+y', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>p', '"+p', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('v', '<leader>y', '"+y', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('v', '<leader>p', '"+p', { noremap = true, silent = true })
+
+-- 탭 관련
+vim.api.nvim_set_keymap('n', '<leader>tn', ':tabnew<CR>', { noremap = true, silent = true }) -- 탭 생성
+vim.api.nvim_set_keymap('n', '<leader>tw', ':tabclose<CR>', { noremap = true, silent = true }) -- 현재 탭 닫기
+vim.api.nvim_set_keymap('n', '<leader>tl', ':tabnext<CR>', { noremap = true, silent = true }) -- 다음 탭으로 이동
+vim.api.nvim_set_keymap('n', '<leader>th', ':tabprevious<CR>', { noremap = true, silent = true }) -- 이전 탭으로 이동
+vim.api.nvim_set_keymap('n', '<leader>t1', ':tabfirst<CR>', { noremap = true, silent = true }) -- 첫 번째 탭으로 이동
+vim.api.nvim_set_keymap('n', '<leader>t$', ':tablast<CR>', { noremap = true, silent = true }) -- 마지막 탭으로 이동
+vim.api.nvim_set_keymap('n', '<leader>tm', ':-tabmove<CR>', { noremap = true, silent = true })  -- 현재 탭을 왼쪽으로 이동
+vim.api.nvim_set_keymap('n', '<leader>tp', ':+tabmove<CR>', { noremap = true, silent = true })  -- 현재 탭을 오른쪽으로 이동
+
+-- 창 관련 (pane)
+vim.api.nvim_set_keymap('n', '<leader>ts', ':vsplit<CR>', { noremap = true, silent = true }) -- 창 수직 분할
+vim.api.nvim_set_keymap('n', '<A-h>', '<C-w>h', { noremap = true, silent = true }) -- 창 탐색 (왼쪽)
+vim.api.nvim_set_keymap('n', '<A-l>', '<C-w>l', { noremap = true, silent = true }) -- 창 탐색 (오른쪽)
+
 
 -- 'lazy.nvim' 설치 및 경로 설정
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -355,7 +396,62 @@ require("lazy").setup({
 		end,
 	},
 	{ "catppuccin/nvim", name = "catppuccin", priority = 1000 },
+    { "folke/which-key.nvim", requires = {{"which-key"}}, },
 })
+
+-- 기본 설정 및 확장 기능 로드
+require('telescope').setup{
+  defaults = {
+    -- telescope 기본 설정 옵션들
+    vimgrep_arguments = {
+      'rg',
+      '--color=never',
+      '--no-heading',
+      '--with-filename',
+      '--line-number',
+      '--column',
+      '--smart-case'
+    },
+    prompt_prefix = "🔍 ",
+    selection_caret = " ",
+    path_display = { "smart" },
+    file_ignore_patterns = {"node_modules", ".git/"},
+  },
+  pickers = {
+    -- 기본 픽커 설정
+    find_files = {
+      theme = "dropdown",
+    },
+    live_grep = {
+      theme = "ivy",
+    },
+  },
+  extensions = {
+    -- 추가 확장기능 설정
+  }
+}
+
+-- 키맵핑 설정
+local builtin = require('telescope.builtin')
+local opts = { noremap = true, silent = true }
+
+-- 파일 찾기 (Ctrl+p)
+vim.api.nvim_set_keymap('n', '<C-p>', '<cmd>lua require("telescope.builtin").find_files()<CR>', opts)
+-- 전체 텍스트 검색 (Ctrl+f)
+vim.api.nvim_set_keymap('n', '<C-f>', '<cmd>lua require("telescope.builtin").live_grep()<CR>', opts)
+-- 버퍼 목록 보기 (Ctrl+b)
+vim.api.nvim_set_keymap('n', '<C-b>', '<cmd>lua require("telescope.builtin").buffers()<CR>', opts)
+-- 도움말 태그 검색 (Ctrl+h)
+vim.api.nvim_set_keymap('n', '<C-h>', '<cmd>lua require("telescope.builtin").help_tags()<CR>', opts)
+-- 최근 파일 열기 (Leader+r)
+vim.api.nvim_set_keymap('n', '<leader>r', ':Telescope oldfiles<CR>', opts)
+-- 명령어 탐색 키맵핑
+vim.api.nvim_set_keymap('n', '<leader>q', ':Telescope commands<CR>', { noremap = true, silent = true })
+
+-- <leader>fb: 현재 버퍼 내에서 텍스트 찾기
+vim.api.nvim_set_keymap('n', '<leader>fb', ':Telescope current_buffer_fuzzy_find<CR>', opts)
+-- <leader>ft: 태그 찾기
+vim.api.nvim_set_keymap('n', '<leader>ft', ':Telescope tags<CR>', opts)
 
 require("catppuccin").setup({
 	flavour = "auto", -- latte, frappe, macchiato, mocha
