@@ -277,6 +277,7 @@ or
 **Neovim config (Init.lua)**
 
 ```lua
+
 -- init.lua
 
 -- Basic settings
@@ -344,68 +345,82 @@ vim.api.nvim_set_keymap('n', '<A-l>', '<C-w>l', { noremap = true, silent = true 
 -- 'lazy.nvim' 설치 및 경로 설정
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
-	vim.fn.system({
-		"git",
-		"clone",
-		"--filter=blob:none",
-		"https://github.com/folke/lazy.nvim.git",
-		"--branch=stable", -- latest stable release
-		lazypath,
-	})
+    vim.fn.system({
+        "git",
+        "clone",
+        "--filter=blob:none",
+        "https://github.com/folke/lazy.nvim.git",
+        "--branch=stable", -- latest stable release
+        lazypath,
+    })
 end
 vim.opt.rtp:prepend(lazypath)
 
 -- 플러그인 설정
 require("lazy").setup({
-	-- Treesitter
-	{
-		"nvim-treesitter/nvim-treesitter",
-		run = ":TSUpdate",
-	},
-	-- Telescope
-	{
-		"nvim-telescope/telescope.nvim",
-		requires = { { "nvim-lua/plenary.nvim" } },
-	},
+    -- Treesitter
+    {
+        "nvim-treesitter/nvim-treesitter",
+        run = ":TSUpdate",
+    },
+    -- Telescope
+    {
+        "nvim-telescope/telescope.nvim",
+        requires = { { "nvim-lua/plenary.nvim" } },
+    },
     {
         "nvim-telescope/telescope-file-browser.nvim",
         dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" }
     },
-	-- 여기에 추가 플러그인들을 나열하세요
-	-- 자동 완성 플러그인
-	{
-		"hrsh7th/nvim-cmp",
-		requires = {
-			"hrsh7th/cmp-nvim-lsp",
-			"hrsh7th/cmp-buffer",
-			"hrsh7th/cmp-path",
-			"hrsh7th/cmp-cmdline",
-			"saadparwaiz1/cmp_luasnip",
-			"L3MON4D3/LuaSnip",
-		},
-	},
     {
-        "img-paste-devs/img-paste.vim"
-    },
+        -- [ms-jpq/coq_nvim: Fast as FUCK nvim completion. SQLite, concurrent scheduler, hundreds of hours of optimization.](https://github.com/ms-jpq/coq_nvim?tab=readme-ov-file)
+        "neovim/nvim-lspconfig", -- REQUIRED: for native Neovim LSP integration
+        lazy = false, -- REQUIRED: tell lazy.nvim to start this plugin at startup
+        dependencies = {
+            -- main one
+            { "ms-jpq/coq_nvim", branch = "coq" },
 
-	-- 코드 분석 플러그인
-	{
-		"jose-elias-alvarez/null-ls.nvim",
-		requires = { "nvim-lua/plenary.nvim" },
-		config = function()
-			local null_ls = require("null-ls")
-			null_ls.setup({
-				sources = {
-					null_ls.builtins.diagnostics.eslint,
-					null_ls.builtins.diagnostics.stylelint,
-					null_ls.builtins.formatting.prettier,
-				},
-			})
-		end,
-	},
-	{ "catppuccin/nvim", name = "catppuccin", priority = 1000 },
+            -- 9000+ Snippets
+            { "ms-jpq/coq.artifacts", branch = "artifacts" },
+
+            -- lua & third party sources -- See https://github.com/ms-jpq/coq.thirdparty
+            -- Need to **configure separately**
+            { 'ms-jpq/coq.thirdparty', branch = "3p" }
+            -- - shell repl
+            -- - nvim lua api
+            -- - scientific calculator
+            -- - comment banner
+            -- - etc
+        },
+        init = function()
+            vim.g.coq_settings = {
+                auto_start = true, -- if you want to start COQ at startup
+                -- Your COQ settings here
+            }
+        end,
+        config = function()
+            -- Your LSP settings here
+        end,
+    },
+    -- 코드 분석 플러그인
+    {
+        "jose-elias-alvarez/null-ls.nvim",
+        requires = { "nvim-lua/plenary.nvim" },
+        config = function()
+            local null_ls = require("null-ls")
+            null_ls.setup({
+                sources = {
+                    null_ls.builtins.diagnostics.eslint,
+                    null_ls.builtins.diagnostics.stylelint,
+                    null_ls.builtins.formatting.prettier,
+                },
+            })
+        end,
+    },
+    { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
     { "folke/which-key.nvim", requires = {{"which-key"}}, },
     { "akinsho/toggleterm.nvim", },
+    { "img-paste-devs/img-paste.vim" }, -- paste image in clipboard
 })
 
 -- 기본 설정 및 확장 기능 로드
@@ -470,65 +485,65 @@ vim.api.nvim_set_keymap('n', '<leader>q', ':Telescope commands<CR>', opts) -- �
 vim.api.nvim_set_keymap('n', '<leader>ft', ':Telescope tags<CR>', opts) -- <leader>ft: 태그 찾기
 
 require("catppuccin").setup({
-	flavour = "auto", -- latte, frappe, macchiato, mocha
-	background = { -- :h background
-		light = "latte",
-		dark = "mocha",
-	},
-	transparent_background = false, -- disables setting the background color.
-	show_end_of_buffer = false, -- shows the '~' characters after the end of buffers
-	term_colors = false, -- sets terminal colors (e.g. `g:terminal_color_0`)
-	dim_inactive = {
-		enabled = false, -- dims the background color of inactive window
-		shade = "dark",
-		percentage = 0.15, -- percentage of the shade to apply to the inactive window
-	},
-	no_italic = false, -- Force no italic
-	no_bold = false, -- Force no bold
-	no_underline = false, -- Force no underline
-	styles = { -- Handles the styles of general hi groups (see `:h highlight-args`):
-		comments = { "italic" }, -- Change the style of comments
-		conditionals = { "italic" },
-		loops = {},
-		functions = {},
-		keywords = {},
-		strings = {},
-		variables = {},
-		numbers = {},
-		booleans = {},
-		properties = {},
-		types = {},
-		operators = {},
-		-- miscs = {}, -- Uncomment to turn off hard-coded styles
-	},
-	color_overrides = {},
-	custom_highlights = {},
-	default_integrations = true,
-	integrations = {
-		cmp = true,
-		gitsigns = true,
-		nvimtree = true,
-		treesitter = true,
-		notify = false,
-		mini = {
-			enabled = true,
-			indentscope_color = "",
-		},
-		-- For more plugins integrations please scroll down (https://github.com/catppuccin/nvim#integrations)
-	},
+    flavour = "auto", -- latte, frappe, macchiato, mocha
+    background = { -- :h background
+        light = "latte",
+        dark = "mocha",
+    },
+    transparent_background = false, -- disables setting the background color.
+    show_end_of_buffer = false, -- shows the '~' characters after the end of buffers
+    term_colors = false, -- sets terminal colors (e.g. `g:terminal_color_0`)
+    dim_inactive = {
+        enabled = false, -- dims the background color of inactive window
+        shade = "dark",
+        percentage = 0.15, -- percentage of the shade to apply to the inactive window
+    },
+    no_italic = false, -- Force no italic
+    no_bold = false, -- Force no bold
+    no_underline = false, -- Force no underline
+    styles = { -- Handles the styles of general hi groups (see `:h highlight-args`):
+        comments = { "italic" }, -- Change the style of comments
+        conditionals = { "italic" },
+        loops = {},
+        functions = {},
+        keywords = {},
+        strings = {},
+        variables = {},
+        numbers = {},
+        booleans = {},
+        properties = {},
+        types = {},
+        operators = {},
+        -- miscs = {}, -- Uncomment to turn off hard-coded styles
+    },
+    color_overrides = {},
+    custom_highlights = {},
+    default_integrations = true,
+    integrations = {
+        cmp = true,
+        gitsigns = true,
+        nvimtree = true,
+        treesitter = true,
+        notify = false,
+        mini = {
+            enabled = true,
+            indentscope_color = "",
+        },
+        -- For more plugins integrations please scroll down (https://github.com/catppuccin/nvim#integrations)
+    },
 })
 
 require("toggleterm").setup{
-  size = 20,
-  open_mapping = [[<c-\>]],
-  shade_filetypes = {},
-  shade_terminals = true,
-  shading_factor = '1', 
-  start_in_insert = true,
-  persist_size = true,
-  direction = 'float', -- 'vertical' | 'horizontal' | 'tab' | 'float'
-  close_on_exit = true,
-  shell = vim.o.shell, 
+    size = 20,
+    open_mapping = [[<c-\>]],
+    shade_filetypes = {},
+    shade_terminals = true,
+    shading_factor = '1', 
+    start_in_insert = true,
+    persist_size = true,
+    direction = 'float', -- 'vertical' | 'horizontal' | 'tab' | 'float'
+    close_on_exit = true,
+    shell = vim.o.shell, 
 }
 
 -- Set the image directory and image name (if you want to change the defaults)
@@ -537,7 +552,7 @@ vim.g.mdip_imgname = 'image'
 
 -- Define the :mdip command to call the MarkdownClipboardImage function
 vim.api.nvim_create_user_command('Mdip', function()
-  vim.cmd('call mdip#MarkdownClipboardImage()')
+    vim.cmd('call mdip#MarkdownClipboardImage()')
 end, {})
 
 -- setup must be called before loading
