@@ -367,6 +367,10 @@ require("lazy").setup({
 		"nvim-telescope/telescope.nvim",
 		requires = { { "nvim-lua/plenary.nvim" } },
 	},
+    {
+        "nvim-telescope/telescope-file-browser.nvim",
+        dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" }
+    },
 	-- 여기에 추가 플러그인들을 나열하세요
 	-- 자동 완성 플러그인
 	{
@@ -406,46 +410,63 @@ require("lazy").setup({
 
 -- 기본 설정 및 확장 기능 로드
 require('telescope').setup{
-  defaults = {
-    -- telescope 기본 설정 옵션들
-    vimgrep_arguments = {
-      'rg',
-      '--color=never',
-      '--no-heading',
-      '--with-filename',
-      '--line-number',
-      '--column',
-      '--smart-case'
+    defaults = {
+        -- telescope 기본 설정 옵션들
+        vimgrep_arguments = {
+            'rg',
+            '--color=never',
+            '--no-heading',
+            '--with-filename',
+            '--line-number',
+            '--column',
+            '--smart-case'
+        },
+        prompt_prefix = "🔍 ",
+        selection_caret = " ",
+        path_display = { "smart" },
+        file_ignore_patterns = {"node_modules", ".git/"},
     },
-    prompt_prefix = "🔍 ",
-    selection_caret = " ",
-    path_display = { "smart" },
-    file_ignore_patterns = {"node_modules", ".git/"},
-  },
-  pickers = {
-    -- 기본 픽커 설정
-    find_files = {
-      theme = "dropdown",
+    pickers = {
+        -- 기본 픽커 설정
+        find_files = {
+            theme = "dropdown",
+        },
+        live_grep = {
+            theme = "ivy",
+        },
     },
-    live_grep = {
-      theme = "ivy",
-    },
-  },
-  extensions = {
-    -- 추가 확장기능 설정
-  }
+    extensions = {
+        -- 추가 확장기능 설정
+        file_browser = {
+            theme = "ivy",
+            -- disables netrw and use telescope-file-browser in its place
+            hijack_netrw = true,
+            mappings = {
+                ["i"] = {
+                    -- your custom insert mode mappings
+                },
+                ["n"] = {
+                    -- your custom normal mode mappings
+                },
+            },
+        },
+    }
 }
+
+-- To get telescope-file-browser loaded and working with telescope,
+-- you need to call load_extension, somewhere after setup function:
+require("telescope").load_extension "file_browser"
 
 -- 키맵핑 설정
 local builtin = require('telescope.builtin')
 local opts = { noremap = true, silent = true }
 
 -- telescope
-vim.api.nvim_set_keymap('n', '<C-p>', '<cmd>lua require("telescope.builtin").find_files()<CR>', opts) -- 파일 찾기 (Ctrl+p)
+vim.api.nvim_set_keymap('n', '<C-p>', ':Telescope file_browser<CR>', opts) -- 파일 찾기 (Ctrl+p)
 vim.api.nvim_set_keymap('n', '<C-f>', ':Telescope current_buffer_fuzzy_find<CR>', opts) -- 현재 파일 텍스트 검색 (Ctrl+f)
 vim.api.nvim_set_keymap('n', '<leader><C-f>', '<cmd>lua require("telescope.builtin").live_grep()<CR>', opts) -- 전체 텍스트 검색 (Ctrl+f)
 vim.api.nvim_set_keymap('n', '<C-b>', '<cmd>lua require("telescope.builtin").buffers()<CR>', opts) -- 버퍼 목록 보기 (Ctrl+b)
-vim.api.nvim_set_keymap('n', '<leader>q', ':Telescope commands<CR>', { noremap = true, silent = true }) -- 명령어 탐색 키맵핑
+vim.api.nvim_set_keymap('n', '<leader>q', ':Telescope commands<CR>', opts) -- 명령어 탐색 키맵핑
 vim.api.nvim_set_keymap('n', '<leader>ft', ':Telescope tags<CR>', opts) -- <leader>ft: 태그 찾기
 
 require("catppuccin").setup({
