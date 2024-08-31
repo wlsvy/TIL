@@ -277,7 +277,6 @@ or
 **Neovim config (Init.lua)**
 
 ```lua
- 
 -- init.lua
 
 -- Basic settings
@@ -441,19 +440,13 @@ require('telescope').setup{
 local builtin = require('telescope.builtin')
 local opts = { noremap = true, silent = true }
 
--- 파일 찾기 (Ctrl+p)
-vim.api.nvim_set_keymap('n', '<C-p>', '<cmd>lua require("telescope.builtin").find_files()<CR>', opts)
--- 전체 텍스트 검색 (Ctrl+f)
-vim.api.nvim_set_keymap('n', '<C-f>', '<cmd>lua require("telescope.builtin").live_grep()<CR>', opts)
--- 버퍼 목록 보기 (Ctrl+b)
-vim.api.nvim_set_keymap('n', '<C-b>', '<cmd>lua require("telescope.builtin").buffers()<CR>', opts)
--- 명령어 탐색 키맵핑
-vim.api.nvim_set_keymap('n', '<leader>q', ':Telescope commands<CR>', { noremap = true, silent = true })
-
--- <leader>fb: 현재 버퍼 내에서 텍스트 찾기
-vim.api.nvim_set_keymap('n', '<leader>fb', ':Telescope current_buffer_fuzzy_find<CR>', opts)
--- <leader>ft: 태그 찾기
-vim.api.nvim_set_keymap('n', '<leader>ft', ':Telescope tags<CR>', opts)
+-- telescope
+vim.api.nvim_set_keymap('n', '<C-p>', '<cmd>lua require("telescope.builtin").find_files()<CR>', opts) -- 파일 찾기 (Ctrl+p)
+vim.api.nvim_set_keymap('n', '<C-f>', ':Telescope current_buffer_fuzzy_find<CR>', opts) -- 현재 파일 텍스트 검색 (Ctrl+f)
+vim.api.nvim_set_keymap('n', '<leader><C-f>', '<cmd>lua require("telescope.builtin").live_grep()<CR>', opts) -- 전체 텍스트 검색 (Ctrl+f)
+vim.api.nvim_set_keymap('n', '<C-b>', '<cmd>lua require("telescope.builtin").buffers()<CR>', opts) -- 버퍼 목록 보기 (Ctrl+b)
+vim.api.nvim_set_keymap('n', '<leader>q', ':Telescope commands<CR>', { noremap = true, silent = true }) -- 명령어 탐색 키맵핑
+vim.api.nvim_set_keymap('n', '<leader>ft', ':Telescope tags<CR>', opts) -- <leader>ft: 태그 찾기
 
 require("catppuccin").setup({
 	flavour = "auto", -- latte, frappe, macchiato, mocha
@@ -530,4 +523,3 @@ end, {})
 vim.cmd.colorscheme("catppuccin")
 vim.o.background = "light"
 ```
-
