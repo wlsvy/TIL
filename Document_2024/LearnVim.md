@@ -273,6 +273,7 @@ or
 **Neovim config (Init.lua)**
 
 ```lua
+ 
 -- init.lua
 
 -- Basic settings
@@ -397,6 +398,7 @@ require("lazy").setup({
 	},
 	{ "catppuccin/nvim", name = "catppuccin", priority = 1000 },
     { "folke/which-key.nvim", requires = {{"which-key"}}, },
+    { "akinsho/toggleterm.nvim", },
 })
 
 -- 기본 설정 및 확장 기능 로드
@@ -441,10 +443,6 @@ vim.api.nvim_set_keymap('n', '<C-p>', '<cmd>lua require("telescope.builtin").fin
 vim.api.nvim_set_keymap('n', '<C-f>', '<cmd>lua require("telescope.builtin").live_grep()<CR>', opts)
 -- 버퍼 목록 보기 (Ctrl+b)
 vim.api.nvim_set_keymap('n', '<C-b>', '<cmd>lua require("telescope.builtin").buffers()<CR>', opts)
--- 도움말 태그 검색 (Ctrl+h)
-vim.api.nvim_set_keymap('n', '<C-h>', '<cmd>lua require("telescope.builtin").help_tags()<CR>', opts)
--- 최근 파일 열기 (Leader+r)
-vim.api.nvim_set_keymap('n', '<leader>r', ':Telescope oldfiles<CR>', opts)
 -- 명령어 탐색 키맵핑
 vim.api.nvim_set_keymap('n', '<leader>q', ':Telescope commands<CR>', { noremap = true, silent = true })
 
@@ -502,14 +500,18 @@ require("catppuccin").setup({
 	},
 })
 
-
--- Define the autocmd for markdown file type
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = "markdown",
-  callback = function()
-    vim.api.nvim_buf_set_keymap(0, 'n', '<leader>p', ':call mdip#MarkdownClipboardImage()<CR>', { noremap = true, silent = true })
-  end
-})
+require("toggleterm").setup{
+  size = 20,
+  open_mapping = [[<c-\>]],
+  shade_filetypes = {},
+  shade_terminals = true,
+  shading_factor = '1', 
+  start_in_insert = true,
+  persist_size = true,
+  direction = 'float', -- 'vertical' | 'horizontal' | 'tab' | 'float'
+  close_on_exit = true,
+  shell = vim.o.shell, 
+}
 
 -- Set the image directory and image name (if you want to change the defaults)
 vim.g.mdip_imgdir = 'img'
@@ -524,3 +526,4 @@ end, {})
 vim.cmd.colorscheme("catppuccin")
 vim.o.background = "light"
 ```
+
