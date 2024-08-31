@@ -99,6 +99,13 @@ or
 - **macOS**:  
   `~/.config/nvim/init.vim`
 
+#### 키맵핑 충돌 확인 방법 (key map collision check)
+
+> 설정한 키맵핑이 다른 플러그인이나 기존 설정과 충돌하지 않는지 확인하려면 :verbose map 명령어를 사용하여 현재 사용 중인 모든 키맵핑을 확인할 수 있습니다.
+
+- `:verbose map <A-j>`
+- `:verbose map <A-k>`
+
 **Cheat Sheet**
 
 ![](img/2024-08-14-00-22-39.png)
