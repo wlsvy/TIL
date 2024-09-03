@@ -319,7 +319,7 @@ vim.api.nvim_set_keymap('v', '<A-j>', ":m '>+1<CR>gv=gv", { noremap = true, sile
 vim.api.nvim_set_keymap('v', '<A-k>', ":m '<-2<CR>gv=gv", { noremap = true, silent = true })
 
 -- Insert/Normal/Visual 모드에서 Leader + y/p 로 시스템 클립보드에 복사/붙여넣기
-vim.api.nvim_set_keymap('i', '<C-c>', '<Esc>V"+ygi', { noremap = true, silent = true }) -- 라인 전체 복사
+-- vim.api.nvim_set_keymap('i', '<A-c>', '<Esc>V"+ygi', { noremap = true, silent = true }) -- 라인 전체 복사
 vim.api.nvim_set_keymap('i', '<C-v>', '<Esc>"+pgi', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>y', '"+y', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>p', '"+p', { noremap = true, silent = true })
@@ -333,10 +333,7 @@ vim.api.nvim_set_keymap('n', '<leader>tl', ':tabnext<CR>', { noremap = true, sil
 vim.api.nvim_set_keymap('n', '<leader>th', ':tabprevious<CR>', { noremap = true, silent = true }) -- 이전 탭으로 이동
 vim.api.nvim_set_keymap('n', '<leader>t1', ':tabfirst<CR>', { noremap = true, silent = true }) -- 첫 번째 탭으로 이동
 vim.api.nvim_set_keymap('n', '<leader>t$', ':tablast<CR>', { noremap = true, silent = true }) -- 마지막 탭으로 이동
-vim.api.nvim_set_keymap('n', '<leader>tm', ':-tabmove<CR>', { noremap = true, silent = true })  -- 현재 탭을 왼쪽으로 이동
-vim.api.nvim_set_keymap('n', '<leader>tp', ':+tabmove<CR>', { noremap = true, silent = true })  -- 현재 탭을 오른쪽으로 이동
 
--- 창 관련 (pane)
 -- 창 관련 (pane)
 vim.api.nvim_set_keymap('n', '<leader>ts', ':vsplit<CR>', { noremap = true, silent = true }) -- 창 수직 분할
 vim.api.nvim_set_keymap('n', '<A-h>', '<C-w>h', { noremap = true, silent = true }) -- 창 탐색 (왼쪽)
