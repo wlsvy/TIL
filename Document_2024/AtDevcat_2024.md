@@ -3433,3 +3433,25 @@ pc 환경과는 다르게 모바일 기기는 지원하는 화면주사율이 �
 > Pak 파일에는 DLL이나 스크립트 파일이 없기 때문에 공식 릴리스에서 il2cpp를 사용하고 있을 가능성이 높습니다. 이러한 방식으로 C#에 정의된 
 
 - [pixeltrisUSharp C plugin for Unreal Engine 4](https://github.com/pixeltris/USharp)
+
+## 24.09.06
+
+[The Art of Finishing  ByteDrum](https://www.bytedrum.com/posts/art-of-finishing/)
+
+> As I prepare to step away from my desk, I can’t shake a feeling of frustration. I started the session full of optimism, ready to make significant headway. Now, I’m left with a nagging sense of inadequacy. Despite my efforts, it feels like I’ve barely moved the needle. The codebase is still a maze of TODO comments and half-implemented features. The Hydra of software development has grown two new heads for every one I managed to address.
+> 
+> This cycle of enthusiasm, struggle, and disappointment has become all too familiar. **It’s the Hydra Project Effect: no matter how much progress I make, new challenges always seem to sprout in their place.** But while this pattern may seem unbreakable, **I’m determined to find a way to tame this beast.** In this post, I’ll explore strategies for breaking out of this cycle of endless beginnings and unsatisfying middles. It’s time to learn the art of finishing, to slay this Hydra once and for all, and to finally experience the satisfaction of a completed project.
+
+- ChatGPT 왈
+  - 신화적 또는 은유적 의미:
+  - "Hydra"는 그리스 신화에서 머리를 자르면 여러 개의 새로운 머리가 자라는 괴물입니다. 이를 바탕으로 "Hydra project effect"는 어떤 문제를 해결하려고 할수록 새로운 문제나 과제가 계속해서 생겨나는 상황을 설명하는 은유적 표현일 수 있습니다.
+
+![](img/2024-09-06-20-25-33.png)
+
+> The absence of deadlines in personal projects adds another layer to this complexity2. Without the external pressure of a due date, it’s all too easy to fall into the trap of perfectionism. We find ourselves endlessly tweaking and refining, The absence of deadlines in personal projects adds another layer to this complexity2. Without the external pressure of a due date, it’s all too easy to fall into the trap of perfectionism. We find ourselves endlessly tweaking and refining, **always chasing that elusive “perfect” solution. The irony is that this pursuit of perfection often leads to imperfect results** — or no results at all. In our professional lives, deadlines force us to prioritize and make pragmatic decisions. But in personal projects, the luxury of unlimited time can become a curse, allowing us to justify spending hours, days, or even weeks on minor details that, in reality, make little difference to the project’s overall success or usefulness. — or no results at all. In our professional lives, deadlines force us to prioritize and make pragmatic decisions. But in personal projects, the luxury of unlimited time can become a curse, allowing us to justify spending hours, days, or even weeks on minor details that, in reality, make little difference to the project’s overall success or usefulness.
+
+![](img/2024-09-06-20-33-24.png)
+
+> **The end stages of a project often involve optimization, refactoring, and really understanding the intricacies of your code. By not finishing, you miss out on these valuable learning experiences.** In professional settings, being known as someone who starts things but doesn’t finish them can be detrimental to your career. Employers and clients value those who can deliver completed projects, making the ability to finish a crucial professional skill.
+>
+> **Every unfinished project takes up mental space** It’s like having dozens of browser tabs open — each one uses a little bit of your mental RAM, leaving you with less capacity for new ideas and focused work. This mental clutter can be a significant drain on your creativity and productivity.
