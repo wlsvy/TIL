@@ -278,6 +278,7 @@ or
 
 ```lua
 
+
 -- init.lua
 
 -- Basic settings
@@ -309,6 +310,9 @@ vim.api.nvim_set_keymap('i', '<C-h>', '<Left>', {noremap = true, silent = true})
 vim.api.nvim_set_keymap('i', '<C-j>', '<Down>', {noremap = true, silent = true})
 vim.api.nvim_set_keymap('i', '<C-k>', '<Up>', {noremap = true, silent = true})
 vim.api.nvim_set_keymap('i', '<C-l>', '<Right>', {noremap = true, silent = true})
+
+-- insert 모드에서 Ctrl + w -> 단어 선택
+vim.api.nvim_set_keymap('i', '<C-w>', '<ESC>viw', {noremap = true, silent = true})
 
 -- Insert/Normal/Visual 모드에서 Alt + j/k를 사용하여 라인을 아래/위로 이동시키기
 vim.api.nvim_set_keymap('i', '<A-j>', '<Esc>:m .+1<CR>gi', { noremap = true, silent = true })
@@ -419,7 +423,10 @@ require("lazy").setup({
     { "folke/which-key.nvim", requires = {{"which-key"}}, },
     { "akinsho/toggleterm.nvim", },
     { "img-paste-devs/img-paste.vim" }, -- paste image in clipboard
-    { "preservim/nerdtree" }, -- [preservim/nerdtree: A tree explorer plugin for vim.](https://github.com/preservim/nerdtree)
+
+    -- 일부 폰트는 플러그인에서 활용하는 아이콘들을 지원하지 않아서 '?' 물음표 박스가 뜨는 경우가 있음. chatGPT 한테 물어보니까 NerdFont 쓰라고 해서 그거 쓰니까 해결되더라 
+    { "preservim/nerdtree", }, -- [preservim/nerdtree: A tree explorer plugin for vim.](https://github.com/preservim/nerdtree)
+    {"ryanoasis/vim-devicons", requires = "preservim/nerdtree"}, -- [ryanoasis/vim-devicons: Adds file type icons to Vim plugins such as: NERDTree, vim-airline, CtrlP, unite, Denite, lightline, vim-startify and many more](https://github.com/ryanoasis/vim-devicons) 
 })
 
 -- 기본 설정 및 확장 기능 로드
