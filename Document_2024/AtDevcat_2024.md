@@ -4,6 +4,7 @@
 
 [c - Is it Safe to use ReaderWriterLockSlim in an async method - Stack Overflow](https://stackoverflow.com/questions/15882710/is-it-safe-to-use-readerwriterlockslim-in-an-async-method)
 
+
 ```cs
 System.Threading.ReaderWriterLockSlim readerwriterlock = new System.Threading.ReaderWriterLockSlim();
 private async Task Test()
@@ -3455,3 +3456,46 @@ pc 환경과는 다르게 모바일 기기는 지원하는 화면주사율이 �
 > **The end stages of a project often involve optimization, refactoring, and really understanding the intricacies of your code. By not finishing, you miss out on these valuable learning experiences.** In professional settings, being known as someone who starts things but doesn’t finish them can be detrimental to your career. Employers and clients value those who can deliver completed projects, making the ability to finish a crucial professional skill.
 >
 > **Every unfinished project takes up mental space** It’s like having dozens of browser tabs open — each one uses a little bit of your mental RAM, leaving you with less capacity for new ideas and focused work. This mental clutter can be a significant drain on your creativity and productivity.
+
+## 24.09.07
+
+[Cysharp/UnitGenerator: C# Source Generator to create value-object, inspired by units of measure.](https://github.com/Cysharp/UnitGenerator)
+
+> C# Source Generator to create Value object pattern, also inspired by units of measure to support all arithmetic operators and serialization.
+
+- c# 기본 객체는 산술 연산 / 형변환 연산을 지원하지 않는다. 이를 위한 메서드/ 인터페이스를 일일이 작성해야 하는데, 이를 자동 지원해주는 코드젠
+
+```cs
+using UnitGenerator;
+
+[UnitOf(typeof(int))]
+public readonly partial struct UserId { }
+
+// generated
+
+[System.ComponentModel.TypeConverter(typeof(UserIdTypeConverter))]
+public readonly partial struct UserId : IEquatable<UserId> 
+{
+    readonly int value;
+    
+    public UserId(int value)
+    {
+        this.value = value;
+    }
+
+    public readonly int AsPrimitive() => value;
+    public static explicit operator int(UserId value) => value.value;
+    public static explicit operator UserId(int value) => new UserId(value);
+    public bool Equals(UserId other) => value.Equals(other.value);
+    public override bool Equals(object? obj) => // snip...
+    public override int GetHashCode() => value.GetHashCode();
+    public override string ToString() => value.ToString();
+    public static bool operator ==(in UserId x, in UserId y) => x.value.Equals(y.value);
+    public static bool operator !=(in UserId x, in UserId y) => !x.value.Equals(y.value);
+
+    private class UserIdTypeConverter : System.ComponentModel.TypeConverter
+    {
+        // snip...
+    }
+}
+```
