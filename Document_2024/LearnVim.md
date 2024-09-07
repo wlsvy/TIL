@@ -419,6 +419,7 @@ require("lazy").setup({
     { "folke/which-key.nvim", requires = {{"which-key"}}, },
     { "akinsho/toggleterm.nvim", },
     { "img-paste-devs/img-paste.vim" }, -- paste image in clipboard
+    { "preservim/nerdtree" }, -- [preservim/nerdtree: A tree explorer plugin for vim.](https://github.com/preservim/nerdtree)
 })
 
 -- 기본 설정 및 확장 기능 로드
