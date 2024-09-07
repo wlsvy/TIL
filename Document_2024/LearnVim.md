@@ -343,7 +343,17 @@ vim.api.nvim_set_keymap('n', '<leader>ts', ':vsplit<CR>', { noremap = true, sile
 vim.api.nvim_set_keymap('n', '<A-h>', '<C-w>h', { noremap = true, silent = true }) -- 창 탐색 (왼쪽)
 vim.api.nvim_set_keymap('n', '<A-l>', '<C-w>l', { noremap = true, silent = true }) -- 창 탐색 (오른쪽)
 
+-- text wrap toggle
+function ToggleTextWrap() -- 텍스트 줄 바꿈 토글하는 함수 정의
+    vim.o.wrap = not vim.o.wrap
+    print("Text wrap is now " .. (vim.o.wrap and "enabled" or "disabled"))
+end
 
+vim.api.nvim_create_user_command( -- 명령어 등록
+    'ToggleTextWrap',
+    'lua ToggleTextWrap()',
+    { nargs = 0 }
+)
 -- 'lazy.nvim' 설치 및 경로 설정
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
