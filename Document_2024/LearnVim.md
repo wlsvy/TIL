@@ -407,22 +407,32 @@ require("lazy").setup({
     {"ryanoasis/vim-devicons", requires = "preservim/nerdtree"}, -- [ryanoasis/vim-devicons: Adds file type icons to Vim plugins such as: NERDTree, vim-airline, CtrlP, unite, Denite, lightline, vim-startify and many more](https://github.com/ryanoasis/vim-devicons) 
 })
 
- local is_windows = vim.loop.os_uname().sysname == "Windows_NT"
- local is_macos = vim.loop.os_uname().sysname == "Darwin"
+-- 현재 init.lua의 디렉토리 위치를 가져오는 방법
+local function get_current_directory()
+  local str = debug.getinfo(1, "S").source:sub(2)
+  
+  -- 운영체제에 따른 경로 구분 처리
+  if vim.loop.os_uname().sysname == "Windows_NT" then
+    return str:match("(.*\\)")  -- Windows에서는 백슬래시(\) 사용
+  else
+    return str:match("(.*/)")   -- Unix 계열에서는 슬래시(/) 사용
+  end
+end
 
- -- Windows 특정 설정
- if is_windows then
-     -- Windows 특화 설정을 여기에 추가하세요.
-     -- 예: 플러그인 설정, 단축키 매핑 등
-     require('windows-settings') -- 예시. Windows 전용 설정 파일
- end
+local current_directory = get_current_directory()
+local is_windows = vim.loop.os_uname().sysname == "Windows_NT"
+local is_macos = vim.loop.os_uname().sysname == "Darwin"
 
- -- macOS 특정 설정
- if is_macos then
-     -- macOS 특화 설정을 여기에 추가하세요.
-     -- 예: 플러그인 설정, 단축키 매핑 등
-     require('macos-settings') -- 예시. macOS 전용 설정 파일
- end
+-- 결과 확인용 출력 (디버깅에 사용 가능)
+print("init.lua Directory: " .. current_directory)
+
+if is_windows then -- Windows 특정 설정
+     -- dofile("C:\\Users\\jinpyo.kim\\AppData\\Local\\nvim\\windows-settings.lua")
+     dofile(current_directory .. "windows-settings.lua")
+elseif is_macos then -- macOS 특정 설정
+     dofile(current_directory .. "macos-settings.lua")
+elseif is_macos then -- macOS 특정 설정
+end
 
 -- 기본 설정 및 확장 기능 로드
 require('telescope').setup{
@@ -495,7 +505,7 @@ require("catppuccin").setup({
     show_end_of_buffer = false, -- shows the '~' characters after the end of buffers
     term_colors = false, -- sets terminal colors (e.g. `g:terminal_color_0`)
     dim_inactive = {
-        enabled = false, -- dims the background color of inactive window
+        enabled = true, -- dims the background color of inactive window
         shade = "dark",
         percentage = 0.15, -- percentage of the shade to apply to the inactive window
     },
@@ -507,7 +517,7 @@ require("catppuccin").setup({
         conditionals = { "italic" },
         loops = {},
         functions = {"italic"},
-        keywords = {"italic"},
+        keywords = {},
         strings = {"italic"},
         variables = {},
         numbers = {},
@@ -534,19 +544,6 @@ require("catppuccin").setup({
     },
 })
 
-require("toggleterm").setup{
-    size = 20,
-    open_mapping = [[<c-\>]],
-    shade_filetypes = {},
-    shade_terminals = true,
-    shading_factor = '1', 
-    start_in_insert = true,
-    persist_size = true,
-    direction = 'float', -- 'vertical' | 'horizontal' | 'tab' | 'float'
-    close_on_exit = true,
-    shell = vim.o.shell, 
-}
-
 -- Set the image directory and image name (if you want to change the defaults)
 vim.g.mdip_imgdir = 'img'
 vim.g.mdip_imgname = 'image'
@@ -565,9 +562,54 @@ vim.o.background = "light"
 -- macos-settings.lua
 
 require("lazy").setup({
-
-
+-    {
+-        -- [ms-jpq/coq_nvim: Fast as FUCK nvim completion. SQLite, concurrent scheduler, hundreds of hours of optimization.](https://github.com/ms-jpq/coq_nvim?tab=readme-ov-file)
+-        "neovim/nvim-lspconfig", -- REQUIRED: for native Neovim LSP integration
+-        lazy = false, -- REQUIRED: tell lazy.nvim to start this plugin at startup
+-        dependencies = {
+-            -- main one
+-            { "ms-jpq/coq_nvim", branch = "coq" },
+-
+-            -- 9000+ Snippets
+-            { "ms-jpq/coq.artifacts", branch = "artifacts" },
+-
+-            -- lua & third party sources -- See https://github.com/ms-jpq/coq.thirdparty
+-            -- Need to **configure separately**
+-            { 'ms-jpq/coq.thirdparty', branch = "3p" }
+-            -- - shell repl
+-            -- - nvim lua api
+-            -- - scientific calculator
+-            -- - comment banner
+-            -- - etc
+-        },
+-        init = function()
+-            vim.g.coq_settings = {
+-                auto_start = true, -- if you want to start COQ at startup
+-                -- Your COQ settings here
+-            }
+-        end,
+-        config = function()
+-            -- Your LSP settings here
+-        end,
+-    },
 })
+
+require("toggleterm").setup{
+    size = 20,
+    open_mapping = [[<c-\>]],
+    shade_filetypes = {},
+    shade_terminals = true,
+    shading_factor = '1',
+    start_in_insert = true,
+    persist_size = true,
+    direction = 'float', -- 'vertical' | 'horizontal' | 'tab' | 'float'
+    close_on_exit = true,
+    shell = vim.o.shell,
+}
+```
+```lua
+-- windows-settings.lua
+
 ```
 
 **운영체제 환경별로 init.lua 구분하기**
