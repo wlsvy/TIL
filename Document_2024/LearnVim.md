@@ -382,36 +382,6 @@ require("lazy").setup({
         "nvim-telescope/telescope-file-browser.nvim",
         dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" }
     },
-    {
-        -- [ms-jpq/coq_nvim: Fast as FUCK nvim completion. SQLite, concurrent scheduler, hundreds of hours of optimization.](https://github.com/ms-jpq/coq_nvim?tab=readme-ov-file)
-        "neovim/nvim-lspconfig", -- REQUIRED: for native Neovim LSP integration
-        lazy = false, -- REQUIRED: tell lazy.nvim to start this plugin at startup
-        dependencies = {
-            -- main one
-            { "ms-jpq/coq_nvim", branch = "coq" },
-
-            -- 9000+ Snippets
-            { "ms-jpq/coq.artifacts", branch = "artifacts" },
-
-            -- lua & third party sources -- See https://github.com/ms-jpq/coq.thirdparty
-            -- Need to **configure separately**
-            { 'ms-jpq/coq.thirdparty', branch = "3p" }
-            -- - shell repl
-            -- - nvim lua api
-            -- - scientific calculator
-            -- - comment banner
-            -- - etc
-        },
-        init = function()
-            vim.g.coq_settings = {
-                auto_start = true, -- if you want to start COQ at startup
-                -- Your COQ settings here
-            }
-        end,
-        config = function()
-            -- Your LSP settings here
-        end,
-    },
     -- 코드 분석 플러그인
     {
         "jose-elias-alvarez/null-ls.nvim",
@@ -436,6 +406,23 @@ require("lazy").setup({
     { "preservim/nerdtree", }, -- [preservim/nerdtree: A tree explorer plugin for vim.](https://github.com/preservim/nerdtree)
     {"ryanoasis/vim-devicons", requires = "preservim/nerdtree"}, -- [ryanoasis/vim-devicons: Adds file type icons to Vim plugins such as: NERDTree, vim-airline, CtrlP, unite, Denite, lightline, vim-startify and many more](https://github.com/ryanoasis/vim-devicons) 
 })
+
+ local is_windows = vim.loop.os_uname().sysname == "Windows_NT"
+ local is_macos = vim.loop.os_uname().sysname == "Darwin"
+
+ -- Windows 특정 설정
+ if is_windows then
+     -- Windows 특화 설정을 여기에 추가하세요.
+     -- 예: 플러그인 설정, 단축키 매핑 등
+     require('windows-settings') -- 예시. Windows 전용 설정 파일
+ end
+
+ -- macOS 특정 설정
+ if is_macos then
+     -- macOS 특화 설정을 여기에 추가하세요.
+     -- 예: 플러그인 설정, 단축키 매핑 등
+     require('macos-settings') -- 예시. macOS 전용 설정 파일
+ end
 
 -- 기본 설정 및 확장 기능 로드
 require('telescope').setup{
@@ -574,6 +561,15 @@ vim.cmd.colorscheme("catppuccin")
 vim.o.background = "light"
 ```
 
+```lua
+-- macos-settings.lua
+
+require("lazy").setup({
+
+
+})
+```
+
 **운영체제 환경별로 init.lua 구분하기**
 
 ```
@@ -707,71 +703,4 @@ Windows와 macOS 환경에 따라 Neovim 설정을 구분하려면, vim.loop.os_
 
 이 구조를 통해 코드의 중복을 최소화하고 운영체제에 특화된 설정을 손쉽게 관리할 수 있습니다.
 
-
-Assistant:
-Windows와 macOS 환경에 따라 Neovim 설정을 구분하려면, vim.loop.os_uname().sysname 함수를 이용해 운영체제를 감지할 수 있습니다. 이를 통해 각각의 환경에
-맞는 설정을 적용할 수 있습니다.
-
-아래는 init.lua에서 해당 방법을 사용하는 예제입니다:
-
-
- local is_windows = vim.loop.os_uname().sysname == "Windows_NT"
- local is_macos = vim.loop.os_uname().sysname == "Darwin"
-
- -- 공통 설정
- require('base-settings') -- 예시. 기본 설정이 들어 있는 파일
-
- -- Windows 특정 설정
- if is_windows then
-     -- Windows 특화 설정을 여기에 추가하세요.
-     -- 예: 플러그인 설정, 단축키 매핑 등
-     require('windows-settings') -- 예시. Windows 전용 설정 파일
- end
-
- -- macOS 특정 설정
- if is_macos then
-     -- macOS 특화 설정을 여기에 추가하세요.
-     -- 예: 플러그인 설정, 단축키 매핑 등
-     require('macos-settings') -- 예시. macOS 전용 설정 파일
- end
-
-
-공통 설정은 별도의 파일에 두고, 운영체제별로 다른 설정은 다른 Lua 파일에 분리하면 관리가 쉬워집니다. 예제에서는 base-settings.lua, windows-settings.lua,
-그리고 macos-settings.lua 파일을 사용한다고 가정하고 있습니다.
-
-                                                                     예제 디렉토리 구조
-
-
- ~/.config/nvim/
- ├── init.lua
- ├── base-settings.lua
- ├── windows-settings.lua
- └── macos-settings.lua
-
-
-각 설정 파일의 예제:
-
-                                                                      base-settings.lua
-
-
- -- 공통 설정
- vim.o.number = true
- vim.o.relativenumber = true
-
-
-                                                                    windows-settings.lua
-
-
- -- Windows 전용 설정
- vim.o.clipboard = 'unnamedplus'
-
-
-                                                                     macos-settings.lua
-
-
- -- macOS 전용 설정
- vim.o.clipboard = 'unnamedplus'
-
-
-이 구조를 통해 코드의 중복을 최소화하고 운영체제에 특화된 설정을 손쉽게 관리할 수 있습니다.
 ```
