@@ -429,17 +429,19 @@ end
 
 local current_directory = get_current_directory()
 local is_windows = vim.loop.os_uname().sysname == "Windows_NT"
-local is_macos = vim.loop.os_uname().sysname == "Darwin"
+local is_macos = vim.fn.has("macunix") == 1
 
 -- 결과 확인용 출력 (디버깅에 사용 가능)
-print("init.lua Directory: " .. current_directory)
+-- print("init.lua Directory: " .. current_directory)
 
 if is_windows then -- Windows 특정 설정
-     -- dofile("C:\\Users\\jinpyo.kim\\AppData\\Local\\nvim\\windows-settings.lua")
      dofile(current_directory .. "windows-settings.lua")
+     print("windows Os Recognized...")
 elseif is_macos then -- macOS 특정 설정
      dofile(current_directory .. "macos-settings.lua")
-elseif is_macos then -- macOS 특정 설정
+     print("mac OS Recognized...")
+else
+    print("any predefined os found...")
 end
 
 -- 기본 설정 및 확장 기능 로드
@@ -600,6 +602,7 @@ require("lazy").setup({
 -            -- Your LSP settings here
 -        end,
 -    },
+     {"OmniSharp/omnisharp-vim"},
 })
 
 require("toggleterm").setup{
