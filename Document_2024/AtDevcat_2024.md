@@ -3518,3 +3518,33 @@ public readonly partial struct UserId : IEquatable<UserId>
   - 보통 비즈니스 로직은 쿼리 요청이 완료될 때까지 대기하지 않는다. 비즈니스 로직에서 보내는 쿼리 요청은 큐 형태로 쌓이게 되는데
     - 쿼리 요청 처리가 밀려서 요청 큐의 길이가 너무 길어지면 안된다. 큐 길이를 상시 체크
   
+## 24.09.12
+
+[Common Language Server Protocol](https://code.visualstudio.com/blogs/2016/06/27/common-language-protocol)
+
+- [Langserver.org](https://langserver.org/#implementations-server)
+- ChatGPT
+
+> LSP는 코드 편집기(클라이언트)와 언어 서버(서버) 간의 통신을 표준화하여, 코드 편집기가 특정 프로그래밍 언어에 대한 지원(자동 완성, 코드 탐색, 오류 체크 등)을 언어 서버를 통해 제공할 수 있도록 합니다. 이를 통해 코드 편집기들이 각 언어에 맞는 플러그인을 따로 구현할 필요 없이, LSP 프로토콜만 지원하면 다양한 언어를 지원할 수 있게 됩니다.
+>
+> **LSP (Language Server Protocol)**는 웹 통신을 기반으로 동작하지는 않지만, JSON-RPC 프로토콜을 사용하여 클라이언트와 서버 간에 데이터를 주고받습니다. 통신 자체는 HTTP, WebSocket, STDIO 또는 TCP 소켓과 같은 다양한 통신 방법을 사용할 수 있습니다. 웹 기반으로 구현할 수 있지만, 기본적으로 LSP는 웹 통신을 요구하지는 않습니다. 통신 방식에 따라, 서버와 클라이언트는 로컬에서 실행될 수 있고, 원격 서버와도 연결이 가능합니다.
+
+- LSP 서버는 주로 로컬에서 프로세스 형태로 동작
+- 각 언어 별로 코드 분석, 자동 완성, 참조 추적 등등의 기능을 별도의 서버 측으로 추상화 시켰다.
+
+아래는 Visual Studio Code 측 'A Common Protocol for Languages' 에서 설명
+
+> Visual Studio Code provides rich language support for many programming languages. Support for a particular programming language is powered by a **language server that has a deep understanding of that language.** VS Code communicates with these servers to enable rich editing capabilities like **'Errors & Warnings'**, **'Refactor'**, and **'Go To Definition'**.
+
+![image_2024-09-12-20-04-45](img/image_2024-09-12-20-04-45.png)
+
+- 대략 적인 LSP 의 실행 절차
+  - 코드 편집기는 파일을 새로 열 때마다 `didopen` 알림을 language Server 측으로 전송
+  - 코드 편집기는 파일을 수정할 때마다 `dideidt` 알림을 서버 측으로 전송
+    - 이때 수정 내용에 문제가 있다면 language server 측은 코드 편집기 측으로 경고 / 에러 알림을 보냄
+  - `Go To Definition` 등의 기능을 수행할 때도 language Server 로 요청을 보내고 서버 측 응답을 활용
+  - 코드 편집기가 파일을 닫을 대 `didclose` 알림을 서버 측으로 전송
+
+![image_2024-09-12-20-06-05](img/image_2024-09-12-20-06-05.png)
+
+- C# 과 관련된 LSP 에는 대표적으로 `Omnisharp` 이 있고, 심지어 vim 쪽 플러그인으로도 존재함.
