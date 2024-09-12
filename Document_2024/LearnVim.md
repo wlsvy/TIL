@@ -338,8 +338,16 @@ vim.api.nvim_set_keymap('n', '<leader>t$', ':tablast<CR>', { noremap = true, sil
 
 -- 창 관련 (pane)
 vim.api.nvim_set_keymap('n', '<leader>ts', ':vsplit<CR>', { noremap = true, silent = true }) -- 창 수직 분할
-vim.api.nvim_set_keymap('n', '<A-h>', '<C-w>h', { noremap = true, silent = true }) -- 창 탐색 (왼쪽)
-vim.api.nvim_set_keymap('n', '<A-l>', '<C-w>l', { noremap = true, silent = true }) -- 창 탐색 (오른쪽)
+
+vim.api.nvim_set_keymap('n', '<A-Left>', '<C-w>h', { noremap = true, silent = true }) -- 창 탐색 (왼쪽)
+vim.api.nvim_set_keymap('n', '<A-Right>', '<C-w>l', { noremap = true, silent = true }) -- 창 탐색 (오른쪽)
+vim.api.nvim_set_keymap('n', '<A-Up>', '<C-w>k', { noremap = true, silent = true }) -- 창 탐색 (오른쪽)
+vim.api.nvim_set_keymap('n', '<A-Down>', '<C-w>j', { noremap = true, silent = true }) -- 창 탐색 (오른쪽)
+
+vim.api.nvim_set_keymap('n', '<C-Left>', ':vertical resize +3<CR>', { noremap = true, silent = true }) -- 창 탐색 (왼쪽)
+vim.api.nvim_set_keymap('n', '<C-Right>', ':vertical resize -3<CR>', { noremap = true, silent = true }) -- 창 탐색 (오른쪽)
+vim.api.nvim_set_keymap('n', '<C-Up>', ':horizontal resize +3<CR>', { noremap = true, silent = true }) -- 창 탐색 (오른쪽)
+vim.api.nvim_set_keymap('n', '<C-Down>', ':horizontal resize -3<CR>', { noremap = true, silent = true }) -- 창 탐색 (오른쪽)
 
 -- text wrap toggle
 function ToggleTextWrap() -- 텍스트 줄 바꿈 토글하는 함수 정의
