@@ -3551,3 +3551,84 @@ public readonly partial struct UserId : IEquatable<UserId>
 ![image_2024-09-12-20-06-05](img/image_2024-09-12-20-06-05.png)
 
 - C# 과 관련된 LSP 에는 대표적으로 `Omnisharp` 이 있고, 심지어 vim 쪽 플러그인으로도 존재함.
+
+## 24.09.13
+
+[Why GitHub Actually Won](https://blog.gitbutler.com/why-github-actually-won/)
+
+- [GitHub이 실제로 승리한 이유  GeekNews](https://news.hada.io/topic?id=16685)
+
+- GitHub이 승리한 이유는 두 가지로 요약할 수 있음
+  - 적절한 시기에 시작했음
+  - 좋은 감각을 가졌음
+
+**초기 환경**
+
+- 2005년 즈음, 소프트웨어 개발자는 대부분 Subversion과 같은 중앙 집중형 버전 관리 시스템을 사용
+- Git과 Mercurial이 처음 커밋된 시점이 이 즈음이며, 오픈 소스 기여는 아직도 복잡하고 비효율적이었음
+- 오픈 소스 프로젝트 수는 2005년에 매우 적었고, 전체적으로 중앙 집중형 시스템이 오픈 소스 기여에 적합하지 않았음
+
+**Git의 등장**
+
+- 과거 Linus Torvalds (Linux 창시자) 가 상업용 버전의 BitKeeper 를 굉장히 좋아했다고 전해짐
+- 만약 BitKeeper 가 유로 모델이 아닌 오픈 소스이거나 좀 더 열린 라이센스 정책을 지원했다면 현재 Git은 존재하지 않았을 수도...
+- Linus Torvalds 는 BitKeeper 를 역공학 해서 Linux 커뮤니티와 함께 대망의 Git 프로젝트를 시작함
+
+> There are several reasons why Git felt awesome at the time. They were:
+
+> **branching and merging** were dreams rather than nightmares
+> it was stupendously **fast**
+> permissions were vastly simpler
+
+**GitHub의 등장**
+
+- GitHub의 창립자들은 Git 호스팅의 어려움을 해결하기 위해 GitHub를 개발
+  - 당시 Git 이 SSH 프로토콜을 이용하고 있었는데, 권한을 관리하는 절차가 불편했다고 함
+  - 이 과정을 단순화하기 위해 떠올린 컨셉이 Github로 발전
+사용자를 중심으로 한 접근법을 통해 프로젝트 중심의 기존 호스팅 방식과 차별화됨
+사용자 중심의 네임스페이스와 풀 모델을 도입
+
+**Git의 승리**
+
+- 당시 Git 의 강력한 경쟁자는 Mercurial 이 있었음
+  - 그때 Github 의 부흥에 Ruby 커뮤티니가 크게 기여
+
+---
+
+- This is why Git was cool and why GitHub was started to make using it easier, but the question is, why did Git win? Lots of distributed systems sprang up during this time. Mercurial was similar in a lot of ways and better in many. Why did Git come out on top in the great DVCS war?
+- I think the answer there was “PR”.
+  - Linux 그리고 Rails 커뮤니티가 Git 사용을 주도함.
+
+---
+
+- There is also, and I must say this with a grain of hopeful humility, a possibility that GitHub was the determining factor in the **eventual dominance of Git over Mercurial.**
+- GitHub had the incredible luck to have an amazingly supportive and hip community that embraced us right out of the gate, **namely the Ruby community. Within months, everyone in the Ruby community put their stuff on GitHub.** Rails was the hot shit at that time, it was cooler than PHP, JS frameworks weren’t really around, there was no Node, etc.h
+
+---
+
+- In Mercurial land, there was BitBucket, which was started for Mercurial hosting and written in the Django framework, but I think we just had too much of a head start and there wasn’t enough differentiation. The Python community just didn't adopt it as aggressively as our Ruby community did.
+- As early as December 2008, **GitHub was hosting about 27,000 public repositories where BitBucket had a little over 1,000.** It became difficult to catch up.
+
+**The Competitive Field Collapses**
+
+> **In 2006-2007**, people were first learning about distributed version control systems and Git and Mercurial were starting to fight it out. 
+>
+> **In 2008, GitHub launched.**
+>
+> **In 2011, both Google Code and BitBucket added Git support,** which I’ll mark as the year that **the nail was in the Mercurial coffin.** Git had won and GitHub was now essentially unbeatable. 
+>
+> Just 4 years later, in 2015, **Google Code just completely gave up and shut it’s service down.** In the email they sent out, they basically said “just move to GitHub”. If I remember correctly, they even reached out to us for help with the migration.
+
+---
+
+**Google Code가 승리하지 못한 이유**
+
+- 기존 대형 호스팅 서비스는 수익 모델과 배급에 초점을 맞추었지만, GitHub는 개발자 경험을 최우선으로 고려
+- Google Code, BitBucket 등은 GitHub에 비해 '맛'이 부족했고, 개발자 워크플로우를 제대로 이해하지 못함
+- GitHub는 창업 초기 자금 지원 없이도 성공했으며, 이는 사용자 경험과 커뮤니티 지원의 결과
+
+**GitHub이 승리한 이유**
+
+- GitHub는 새로운 패러다임이 형성되는 시점에 적절히 등장했으며, 개발자 경험을 최우선으로 고려하는 접근 방식이 성공의 핵심 요인
+- 오픈 소스 커뮤니티가 분산 버전 관리로 전환할 때, GitHub는 개발자 경험을 개선하는 데 집중했음
+- 앞으로의 과제는 다음 개발자 워크플로우의 변화가 무엇이 될지, 그리고 이를 성공적으로 구현할 수 있는 '맛'을 가진 회사가 누구일지 궁금
