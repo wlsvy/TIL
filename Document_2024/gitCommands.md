@@ -251,6 +251,7 @@ grep
 
 - `git-grep` : Print lines matching a pattern. Look for specified patterns in the tracked files in the work tree, blobs registered in the index file, or blobs in given tree objects. 
 - `ex) git grep 'time_t' -- '*.[ch]'` : Looks for time_t in all tracked .c and .h files in the working directory and its subdirectories.
+- `ex) git grep -I "keyword" -- :^Document :^Options` : Document 와 Options 디렉토리를 검색대상에서 제외 `:^` 문법에서 `:`는 경로, `^` 는 제외함을 뜻하는 키워드임 
 - `ex) git grep "SomethingKeywords" origin/branchName -- **/*.cs`
 - `ex) $ git grep -i 'boo*' $(git rev-list --all)` : 
 - `ex) git grep -f 'booktype.php.'` : The following output shows that the booktype.php file exists in the current repository, and the file contains a single line.
@@ -262,6 +263,20 @@ grep
   - `-F / --fixed-strings` : Use fixed strings for patterns (don’t interpret pattern as a regex).
   - `-l / --files-with-matches / --name-only` : Instead of showing every matched line, show only the names of files that contain (or do not contain) matches.
   - `-L / --files-without-match`
+  - `-I` : 바이너리 파일 검색 제외 Don’t match the pattern in binary files.
+
+- chatGPT 예시
+
+> `git grep keyword -- Doc :^Doc2 -- '*.cs'`
+
+- 설명:
+  - `git grep keyword`: keyword라는 단어를 검색합니다.
+  - `-- Doc`: Doc 디렉토리 내에서 검색을 수행합니다.
+  - `:^Doc2`: Doc2 디렉토리를 검색에서 제외합니다.
+  - `-- '*.cs'`: 확장자가 .cs인 파일을 검색 대상으로 포함합니다.
+- 주의 사항:
+  - `--` 구분자를 두 번 사용하여 경로와 파일 패턴을 구분해야 합니다.
+  - 파일 패턴은 `-- '*.cs'`와 같이 따옴표로 감싸는 것이 권장됩니다, 특히 쉘에서 와일드카드가 처리되지 않도록 하기 위해서입니다.
 
 ls-files
 
