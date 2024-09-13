@@ -413,6 +413,7 @@ require("lazy").setup({
     -- 일부 폰트는 플러그인에서 활용하는 아이콘들을 지원하지 않아서 '?' 물음표 박스가 뜨는 경우가 있음. chatGPT 한테 물어보니까 NerdFont 쓰라고 해서 그거 쓰니까 해결되더라 
     { "preservim/nerdtree", }, -- [preservim/nerdtree: A tree explorer plugin for vim.](https://github.com/preservim/nerdtree)
     {"ryanoasis/vim-devicons", requires = "preservim/nerdtree"}, -- [ryanoasis/vim-devicons: Adds file type icons to Vim plugins such as: NERDTree, vim-airline, CtrlP, unite, Denite, lightline, vim-startify and many more](https://github.com/ryanoasis/vim-devicons) 
+    { "neoclide/coc.nvim", branch= "release"},
 })
 
 -- 현재 init.lua의 디렉토리 위치를 가져오는 방법
