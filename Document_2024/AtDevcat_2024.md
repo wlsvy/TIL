@@ -3711,3 +3711,36 @@ public IActionResult Register(string username)
     );
 }
 ```
+
+[Alternate Lookup for Dictionary and HashSet in .NET 9 - NDepend Blog](https://blog.ndepend.com/alternate-lookup-for-dictionary-and-hashset-in-net-9/)
+
+- .NET 9 의 새 기능
+
+> The primary use case for an alternate key arises when TKey is a string. In such cases, strings are often represented as ReadOnlySpan<char>. Previously, to lookup a key represented by a ReadOnlySpan<char> in a hash table, it was necessary to convert it to a string using the ToString() method, which results in a string allocation. That is not optimal.
+
+- `Dictionary<string, int>` 을 다룰 때, `TryGetValue`, `ContainsKey` 등 비교 연산을 여러번 수행하는 케이스가 있다고 가정
+  - 이때 비교를 위해 주어지는 값들이 `ReadOnlySpan<char>` 타입이라면, 
+  - Dictionary API 에 파라미터로 넘기기 위해 `ReadOnlySpan<char>` 값을 매번 `string` 타입으로 바꾸는 것은 메모리 관점에서 비효율적
+  - 이때 .NET 9 에 새로 소개된 Alternate LookUp 을 사용한다면??
+    -> GC Safe한 구현을 만들 수 있다!!
+
+```cs
+var dico = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase) {
+    { "Paul", 11 },
+    { "John", 22 },
+    { "Jack", 33 }
+};
+ 
+// .NET 9 : GetAlternateLookup()
+Dictionary<string, int>.AlternateLookup<ReadOnlySpan<char>> lookup = dico.GetAlternateLookup<ReadOnlySpan<char>>();
+ 
+// https://learn.microsoft.com/en-us/dotnet/api/system.memoryextensions.split?view=net-8.0
+string names = "jack ; paul;john ";
+MemoryExtensions.SpanSplitEnumerator<char> ranges = names.AsSpan().Split(';');
+ 
+foreach (Range range in ranges) {
+   ReadOnlySpan<char> key = names.AsSpan(range).Trim();
+   int val = lookup[key];
+   Console.WriteLine(val);
+}
+```
