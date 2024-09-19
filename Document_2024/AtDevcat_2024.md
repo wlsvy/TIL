@@ -3632,3 +3632,82 @@ public readonly partial struct UserId : IEquatable<UserId>
 - GitHub는 새로운 패러다임이 형성되는 시점에 적절히 등장했으며, 개발자 경험을 최우선으로 고려하는 접근 방식이 성공의 핵심 요인
 - 오픈 소스 커뮤니티가 분산 버전 관리로 전환할 때, GitHub는 개발자 경험을 개선하는 데 집중했음
 - 앞으로의 과제는 다음 개발자 워크플로우의 변화가 무엇이 될지, 그리고 이를 성공적으로 구현할 수 있는 '맛'을 가진 회사가 누구일지 궁금
+
+## 24.09.19
+
+[mcintyre321OneOf Easy to use F-like ~discriminated~ unions for C with exhaustive compile time matching](https://github.com/mcintyre321/OneOf/tree/master)
+
+- oneOf
+- F#의 공용체(Union) 표현을 c# SourceGenerator를 통해 구현
+
+```cs
+// github 에서 예시로 보여주는 자동생성 코드
+public readonly struct OneOf<T0, T1> : IOneOf
+{
+    readonly T0 _value0;
+    readonly T1 _value1;
+    readonly int _index;
+
+    OneOf(int index, T0 value0 = default, T1 value1 = default)
+    {
+        _index = index;
+        _value0 = value0;
+        _value1 = value1;
+    }
+
+    public object Value =>
+        _index switch
+        {
+            0 => _value0,
+            1 => _value1,
+            _ => throw new InvalidOperationException()
+        };
+
+    public int Index => _index;
+
+    public bool IsT0 => _index == 0;
+    public bool IsT1 => _index == 1;
+
+    public T0 AsT0 =>
+        _index == 0 ?
+            _value0 :
+            throw new InvalidOperationException($"Cannot return as T0 as result is T{_index}");
+    public T1 AsT1 =>
+        _index == 1 ?
+            _value1 :
+            throw new InvalidOperationException($"Cannot return as T1 as result is T{_index}");
+
+    public static implicit operator OneOf<T0, T1>(T0 t) => new OneOf<T0, T1>(0, value0: t);
+    public static implicit operator OneOf<T0, T1>(T1 t) => new OneOf<T0, T1>(1, value1: t);
+}
+```
+
+```cs
+// 사용 예시
+public OneOf<User, InvalidName, NameTaken> CreateUser(string username)
+{
+    if (!IsValid(username)) return new InvalidName();
+    var user = _repo.FindByUsername(username);
+    if(user != null) return new NameTaken();
+    var user = new User(username);
+    _repo.Save(user);
+    return user;
+}
+
+[HttpPost]
+public IActionResult Register(string username)
+{
+    OneOf<User, InvalidName, NameTaken> createUserResult = CreateUser(username);
+    return createUserResult.Match(
+        user => new RedirectResult("/dashboard"),
+        invalidName => {
+            ModelState.AddModelError(nameof(username), $"Sorry, that is not a valid username.");
+            return View("Register");
+        },
+        nameTaken => {
+            ModelState.AddModelError(nameof(username), "Sorry, that name is already in use.");
+            return View("Register");
+        }
+    );
+}
+```
