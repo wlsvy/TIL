@@ -1462,6 +1462,18 @@ public class FalseSharingDemo
 
 ![](img/2024-05-27-18-43-05.png)
 
+[The Decorator pattern in modern C  by Gael Fraiteur  timeless-dotnet  Medium](https://medium.com/timeless-dotnet/the-decorator-pattern-in-modern-c-32430c1139cb)
+
+- When to use a Decorator pattern in C#
+- The Decorator pattern is useful when you want to add behavior to an existing component but either cannot or do not want to modify the source code. This is typically done to adhere to the single responsibility principle (SRP) to keep our code clean, readable, and maintainable.
+
+Some real-world use cases for the decorator design pattern include:
+
+- **Execution policies**, such as exception handling, retrying, or caching, which help improve the performance and reliability of your apps.
+- **Observability**, for instance, by adding logging to all calls to an external component.
+- **User Interface**, like adding a scrollbar to a large textbox. Another example is the Adorner concept in WPF.
+- **Streams**, with features such as buffering, encryption, or compression.
+
 [microsoftMicrosoft.IO.RecyclableMemoryStream A library to provide pooling for .NET MemoryStream objects to improve application performance.](https://github.com/microsoft/Microsoft.IO.RecyclableMemoryStream)
 
 > Microsoft.IO.RecyclableMemoryStream is a MemoryStream replacement that offers superior behavior for performance-critical systems. In particular it is optimized to do the following:
@@ -3751,3 +3763,4 @@ foreach (Range range in ranges) {
    Console.WriteLine(val);
 }
 ```
+
