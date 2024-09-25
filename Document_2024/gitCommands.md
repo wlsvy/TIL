@@ -161,6 +161,8 @@ log
 - **By Message** : `ex) git log --grep="JRA-224:"`
 - **By File** : `ex) git log -- foo.py bar.py`
 - **By Content** : `ex) git log -S"Hello, World!"`
+  - `-S<string>` : Look for differences that change the number of occurrences of the specified string (i.e. addition/deletion) in a file.
+  - `-G<regex>` : Look for differences whose patch text **contains added/removed lines** that match <regex>. <- 파일 변경 부분까지 검사함. 추가 / 삭제된 부분까지 확인하고 싶다면 유용하게 쓸 수 있다.
 - `ex) git log --oneline --graph --perl-regexp --author='(kim|oh)'`
 - `ex) git log --since=2022.1.1 --until=2022.11.11 -- path_containing_change`
 - `ex) git log --stat --oneline --follow Some.cs`
