@@ -3764,3 +3764,87 @@ foreach (Range range in ranges) {
 }
 ```
 
+## 24.09.25
+
+[C 고성능 서버 - 메모리 단편화  leafbirddevnote](https://leafbird.github.io/devnote/2021/08/08/C-%EA%B3%A0%EC%84%B1%EB%8A%A5-%EC%84%9C%EB%B2%84-%EB%A9%94%EB%AA%A8%EB%A6%AC-%EB%8B%A8%ED%8E%B8%ED%99%94/)
+
+- [The curse of memory fragmentation - Ayende @ Rahien](https://ayende.com/blog/181761-C/the-curse-of-memory-fragmentation)
+
+- SOH에 메모리 단편화가 커진다면, GC 측 메모리 할당과 Compact 단계에서 부하가 커지는 것이 사실
+- 그러니 SOH 에서 pinning 되는 메모리들을 최소화 하는 것이 좋다. 사이즈가 작고 생명주기가 긴 버퍼들이 주로 그렇다.
+  - 이들은 POH / LOH 등 다른 메모리 영역에 할당하는 것이 메모리 운용 상 유리할 수 있다.
+
+```cs
+// POH 예시 코드 .NET 5 이상
+// 아래 코드 에서는 alloc / free 를 명시적으로 수행해줘야 하는게 핵심이다.
+
+using System;
+using System.Runtime.InteropServices;
+
+class Program
+{
+    static void Main()
+    {
+        int[] numbers = new int[] { 1, 2, 3, 4, 5 };
+
+        // Pin the array so that the GC cannot move it
+        GCHandle handle = GCHandle.Alloc(numbers, GCHandleType.Pinned);
+
+        // Get the address of the pinned object
+        IntPtr address = handle.AddrOfPinnedObject();
+
+        Console.WriteLine($"Address of pinned object: {address}");
+
+        // Now we can safely pass this address to a native function or use it for interop purposes
+
+        // Release the pinned object when done (to avoid memory leaks)
+        handle.Free();
+    }
+}
+
+//혹은 이렇게
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        // Allocate a pinned array using GC.AllocateArray
+        int[] numbers = GC.AllocateArray<int>(5, pinned: true); // Array of length 5, pinned
+
+        // Initialize the array
+        numbers[0] = 1;
+        numbers[1] = 2;
+        numbers[2] = 3;
+        numbers[3] = 4;
+        numbers[4] = 5;
+
+        // Since the array is pinned, we can safely get its address
+        unsafe
+        {
+            fixed (int* p = numbers)
+            {
+                IntPtr address = (IntPtr)p;
+                Console.WriteLine($"Address of pinned object: {address}");
+            }
+        }
+        
+        // No need to manually free the handle when using GC.AllocateArray with pinned: true
+    }
+}
+```
+
+**단편화 발생의 원인**
+
+> 성능좀 끌어올려보겠다고 다짐한 C# 게임서버의 메모리 단편화는 어디서 발생하는가.
+
+> 핵심부터 말하자면 소켓의 send / receive에 걸어주는 바이트 배열 버퍼가 pinning되기 때문에, 가비지 컬렉터의 압축과정을 많이 방해하게 되면서 메모리 단편화를 유발한다. 이 부분이 메모리 단편화의 가장 주된 요인이다. 그런데다가 높은 TPS를 처리해내는 고성능 게임서버를 만들려고 한다면.. 소켓 IO의 수가 많아짐에 따라 네트워크 버퍼의 개수와 사용 빈도도 당연히 높아질 수밖에 없다. 때문에 대량의 네트워크 통신을 견딜 수 있도록 만드려면 네트워크 버퍼를 어떻게 운용할 것인지가 중요하다.
+
+---
+
+> 코드상에서 임의의 객체를 약참조 하기 위해 사용하는 `System.WeakReference`도 `pinning handle`을 사용하고 있어, 단편화 유발의 원인이 된다. 이건 참 아이러니한 일이다. 참조하는 대상이 쉽게 메모리 해제될 수 있도록 약참조하는 기능을 하지만, WeakReference 자신은 고정된 메모리를 만들면서 메모리 단편화를 가속시킨다. 처음 서버 기반을 만들 땐 WeakReference가 GC를 방해한다는 사실을 모르고 엄청시리 쓰고 있었는데, 비교적 근래에 실 서비스에서 메모리 문제들을 겪으면서 디버깅 하던 중 메모리가 고정되고 있음을 알게됐다. 현재는 약참조 사용이 꼭 필요한 일부를 제외하고는 모두 제거하였고, 가능하면 WeakReference 의 사용을 자제하고 있다.
+
+--- 
+
+> 조금은 다른 이야기지만 처음 ArrayPool<T> 가 BCL에 들어왔을때 아주 당연하게 착각한것이, 이놈으로 byte[]를 풀링하면 내부적으로 큰 청크를 한 번만 할당해서 이걸 조각내서 쓸것으로 생각했다. 메모리 관리라 하면 으레 이 방식이 익숙해서였다. 하지만 조금만 생각해보면, C#에서는 불가능한 이야기다. 덩치큰 byte[]를 여러개의 작은 byte[]로 표현할 수가 없다. ArrayPool<T> 코드를 보면 할당 자체는 SOH상에서 단일객체 단위로 발생하나, 그 외 나머지 기법들을 이용해 최적화를 진행함을 알 수 있다. 코드를 보면 2세대 GC가 불릴 때 콜백을 얻어와 현재 메모리 압력을 진단하고, 선택적으로 메모리를 해제하는 등의 테크닉을 볼 수 있다. 이런건 나중에 메모리 로우레벨을 제어해야 할 경우 참고하여 응용하면 좋을듯 하다.
+
