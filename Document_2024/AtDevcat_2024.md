@@ -3846,3 +3846,40 @@ class Program
 
 > 조금은 다른 이야기지만 처음 ArrayPool<T> 가 BCL에 들어왔을때 아주 당연하게 착각한것이, 이놈으로 byte[]를 풀링하면 내부적으로 큰 청크를 한 번만 할당해서 이걸 조각내서 쓸것으로 생각했다. 메모리 관리라 하면 으레 이 방식이 익숙해서였다. 하지만 조금만 생각해보면, C#에서는 불가능한 이야기다. 덩치큰 byte[]를 여러개의 작은 byte[]로 표현할 수가 없다. ArrayPool<T> 코드를 보면 할당 자체는 SOH상에서 단일객체 단위로 발생하나, 그 외 나머지 기법들을 이용해 최적화를 진행함을 알 수 있다. 코드를 보면 2세대 GC가 불릴 때 콜백을 얻어와 현재 메모리 압력을 진단하고, 선택적으로 메모리를 해제하는 등의 테크닉을 볼 수 있다. 이런건 나중에 메모리 로우레벨을 제어해야 할 경우 참고하여 응용하면 좋을듯 하다.
 
+## 24.09.26
+
+[미국 국립표준기술연구소가 이번에 권고한 비밀번호 규칙  유머 게시판](https://bbs.ruliweb.com/best/board/300143/read/67790411)
+
+1. 비밀번호 길이는 최소 8자, 권고사항은 15자 이상일 것.
+2. 비밀번호의 최대 길이는 64자까지 허용할 것.
+3. 비밀번호는 공백문자를 포함한 ASCII, 유니코드 문자를 허용할 것.
+4. 비밀번호를 요구할 때 다양한 구성요소를 요구하지 말 것(Ex. 대소문자,숫자,특문 혼합 등)
+5. 주기적으로 비밀번호 변경을 요구하지 말 것
+- 단 비밀번호가 유출될 경우 강제로 변경하라고 할 것 등이 있음,
+
+- [NIST Password Guidelines 2024  AuditBoard](https://www.auditboard.com/blog/nist-password-guidelines/)
+
+**NIST Password Guideline Standards**
+
+1. Enable ‘Show Password’
+2. Use a Password Manager for Increased Password Strength
+3. Store Secrets Securely through Salting and Hashing
+4. Lock After Multiple Attempts
+5. Employ Two-Factor Authentication or Multi-Factor Authentication
+
+**Frequency of Password Changes**
+
+- 비밀번호를 자주 변경하는 것이 오히려 부작용을 가져올 수 있다고 함
+- 사람들이 비밀번호를 바꿀 때 숫자 몇 글자만 변경한다던지 하는 패턴들을 해커들이 이미 다 꿰고 있기 때문이다.
+- NIST에서는 일반적으로 권장되는 30일, 90일 보다 더 긴 기간 (365일) 이후에 비밀번호를 바꾸는 것을 권장. 그리고 이 때에 해독하기 어려운 긴 비밀번호를 사용하는 것을 장려함
+
+> individuals who are asked to change passwords frequently are much more likely to reuse an old password and merely append a number, letter, or special character to the end of it. Professional hackers know this trick and are savvy enough to predict minor changes. Plus, if a previous password has already been compromised, any derivations of that password, even if additional characters are added or modified, are more easily breached in the future.
+>
+> NIST recommends that businesses enforce password expiration and password resets only when a known compromise has occurred, or every 365 days. The shift to longer password life is intended to encourage users to generate longer passwords that are harder to crack.
+
+**NIST’s New Guidelines for Passwords**
+
+1. Reduce the Importance of Password Complexity
+2. Monitor New Passwords Automatically
+3. Threats to Authentication
+4. Eliminate Password Hints
