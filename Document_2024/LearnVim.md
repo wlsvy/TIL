@@ -352,7 +352,17 @@ vim.api.nvim_set_keymap('n', '<C-Down>', ':horizontal resize -3<CR>', { noremap 
 -- text wrap toggle
 function ToggleTextWrap() -- 텍스트 줄 바꿈 토글하는 함수 정의
     vim.o.wrap = not vim.o.wrap
-    print("Text wrap is now " .. (vim.o.wrap and "enabled" or "disabled"))
+    if vim.o.wrap then
+        -- wrap이 켜졌을 때 'j', 'k'를 'gj', 'gk'로 매핑
+        vim.api.nvim_set_keymap('n', 'j', 'gj', { noremap = true, silent = true })
+        vim.api.nvim_set_keymap('n', 'k', 'gk', { noremap = true, silent = true })
+        print("Text wrap enabled. Mapped 'j' to 'gj' and 'k' to 'gk'")
+    else
+        -- wrap이 꺼졌을 때 기본 'j', 'k'로 복원
+        vim.api.nvim_set_keymap('n', 'j', 'j', { noremap = true, silent = true })
+        vim.api.nvim_set_keymap('n', 'k', 'k', { noremap = true, silent = true })
+        print("Text wrap disabled. Restored default 'j' and 'k'")
+    end
 end
 
 vim.api.nvim_create_user_command( -- 명령어 등록
