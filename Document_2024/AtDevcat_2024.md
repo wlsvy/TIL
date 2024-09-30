@@ -3910,4 +3910,10 @@ class Program
 
 > As the name suggests they are for workstation (i.e., client) and server workloads respectively. **Workstation workload implies you share the machine with many other processes** whereas **server workload usually means it's the dominant process on the machine** and tends to have many users threads working in the process. The major difference between these 2 GC flavors is **WKS GC has one heap and SVR GC has as many heaps as there are logical cores on the machine**, with the same # of GC threads doing GC work.
 
+[.NET Framework 1026. 닷넷 5에 추가된 POH (Pinned Object Heap)](https://www.sysnet.pe.kr/2/0/12545)
 
+- poh... 잘 써먹을 수 있는 물건인지...
+- [Pinned Object Heap in .NET 5 – TooSlowException](https://tooslowexception.com/pinned-object-heap-in-net-5/)
+  - [Use Pinned Object Heap for MemoryPool by benaadams · Pull Request 21614 · dotnetaspnetcore](https://github.com/dotnet/aspnetcore/pull/21614)
+  - [runtimedocsdesignfeaturesPinnedHeap.md at main · dotnetruntime](https://github.com/dotnet/runtime/blob/main/docs/design/features/PinnedHeap.md)
+  - 현재 뚜렷한 사용 사례는 asp.net 의 kestral 에서 PinnedObjectMemoryPool 을 구현해서 사용하고 있다는 것
