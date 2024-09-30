@@ -3898,3 +3898,16 @@ class Program
 
 -> 캐릭터 삭제 처리 후, 실제로 대상 캐릭터 이름이 미사용 처리되기 까지 '랜덤' 유예기간을 둬서 어뷰징을 완화 가능
 
+## 24.09.30
+
+[mem-docdoc.NETMemoryPerformanceAnalysis.md at master · Maoni0mem-doc](https://github.com/Maoni0/mem-doc/blob/master/doc/.NETMemoryPerformanceAnalysis.md)
+
+- Microsoft 의 .NET GC 아키텍쳐가 작성한 .NET의 메모리 개요 및 분석 전략에 대한 내용
+- [mem-docdoc.NETMemoryPerformanceAnalysis.md at master · Maoni0mem-doc](https://github.com/Maoni0/mem-doc/blob/master/doc/.NETMemoryPerformanceAnalysis.md#pinning)
+- [microsoftperfview PerfView is a CPU and memory performance-analysis tool](https://github.com/microsoft/perfview/)
+
+- WorkStation GC vs Server GC
+
+> As the name suggests they are for workstation (i.e., client) and server workloads respectively. **Workstation workload implies you share the machine with many other processes** whereas **server workload usually means it's the dominant process on the machine** and tends to have many users threads working in the process. The major difference between these 2 GC flavors is **WKS GC has one heap and SVR GC has as many heaps as there are logical cores on the machine**, with the same # of GC threads doing GC work.
+
+
