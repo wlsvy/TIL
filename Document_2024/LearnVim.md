@@ -304,7 +304,7 @@ vim.api.nvim_set_keymap('n', '<C-a>', 'ggVG', {noremap = true, silent = true})
 vim.api.nvim_set_keymap('v', '<C-a>', '<ESC>ggVG', {noremap = true, silent = true})
 
 -- Insert 모드에서 Ctrl + (h|j|k|l)가 노멀 모드에서 화살표 키와 동일하게 동작하도록 설정
-vim.api.nvim_set_keymap('i', '<C-h>', '<Left>', {noremap = true, silent = true})
+vim.api.nvim_set_keymap('i', '<C-h>', '<Left>', {noremap = true, silent = true})vim.api
 vim.api.nvim_set_keymap('i', '<C-j>', '<Down>', {noremap = true, silent = true})
 vim.api.nvim_set_keymap('i', '<C-k>', '<Up>', {noremap = true, silent = true})
 vim.api.nvim_set_keymap('i', '<C-l>', '<Right>', {noremap = true, silent = true})
@@ -327,17 +327,6 @@ vim.api.nvim_set_keymap('n', '<leader>y', '"+y', { noremap = true, silent = true
 vim.api.nvim_set_keymap('n', '<leader>p', '"+p', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('v', '<leader>y', '"+y', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('v', '<leader>p', '"+p', { noremap = true, silent = true })
-
--- 탭 관련
-vim.api.nvim_set_keymap('n', '<leader>tn', ':tabnew<CR>', { noremap = true, silent = true }) -- 탭 생성
-vim.api.nvim_set_keymap('n', '<leader>tw', ':tabclose<CR>', { noremap = true, silent = true }) -- 현재 탭 닫기
-vim.api.nvim_set_keymap('n', '<leader>tl', ':tabnext<CR>', { noremap = true, silent = true }) -- 다음 탭으로 이동
-vim.api.nvim_set_keymap('n', '<leader>th', ':tabprevious<CR>', { noremap = true, silent = true }) -- 이전 탭으로 이동
-vim.api.nvim_set_keymap('n', '<leader>t1', ':tabfirst<CR>', { noremap = true, silent = true }) -- 첫 번째 탭으로 이동
-vim.api.nvim_set_keymap('n', '<leader>t$', ':tablast<CR>', { noremap = true, silent = true }) -- 마지막 탭으로 이동
-
--- 창 관련 (pane)
-vim.api.nvim_set_keymap('n', '<leader>ts', ':vsplit<CR>', { noremap = true, silent = true }) -- 창 수직 분할
 
 vim.api.nvim_set_keymap('n', '<A-Left>', '<C-w>h', { noremap = true, silent = true }) -- 창 탐색 (왼쪽)
 vim.api.nvim_set_keymap('n', '<A-Right>', '<C-w>l', { noremap = true, silent = true }) -- 창 탐색 (오른쪽)
@@ -511,6 +500,7 @@ local opts = { noremap = true, silent = true }
 -- telescope
 vim.api.nvim_set_keymap('n', '<C-p>', ':Telescope file_browser<CR>', opts) -- 파일 찾기 (Ctrl+p)
 vim.api.nvim_set_keymap('n', '<C-f>', ':Telescope current_buffer_fuzzy_find<CR>', opts) -- 현재 파일 텍스트 검색 (Ctrl+f)
+vim.api.nvim_set_keymap('n', '<leader>ff', ':Telescope live_grep<CR>', { noremap = true, silent = true }) -- live-grep
 vim.api.nvim_set_keymap('n', '<leader><C-f>', '<cmd>lua require("telescope.builtin").live_grep()<CR>', opts) -- 전체 텍스트 검색 (Ctrl+f)
 vim.api.nvim_set_keymap('n', '<C-b>', '<cmd>lua require("telescope.builtin").buffers()<CR>', opts) -- 버퍼 목록 보기 (Ctrl+b)
 vim.api.nvim_set_keymap('n', '<leader>q', ':Telescope commands<CR>', opts) -- 명령어 탐색 키맵핑
