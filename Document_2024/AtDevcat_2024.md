@@ -3917,3 +3917,10 @@ class Program
   - [Use Pinned Object Heap for MemoryPool by benaadams · Pull Request 21614 · dotnetaspnetcore](https://github.com/dotnet/aspnetcore/pull/21614)
   - [runtimedocsdesignfeaturesPinnedHeap.md at main · dotnetruntime](https://github.com/dotnet/runtime/blob/main/docs/design/features/PinnedHeap.md)
   - 현재 뚜렷한 사용 사례는 asp.net 의 kestral 에서 PinnedObjectMemoryPool 을 구현해서 사용하고 있다는 것
+
+## 24.10.01
+
+**찾기 힘든 버그**
+
+- 순환 참조 : 코드 베이스가 커지면서 타입 간의 의존성을 머릿속에 전부 다 넣기 어려워짐. 이럴 때 자기도 모르는 사이에 순환참조가 발생할 수 있다.
+- 캐시 레이어 오염: multi consumer / single writer 를 의도했지만, writer 를 여럿이 생기는 등...
