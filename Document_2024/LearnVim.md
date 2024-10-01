@@ -504,7 +504,18 @@ vim.api.nvim_set_keymap('n', '<leader>ff', ':Telescope live_grep<CR>', { noremap
 vim.api.nvim_set_keymap('n', '<leader><C-f>', '<cmd>lua require("telescope.builtin").live_grep()<CR>', opts) -- 전체 텍스트 검색 (Ctrl+f)
 vim.api.nvim_set_keymap('n', '<C-b>', '<cmd>lua require("telescope.builtin").buffers()<CR>', opts) -- 버퍼 목록 보기 (Ctrl+b)
 vim.api.nvim_set_keymap('n', '<leader>q', ':Telescope commands<CR>', opts) -- 명령어 탐색 키맵핑
-vim.api.nvim_set_keymap('n', '<leader>ft', ':Telescope tags<CR>', opts) -- <leader>ft: 태그 찾기
+
+-- telescope
+vim.api.nvim_set_keymap('n', '<C-p>', ':Telescope file_browser<CR>', opts) -- 파일 찾기 (Ctrl+p)
+vim.jpi.nvim_set_keymap('n', '<C-f>', ':Telescope current_buffer_fuzzy_find<CR>', opts) -- 현재 파일 텍스트 검색 (Ctrl+f)
+vim.api.nvim_set_keymap('n', '<leader>ff', ':Telescope live_grep<CR>', { noremap = true, silent = true }) -- live-grep
+vim.api.nvim_set_keymap('n', '<C-b>', '<cmd>lua require("telescope.builtin").buffers()<CR>', opts) -- 버퍼 목록 보기 (Ctrl+b)
+vim.api.nvim_set_keymap('n', '<leader>q', ':Telescope commands<CR>', opts) -- 명령어 탐색 키맵핑
+
+-- coc.nvim 관련 키맵 설정
+vim.api.nvim_set_keymap('n', '<leader>rn', '<Plug>(coc-rename)', { noremap = false, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>gd', '<Plug>(coc-definition)', { noremap = false, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>gr', '<Plug>(coc-references)', { noremap = false, silent = true })
 
 require("catppuccin").setup({
     flavour = "auto", -- latte, frappe, macchiato, mocha
@@ -668,16 +679,7 @@ Windows에서 사용할 수 있는 Neovim 자동 완성 플러그인에는 여�
     let g:deoplete#enable_at_startup = 1
 
 
-
- 3 coc.nvim: VSCode의 자동 완성과 매우 유사한 기능을 제공하며, 설정이 비교적 간편함. 하지만 설정 파일이 JSON 형식으로 복잡할 수 있음.
-
-
-    " coc.nvim 설정 예시
-    Plug 'neoclide/coc.nvim', {'branch': 'release'}
-
-
-
- 4 YouCompleteMe: 설치와 설정이 다른 플러그인에 비해 좀 더 복잡하지만, 강력한 자동 완성 기능을 제공합니다.
+ 3 YouCompleteMe: 설치와 설정이 다른 플러그인에 비해 좀 더 복잡하지만, 강력한 자동 완성 기능을 제공합니다.
 
 
     " YouCompleteMe 설정 예시
