@@ -510,6 +510,10 @@ vim.api.nvim_set_keymap('n', '<leader>rn', '<Plug>(coc-rename)', { noremap = fal
 vim.api.nvim_set_keymap('n', '<leader>gd', '<Plug>(coc-definition)', { noremap = false, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>gr', '<Plug>(coc-references)', { noremap = false, silent = true })
 
+-- 자동 완성 트리거
+vim.api.nvim_set_keymap('i', '<Tab>', 'pumvisible() ? "\\<C-n>" : "\\<Tab>"', { noremap = true, expr = true })
+vim.api.nvim_set_keymap('i', '<S-Tab>', 'pumvisible() ? "\\<C-p>" : "\\<S-Tab>"', { noremap = true, expr = true })
+
 require("catppuccin").setup({
     flavour = "auto", -- latte, frappe, macchiato, mocha
     background = { -- :h background
