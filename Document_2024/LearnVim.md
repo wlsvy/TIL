@@ -505,13 +505,6 @@ vim.api.nvim_set_keymap('n', '<leader><C-f>', '<cmd>lua require("telescope.built
 vim.api.nvim_set_keymap('n', '<C-b>', '<cmd>lua require("telescope.builtin").buffers()<CR>', opts) -- 버퍼 목록 보기 (Ctrl+b)
 vim.api.nvim_set_keymap('n', '<leader>q', ':Telescope commands<CR>', opts) -- 명령어 탐색 키맵핑
 
--- telescope
-vim.api.nvim_set_keymap('n', '<C-p>', ':Telescope file_browser<CR>', opts) -- 파일 찾기 (Ctrl+p)
-vim.jpi.nvim_set_keymap('n', '<C-f>', ':Telescope current_buffer_fuzzy_find<CR>', opts) -- 현재 파일 텍스트 검색 (Ctrl+f)
-vim.api.nvim_set_keymap('n', '<leader>ff', ':Telescope live_grep<CR>', { noremap = true, silent = true }) -- live-grep
-vim.api.nvim_set_keymap('n', '<C-b>', '<cmd>lua require("telescope.builtin").buffers()<CR>', opts) -- 버퍼 목록 보기 (Ctrl+b)
-vim.api.nvim_set_keymap('n', '<leader>q', ':Telescope commands<CR>', opts) -- 명령어 탐색 키맵핑
-
 -- coc.nvim 관련 키맵 설정
 vim.api.nvim_set_keymap('n', '<leader>rn', '<Plug>(coc-rename)', { noremap = false, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>gd', '<Plug>(coc-definition)', { noremap = false, silent = true })
