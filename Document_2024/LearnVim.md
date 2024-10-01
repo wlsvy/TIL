@@ -304,7 +304,7 @@ vim.api.nvim_set_keymap('n', '<C-a>', 'ggVG', {noremap = true, silent = true})
 vim.api.nvim_set_keymap('v', '<C-a>', '<ESC>ggVG', {noremap = true, silent = true})
 
 -- Insert 모드에서 Ctrl + (h|j|k|l)가 노멀 모드에서 화살표 키와 동일하게 동작하도록 설정
-vim.api.nvim_set_keymap('i', '<C-h>', '<Left>', {noremap = true, silent = true})vim.api
+vim.api.nvim_set_keymap('i', '<C-h>', '<Left>', {noremap = true, silent = true})
 vim.api.nvim_set_keymap('i', '<C-j>', '<Down>', {noremap = true, silent = true})
 vim.api.nvim_set_keymap('i', '<C-k>', '<Up>', {noremap = true, silent = true})
 vim.api.nvim_set_keymap('i', '<C-l>', '<Right>', {noremap = true, silent = true})
