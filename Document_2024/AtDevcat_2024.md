@@ -3924,3 +3924,27 @@ class Program
 
 - 순환 참조 : 코드 베이스가 커지면서 타입 간의 의존성을 머릿속에 전부 다 넣기 어려워짐. 이럴 때 자기도 모르는 사이에 순환참조가 발생할 수 있다.
 - 캐시 레이어 오염: multi consumer / single writer 를 의도했지만, writer 를 여럿이 생기는 등...
+
+## 24.10.02
+
+[Why TCP needs 3 handshakes  PixelsTech](https://www.pixelstech.net/article/1727412048-Why-TCP-needs-3-handshakes)
+
+- 클라가 첫 번째 패킷 (SYN)을 보냄으로써
+  - 클라는 자신이 송신(transmission) 기능이 정상 동작한다는 것을 확인 불가
+  - 하지만 대상(server) 가 정상적으로 수신했는지는 확인 불가
+- 서버가 응답을 받고 두 번째 패킷(SYN+ACK)을 보냄으로써
+  - 클라 측 송신(transmission) 기능이 정상 동작함을 확인
+  - 서버 측 수신(reception) 기능이 정상 동작함을 확인
+  - 서버 측 송신(transmission) 기능이 정상 동작하는지 확인 불가
+  - 클라 측 수신(reception) 기능이 정상 동작하는지 확인 불가
+- 클라가 SYN + ACK 를 받고 다시 ACK 를 보냄으로써 (3번째 패킷)
+  - 서버 측 송신(transmission) 기능이 정상 동작함을 확인
+  - 클라 측 수신(reception) 기능이 정상 동작함을 확인
+
+- 3 핸드쉐이크가 꼭 필요한 것이 아니라는 의견도 있다.
+
+    The 3-way handshake is not necessary. It does what it suppose to but that is not why it works. In 1978, published in 1980, Richard Watson of LLL proved that the necessary and sufficient condition for synchronization for reliable data transfer is to impose an upper bound on 3 times: MPL, Maximum Packet Life time; A, maximum time to wait before sending an Ack; and R, maximum time to exhaust retries.
+
+    The message exchange has nothing to do with it. TCP sort of works because TTL bounds MPL and the other two are bounded by the assumptions about performance and the that the TCB has to be held for 120 seconds before the port-ids can be re-used. This is less secure and less robust. Watson and team defined a protocol called delta-t, implemented it and used it at LLL for many years.
+
+    This is a hard result to wrap one's head around. It isn't that the 3-way handshake is wrong, it just has nothing to do with why it works.  Any sequence of 3 or packets will have the same effect as long as the bounds are enforced.:
