@@ -3948,3 +3948,49 @@ class Program
     The message exchange has nothing to do with it. TCP sort of works because TTL bounds MPL and the other two are bounded by the assumptions about performance and the that the TCB has to be held for 120 seconds before the port-ids can be re-used. This is less secure and less robust. Watson and team defined a protocol called delta-t, implemented it and used it at LLL for many years.
 
     This is a hard result to wrap one's head around. It isn't that the 3-way handshake is wrong, it just has nothing to do with why it works.  Any sequence of 3 or packets will have the same effect as long as the bounds are enforced.:
+
+[sindresorhusawesome 😎 Awesome lists about all kinds of interesting topics](https://github.com/sindresorhus/awesome?tab=readme-ov-file)
+
+- 😎 Awesome lists about all kinds of interesting topics
+
+[enjalotalgovis collection of projects and links about algorithm visualization](https://github.com/enjalot/algovis?tab=readme-ov-file#readme)
+
+- collection of projects and links about algorithm visualization
+
+![image_2024-10-02-19-41-48](img/image_2024-10-02-19-41-48.png)
+
+[veggiemonkawesome-docker whale A curated list of Docker resources and projects](https://github.com/veggiemonk/awesome-docker#readme)
+
+- 🐳 A curated list of Docker resources and projects
+
+[rockerBOOawesome-neovim Collections of awesome neovim plugins.](https://github.com/rockerBOO/awesome-neovim#readme)
+
+- Collections of awesome neovim plugins.
+
+[ellisonleaomagictools video_game A list of Game Development resources to make magic happen.](https://github.com/ellisonleao/magictools#readme)
+
+- 🎮 📝 A list of Game Development resources to make magic happen.
+
+[git-tipstips Most commonly used git tips and tricks.](https://github.com/git-tips/tips?tab=readme-ov-file#everyday-git-in-twenty-commands-or-so)
+
+- Most commonly used git tips and tricks.
+
+[sindresorhusawesome-scifi Sci-Fi worth consuming](https://github.com/sindresorhus/awesome-scifi?tab=readme-ov-file#science-fiction)
+
+- Sci-Fi worth consuming
+
+[RichardLittawesome-fantasy european_castle Fantasy literature worth reading](https://github.com/RichardLitt/awesome-fantasy#readme)
+
+- 🏰 Fantasy literature worth reading
+
+[zudochkinawesome-newsletters A list of amazing Newsletters](https://github.com/zudochkin/awesome-newsletters#readme)
+
+- A list of amazing Newsletters
+
+[victorlaerteawesome-it-quotes This is a list of awesome IT quotes. The aim is to collect all relevant quotes said over the history of IT.](https://github.com/victorlaerte/awesome-it-quotes#readme)
+
+- This is a list of awesome IT quotes. The aim is to collect all relevant quotes said over the history of IT.
+
+[shlomi-noachawesome-mysql A curated list of awesome MySQL software, libraries, tools and resources](https://github.com/shlomi-noach/awesome-mysql#readme)
+
+- A curated list of awesome MySQL software, libraries, tools and resources
