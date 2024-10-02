@@ -87,6 +87,23 @@ Use:
   
 checkout
   
+
+- Checkout Interactively
+  - `git checkout -p` or `git checkout --patch`: 이 명령어는 working directory에 있는 unstaged 변경 사항을 patch 모드로 보여줍니다. Git은 변경된 파일의 각각의 hunk(변경된 코드의 묶음)를 하나씩 보여주고, 되돌릴지 말지 물어봅니다.
+  - interactive 모드에서는, 매 청크마다 git 이 다음 동작을 물어본다.
+
+     For all unstaged files iFor all unstaged files in current working directory use:
+    (1/1) Discard this hunk from worktree [y,n,q,a,d,e,p,?]? ?
+    y - discard this hunk from worktree
+    n - do not discard this hunk from worktree
+    q - quit; do not discard this hunk or any of the remaining ones
+    a - discard this hunk and all later hunks in the file
+    d - do not discard this hunk or any of the later hunks in the file
+    e - manually edit the current hunk
+    p - print the current hunk
+    ? - print help
+
+
 ## Git Clear Unstaged Change
 
 For all unstaged files iFor all unstaged files in current working directory use:
