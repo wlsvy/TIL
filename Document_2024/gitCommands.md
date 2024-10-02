@@ -564,3 +564,34 @@ Git의 `worktree` 기능은 여러 작업 트리를 동시에 관리할 수 있�
     $ git bisect start
     $ git bisect bad                 # Current version is bad
     $ git bisect good v2.6.13-rc2    # v2.6.13-rc2 is known to be good
+
+## Repack
+
+- [Git - git-repack Documentation](https://git-scm.com/docs/git-repack)
+
+> This command is used to combine all objects that do not currently reside in a "pack", into a pack. It can also be used to re-organize existing packs into a single, more efficient pack.
+>
+> A pack is a collection of objects, individually compressed, with delta compression applied, stored in a single file, with an associated index file.
+>
+> Packs are used to reduce the load on mirror systems, backup engines, disk storage, etc.
+
+- by chatGPT
+
+`git repack`은 Git 저장소에서 패킹된 객체들을 다시 압축하는 명령어입니다. Git은 내부적으로 데이터를 저장할 때 파일 시스템에 "객체" 형태로 저장하며, 이 객체들은 시간이 지나면서 늘어나게 됩니다. `git repack` 명령어는 이러한 객체들을 더 작은 수의 패키지로 다시 압축하여, 저장소의 크기를 줄이고 성능을 개선하는 데 사용됩니다.
+
+### Git에서 객체 패킹이란?
+
+Git은 저장소에서 변경 사항을 추적하기 위해 **blob**, **tree**, **commit**, **tag**와 같은 객체들을 사용합니다. 이 객체들은 주기적으로 패킹(packing)되어 **pack 파일**이라는 단일 파일에 저장됩니다. 이 패킹 작업은 저장소의 크기를 줄이고 성능을 개선하는 역할을 합니다.
+
+Git은 저장소에서 여러 개의 개별 객체 파일이 쌓일 때, 이를 효율적으로 관리하기 위해 `repack`을 사용하여 더 큰 pack 파일로 병합하고, 중복된 데이터를 제거하여 압축합니다.
+
+### `git repack`의 사용 이유
+
+1. **저장소 크기 축소**: 저장소에 너무 많은 loose 객체가 있는 경우, 이를 패킹하여 저장소 크기를 줄입니다.
+2. **성능 개선**: 패킹된 파일이 많아질수록 Git의 성능이 저하되는데, `git repack`으로 이를 해결할 수 있습니다.
+3. **중복 제거**: 중복된 데이터를 찾아 더 효율적으로 저장할 수 있습니다.
+4. **gc 작업의 일부**: `git gc` 명령어는 내부적으로 `git repack`을 사용하여 객체들을 관리합니다.
+
+### `git repack` vs `git gc`
+
+- 서버 환경에서 git gc 명령은 git repack을 포함한 여러 최적화 작업을 자동으로 수행합니다. git gc는 오래된 파일이나 불필요한 파일들을 정리하고, git repack은 그 중 하나로 사용됩니다.
