@@ -242,6 +242,7 @@ diff
 - 특정 커밋 범위 내 diff 표시 : `git diff <revision-range>`
   - 기본적으로 `git diff <commit>` 은 현재 커밋 위치 부터 `<commit>` 까지 diff를 표시한다.
   - > ex) git diff --name-status aad924a34e3~2...aad924a34e3
+- `git diff --word-diff` : Git에서 변경된 부분을 단어 수준에서 비교할 수 있도록 해주는 명령어입니다. 일반적으로 git diff는 라인 단위로 변경된 부분을 보여주지만, --word-diff 옵션을 사용하면 변경된 부분을 단어 단위로 좀 더 세밀하게 확인할 수 있습니다.
 - 옵션 몇 가지
   - `--name-status` : Show only names and status of changed files. See the description of the --diff-filter option on what the status letters mean
   - `--name-only` : Show only names of changed files. 
