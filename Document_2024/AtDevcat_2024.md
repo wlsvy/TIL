@@ -3994,3 +3994,73 @@ class Program
 [shlomi-noachawesome-mysql A curated list of awesome MySQL software, libraries, tools and resources](https://github.com/shlomi-noach/awesome-mysql#readme)
 
 - A curated list of awesome MySQL software, libraries, tools and resources
+
+## 24.10.04
+
+[Discord가 웹소켓 트래픽을 40% 감소시킨 방법  GeekNews](https://news.hada.io/topic?id=16885)
+
+zlib -> zstandard 로 압축 알고리즘을 수정한 것
+
+> We attempted to use zstandard in the past, but, at the time, the benefits weren’t worth the costs. Our testing in 2019 was desktop-only and used too much RAM. However, a lot can happen in five years! We wanted to give it another try, and the support for dictionaries appealed to us, especially as most of our gateway payloads are small and in a well-defined shape.
+
+- 기존에 사용하던 zlib 방식은 streaming 압축인 반면, zstandard는 그렇지 않다는 것(2019년)
+- 패킷 페이로드가 작을 경우 압축 효과가 줄어든다.
+- ezstd 가 streaming 압축을 지원하게 된 이후부터 상황이 바뀌게 됨
+
+> As mentioned previously, most of our payloads are comparatively very small, only a few hundred bytes at most, which doesn’t give zstandard much historical context to work with to further optimize how it compresses future payloads. With streaming compression, the zlib stream is spun up when the connection is opened and exists until the websocket is closed. Instead of having to start fresh for every websocket message, zlib can draw on its knowledge of previously compressed data to inform its decisions on how to process fresh data. This ultimately leads to smaller payload sizes.
+
+
+- zstd의 사전 기능을 활용해서 압축률 개선을 시도해봄
+  - zstandard dictionary 의 경우 클라이언트와 공유해야 했기 때문에, 
+  - 120,000 개의 메세지 샘플을 학습시킨 딕셔너리 데이터를 클라이언트로 전송 
+  - 하지만 결과가 시원찮았음. 딕셔너리를 사용하는 방법은 폐기하기로 결정
+
+> However, doing this adds additional complexity as both the compressor (in this case, a gateway node) and the decompressor (a Discord client) need to have the same copy of the dictionary to communicate with each other successfully.
+>
+> Since dictionaries contain portions of the training data and we’d have to ship the dictionaries to our clients, we needed to ensure that the samples we would generate the dictionaries from were free of any personally-identifiable user data. We collected data involving 120,000 messages, split them by ETF and JSON encoding, anonymized them, and then generated our dictionaries.
+
+Buffer Upgrading
+
+- 오프피크 시간대 Zstandard 버퍼 증가 실험
+  - Discord는 트래픽 패턴에 따라 오프피크 시간에 여분의 컴퓨팅 자원을 활용해 압축률을 높이는 방안을 탐색
+- 피드백 루프 구현
+  - 각 게이트웨이 노드에 메모리 사용량을 모니터링하고 Zstandard 버퍼를 업그레이드하는 피드백 루프를 구현했습니다.
+  - 24시간 동안 실험한 결과, 예상했던 70%에 비해 저조한 최대 30% 정도의 낮은 업그레이드 비율을 보였습니다.
+- 메모리 단편화 문제 발견, BEAM이 실제 필요한 것보다 더 많은 시스템 메모리를 할당하여 피드백 루프가 제대로 작동하지 않음
+  - BEAM 할당자 설정 조정 시도했지만, 구현 복잡도가 너무 커져서 피드백 루프 개선을 최종적으로 철회
+
+- [How Discord Reduced Websocket Traffic by 40%](https://discord.com/blog/how-discord-reduced-websocket-traffic-by-40-percent)
+- [Zstandard - Real-time data compression algorithm](https://facebook.github.io/zstd/)
+- [GitHub - bp74Zstandard.Net A Zstandard wrapper for .Net](https://github.com/bp74/Zstandard.Net)
+- [(87) ELI5 ZSTD - YouTube](https://www.youtube.com/watch?v=k5XsiuxHv_A)
+  - ZStandard 압축 방식은 페이스북facebook 에서 개발된 무손실(lossless) 압축 알고리즘. 오픈 소스
+    - 기존 압축 방식들이 과거 데이터 셋에서 힌트를 얻어서 미래의 데이터를 더 효율적으로 압축시킨다.
+      - dictionary compression
+    - 데이터의 길이가 충분히 길면 이 방식이 유용함. 하지만 짧다면 곤란하다. 이전 데이터로부터 충분한 정보를 얻기 힘들기 때문
+    - Zstandard 는 타입별로 공통 패턴을 찾아내는 알고리즘이 있다. => 이 방법으로 짧은 데이터에도 효율적인 압축률을 보여준다.
+
+- [Hacker News 의견](https://news.ycombinator.com/item?id=41604267)
+
+- **Discord의 실행 시간이 20-30초 걸리는 문제에 대한 불만이 있음**
+  - $5000 PC에서도 느린 실행 속도에 대한 의문 제기
+  - 클라이언트를 매번 단일 코어로 다시 컴파일하는 것 같다는 비유 사용
+- 압축 비율과 네트워크 대역폭 감소에 집중한 것 같음
+  - CPU 시간이나 실제 사용자에게 측정 가능한 개선 사항에 대한 언급이 없음
+  - 회사에서 비슷한 노력을 했을 때 압축/압축 해제 오버헤드로 인해 성능이 더 나빠졌음
+- JSON과 Erlang ETF를 사용한 사전 기반 압축 접근 방식이 흥미로움
+  - Cap'n Proto나 Protobufs 같은 스키마 기반 시스템으로 전환하는 대신 선택한 방식
+  - Zstandard와 LZ4의 벤치마크에 관심이 있음
+  - 드론의 스트리밍 오버레이/HUD 데이터의 경우 LZ4를 사용했으며, Zstd 사전 도구로 생성된 사전을 사용해 높은 속도로 유사한 압축을 달성했음
+- 일반적인 부트스트래핑 응답(READY)이 2MB 이상이라는 점이 놀라움
+- PASSIVE\_UPDATE\_V1 디스패치의 실제 내용에 대한 언급
+  - 단일 요소만 변경되었을 때도 모든 채널, 멤버 또는 음성 멤버를 전송함
+  - zstd 실험 중 발견된 메트릭이 놀라운 행동을 보여줌
+  - 처음부터 메트릭 분석을 하지 않은 이유에 대한 의문
+  - 처음부터 델타를 전송하지 않은 이유에 대한 의문
+- 압축 오라클 공격(BREACH)과 같은 공격에 대한 안전성 언급이 없음
+  - Discord가 압축 롤아웃에 많은 노력을 기울였다는 점에서 이를 고려했을 것이라 믿음
+  - 더 구체적인 내용을 작성했으면 좋겠다는 의견
+- Discord 탭을 열면 컴퓨터가 느려지는 문제가 있음
+- 시도했지만 잘 되지 않은 것들을 설명한 점이 매우 좋음
+  - 실패한 시도를 설명하는 기사가 점점 드물어지고 있지만, 이는 매우 흥미롭고 도움이 됨
+- mIRC가 더 잘 했다는 의견
