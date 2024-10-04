@@ -4114,3 +4114,35 @@ Buffer Upgrading
   - 과거에는 IDE를 수백 또는 수천 달러에 구매해야 했음
 - 이 기사가 텔레메트리에 대한 불만과 실제 제한 사항을 분리하면 더 이해하기 쉬울 것임
 - 마음에 들지 않으면 사용하지 말라는 의견이 있음. vim/nvm과 eMacs는 생태계를 타협하지 않는 유능한 편집기임
+
+[“AI 코딩 도구, 생산성 효과 거의 없다 번아웃에도 마찬가지”··· 업레벨 보고서 ‘눈길’ - CIO Korea](https://www.ciokorea.com/t/22000/AI/351488)
+
+> 이반 게크트(Gehtsoft CEO)는 “생산성 향상을 위해 LLM을 사용하려면 LLM이 실제 사람에 필적하는 능력을 갖춰야 하고, 실제 사용자도 LLM을 효율적으로 사용하는 방법을 알아야 한다. LLM은 비판적 사고, 자기 인식, 사고 능력이 없다”라고 말했다.
+>
+> 클라우드 서비스 제공업체 이노베이티브 솔루션(ovative Solutions)에서는 다르다. 이 회사의 CTO인 트래비스 렐은 클로드 데브 및 깃허브 코파일럿과 같은 코딩 어시스턴트를 사용하여 상당한 생산성 향상을 경험하고 있다고 전했다. 또한 자체 개발한 앤트로픽 통합을 사용하여 풀 리퀘스트를 모니터링하고 코드 품질을 검증하고 있다는 설명이다.
+
+- [Poor code quality due to AI assistants GitHub Copilot and ChatGPT  Hacker News](https://news.ycombinator.com/item?id=39144366)
+
+> Poor code quality is not a unique problem to AI coding assistants -- it's also a pervasive problem in the wild, regardless of who or what is writing code.
+>
+> My thoughts around code quality are generally that if you're writing code for yourself (as a hobby, for open source, whatever) -- then write code however you want, as it's for fun. Obviously, others can contribute fixes and help make things better, but there's no professional "responsibility" in these cases.
+>
+> On the other hand, if you're writing software meant to be used by others (including companies you work for), it's your responsibility as a developer to ensure the code you're pushing is:
+
+- In compliance with **style conventions**
+- Properly reviewed for **security issues** (tools like Snyk and other SAST/SCA tools work well for this)
+- Makes **architectural sense** given the rest of your codebase
+- **Is documented** so others can easily contribute/review without a lot of handholding
+
+> The rules above are true regardless of how the code is being generated.
+
+- [New GitHub Copilot Research Finds 'Downward Pressure on Code Quality' -- Visual Studio Magazine](https://visualstudiomagazine.com/articles/2024/01/25/copilot-research.aspx)
+
+> "We find disconcerting trends for maintainability. Code churn -- the percentage of lines that are reverted or updated less than two weeks after being authored -- is projected to double in 2024 compared to its 2021, pre-AI baseline. We further find that the percentage of 'added code' and 'copy/pasted code' is increasing in proportion to 'updated,' 'deleted,' and 'moved 'code. In this regard, AI-generated code resembles an itinerant contributor, prone to violate the DRY-ness [don't repeat yourself] of the repos visited."
+
+"유지보수성 측면에서 당혹스러운 추세를 발견했습니다. 작성된 후 2주 이내에 되돌려지거나 업데이트되는 줄의 비율인 코드 이탈은 AI 도입 전인 2021년에 비해 2024년에 두 배로 증가할 것으로 예상됩니다. 또한 **'코드 추가'와 '코드 복사/붙여넣기'**의 비율은 **'업데이트', '삭제', '코드 이동'**에 비례하여 증가하고 있는 것으로 나타났습니다. 이러한 점에서 AI가 생성한 코드는 순회 기여자와 유사하며, 방문한 리포지토리의 **DRY(반복하지 않기) 원칙을 위반**하기 쉽습니다."
+
+- [Amazon CEO AI-Assisted Code Saved Us 4,500 Years of Developer Work  Hacker News](https://news.ycombinator.com/item?id=41347647)
+
+
+
