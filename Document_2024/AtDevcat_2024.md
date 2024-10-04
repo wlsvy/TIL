@@ -4064,3 +4064,53 @@ Buffer Upgrading
 - 시도했지만 잘 되지 않은 것들을 설명한 점이 매우 좋음
   - 실패한 시도를 설명하는 기사가 점점 드물어지고 있지만, 이는 매우 흥미롭고 도움이 됨
 - mIRC가 더 잘 했다는 의견
+
+[Visual Studio Code 설계 결함 (2022)  GeekNews](https://news.hada.io/topic?id=17003)
+
+- [Visual Studio Code is designed to fracture (2022)  Hacker News](https://news.ycombinator.com/item?id=41691577) 
+- [Visual Studio Code is designed to fracture](https://ghuntley.com/fracture/)
+
+> Even if Gitpod, GitLab, Datacoves, OpenBB, Foam, et al were to develop "Open.NET"
+>
+> or similar tooling alternatives to the proprietary extension offerings created by Microsoft to enforce their commercial strategy, users will experience friction in the form of having to wire in different product-specific configurations on a per-platform basis and then dealing with the headaches of user support/training related to topics of how the "official" ms-dotnettools.csharp functions vs the open alternative (if it is ever built) and topics of feature/configuration disparity.
+
+- Visual Studio Code는 분열을 위해 설계됨
+  - Visual Studio Code는 오픈 소스이지만, Microsoft가 제공하는 공식 배포판 외의 다른 방식으로 사용하면 법적 위험이 발생할 수 있음
+  - Gitpod와 같은 회사는 Visual Studio Code 생태계에서 법적 문제를 겪을 수 있음
+  - Microsoft는 독점 확장을 통해 시장을 전략적으로 분열시킴
+  - Python, .NET, C/C++, Java와 같은 주요 프로그래밍 언어의 도구는 Microsoft의 통제 하에 있음
+- 구독이 아닌 IDE는 사라지고 있음
+  - Microsoft는 소프트웨어를 서비스로 전환하는 내부 변화를 시작함
+  - Azure 클라우드 컴퓨팅 서비스는 AWS의 경쟁자로 성장함
+  - 개발자 도구 생태계도 서비스 모델로 전환 중임
+
+
+- 소스가 공개된 소프트웨어에 대해 사람들은 분노를 표출함
+  - Microsoft가 핵심 저장소는 OSS로 제공하지만, 유용한 기능은 DRM과 법적 함정으로 가득 찬 경우에는 침묵함
+  - Microsoft가 FOSS 지지자들을 달래기 위해 OSS처럼 보이지만 실제로는 아닌 것을 제공함
+  - Open Source Definition이 2024년에는 이러한 문제를 해결하기에 부적합함
+  - Pylance 확장에 얼마나 많은 DRM이 있는지 확인해보면, Microsoft가 DRM을 사용하여 공식 VSCode 체크를 제거할 수 없게 만듦
+- VSCode의 생태계는 여러 면에서 약함
+  - cpptools는 놀랍지만 자주 오작동하고 디버깅이 어려움
+  - VSCode의 보안 문제는 매우 심각함. 확장 기능이 샌드박스 처리되지 않음
+  - AI를 사용할 때는 LLM을 신뢰해서는 안 됨. LLM이 악의적인 코드를 작성할 수 있음
+  - 더 나은 생태계를 만들 기회가 있음. 예를 들어, cpptools의 대체품은 인터넷 접근 없이 텔레메트리가 없어야 함
+- cpptools 확장에 대한 좋은 댓글 스레드가 있음
+  - 소스에서 빌드하는 것이 불가능하다는 의견이 있음
+  - OSS 라이선스와 빌드 종속성이 모두 OSS 라이선스인 새로운 용어가 필요함
+- VS Code는 Microsoft에서 무료로 다운로드하고 사용할 수 있는 IDE임
+  - 모두가 "범용" 개발자 서비스를 만들고 싶어하지만, IDE를 구축하거나 자금을 지원하는 것은 어려움
+  - Microsoft의 잘못이 아님
+- VS Code를 만드는 50명 이상의 정규직 직원들이 연간 약 2000만 달러의 예산을 정당화하는 모델을 제안하지 않으면, 이는 Microsoft의 엔지니어링 작업을 이용하려는 시도로 보일 수 있음
+- 문제를 이해하려고 노력 중임
+  - MS가 더 나은 cpptools/C++ 확장을 만들고 있으며, 많은 MS 구성 요소가 닫혀 있어 완전한 OSS 버전을 빌드하는 것이 불가능함
+  - 사용자가 웹 인터페이스에서 네이티브 확장을 사용할 수 없다는 것을 발견하면 문제가 됨
+  - OSS 소프트웨어 대신 이 프리웨어를 사용하고 싶다면 실망스러울 수 있지만, 그것이 정말 문제인지 의문임
+- 주요 확장 프로젝트가 정렬되면, 그들은 단순히 위와 같은 공지를 마켓플레이스 페이지 설명에 추가할 수 있음
+  - Apple은 현재 마켓플레이스 소송에 직면해 있음. MS는 또 다른 반독점 소송을 원하지 않음
+- "Microsoft가 제공하는 무료 소프트웨어가 충분히 개방적이지 않다"는 현대의 가장 이상한 견해 중 하나임
+  - Microsoft가 오픈 소스 대안을 방해하지 않고 있음. 단지 그들이 더 좋지 않음
+  - 무료로 제공되는 소프트웨어를 당연하게 여기는 사람들이 많음
+  - 과거에는 IDE를 수백 또는 수천 달러에 구매해야 했음
+- 이 기사가 텔레메트리에 대한 불만과 실제 제한 사항을 분리하면 더 이해하기 쉬울 것임
+- 마음에 들지 않으면 사용하지 말라는 의견이 있음. vim/nvm과 eMacs는 생태계를 타협하지 않는 유능한 편집기임
