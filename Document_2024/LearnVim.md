@@ -413,6 +413,15 @@ require("lazy").setup({
     { "preservim/nerdtree", }, -- [preservim/nerdtree: A tree explorer plugin for vim.](https://github.com/preservim/nerdtree)
     {"ryanoasis/vim-devicons", requires = "preservim/nerdtree"}, -- [ryanoasis/vim-devicons: Adds file type icons to Vim plugins such as: NERDTree, vim-airline, CtrlP, unite, Denite, lightline, vim-startify and many more](https://github.com/ryanoasis/vim-devicons) 
     { "neoclide/coc.nvim", branch= "release"},
+
+    -- [Omnisharp | LazyVim](https://www.lazyvim.org/extras/lang/omnisharp)
+    -- C#(omnisharp) LSP
+    { "Hoffs/omnisharp-extended-lsp.nvim", lazy = true },
+    -- mason
+    {
+        "williamboman/mason.nvim",
+        opts = { ensure_installed = { "csharpier", "netcoredbg" } },
+    },
 })
 
 -- 현재 init.lua의 디렉토리 위치를 가져오는 방법
