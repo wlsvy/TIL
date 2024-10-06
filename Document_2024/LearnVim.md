@@ -422,6 +422,8 @@ require("lazy").setup({
         "williamboman/mason.nvim",
         opts = { ensure_installed = { "csharpier", "netcoredbg" } },
     },
+    { "nvchad/volt" , lazy = true },
+    { "nvchad/menu" , lazy = true },
 })
 
 -- 현재 init.lua의 디렉토리 위치를 가져오는 방법
@@ -515,10 +517,28 @@ vim.api.nvim_set_keymap('n', '<leader><Tab>', ':Telescope oldfiles<CR>', opts) -
 vim.api.nvim_set_keymap('n', '<C-b>', '<cmd>lua require("telescope.builtin").buffers()<CR>', opts) -- 버퍼 목록 보기 (Ctrl+b)
 vim.api.nvim_set_keymap('n', '<leader>q', ':Telescope commands<CR>', opts) -- 명령어 탐색 키맵핑
 
--- coc.nvim 관련 키맵 설정
-vim.api.nvim_set_keymap('n', '<leader>rn', '<Plug>(coc-rename)', { noremap = false, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>gd', '<Plug>(coc-definition)', { noremap = false, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>gr', '<Plug>(coc-references)', { noremap = false, silent = true })
+--mason
+require("mason").setup()
+
+-- OmnisharpExtended
+vim.api.nvim_set_keymap('n', 'gd', "<cmd>lua require('omnisharp_extended').lsp_definition()<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>D', "<cmd>lua require('omnisharp_extended').lsp_type_definition()<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', 'gr', "<cmd>lua require('omnisharp_extended').lsp_references()<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', 'gi', "<cmd>lua require('omnisharp_extended').lsp_implementation()<CR>", { noremap = true, silent = true })
+
+-- menu
+-- Keyboard users
+vim.keymap.set("n", "<C-t>", function()
+  require("menu").open("default")
+end, {})
+
+-- mouse users + nvimtree users!
+vim.keymap.set("n", "<RightMouse>", function()
+  vim.cmd.exec '"normal! \\<RightMouse>"'
+
+  local options = vim.bo.ft == "NvimTree" and "nvimtree" or "default"
+  require("menu").open(options, { mouse = true })
+end, {})
 
 -- 자동 완성 트리거
 vim.api.nvim_set_keymap('i', '<Tab>', 'pumvisible() ? "\\<C-n>" : "\\<Tab>"', { noremap = true, expr = true })
