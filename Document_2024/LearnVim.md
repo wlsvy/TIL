@@ -87,6 +87,16 @@ or
 
 - `==`: 라인 정렬
 
+**Macro**
+
+[Practical Vim 팁 요약 시리즈 - Macros !--- @n0lb00's Blog--](https://nolboo.kim/blog/2017/02/10/practical-vim/)
+
+- `qa`: 매크로 기록 시작, 레지스터 a 에 저장된다. (참고: `:reg a`)
+  - `qA` : `qa` 명령으로 매크로 기록 반복 시, 기존 레지스터에 덮어쓰지만 `qA` 의 경우 기존 애'
+- `q` : 매크로 기록 종료
+- `@{register}` : 특정 레지스터의 내용을 실행(`:h @`), 예를 들어 `@a` 으로 a 레지스터의 기록된 매크로 실행 가능
+  - 반복 실행은 `10@a` 같은 명령어로 수행 가능
+
 ## neovim
 
 ### Neovim 파일 경로 정보
@@ -106,8 +116,8 @@ or
 #### 키맵핑 충돌 확인 방법 (key map collision check)
 
 > 설정한 키맵핑이 다른 플러그인이나 기존 설정과 충돌하지 않는지 확인하려면 :verbose map 명령어를 사용하여 현재 사용 중인 모든 키맵핑을 확인할 수 있습니다.
-
 - `:verbose map <A-j>`
+
 - `:verbose map <A-k>`
 
 **Cheat Sheet**
