@@ -422,6 +422,7 @@ require("lazy").setup({
         "williamboman/mason.nvim",
         opts = { ensure_installed = { "csharpier", "netcoredbg" } },
     },
+    --menu [NvChadmenu Menu ui for neovim ( supports nested menus ) made using volt](https://github.com/NvChad/menu)
     { "nvchad/volt" , lazy = true },
     { "nvchad/menu" , lazy = true },
 })
