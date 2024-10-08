@@ -4190,4 +4190,47 @@ Buffer Upgrading
      8 388 608 - 16 777 216      2^-1  = 0.5
     16 777 216 - 33 554 432      2^0   = 1
 
+Unity 기반 게임들은 그래서 조치가 필요함. 9시간이 넘으면 클라를 강제 종료 시키기 등.
 
+[Data Annotations vs FluentValidation Which should you use](chrome-extension://hajanaajapkhaabfcofdjgjnlgkdkknm/)
+
+- [Data Annotations in C Your Complete Guide (2023)](https://www.bytehide.com/blog/data-annotations-in-csharp)
+
+- **Data Annotations can make your model class messy**, as it combines data structure with validation rules.
+- **FluentValidation keeps your validation logic separate**, which promotes cleaner, more maintainable code.
+- **Data Annotations are built into the .NET framework, so they don't require any extra libraries.**
+- FluentValidation is an external library, which means adding more dependencies to your project.
+- **Data Annotations lacks async support**. Any async calls would need to return the result before they can be used.
+- FluentValidation has async support meaning it's better support at making calls to a database and third-party services.
+
+**Data Annotations Example**
+
+```cs
+// UserModel.cs
+public class UserModel : IValidatableObject
+{
+	[Required(ErrorMessage = "Name is required")]
+	[StringLength(50, ErrorMessage = "Name cannot exceed 50 characters")]
+	public string? Name { get; set; }
+
+	[Range(18, 100, ErrorMessage = "Age must be between 18 and 100")]
+	public int Age { get; set; }
+
+	[EmailAddress(ErrorMessage = "Invalid email format")]
+	public string? Email { get; set; }
+
+	public bool IsPremiumMember { get; set; }
+
+	public decimal Discount { get; set; }	
+
+	public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+	{
+		if (IsPremiumMember && Discount <= 0)
+		{
+			yield return new ValidationResult(
+				$"Customer should have a discount if a premium member.",
+				new[] { nameof(Discount) });
+		}
+	}
+}
+```
