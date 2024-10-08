@@ -4144,5 +4144,50 @@ Buffer Upgrading
 
 - [Amazon CEO AI-Assisted Code Saved Us 4,500 Years of Developer Work  Hacker News](https://news.ycombinator.com/item?id=41347647)
 
+## 24.10.08
+
+[What happens when Time.time gets very large in Unity - Game Development Stack Exchange](https://gamedev.stackexchange.com/questions/141807/what-happens-when-time-time-gets-very-large-in-unity)
+
+- [Don’t Store That in a Float  Random ASCII – tech blog of Bruce Dawson](https://randomascii.wordpress.com/2012/02/13/dont-store-that-in-a-float/)
+- [c++ - What's the largest relative level I can make using float - Game Development Stack Exchange](https://gamedev.stackexchange.com/questions/75537/whats-the-largest-relative-level-i-can-make-using-float/75540#75540)
+
+> A single-precision float time value in seconds starts to lose millisecond accuracy after about 9 hours.
+
+- 부동소수점(float) 타입으로 시간을 표현하는 경우 (total millisecond), 대략 9시간 이후부터 정확도를 상실한다.
+
+> The maximum value of float is 3.40282347 * 10^38, which equals 10^31 years when measured in seconds (or 10^28 years when measured in milliseconds). Trust me, it won't overflow.
+>
+> The only thing that may appear is inaccuracy. But a single precision floating point number has an accuracy of 7-8 decimal digits. If using it to measure seconds, it is accurate for about 194 days. If measuring milliseconds it's accurate for only 4,5 hours. So it completely depends on the accuracy you need and you may need to find alternative ways if you need to be accurate to the millisecond (which you probably don't).
+
+
+    In this range:                You get accuracy within:
+    -----------------------------------------------
+             0.25   -     0.5    2^-26 = 1.490 116 119 384 77 E-08
+             0.5    -     1      2^-25 = 2.980 232 238 769 53 E-08
+             1     -      2      2^-24 = 5.960 464 477 539 06 E-08
+             2     -      4      2^-23 = 1.192 092 895 507 81 E-07
+             4     -      8      2^-22 = 2.384 185 791 015 62 E-07
+             8     -     16      2^-21 = 4.768 371 582 031 25 E-07
+            16     -     32      2^-20 = 9.536 743 164 062 5  E-07
+            32     -     64      2^-19 = 1.907 348 632 812 5  E-06
+            64     -    128      2^-18 = 0.000 003 814 697 265 625
+           128    -     256      2^-17 = 0.000 007 629 394 531 25
+           256    -     512      2^-16 = 0.000 015 258 789 062 5
+           512    -   1 024      2^-15 = 0.000 030 517 578 125
+         1 024    -   2 048      2^-14 = 0.000 061 035 156 25
+         2 048    -   4 096      2^-13 = 0.000 122 070 312 5
+         4 096    -   8 192      2^-12 = 0.000 244 140 625
+         8 192   -   16 384      2^-11 = 0.000 488 281 25
+        16 384   -   32 768      2^-10 = 0.000 976 562 5
+        32 768   -   65 536      2^-9  = 0.001 953 125
+        65 536   -  131 072      2^-8  = 0.003 906 25
+       131 072   -  262 144      2^-7  = 0.007 812 5
+       262 144   -  524 288      2^-6  = 0.015 625
+       524 288 -  1 048 576      2^-5  = 0.031 25
+     1 048 576 -  2 097 152      2^-4  = 0.062 5
+     2 097 152 -  4 194 304      2^-3  = 0.125
+     4 194 304 -  8 388 608      2^-2  = 0.25
+     8 388 608 - 16 777 216      2^-1  = 0.5
+    16 777 216 - 33 554 432      2^0   = 1
 
 
