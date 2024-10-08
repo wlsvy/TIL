@@ -4280,3 +4280,69 @@ ref struct PrintType<T> where T : ILog
     }
 }
 ```
+
+[A Valve engineer used ChatGPT to find a new matchmaking algorithm for Deadlock, and now it's in the game  PC Gamer](https://www.pcgamer.com/games/moba/valve-chatgpt-deadlock-algorithm/)
+
+- Valve / Deadlock 의 매칭 알고리즘은 헝가리안 알고리즘(Hungarian algorithm, also known as the Kuhn-Munkres algorithm)을 사용함.
+  - 처음 개발자가 매칭 알고리즘을 고민할 때, 헝가리안 알고리즘이 머릿속 후보에 없었지만 ChatGPT를 통해 새롭게 알게되었고 최종적으로 채택하게 되었다는 내용
+
+> Is there bipartite matching algorithm where one side expresses preferences in terms of a score? In the stable marriages algorithm, both side have a preference list. I want an algorithm where only one side has any preferences may have the same score. The best matching would be the one that minimizes the total score across all matches.
+>
+> 한쪽만 점수로 선호도를 표현하는 이분 매칭 알고리즘이 있나요? 안정적인 결혼 문제(Stable Marriage Algorithm)에서는 양쪽 모두 선호 목록을 가지고 있습니다. 저는 한쪽만 선호도를 표현하고, 같은 점수를 가질 수 있는 알고리즘을 찾고 있습니다. 최적의 매칭은 모든 매칭에서 총 점수를 최소화하는 것입니다.
+
+- ^ 위처럼 질문했다고 한다.
+
+![image_2024-10-08-21-06-44](img/image_2024-10-08-21-06-44.png)
+
+- 아래는 똑같은 질문을 ChatGPT 4o 모델에게 했을 때 답변. 정말 잘 대답함
+
+### 알고리즘 제안:
+
+위의 요구 사항을 충족하는 문제는 **가중치 이분 매칭(Weighted Bipartite Matching)** 문제에 가깝습니다. 이 문제에서는 그래프의 한쪽이 매칭에 대한 선호도를 점수로 표현하며, 목표는 총 점수를 최소화하는 최적의 매칭을 찾는 것입니다. 이를 해결할 수 있는 대표적인 알고리즘으로는 **헝가리안 알고리즘**(Hungarian Algorithm)이 있습니다.
+
+#### 1. **헝가리안 알고리즘 (Hungarian Algorithm)**
+
+- **개요**: 헝가리안 알고리즘은 이분 그래프에서 두 그룹 간의 최적 매칭을 찾는 알고리즘으로, 각 매칭에 대한 가중치(선호도 점수)를 최소화하는 방식으로 동작합니다. 따라서 한쪽 그룹이 각 매칭에 대해 선호도를 점수로 표현할 때, 이 알고리즘을 사용해 총 점수를 최소화하는 매칭을 찾을 수 있습니다.
+  
+- **시간 복잡도**: 이 알고리즘의 시간 복잡도는 \(O(n^3)\)로, 매칭해야 하는 대상의 수가 적당한 경우 충분히 효율적입니다.
+
+#### 2. **알고리즘 동작 방식**:
+
+헝가리안 알고리즘은 이분 그래프에서 매칭 비용 행렬을 이용하여 다음과 같은 방식으로 동작합니다.
+
+1. **비용 행렬 만들기**: 매칭할 두 그룹 (A, B)이 있을 때, 그룹 A에서 각 요소가 그룹 B의 요소를 매칭할 때의 점수를 비용 행렬로 표현합니다.
+  
+2. **행과 열에서 최소값 빼기**: 각 행과 열에서 최소값을 빼서 행렬을 간소화합니다. 이는 계산을 단순화하는 역할을 합니다.
+  
+3. **최소 커버라인 찾기**: 모든 0을 커버할 수 있는 최소 행과 열을 찾습니다.
+  
+4. **최적 매칭 찾기**: 0으로 된 항목들을 이용해 최적 매칭을 찾고, 모든 가능한 매칭 중 총 점수가 최소가 되는 매칭을 찾습니다.
+
+#### 3. **Python으로 구현 예시**:
+```python
+import numpy as np
+from scipy.optimize import linear_sum_assignment
+
+# 점수 행렬 생성 (행렬의 행은 그룹 A, 열은 그룹 B를 나타냄)
+cost_matrix = np.array([
+    [4, 1, 3],
+    [2, 0, 5],
+    [3, 2, 2]
+])
+
+# 헝가리안 알고리즘 적용하여 최적 매칭 찾기
+row_ind, col_ind = linear_sum_assignment(cost_matrix)
+
+# 결과 출력
+print("최적 매칭:")
+for i in range(len(row_ind)):
+    print(f"A{row_ind[i]} -> B{col_ind[i]} (점수: {cost_matrix[row_ind[i], col_ind[i]]})")
+
+print(f"최소 총 점수: {cost_matrix[row_ind, col_ind].sum()}")
+```
+
+위 코드에서는 `scipy.optimize` 패키지의 `linear_sum_assignment` 함수를 이용하여 헝가리안 알고리즘을 적용했습니다. 이 함수는 비용 행렬을 입력받아 최적 매칭을 반환하고, 최소 점수를 계산합니다.
+
+### 결론:
+한쪽 그룹만 선호도를 가지는 이분 매칭 문제에서, 선호도를 점수로 표현하고 총 점수를 최소화하려면 **헝가리안 알고리즘**을 사용하는 것이 적합합니다. 이 알고리즘은 최적 매칭을 효율적으로 찾아낼 수 있으며, 가중치 기반 매칭 문제에서 널리 사용되는 기법입니다.
+
