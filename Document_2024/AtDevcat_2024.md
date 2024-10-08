@@ -4234,3 +4234,49 @@ public class UserModel : IValidatableObject
 	}
 }
 ```
+
+[닷넷 2303. C 13 - (7) ref struct의 interface 상속 및 제네릭 제약으로 사용 가능](https://www.sysnet.pe.kr/2/0/13752)
+
+> ref struct에 interface를 상속할 수 있게 됐습니다.
+
+```cs
+interface ILog
+{
+    void Log(TextWriter tw);
+}
+
+ref struct MyStruct : ILog
+{
+    int _x;
+
+    public MyStruct(int x) => _x = x;
+
+    public void Log(TextWriter tw)
+    {
+        tw.WriteLine($"x == {_x}");
+    }
+}
+```
+
+- ref struct 는 stack 에 할당해야 하는 제약이 있으니, 당연히 인터페이스 타입으로 형변환은 불가능.
+  - 다형성을 지원할 수 없다.
+  - 인터페이스 default 메서드도 사용할 수 없다.
+  - 그렇지만 generic 한정자에서 인터페이스 제약을 만족할 수 있게 된다.
+
+```cs
+// C# 12 이하에서는 ref strcut 타입은 인터페이스를 상속할 수 없으므로 PrintType<T>의 T 타입 인자로 사용할 수 없음
+ref struct PrintType<T> where T : ILog
+{
+    T _instance;
+
+    public PrintType(T instance)
+    {
+        _instance = instance; // ref struct 인스턴스를 보관하기 위해서는 PrintType<T> 자체도 ref struct 타입이어야 함
+    }
+
+    public void Log(TextWriter tw)
+    {
+        _instance.Log(tw); // 인터페이스로 형변환할 필요는 없으므로 interface를 상속한 ref struct 타입도 사용 가능
+    }
+}
+```
