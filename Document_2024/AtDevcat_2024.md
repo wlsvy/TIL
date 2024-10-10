@@ -4346,3 +4346,14 @@ print(f"최소 총 점수: {cost_matrix[row_ind, col_ind].sum()}")
 ### 결론:
 한쪽 그룹만 선호도를 가지는 이분 매칭 문제에서, 선호도를 점수로 표현하고 총 점수를 최소화하려면 **헝가리안 알고리즘**을 사용하는 것이 적합합니다. 이 알고리즘은 최적 매칭을 효율적으로 찾아낼 수 있으며, 가중치 기반 매칭 문제에서 널리 사용되는 기법입니다.
 
+## 24.10.10
+
+[My negative views on Rust](https://chrisdone.com/posts/rust/)
+
+- 포스트 중 일부 'Complexity' 주제에 대한 내용
+
+> Complexity
+
+**Rust has arrived at the complexity of Haskell and C++, each year requiring more knowledge to keep up with the latest and greatest.** Go was designed as the antidote to this kind of endlessly increasing language surface area. Endless libraries **re-treading existing patterns (web services, parsers, etc.) in Rust.** As a long-term Haskeller, I’ve done more than 15 years of riding a hamster wheel like that. It is fun for a while, but at some point I grew tired of it. This aspect of Rust puts me off. I don’t need another tamagotchi.
+
+
