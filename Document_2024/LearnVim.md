@@ -435,6 +435,11 @@ require("lazy").setup({
     --menu [NvChadmenu Menu ui for neovim ( supports nested menus ) made using volt](https://github.com/NvChad/menu)
     { "nvchad/volt" , lazy = true },
     { "nvchad/menu" , lazy = true },
+
+    -- [junegunn/fzf: :cherry_blossom: A command-line fuzzy finder](https://github.com/junegunn/fzf)
+    { "junegunn/fzf",
+        build = function() vim.fn['fzf#install']() end, },
+    { "junegunn/fzf.vim", },
 })
 
 -- 현재 init.lua의 디렉토리 위치를 가져오는 방법
@@ -550,6 +555,9 @@ vim.keymap.set("n", "<RightMouse>", function()
   local options = vim.bo.ft == "NvimTree" and "nvimtree" or "default"
   require("menu").open(options, { mouse = true })
 end, {})
+
+-- fzf: fuzzy finder
+vim.api.nvim_set_keymap('n', '<leader>t', "<cmd>FZF<CR>", { noremap = true, silent = true })
 
 -- 자동 완성 트리거
 vim.api.nvim_set_keymap('i', '<Tab>', 'pumvisible() ? "\\<C-n>" : "\\<Tab>"', { noremap = true, expr = true })
