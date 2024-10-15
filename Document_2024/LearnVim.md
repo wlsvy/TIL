@@ -437,8 +437,7 @@ require("lazy").setup({
     { "nvchad/menu" , lazy = true },
 
     -- [junegunn/fzf: :cherry_blossom: A command-line fuzzy finder](https://github.com/junegunn/fzf)
-    { "junegunn/fzf",
-        build = function() vim.fn['fzf#install']() end, },
+    { "junegunn/fzf", },
     { "junegunn/fzf.vim", },
 })
 
