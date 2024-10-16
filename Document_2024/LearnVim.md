@@ -439,6 +439,9 @@ require("lazy").setup({
     -- [junegunn/fzf: :cherry_blossom: A command-line fuzzy finder](https://github.com/junegunn/fzf)
     { "junegunn/fzf", },
     { "junegunn/fzf.vim", },
+
+    -- [sindretsdiffview.nvim Single tabpage interface for easily cycling through diffs for all modified files for any git rev.](https://github.com/sindrets/diffview.nvim)
+    { "sindrets/diffview.nvim" },
 })
 
 -- 현재 init.lua의 디렉토리 위치를 가져오는 방법
