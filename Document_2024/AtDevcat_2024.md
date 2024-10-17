@@ -4356,4 +4356,20 @@ print(f"최소 총 점수: {cost_matrix[row_ind, col_ind].sum()}")
 
 **Rust has arrived at the complexity of Haskell and C++, each year requiring more knowledge to keep up with the latest and greatest.** Go was designed as the antidote to this kind of endlessly increasing language surface area. Endless libraries **re-treading existing patterns (web services, parsers, etc.) in Rust.** As a long-term Haskeller, I’ve done more than 15 years of riding a hamster wheel like that. It is fun for a while, but at some point I grew tired of it. This aspect of Rust puts me off. I don’t need another tamagotchi.
 
+## 24.10.17
 
+**커넥션 재연결 중 버그나는 패턴**
+
+- 같은 커넥션 객체를 여러 실행 흐름에서 공유하면서 명령을 내릴 경우, 대체로는 괜찮은데
+  - 페일오버 등으로 재연결을 하는 경우
+    - 1) 기존 커넥션 접속 종료 (Close = Dispose) 
+    - 2) 새로운 커넥션 접속 맺기 순으로 작동.
+
+여기서, 다른 실행 흐름에서 1)의 RedisConnection을 얻어와서 redis 명령을 날리려고 하면
+
+다수의 실행흐름이 존재할 때(각각 #1 과 #2), 아래 시나리오가 발생 가능하다.
+
+    #1: 현재의 RedisConnection A를 얻어옴 -> Redis 명령 실행 -> Redis timeout 등으로 연결 해제 시도, RedisConnection oldA = A, A=null -> RedisConnection oldA.Dispose -> 새로운 RedisConnection을 통해 재접속 -> ...
+    #2:                                  현재의 RedisConnection A를 얻어옴 ->                                                                                     Redis 명령 실행 -> ObjectDisposedException
+
+이렇게 #2 실행 흐름에서 `ObjectDisposedException` 발생 가능
