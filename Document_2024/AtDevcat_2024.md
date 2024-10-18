@@ -4373,3 +4373,7 @@ print(f"최소 총 점수: {cost_matrix[row_ind, col_ind].sum()}")
     #2:                                  현재의 RedisConnection A를 얻어옴 ->                                                                                     Redis 명령 실행 -> ObjectDisposedException
 
 이렇게 #2 실행 흐름에서 `ObjectDisposedException` 발생 가능
+
+**추가: Awaitable 한 수행 루틴에서는 데드락 발생 가능성 체크해야 한다.**
+
+- sync -> async 형태로 변경 시에는 첫 번째 고민이 서로 간의 hang 가능성이 있는가.
