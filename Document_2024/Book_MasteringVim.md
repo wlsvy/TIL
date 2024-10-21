@@ -1,5 +1,7 @@
 # Mastering Vim, Ruslan Osipov, 2ND Edition
 
+![](Book_MasteringVim.png)
+
 # 1
 
 ## A brief history lesson
