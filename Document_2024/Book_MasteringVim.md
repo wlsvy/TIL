@@ -109,3 +109,14 @@
 - `:Tex[plore]       [dir]`... Tab & Explore                          *:Texplore*
 - `:Rex[plore]`            ... Return to/from Explorer                *:Rexplore*
 
+## Navigating Text
+
+Vim movement cheatsheet, original representation credited to Ted Naleid.
+
+![image_2024-10-25-15-13-22](img/image_2024-10-25-15-13-22.png)
+
+Insert mode cheatsheet
+
+![image_2024-10-25-15-14-23](img/image_2024-10-25-15-14-23.png)
+
+
