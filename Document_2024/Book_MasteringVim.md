@@ -119,4 +119,8 @@ Insert mode cheatsheet
 
 ![image_2024-10-25-15-14-23](img/image_2024-10-25-15-14-23.png)
 
+## Searching across files
+
+- `:grep` uses system grep and is a great tool if you’re already familiar with how grep works				
+- `:vimgrep` is a part of Vim and might be easier to use if you are not already familiar with grep
 
