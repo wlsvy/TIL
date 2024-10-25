@@ -56,3 +56,56 @@
 > Vim uses tabs to switch between collections of windows, allowing you to effectively have multiple workspaces. Tabs are often used to work on a slightly different problem or set of files within the same Vim sessiono
 
 ![image_2024-10-24-14-17-25](img/image_2024-10-24-14-17-25.png)
+
+## Folds
+
+> Folds allow you to hide portions of the file, either based on some predefined rules or manual fold markers.
+
+> All folding commands start with "z".  Hint: the "z" looks like a folded piece of paper, if you look at it from the side.
+
+**CREATE AND DELETING FOLDS**
+
+- `zf{motion}`, `{Visual}zf`: Operator to create a fold.
+- `zF` : Create a fold for [count] lines.  Works like "zf".
+- `:{range}fo[ld]` : Create a fold for the lines in {range}.  Works like "zf".
+- `zd` : Delete one fold at the cursor. Nested folds are moved one level up.
+- `zD` : Delete folds recursively at the cursor.
+- `zE` : Eliminate all folds in the window.
+
+**OPENING AND CLOSING FOLDS**
+
+- `zo`: Open one fold under the cursor.
+- `zO`: Open all folds under the cursor recursively.
+- `zc` : Close one fold under the cursor.
+- `zC`: Close all folds under the cursor recursively.
+- `za` : Summary: Toggle the fold under the cursor.
+- `zA`: When on a closed fold: open it recursively. When on an open fold: close it recursively and set `foldenable`.
+- `zr`: recude folding.
+- `zR`: Open all folds
+- `zm`: fold more
+- `zM`: Close all folds
+- `:{range}foldo[pen][!]`: Open folds in {range}. When [!] is added all folds are opened.
+- `:{range}foldc[lose][!]`: Close folds in {range}. When [!] is added all folds are closed.
+
+**MOVING OVER FOLDS**
+
+- `[z`: Move to the start of the current open fold.
+- `]z`: Move to the end of the current open fold.
+- `zj`: Move downwards to the start of the next fold.
+- `zk`: Move upwards to the end of the previous fold.
+
+## Netrw
+
+> Netrw is a built-in file manager in Vim (if we want to get technical, it’s a plugin that ships with Vim). 
+>
+> It allows you to browse directories and functions, similar to any other file manager you’ve worked with in your favorite OS.
+
+- `:Ex[plore]` : Open file navigation window.
+- `:[N]Ex[plore][!]  [dir]`... Explore directory of current file      *:Explore*
+- `:[N]Hex[plore][!] [dir]`... Horizontal Split & Explore             *:Hexplore*
+- `:[N]Lex[plore][!] [dir]`... Left Explorer Toggle                   *:Lexplore*
+- `:[N]Sex[plore][!] [dir]`... Split&Explore current file's directory *:Sexplore*
+- `:[N]Vex[plore][!] [dir]`... Vertical   Split & Explore             *:Vexplore*
+- `:Tex[plore]       [dir]`... Tab & Explore                          *:Texplore*
+- `:Rex[plore]`            ... Return to/from Explorer                *:Rexplore*
+
