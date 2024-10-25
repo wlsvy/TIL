@@ -452,7 +452,12 @@ require("lazy").setup({
 
     -- [sindretsdiffview.nvim Single tabpage interface for easily cycling through diffs for all modified files for any git rev.](https://github.com/sindrets/diffview.nvim)
     { "sindrets/diffview.nvim" },
+
+    -- [godlygeek/tabular: Vim script for text filtering and alignment](https://github.com/godlygeek/tabular)
     { "godlygeek/tabular" },
+
+    -- [easymotion/vim-easymotion: Vim motions on speed!](https://github.com/easymotion/vim-easymotion)
+    { "easymotion/vim-easymotion"},
 })
 
 -- 현재 init.lua의 디렉토리 위치를 가져오는 방법
@@ -571,6 +576,22 @@ end, {})
 
 -- fzf: fuzzy finder
 vim.api.nvim_set_keymap('n', '<leader>t', "<cmd>FZF<CR>", { noremap = true, silent = true })
+
+-- easymotion
+-- <Leader>f{char} to move to {char}
+vim.api.nvim_set_keymap('n', '<Leader><Leader>f', '<Plug>(easymotion-bd-f)', {})
+vim.api.nvim_set_keymap('n', '<Leader><Leader>f', '<Plug>(easymotion-overwin-f)', {})
+
+-- s{char}{char} to move to {char}{char}
+vim.api.nvim_set_keymap('n', 's', '<Plug>(easymotion-overwin-f2)', {})
+
+-- Move to line
+vim.api.nvim_set_keymap('n', '<Leader><Leader>l', '<Plug>(easymotion-bd-jk)', {})
+vim.api.nvim_set_keymap('n', '<Leader><Leader>l', '<Plug>(easymotion-overwin-line)', {})
+
+-- Move to word
+vim.api.nvim_set_keymap('n', '<Leader><Leader>w', '<Plug>(easymotion-bd-w)', {})
+vim.api.nvim_set_keymap('n', '<Leader><Leader>w', '<Plug>(easymotion-overwin-w)', {})
 
 -- 자동 완성 트리거
 vim.api.nvim_set_keymap('i', '<Tab>', 'pumvisible() ? "\\<C-n>" : "\\<Tab>"', { noremap = true, expr = true })
