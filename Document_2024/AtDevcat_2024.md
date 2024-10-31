@@ -4400,3 +4400,8 @@ print(f"최소 총 점수: {cost_matrix[row_ind, col_ind].sum()}")
 
 ![image_2024-10-31-13-17-01](img/image_2024-10-31-13-17-01.png)
 
+[Reducing your app’s size  Apple Developer Documentation](https://developer.apple.com/documentation/xcode/reducing-your-app-s-size)
+
+- App thinning
+
+애플 앱스토어의 애플리케이션 용량 제한이 4GB
