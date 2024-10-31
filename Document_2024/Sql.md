@@ -84,3 +84,80 @@
 6. 예시
   - **A 트랜잭션**이 주문 정보를 읽는 동안, **B 트랜잭션**이 같은 데이터를 수정해도 A는 변경 전 버전의 데이터를 계속 참조.
   - B 트랜잭션은 새로운 데이터를 추가하거나 수정해도 다른 트랜잭션에 영향을 주지 않고 커밋 가능.
+
+## 24.10.31
+
+[MySQL  MySQL 8.0 Reference Manual  12 Character Sets, Collations, Unicode](https://dev.mysql.com/doc/refman/8.0/en/charset.html)
+
+```
+mysql> SHOW CHARACTER SET;
++----------+---------------------------------+---------------------+--------+
+| Charset  | Description                     | Default collation   | Maxlen |
++----------+---------------------------------+---------------------+--------+
+| big5     | Big5 Traditional Chinese        | big5_chinese_ci     |      2 |
+| binary   | Binary pseudo charset           | binary              |      1 |
+...
+| latin1   | cp1252 West European            | latin1_swedish_ci   |      1 |
+...
+| ucs2     | UCS-2 Unicode                   | ucs2_general_ci     |      2 |
+...
+| utf8mb3  | UTF-8 Unicode                   | utf8mb3_general_ci  |      3 |
+| utf8mb4  | UTF-8 Unicode                   | utf8mb4_0900_ai_ci  |      4 |
+...
+```
+```
+mysql> SHOW CHARACTER SET LIKE 'utf%';
++---------+------------------+--------------------+--------+
+| Charset | Description      | Default collation  | Maxlen |
++---------+------------------+--------------------+--------+
+| utf16   | UTF-16 Unicode   | utf16_general_ci   |      4 |
+| utf16le | UTF-16LE Unicode | utf16le_general_ci |      4 |
+| utf32   | UTF-32 Unicode   | utf32_general_ci   |      4 |
+| utf8mb3 | UTF-8 Unicode    | utf8mb3_general_ci |      3 |
+| utf8mb4 | UTF-8 Unicode    | utf8mb4_0900_ai_ci |      4 |
++---------+------------------+--------------------+--------+
+```
+
+```
+mysql> SHOW COLLATION WHERE Charset = 'utf8mb4';
++----------------------------+---------+-----+---------+----------+---------+---------------+
+| Collation                  | Charset | Id  | Default | Compiled | Sortlen | Pad_attribute |
++----------------------------+---------+-----+---------+----------+---------+---------------+
+| utf8mb4_0900_ai_ci         | utf8mb4 | 255 | Yes     | Yes      |       0 | NO PAD        |
+| utf8mb4_0900_bin           | utf8mb4 | 309 |         | Yes      |       1 | NO PAD        |
+...
+| utf8mb4_bin                | utf8mb4 |  46 |         | Yes      |       1 | PAD SPACE     |
+...
+| utf8mb4_general_ci         | utf8mb4 |  45 |         | Yes      |       1 | PAD SPACE     |
+| utf8mb4_german2_ci         | utf8mb4 | 244 |         | Yes      |       8 | PAD SPACE     |
+| utf8mb4_hr_0900_ai_ci      | utf8mb4 | 275 |         | Yes      |       0 | NO PAD        |
+| utf8mb4_hr_0900_as_cs      | utf8mb4 | 298 |         | Yes      |       0 | NO PAD        |
+| utf8mb4_hungarian_ci       | utf8mb4 | 242 |         | Yes      |       8 | PAD SPACE     |
+...
+| utf8mb4_vi_0900_as_cs      | utf8mb4 | 300 |         | Yes      |       0 | NO PAD        |
+| utf8mb4_zh_0900_as_cs      | utf8mb4 | 308 |         | Yes      |       0 | NO PAD        |
++----------------------------+---------+-----+---------+----------+---------+---------------+
+```
+
+1. utf8mb4
+
+> MySQL에서 사용하는 문자 집합(Character Set) 중 하나로, UTF-8 인코딩의 확장 버전
+>
+> 완전한 유니코드 지원: utf8mb4는 UTF-8의 모든 유니코드 문자를 지원하며, 특히 4바이트 문자를 포함. 이모지(emoji)나 특정 아시아 언어의 복잡한 문자 등등을 표현할 수 있음. 
+>
+> 호환성: 이전의 utf8 문자 집합은 최대 3바이트까지만 지원했기 때문에 일부 유니코드 문자를 저장할 수 없었습니다. utf8mb4는 이러한 제한을 극복합니다.
+
+2. utf8mb4_general_ci
+
+> utf8mb4 문자 집합에 대한 콜레이션(Collation) 중 하나
+
+- utf8mb4: 문자 집합을 지정합니다.
+- general: 일반적인(colloquial) 정렬 및 비교 규칙을 의미합니다.
+- ci: 대소문자를 구분하지 않는(case-insensitive) 비교를 의미합니다.
+
+3. COLLATE (콜레이션)
+
+> 데이터베이스에서 문자열 데이터를 비교하고 정렬하는 방법을 정의하는 규칙. 문자 집합(Character Set)과 함께 사용
+
+- 대소문자 구분: ci (case-insensitive, 대소문자 구분 없음) vs. cs (case-sensitive, 대소문자 구분)
+- 일반 vs. 특정 언어: general vs. unicode 등
