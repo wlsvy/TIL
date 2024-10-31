@@ -4389,3 +4389,14 @@ print(f"최소 총 점수: {cost_matrix[row_ind, col_ind].sum()}")
     저사양 기기에서는 몇 초 동안 화면이 멈춰있는 경우
 
     -> 화면에 로딩 중 표기를 띄워서 어색함을 덜자 
+
+## 24.10.31
+
+[Halloweeen!!  rProgrammerHumor](https://www.reddit.com/r/ProgrammerHumor/comments/qazzl5/halloweeen/)
+
+![image_2024-10-31-13-16-05](img/image_2024-10-31-13-16-05.png)
+
+티셔츠도 있음
+
+![image_2024-10-31-13-17-01](img/image_2024-10-31-13-17-01.png)
+
