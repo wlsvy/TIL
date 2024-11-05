@@ -4478,6 +4478,8 @@ print(f"최소 총 점수: {cost_matrix[row_ind, col_ind].sum()}")
 - 마지막으로 불필요한 것이 있는지 확인하고 제거해야 한다. 즉, 최종적으로 코드베이스엔 필요한 것만을 남겨야 한다. 추억과 애정이 담긴 코드여도 예외는 없다.
 - 보통 개발자는 혹시나 하는 마음에 지우지 않는다. 마치 우리가 혹시나 하는 마음으로 집에 보관하는 많은 잡동사니와도 같다. 그러나 이는 불필요한 것을 남겨두는 것이며 결국 코드베이스를 더 복잡하게 만든다. 따라서 필요 없는 것은 바로 지우는 것이 좋다. 그래도 불안하다면 지워도 보통 커밋 기록에 남아있기 때문에 복구가 가능하다는 것을 기억하자.
 
+---
+
 [Strangler Fig](https://martinfowler.com/bliki/StranglerFigApplication.html)
 
 - [Strangler fig pattern - Wikipedia](https://en.wikipedia.org/wiki/Strangler_fig_pattern)
@@ -4491,3 +4493,22 @@ print(f"최소 총 점수: {cost_matrix[row_ind, col_ind].sum()}")
 
 그런 다음 자립할 수 있으며 원래 호스트 나무는 무화과 모양의 메아리를 남기고 죽을 수 있습니다. 호스트 트리를 교체하는 이러한 점진적인 프로세스는 동료들이 레거시 소프트웨어 시스템을 현대화하는 방식과 매우 유사하다는 생각이 들었습니다
 
+---
+
+[Ctrl+F 보다 더 똑똑하게 웹페이지 콘텐츠에 직접 링크하기  GeekNews](https://news.hada.io/topic?id=17474)
+
+- [Smarter than 'Ctrl+F' Linking Directly to Web Page Content](https://alfy.blog/2024/10/19/linking-directly-to-web-page-content.html)
+- Text Fragment
+
+> Text fragments are a powerful feature of the modern web platform that allows for **precise linking to specific text within a web page** without the need to add an anchor!
+
+`https://example.com/page.html#:~:text=[prefix-,]textStart[,textEnd][,-suffix]` 
+
+1. `prefix-`: A text string preceded by a hyphen specifying what text should immediately precede the linked text. This helps the browser to link to the correct text in case of multiple matches. This part is not highlighted.
+2. `textStart`: The beginning of the text you’re highlighting.
+3. `textEnd`: The ending of the text you’re highlighting.
+4. `-suffix`: A hyphen followed by a text string that behaves similarly to the prefix but comes after the text. Aslo helpful when multiple matches exist and doesn’t get highlighted with the linked text.
+
+예컨대 아래처럼 쓸 수 있다
+
+`https://developer.mozilla.org/en-US/docs/Web/URI/Fragment/Text_fragments#:~:text=without%20relying%20on%20the%20presence%20of%20IDs`
