@@ -4512,3 +4512,27 @@ print(f"최소 총 점수: {cost_matrix[row_ind, col_ind].sum()}")
 예컨대 아래처럼 쓸 수 있다
 
 `https://developer.mozilla.org/en-US/docs/Web/URI/Fragment/Text_fragments#:~:text=without%20relying%20on%20the%20presence%20of%20IDs`
+
+---
+
+[Fossil CRLF Is Obsolete And Should Be Abolished](https://fossil-scm.org/home/ext/crlf-harmful.md)
+
+- [CRLF는 더 이상 사용되지 않으며 폐지되어야 합니다  GeekNews](https://news.hada.io/topic?id=17225)
+
+라인 엔딩을 표현할 때마다 CRLF 문자 2byte를 매번 보내느니, NL로 통일해서 통신 데이터를 절약할 수 있지 않겠냐는 등의 이야기
+
+- [CRLF is obsolete and should be abolished  Hacker News](https://news.ycombinator.com/item?id=41830717)
+- ☝️☝️☝️  너무 파격적인 제안이라는 의견이 있음
+  - 오랫동안 유지되어온 표준을 바꿀 시, 초래할 수 있는 호환성 문제에 대한 언급이 없다는 등..
+
+> It seems that (1) there is still more software in circulation that depends on archaic CRLF line endings than I originally thought and (2) many people do not share my enthusiasm for creating a CRLF-free world. Alas. This makes me sad, but it is what it is. Thanks to everyone who was willing to give the idea a test run. It almost worked!
+
+내가 원래 생각했던 것보다 구식 CRLF 라인 엔딩에 의존하는 소프트웨어가 여전히 더 많이 유통되고 있고 많은 사람들이 CRLF 없는 세상을 만들려는 나의 열정을 공유하지 않는 것 같습니다. 아아. 이것이 나를 슬프게 하지만 그게 바로 그거예요. 아이디어를 시험해 볼 의향이 있는 모든 분들께 감사드립니다. 거의 효과가 있었어요!
+
+**CR/LF Definition**
+
+- **Carriage-Return (CR)** → Move the cursor to the left margin but keep it on the same row. (`U+000D`, `\r`)
+- **LineFeed (LF)** → Move the cursor down one row, causing all prior rows to scroll upwards, but keep the cursor on the same column. (`U+000A`, `\n`)
+- **NewLine (NL)** → Move the cursor down one row and to the left margin. (`U+000A`, 특별한 문자에 고정되어 있지 않음)
+- **CRLF** -> `U+0D0A`, `\r\n` (2bytes) 로 표기
+
