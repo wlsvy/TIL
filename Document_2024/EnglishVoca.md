@@ -10,3 +10,7 @@
 ## 24.11.05
 
 - daunting: 어려운
+- bereaved person : 유족
+- bereaved : 잃은
+- palliative : 완화제
+- transmute : 변환하다
