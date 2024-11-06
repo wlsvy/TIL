@@ -4536,3 +4536,24 @@ print(f"최소 총 점수: {cost_matrix[row_ind, col_ind].sum()}")
 - **NewLine (NL)** → Move the cursor down one row and to the left margin. (`U+000A`, 특별한 문자에 고정되어 있지 않음)
 - **CRLF** -> `U+0D0A`, `\r\n` (2bytes) 로 표기
 
+## 24.11.06
+
+**Shader 컴파일 관련 이슈**
+
+- Metal Shader Compiler 에서 컴파일 결과가 디바이스 종류에 따라 달라짐
+- Shader 에 가비지 값이 들어가면 수치가 실시간으로 이리저리 튀기 때문에 아래와 같은 증상이 있다. 
+  - **광과민성 발작을 연상시키는 듯 텍스쳐 색상이 번쩍번쩍 거린다던지**, 
+  - **bloom, 외곽선 등의 효과가 터무니없이 커지거나 반대로 눈에 보이지 않을정도로 작아지는 등**
+
+아래는 IOS 기종 METAL API 에서 인스턴스 버퍼에 변수 선언 순서에 따라 컴파일 결과가 달라지는 사례
+
+(PC 에서는 정상 동작)
+
+![image_2024-11-06-13-09-37](img/image_2024-11-06-13-09-37.png)
+
+- 비교를 위해 셰이더 컴파일을 돌려서 인스턴싱부분의 전후 메모리 확인
+- 문제가 발생할때는 320byte로 vector4가 16씩 증가하다가 float _Cutoff 이후 4가 아닌 16이 증가
+- 그러다가 vector4 _TopColor 이후 다시 4가 증가
+- 정상작동할 때는 288byte로 vector4가 16씩 증가하고 이후 float에서 4씩 순서대로 잘 들어간다
+
+
