@@ -14,3 +14,7 @@
 - bereaved : 잃은
 - palliative : 완화제
 - transmute : 변환하다
+
+## 24.11.07
+
+- wacky : 엉뚱한
