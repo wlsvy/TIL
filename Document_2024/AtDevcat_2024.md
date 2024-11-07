@@ -4625,3 +4625,53 @@ Content-type: application/json
 ```
 
 - 기아 뿐만 아니라 BMW, benz, toyota 등 딜러에게 많은 권한이 있기 때문에 취약점이 발견된 사례가 있다.
+
+## 24.11.07
+
+[domn1995dunet C discriminated union source generator](https://github.com/domn1995/dunet)
+
+> Dunet is a simple source generator for discriminated unions in C#.
+
+```cs
+// 1. Import the namespace.
+using Dunet;
+
+// 2. Add the `Union` attribute to a partial record.
+[Union]
+partial record Shape
+{
+    // 3. Define the union variants as inner partial records.
+    partial record Circle(double Radius);
+    partial record Rectangle(double Length, double Width);
+    partial record Triangle(double Base, double Height);
+}
+```
+
+```
+// 4. Use the union variants.
+var shape = new Shape.Rectangle(3, 4);
+var area = shape.Match(
+    circle => 3.14 * circle.Radius * circle.Radius,
+    rectangle => rectangle.Length * rectangle.Width,
+    triangle => triangle.Base * triangle.Height / 2
+);
+Console.WriteLine(area); // "12"
+```
+```cs
+[Union]
+public partial record HttpResponse
+{
+    public partial record Success;
+    public partial record Error(string Message);
+    // 1. All variants shall have a status code.
+    public required int StatusCode { get; init; }
+}
+```
+```cs
+[Union]
+partial record Option<T>
+{
+    partial record Some(T Value);
+    partial record None;
+}
+```
