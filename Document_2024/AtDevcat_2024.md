@@ -4675,3 +4675,81 @@ partial record Option<T>
     partial record None;
 }
 ```
+---
+
+**oneof vs dunet**
+
+https://www.reddit.com/r/dotnet/comments/1fxblvt/results_pattern_in_net/
+
+
+```cs
+// OneOf
+ShapeOneOf oneOf = new ShapeOneOf.Circle(10);
+
+// check if it is circle
+var isCircle = oneOf.IsT0;
+
+// Get circle instance
+var circle1 = oneOf.AsT0;
+oneOf.TryPickT0(out var circle2, out var _);
+
+// -------------------------------------------------
+
+// Dunet
+ShapeDunet dunet = new ShapeDunet.Circle(10);
+
+// check if it is circle
+var isCircle = dunet is ShapeDunet.Circle
+
+// Get circle instance
+var circle1 = dunet as ShapeDunet.Circle;
+var circle2 = dunet.UnwrapCircle();
+
+// Match circle only (can't do with OneOf)
+dunet.MatchCircle(
+    static c => { Console.WriteLine(c); },
+    static () => { Console.WriteLine("Not circle"); }
+);
+
+switch (dunet)
+{
+    case ShapeDunet.Circle c:
+        Console.WriteLine(c);
+        break;
+    default:
+        Console.WriteLine("Not circle");
+        break;
+}
+```
+
+For me, Dunet is more readable.
+
+Some other differences I can think of:
+
+- You can only have up to 8 subtypes with OneOf while there is no such limitation with Dunet
+- Say if you are a library author, if you use OneOf, your lib user will also have a dependency on OneOf. You won't have this problem with Dunet because it is just a source generator.
+- It is easier to use C# language features such as pattern matching with Dunet, so it can benefit from compiler optimization and gives better performance.
+
+---
+
+[best-practices#minimize-exceptions](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/best-practices?view=aspnetcore-8.0#minimize-exceptions)
+
+> Exceptions should be rare. Throwing and catching exceptions is slow relative to other code flow patterns. Because of this, exceptions shouldn't be used to control normal program flow.
+
+- **Do not** use throwing or catching exceptions as a means of normal program flow, **especially in hot code paths.**
+- **Do** include logic in the app to detect and handle conditions that would cause an exception.
+- **Do** throw or catch exceptions for unusual or unexpected conditions.
+
+---
+
+[louthylanguage-ext C functional language extensions - a base class library for functional programming](https://github.com/louthy/language-ext)
+
+```cs
+    Option<int> x = Some(123);
+    Option<int> y = None;
+    Seq<int> items = Seq(1,2,3,4,5);
+    List<int> items = List(1,2,3,4,5);
+    HashMap<int, string> dict = HashMap((1, "Hello"), (2, "World"));
+    Map<int, string> dict = Map((1, "Hello"), (2, "World"));
+```
+
