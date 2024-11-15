@@ -358,6 +358,8 @@ vim.api.nvim_set_keymap('n', '<C-Right>', ':vertical resize +3<CR>', { noremap =
 vim.api.nvim_set_keymap('n', '<C-Up>', ':horizontal resize +3<CR>', { noremap = true, silent = true }) -- 창 탐색 (오른쪽)
 vim.api.nvim_set_keymap('n', '<C-Down>', ':horizontal resize -3<CR>', { noremap = true, silent = true }) -- 창 탐색 (오른쪽)
 
+vim.api.nvim_set_keymap('t', '<Esc>', '<C-\\><C-n>', { noremap = true, silent = true }) -- exit from terminal insert mode
+
 -- text wrap toggle
 function ToggleTextWrap() -- 텍스트 줄 바꿈 토글하는 함수 정의
     vim.o.wrap = not vim.o.wrap
