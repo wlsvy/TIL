@@ -474,6 +474,9 @@ require("lazy").setup({
         -- Optional: Load plugin when yanking text
         event = { "TextYankPost" },
     },
+
+    -- [rcarriganvim-notify A fancy, configurable, notification manager for NeoVim](https://github.com/rcarriga/nvim-notify)
+    { 'rcarriga/nvim-notify'},
 })
 
 -- 현재 init.lua의 디렉토리 위치를 가져오는 방법
