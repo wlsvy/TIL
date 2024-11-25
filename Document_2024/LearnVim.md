@@ -460,6 +460,20 @@ require("lazy").setup({
 
     -- [easymotion/vim-easymotion: Vim motions on speed!](https://github.com/easymotion/vim-easymotion)
     { "easymotion/vim-easymotion"},
+
+    -- [atiladefreitaslazyclip The laziest clipboard manager for Neovim](https://github.com/atiladefreitas/lazyclip)
+    { "atiladefreitas/lazyclip",
+        config = function()
+            require("lazyclip").setup({
+                -- your custom config here (optional)
+            })
+        end,
+        keys = {
+            { "Cw", desc = "Open Clipboard Manager" },
+        },
+        -- Optional: Load plugin when yanking text
+        event = { "TextYankPost" },
+    },
 })
 
 -- 현재 init.lua의 디렉토리 위치를 가져오는 방법
