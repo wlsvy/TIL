@@ -161,3 +161,17 @@ mysql> SHOW COLLATION WHERE Charset = 'utf8mb4';
 
 - 대소문자 구분: ci (case-insensitive, 대소문자 구분 없음) vs. cs (case-sensitive, 대소문자 구분)
 - 일반 vs. 특정 언어: general vs. unicode 등
+
+## 24.11.28
+
+**MySql 에서 시스템 설정 확인**
+
+- `SHOW VARIABLES;`: MySql 서버의 시스템 변수 확인
+- `SHOW VARIABLES LIKE 'max_connections';` : 특정 변수만 확인
+- `SELECT @@autocommit, @@sql_mode;` : 특정 변수 값을 확인
+- `SHOW STATUS LIKE 'Threads_running';` : 특정 변수 값을 확인
+- `SELECT * FROM INFORMATION_SCHEMA.GLOBAL_VARIABLES;`: 글로벌 변수와 값을 조회
+- `SELECT * FROM INFORMATION_SCHEMA.GLOBAL_STATUS;` : MySQL 서버 상태 정보 확인
+- `SHOW PROCESSLIST;` : 현재 실행 중인 쿼리와 스레드 확인
+  - `SHOW FULL PROCESSLIST;` : 더 자세한 정보는 FULL 을 붙이기
+- `SHOW GRANTS FOR CURRENT_USER;` : 현재 사용자 권한
