@@ -596,3 +596,70 @@ Git은 저장소에서 여러 개의 개별 객체 파일이 쌓일 때, 이를 
 ### `git repack` vs `git gc`
 
 - 서버 환경에서 git gc 명령은 git repack을 포함한 여러 최적화 작업을 자동으로 수행합니다. git gc는 오래된 파일이나 불필요한 파일들을 정리하고, git repack은 그 중 하나로 사용됩니다.
+
+## Maintenance
+
+[Git - git-maintenance Documentation](https://git-scm.com/docs/git-maintenance)
+
+    Run tasks to optimize Git repository data,
+    speeding up other Git commands and reducing storage requirements for the repository.
+
+- 메인터넌스 task 종류
+
+**commit-graph**
+
+    The commit-graph job updates the **commit-graph files incrementally**, then verifies that the written data is correct.
+    The incremental write is safe to run alongside concurrent Git processes since it will not expire `.graph` files that were in the previous commit-graph-chain file.
+    They will be deleted by a later run based on the expiration delay.
+
+**prefetch**
+
+    The prefetch task updates the **object directory** with the latest objects from all registered remotes.
+    For each remote, a git fetch command is run. 
+    The configured refspec is modified to place all requested refs within refs/prefetch/.
+    Also, tags are not updated.
+
+    This is done to avoid disrupting the remote-tracking branches.
+    The end users expect these refs to stay unmoved unless they initiate a fetch.
+    However, with the prefetch task, the objects necessary to complete a later real fetch would already be obtained, making the real fetch faster.
+    In the ideal case, it will just become an update to a bunch of remote-tracking branches without any object transfer.
+
+    The remote.<name>.skipFetchAll configuration can be used to exclude a particular remote from getting prefetched.
+
+**gc**
+
+    **Clean up unnecessary files and optimize the local repository**.
+    "GC" stands for "garbage collection," but this task performs many smaller tasks.
+    This task **can be expensive for large repositories**, as it repacks all Git objects into a single pack-file.
+    It can also be disruptive in some situations, as it deletes stale data.
+
+**loose-objects**
+
+    The loose-objects job **cleans up loose objects and places them into pack-files.**
+    In order to prevent race conditions with concurrent Git commands, it follows a two-step process.
+
+        First, it deletes any loose objects that already exist in a pack-file; concurrent Git processes will examine the pack-file for the object data instead of the loose object.
+        Second, it creates a new pack-file (starting with "loose-") containing a batch of loose objects.
+            The batch size is limited to 50 thousand objects to prevent the job from taking too long on a repository with many loose objects.
+
+    The gc task writes unreachable objects as loose objects to be cleaned up by a later step only if they are not re-added to a pack-file;
+    for this reason it is **not advisable to enable both the loose-objects and gc tasks at the same time.**
+
+**incremental-repack**
+
+    The incremental-repack job **repacks the object directory using the multi-pack-index feature.**
+    In order to prevent race conditions with concurrent Git commands, it follows a two-step process. 
+
+        First, it calls git multi-pack-index expire to delete pack-files unreferenced by the multi-pack-index file.
+        Second, it calls git multi-pack-index repack to select several small pack-files and repack them into a bigger one,
+            and then update the multi-pack-index entries that refer to the small pack-files to refer to the new pack-file.
+
+    This prepares those small pack-files for deletion upon the next run of git multi-pack-index expire.
+    The selection of the small pack-files is such that the expected size of the big pack-file is at least the batch size;
+    see the --batch-size option for the repack subcommand in git-multi-pack-index[1].
+    The default batch-size is zero, which is a special case that attempts to repack all pack-files into a single pack-file.
+
+**pack-refs**
+
+    The pack-refs task **collects the loose reference files and collects them into a single file.**
+    This speeds up operations that need to iterate across many references.
