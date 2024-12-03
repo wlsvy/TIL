@@ -175,3 +175,35 @@ mysql> SHOW COLLATION WHERE Charset = 'utf8mb4';
 - `SHOW PROCESSLIST;` : 현재 실행 중인 쿼리와 스레드 확인
   - `SHOW FULL PROCESSLIST;` : 더 자세한 정보는 FULL 을 붙이기
 - `SHOW GRANTS FOR CURRENT_USER;` : 현재 사용자 권한
+
+## 24.12.03
+
+[MySQL  MySQL 8.4 Reference Manual  17.8.2 Configuring InnoDB for Read-Only Operation](https://dev.mysql.com/doc/refman/8.4/en/innodb-read-only-instance.html)
+
+- mysql 에서 Read Only 속성으로 권한 제한
+
+```sql
+CREATE USER 'readonly_user'@'%' IDENTIFIED BY 'password';
+
+-- 특정 데이터베이스에 대한 SELECT 권한 부여
+GRANT SELECT ON database_name.* TO 'readonly_user'@'%';
+
+-- 모든 데이터베이스에 대해 읽기 전용 권한 부여 (필요한 경우)
+GRANT SELECT ON *.* TO 'readonly_user'@'%';
+
+-- 권한 확인
+SHOW GRANTS FOR 'readonly_user'@'%';
+
+-- 권한 적용
+FLUSH PRIVILEGES;
+```
+
+- View 를 생성하는 경우
+
+```sql
+CREATE VIEW readonly_view AS SELECT * FROM database_name.table_name;
+
+-- 권한 부여
+GRANT SELECT ON database_name.readonly_view TO 'readonly_user'@'%';
+```
+
