@@ -678,3 +678,14 @@ Git은 저장소에서 여러 개의 개별 객체 파일이 쌓일 때, 이를 
 
 - `write`: Write a commit-graph file **based on the commits found in packfiles**
 - `verify`: Read the commit-graph file and verify its contents against the object database. **Used to check for corrupted data**.
+
+## multi-pack-index
+
+[Git - git-multi-pack-index Documentation](https://git-scm.com/docs/git-multi-pack-index)
+
+> Write or verify a multi-pack-index (MIDX) file.
+
+- `$ git multi-pack-index write`: Write a MIDX file for the packfiles in the current `.git` directory.
+- `$ git multi-pack-index write --preferred-pack=<pack> --bitmap` : Write a MIDX file for the packfiles in the current `.git` directory with a corresponding bitmap.
+- `$ git multi-pack-index verify` : Verify the MIDX file for the packfiles in the current `.git` directory.
+
