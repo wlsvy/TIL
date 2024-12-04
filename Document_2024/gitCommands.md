@@ -663,3 +663,14 @@ Git은 저장소에서 여러 개의 개별 객체 파일이 쌓일 때, 이를 
 
     The pack-refs task **collects the loose reference files and collects them into a single file.**
     This speeds up operations that need to iterate across many references.
+
+## commit-graph
+
+[Git - git-commit-graph Documentation](https://git-scm.com/docs/git-commit-graph)
+
+> Manage the **serialized commit-graph file.**
+
+- `$ git commit-graph write` : Write a commit-graph file for the packed commits in your local `.git` directory.
+- `$ echo <pack-index> | git commit-graph write --stdin-packs` : Write a commit-graph file containing all reachable commits.
+- `$ git rev-parse HEAD | git commit-graph write --stdin-commits --append` : Write a commit-graph file containing all commits in the current commit-graph file along with those reachable from `HEAD`.
+
