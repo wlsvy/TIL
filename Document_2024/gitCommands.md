@@ -674,3 +674,7 @@ Git은 저장소에서 여러 개의 개별 객체 파일이 쌓일 때, 이를 
 - `$ echo <pack-index> | git commit-graph write --stdin-packs` : Write a commit-graph file containing all reachable commits.
 - `$ git rev-parse HEAD | git commit-graph write --stdin-commits --append` : Write a commit-graph file containing all commits in the current commit-graph file along with those reachable from `HEAD`.
 
+관련 명령으로는
+
+- `write`: Write a commit-graph file **based on the commits found in packfiles**
+- `verify`: Read the commit-graph file and verify its contents against the object database. **Used to check for corrupted data**.
