@@ -23,3 +23,7 @@
 
 - excursion : 소풍, 단체 관광
 - tactile : 촉각
+
+## 24.12.06
+
+- Swerve : 물리치다
