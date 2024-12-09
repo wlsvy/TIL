@@ -477,6 +477,22 @@ require("lazy").setup({
 
     -- [rcarriganvim-notify A fancy, configurable, notification manager for NeoVim](https://github.com/rcarriga/nvim-notify)
     { 'rcarriga/nvim-notify'},
+
+    -- [folkenoice.nvim 💥 Highly experimental plugin that completely replaces the UI for messages, cmdline and the popupmenu.](https://github.com/folke/noice.nvim)
+    {
+        "folke/noice.nvim",
+        event = "VeryLazy",
+        opts = {
+            -- add any options here
+        },
+        dependencies = {
+            -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+            "MunifTanjim/nui.nvim",
+            -- OPTIONAL:
+            --   `nvim-notify` is only needed, if you want to use the notification view.
+            --   If not available, we use `mini` as the fallback
+            "rcarriga/nvim-notify",
+    },
 })
 
 -- 현재 init.lua의 디렉토리 위치를 가져오는 방법
