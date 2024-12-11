@@ -493,6 +493,14 @@ require("lazy").setup({
             --   If not available, we use `mini` as the fallback
             "rcarriga/nvim-notify",
     },
+
+    -- [jesseleitenvim-macroni 🤌 Save your macros for future use](https://github.com/jesseleite/nvim-macroni)
+    {
+        'jesseleite/nvim-macroni',
+        opts = {
+            -- All of your `setup(opts)` and saved macros will go here
+        },
+    },
 })
 
 -- 현재 init.lua의 디렉토리 위치를 가져오는 방법
