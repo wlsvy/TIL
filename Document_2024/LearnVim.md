@@ -645,6 +645,28 @@ vim.keymap.set({'n', 'v'}, '<Leader>m', function ()
   require('telescope').extensions.macroni.saved_macros()
 end)
 
+require('macroni').setup {
+    macros = {
+      make_todo_list_item = {
+        macro = '^i-<Space>[<Space>]<Space>',
+        mode = { 'n', 'v' }, -- By default, macros will be mapped to both normal & visual modes
+        desc = '^i-<Space>[<Space>]<Space>',
+      },
+
+      tabularize_markdown_table = {
+        macro = ":'<,'>Tabularize /|<CR>",
+        mode = {'v'},
+        desc = ":'<,'>Tabularize /|<CR>",
+      },
+
+      checkhealth = {
+        macro = ":checkhealth<CR>",
+        mode = { 'n'},
+        desc = ":checkhealth<CR>",
+      },
+    },
+  }
+
 require("catppuccin").setup({
     flavour = "auto", -- latte, frappe, macchiato, mocha
     background = { -- :h background
