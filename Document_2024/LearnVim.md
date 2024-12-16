@@ -665,6 +665,12 @@ require('macroni').setup {
         mode = { 'n'},
         desc = ":checkhealth<CR>",
       },
+
+      reset_markdown_numbered_list_rank = {
+        macro = ":\'<,\'>s/^1/\\=line(\'.\') + 1 - line(\"\'<\")/g<CR>",
+        mode = {'n', 'v'},
+        desc = ":\'<,\'>s/^1/\\=line(\'.\') + 1 - line(\"\'<\")/g<CR>",
+      },
     },
   }
 
