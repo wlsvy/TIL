@@ -400,7 +400,8 @@ require("lazy").setup({
     },
 
     -- [itchynylightline.vim A light and configurable statuslinetabline plugin for Vim](https://github.com/itchyny/lightline.vim)
-    { 'itchyny/lightline.vim', 
+    { 
+        'itchyny/lightline.vim', 
         config = function()
             vim.g.lightline = {
                 colorscheme = "PaperColor",
@@ -418,6 +419,10 @@ require("lazy").setup({
             }
         end
     },
+
+    -- [itchynycalendar.vim A calendar application for Vim](https://github.com/itchyny/calendar.vim)
+    { 'itchyny/calendar.vim' },
+
 })
 
 -- 현재 init.lua의 디렉토리 위치를 가져오는 방법
