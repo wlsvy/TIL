@@ -398,6 +398,26 @@ require("lazy").setup({
             -- All of your `setup(opts)` and saved macros will go here
         },
     },
+
+    -- [itchynylightline.vim A light and configurable statuslinetabline plugin for Vim](https://github.com/itchyny/lightline.vim)
+    { 'itchyny/lightline.vim', 
+        config = function()
+            vim.g.lightline = {
+                colorscheme = "PaperColor",
+                active = {
+                    left = {
+                        {'mode', 'paste'},
+                        {'readonly', 'filename', 'modified' }
+                    },
+                    right = {
+                        { 'lineinfo' },
+                        { 'percent' },
+                        {'filetype', 'fileencoding'} 
+                    }
+                }
+            }
+        end
+    },
 })
 
 -- 현재 init.lua의 디렉토리 위치를 가져오는 방법
