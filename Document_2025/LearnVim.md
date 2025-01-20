@@ -210,6 +210,7 @@ vim.o.cursorline = true -- Highlight the current line
 vim.o.termguicolors = true -- Enable 24-bit RGB colors
 vim.o.ignorecase = true
 vim.o.smartcase = true -- 패턴에 대문자가 포함되어 있다면 대소문자 구분
+vim.opt.guicursor = "n-v-c-sm:block,i-ci:ver30-iCursor-blinkwait300-blinkon200-blinkoff150,r-cr-o:hor20" 
 
 -- Syntax highlighting and filetype plugins
 vim.cmd("syntax enable")
