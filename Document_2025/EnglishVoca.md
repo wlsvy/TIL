@@ -44,3 +44,7 @@
 
 - leak : 소변
 - ditch : 도랑
+
+## 25.01.25
+
+- complacency : 자만심
