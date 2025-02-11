@@ -48,3 +48,7 @@
 ## 25.01.25
 
 - complacency : 자만심
+
+## 25.02.11
+
+- ergononomics : 인간 공학
