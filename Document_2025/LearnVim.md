@@ -431,6 +431,15 @@ require("lazy").setup({
         end
     },
 
+    -- [GitHub - lukas-reinekeindent-blankline.nvim Indent guides for Neovim](https://github.com/lukas-reineke/indent-blankline.nvim)
+    {
+        "lukas-reineke/indent-blankline.nvim",
+        main = "ibl",
+        ---@module "ibl"
+        ---@type ibl.config
+        opts = {},
+    },
+
 })
 
 -- 현재 init.lua의 디렉토리 위치를 가져오는 방법
