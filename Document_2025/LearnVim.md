@@ -227,7 +227,6 @@ Neovim의 `normal` 명령어는 **Ex 모드(`:`)에서 일반 모드(Normal Mode
 - ctermfg, guifg : 글자 색상 변경 (터미널/GUI)
 - ctermbg, guibg : 배경 색상 변경 (터미널/GUI)
 
-
 **Neovim config (Init.lua)**
 
 ```lua
@@ -661,6 +660,12 @@ require('macroni').setup {
         macro = ":let @+ = expand(\'%\')<CR>",
         mode = {'n', 'v'},
         desc = ":let @+ = expand(\'%\')<CR>",
+      },
+
+      write_date_with_markdown_caption = {
+        macro = ":execute \"normal i\" . strftime(\"## %y-%m-%d\")<CR>",
+        mode = {'n'},
+        desc = ":execute \"normal i\" . strftime(\"## %y-%m-%d\")<CR>",
       },
 
     },
