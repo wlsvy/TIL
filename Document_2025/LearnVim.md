@@ -312,6 +312,19 @@ vim.api.nvim_create_user_command( -- 명령어 등록
     'lua ToggleTextWrap()',
     { nargs = 0 }
 )
+
+-- Markdown 파일에서만 적용되는 하이라이트 설정
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "markdown",
+  callback = function()
+    -- **로 감싸진 텍스트를 하이라이트
+    vim.cmd [[
+      syntax match markdownBold /\*\*.\{-}\*\*/
+      highlight markdownBold cterm=bold gui=bold guifg=purple
+    ]]
+  end
+})
+
 -- 'lazy.nvim' 설치 및 경로 설정
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
