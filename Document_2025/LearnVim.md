@@ -204,6 +204,30 @@ Neovim의 `normal` 명령어는 **Ex 모드(`:`)에서 일반 모드(Normal Mode
 | normal  | 사용자 매핑이 적용된 상태에서 키 입력 실행 |
 | normal! | 사용자 매핑을 무시하고 기본 동작을 실행    |
 
+**Highlight**
+
+# Neovim 하이라이트 명령어 정리
+
+| 명령어               | 기능 설명                                                                                          |
+| -------------------- | ------------------------------------------------------------------------------------------------   |
+| `:syntax enable`     | 문법 강조 기능을 활성화합니다. 기본적인 컬러 스킴을 유지하면서 문법 강조를 활성화합니다.           |
+| `:syntax on`         | 문법 강조를 강제 활성화합니다. 컬러 스킴을 무시하고 문법 강조를 적용합니다.                        |
+| `:syntax off`        | 문법 강조를 비활성화합니다.                                                                        |
+| `:syntax list`       | 현재 적용된 모든 문법 강조 그룹을 출력합니다.                                                      |
+| `:syntax clear`      | 모든 문법 강조 설정을 제거합니다.                                                                  |
+| `:syntax keyword`    | 특정 키워드를 하이라이트하는 문법 그룹을 정의합니다. 예: `:syntax keyword MyGroup TODO FIXME NOTE` |
+| `:syntax match`      | 정규식을 사용하여 특정 패턴을 하이라이트합니다. 예: `:syntax match MyGroup /ERROR/`                |
+| `:highlight`         | 문법 그룹에 스타일을 적용합니다. 예: `:highlight MyGroup ctermfg=red guifg=red ctermbg=yellow`     |
+
+## 설명
+
+- `:syntax enable`과 `:syntax on`은 문법 강조를 활성화하지만, `:syntax on`은 컬러 스킴을 무시하고 강제로 문법 강조를 적용합니다.
+- `:syntax list`는 현재 활성화된 문법 그룹을 확인하는 데 유용하며, `:syntax clear`로 모든 강조 설정을 제거할 수 있습니다.
+- `:syntax keyword`와 `:syntax match`는 특정 단어나 패턴을 하이라이트하는 데 사용되며, `:highlight` 명령어를 통해 하이라이트된 단어에 스타일을 적용할 수 있습니다.
+- ctermfg, guifg : 글자 색상 변경 (터미널/GUI)
+- ctermbg, guibg : 배경 색상 변경 (터미널/GUI)
+
+
 **Neovim config (Init.lua)**
 
 ```lua
