@@ -499,6 +499,20 @@ require("lazy").setup({
         end
     },
 
+
+    -- [snacks.nvim/docs/image.md at main · folke/snacks.nvim](https://github.com/folke/snacks.nvim/blob/main/docs/image.md)
+    {
+      "folke/snacks.nvim",
+      ---@type snacks.Config
+      opts = {
+        image = {
+          -- your image configuration comes here
+          -- or leave it empty to use the default settings
+          -- refer to the configuration section below
+        }
+      }
+    },
+
 })
 
 -- 현재 init.lua의 디렉토리 위치를 가져오는 방법
