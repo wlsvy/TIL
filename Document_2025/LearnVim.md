@@ -695,6 +695,12 @@ require('macroni').setup {
         desc = ":execute \"normal i\" . strftime(\"## %y.%m.%d\")<CR>",
       },
 
+      vertical_resize_plus_50p = {
+          macro = ":vertical resize +50<CR>",
+          mode = {'n'},
+          desc = ":vertical resize +50<CR>",
+      },
+
     },
   }
 
