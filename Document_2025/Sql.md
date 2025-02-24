@@ -207,3 +207,29 @@ CREATE VIEW readonly_view AS SELECT * FROM database_name.table_name;
 GRANT SELECT ON database_name.readonly_view TO 'readonly_user'@'%';
 ```
 
+## 25.02.24
+
+**mySql 의 테이블 컬럼 추가 방식**
+
+- [MySQL  MySQL 8.0 Reference Manual  15.1.9 ALTER TABLE Statement](https://dev.mysql.com/doc/refman/8.0/en/alter-table.html)
+
+**ALGORITHM=COPY**
+
+- 테이블을 새로 생성한 후, 기존 데이터를 새로운 데이블로 복사한 뒤 교체하는 방식.
+- 테이블 크기가 클수록 시간이 오래 걸리며, 복사 중에는 테이블이 잠길 수 있다. 
+- `ALTER TABLE my_table ADD COLUMN new_col INT;`
+
+**ALGORITHM=INPLACE**
+
+- 데이터를 복사하지 않고, 메타데이터만 변경하는 방식.
+- 실행 속도가 빠르고, 데이블 잠금(lock)이 짧게 발생함.
+- `ALTER TABLE my_table ADD COLUMN new_col INT NOT NULL DEFAULT 0, ALGORITHM=INPLACE;`
+
+**ALGORITHM=INSTANT ( 8.0.12 이상)**
+
+- 테이블 크기와 관계없이 즉시(Instant)컬럼을 추가할 수 있는 방법.
+- 테이터를 복사하지 않고, 테이블의 메타데이터만 변경하는 방식.
+- 매우 빠르고, 테이블이 크더라도 몇 초 이내에 작업 완료됨. 
+- ADD COLUMN 만 지원, 새 컬럼은 맨 마지막 컬럼으로만 추가 가능.
+- AUTO_INCREMENT, PRIMARY KEY, UNIQUE KEY, FOREIGN KEY는 사용할 수 없습니다.
+- `ALTER TABLE my_table ADD COLUMN new_col INT DEFAULT 0, ALGORITHM=INSTANT;`
