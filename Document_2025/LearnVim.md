@@ -227,6 +227,14 @@ Neovim의 `normal` 명령어는 **Ex 모드(`:`)에서 일반 모드(Normal Mode
 - ctermfg, guifg : 글자 색상 변경 (터미널/GUI)
 - ctermbg, guibg : 배경 색상 변경 (터미널/GUI)
 
+**Search History**
+
+| 기능                        | 단축키               |
+| ------                      | ------               |
+| 검색 히스토리 창 열기       | `q/`                 |
+| 검색 히스토리 목록 확인     | `:history /`         |
+| 검색 모드에서 히스토리 탐색 | `/` 입력 후 `Ctrl-f` |
+
 **Neovim config (Init.lua)**
 
 ```lua
