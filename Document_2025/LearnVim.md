@@ -132,19 +132,19 @@ or
 
 ## Commands
 
-| 명령어         | 의미 (Stands for)             | 설명                            | 예시                             |
-| -------------- | ----------------------------- | ------------------------------- | -------------------------------- |
-| `:g`           | Global                        | 패턴에 매칭되는 라인 처리       | `:g/error/d` → 'error' 삭제      |
-| `:v`           | InVerse (반대의 Global)       | 패턴에 매칭되지 않는 라인 처리  | `:v/error/d` → 'error' 제외 삭제 |
-| `:s`           | Substitute                    | 문자열 대체                     | `:%s/foo/bar/g`                  |
-| `:d`           | Delete                        | 라인 삭제                       | `:3,5d` → 3~5라인 삭제           |
-| `:t` / `:co`   | Transfer / Copy               | 라인 복사                       | `:3t$` → 3번 라인 복사           |
-| `:m`           | Move                          | 라인 이동                       | `:3m$` → 3번 라인 이동           |
-| `:!`           | Shell Command                 | 외부 명령 실행                  | `:!ls`                           |
-| `:r`           | Read                          | 파일/명령 결과 읽어오기         | `:r other.txt`                   |
-| `:normal`      | Normal Mode                   | 노멀 모드 명령 실행             | `:g/error/normal dd`             |
-| `:join`        | Join                          | 라인 합치기                     | `:3,5join`                       |
-| `:>` / `:<`    | Indent Right / Indent Left    | 들여쓰기 증가/감소              | `:%>`                            |
+| 명령어         | 의미 (Stands for)             | 설명                            | 예시                                        |
+| -------------- | ----------------------------- | ------------------------------- | --------------------------------            |
+| `:g`           | Global                        | 패턴에 매칭되는 라인 처리       | `:g/error/d` → 'error' 삭제                 |
+| `:v`           | InVerse (반대의 Global)       | 패턴에 매칭되지 않는 라인 처리  | `:v/error/d` → 'error' 제외 삭제, `:v/error | \warn/d` -> 여러 키워드 지정 가능 |
+| `:s`           | Substitute                    | 문자열 대체                     | `:%s/foo/bar/g`                             |
+| `:d`           | Delete                        | 라인 삭제                       | `:3,5d` → 3~5라인 삭제                      |
+| `:t` / `:co`   | Transfer / Copy               | 라인 복사                       | `:3t$` → 3번 라인 복사                      |
+| `:m`           | Move                          | 라인 이동                       | `:3m$` → 3번 라인 이동                      |
+| `:!`           | Shell Command                 | 외부 명령 실행                  | `:!ls`                                      |
+| `:r`           | Read                          | 파일/명령 결과 읽어오기         | `:r other.txt`                              |
+| `:normal`      | Normal Mode                   | 노멀 모드 명령 실행             | `:g/error/normal dd`                        |
+| `:join`        | Join                          | 라인 합치기                     | `:3,5join`                                  |
+| `:>` / `:<`    | Indent Right / Indent Left    | 들여쓰기 증가/감소              | `:%>`                                       |
 
 ---
 
