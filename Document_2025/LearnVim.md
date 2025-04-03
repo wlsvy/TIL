@@ -709,6 +709,12 @@ require('macroni').setup {
           desc = ":vertical resize +50<CR>",
       },
 
+      copy_multiline_with_any_keyword = {
+          macro = ":g/keyword1\|keyword2/normal Vj"Ay<CR>",
+          mode = {'n'},
+          desc = ":g/keyword1\|keyword2/normal Vj"Ay<CR>",
+      },
+
     },
   }
 
