@@ -667,6 +667,7 @@ ngrok is the fastest way to host and secure your applications and services on th
 - LTM 속 정보는 관련된 사실들이 서로 연결되어 있는 네트워크의 형태로 저장된다.
 - 새로운 정보를 능동적으로 정교화하면 그 새로운 기억이 연결함 기억의 네트워크를 강화하고 이는 인출을 쉽게 하는 데 도움이 된다.
 
+---
 
 **성인 ADHD의 대처기술 안내서: 실생활적응능력 향상을 위한 인지행동치료 기법 활용**
 
