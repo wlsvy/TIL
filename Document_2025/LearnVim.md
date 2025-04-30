@@ -185,7 +185,7 @@ or
 | <C-u>       | 커서 왼쪽의 모든 텍스트 삭제.                             |
 | <C-a>       | 현재 명령줄의 내용을 커맨드 기록(history)에서 불러오기.   |
 | <C-r>       | 레지스터 내용을 삽입. (예: <C-r>0는 0 레지스터 내용 삽입) |
-| <C-d>       | 명령어 자동 완성 후보를 표시.                             |
+| <C-d>       | 명령어 자동 완성 후보를 표시.                             | 
 | <C-n>       | 다음 자동 완성 후보로 이동.                               |
 | <C-p>       | 이전 자동 완성 후보로 이동.                               |
 | <C-f>       | 명령줄 편집 모드를 창으로 열기 (cmdwin).                  |
@@ -713,6 +713,12 @@ require('macroni').setup {
           macro = ":g/keyword1\|keyword2/normal Vj"Ay<CR>",
           mode = {'n'},
           desc = ":g/keyword1\|keyword2/normal Vj"Ay<CR>",
+      },
+
+      flush_register_at_abcde = {
+          macro = ":let @a='' | let @b = '' | let @c = ''| let @d = ''| let @e = ''<CR>",
+          mode = {'n'},
+          desc = ":let @a='' | let @b = '' | let @c = ''| let @d = ''| let @e = ''<CR>",
       },
 
     },
