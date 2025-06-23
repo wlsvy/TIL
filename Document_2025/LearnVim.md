@@ -146,6 +146,9 @@ or
 | `:join`        | Join                          | 라인 합치기                     | `:3,5join`                                  |
 | `:>` / `:<`    | Indent Right / Indent Left    | 들여쓰기 증가/감소              | `:%>`                                       |
 
+- grep 명령어 응용 예시
+  - `g/keyword1/ | v/keyword2/ normal echo`
+
 ---
 
 | **표현식**          | **설명**                            | **예시**                              |
