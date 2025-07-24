@@ -1,6 +1,6 @@
 # Prompt For Gemini CLI
 
-## 아래 내용은 항상 실행 {#main}
+## [아래 내용은 항상 실행](#main)
 
 * 먼저 이 `#main` 섹션의 텍스트 전문을 출력해줘.
 * '한국경제' 의 오늘 출근길 주요 뉴스 알려줘.
@@ -12,7 +12,7 @@
 
 * 최근 1 주일간 Hacker Rank의 조회수 많은 포스트 나열해줘. 포스트 제목 옆에 url 도 같이 띄워줘
 
-## 아래 내용은 실행하지 않을 것. {#stock-brefing}
+## [아래 내용은 실행하지 않을 것.](#stock-brefing)
 
 - `#stock-brefing` 섹션 텍스트 전문 출력해줘.
 - 한국 코스피와 코스닥 브리핑
@@ -28,7 +28,7 @@
 
 - **지금이 실적 발표 시즌인지 확인해줘. 만약 그렇다면 마지막으로 '실정 발표 내용 확인해보시겠어요?' 라고 물어봐줘. 내가 그렇다고 하면 `#stock-brefing` 의 내용을 실행해줘**
 
-## 실적 발표 시즌이면 {#stock-earning_call}
+## [실적 발표 시즌이면](#stock-earning_call)
 
 - `#stock-earning_call` 섹션 텍스트 전문 출력해줘.
 - 최근 실적 calendar Markdown 표로 정리해줘
