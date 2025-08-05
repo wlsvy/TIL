@@ -502,6 +502,7 @@ git-blame - Show what revision and author last modified each line of a file
 
 - git blame -- <filepath>
 - `$ git blame -L 281,+21 SomeFile.cs` : SomeFile.cs의 281 라인 부터 +21 라인까지 Blame
+- `$ git blame -L 25,25 src/components/Button.js` : Button.js 파일의 25 라인만 확인
 
 - 출처 [git : blame](https://git-scm.com/docs/git-blame)
 
