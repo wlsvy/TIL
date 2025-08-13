@@ -761,8 +761,8 @@ require("catppuccin").setup({
         light = "latte",
         dark = "mocha",
     },
-    transparent_background = true, -- disables setting the background color.
-    show_end_of_buffer = false, -- shows the '~' characters after the end of buffers
+    transparent_background = false, -- disables setting the background color.
+    show_end_of_buffer = true, -- shows the '~' characters after the end of buffers
     term_colors = false, -- sets terminal colors (e.g. `g:terminal_color_0`)
     dim_inactive = {
         enabled = true, -- dims the background color of inactive window
@@ -777,17 +777,37 @@ require("catppuccin").setup({
         conditionals = { "italic" },
         loops = {},
         functions = {"italic"},
-        keywords = {},
+        keywords = {"bold"},
         strings = {"italic"},
         variables = {},
-        numbers = {},
+        numbers = {"italic"},
         booleans = {"italic"},
-        properties = {},
-        types = {},
+        properties = {"bold"},
+        types = {"bold"},
         operators = {"bold"},
         -- miscs = {}, -- Uncomment to turn off hard-coded styles
     },
-    color_overrides = {},
+    color_overrides = {
+        latte = {
+          -- 기본 배경색(base)을 더 밝은 흰색 계열로 변경
+          -- (기본값: #eff1f5)
+          base = "#F8F9FA",
+
+          -- 텍스트 색상(text)을 더 진하게 변경하여 가독성 향상
+          -- (기본값: #4c4f69)
+          text = "#43465A",
+
+          -- Overlay 색상들을 골드 계열로 변경
+          -- (기본값: #acb0be, #9ca0b0, #8c8fa1)
+          overlay2 = "#DAB475", -- 가장 바깥쪽 UI (골드)
+          overlay1 = "#E0C085", -- 중간 UI (라이트 골드)
+          overlay0 = "#EBD09B", -- 가장 안쪽 UI (소프트 골드)
+
+          -- 선택 영역의 배경색을 더 밝고 부드러운 하늘색 계열로 변경
+          -- (기본값: #acb0be - 회색빛이 도는 overlay0 색상)
+          selection = "#C9DEF2",
+        },
+    },
     custom_highlights = {},
     default_integrations = true,
     integrations = {
