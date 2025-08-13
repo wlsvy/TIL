@@ -507,16 +507,6 @@ require("lazy").setup({
         end
     },
 
-    -- [itchynycalendar.vim A calendar application for Vim](https://github.com/itchyny/calendar.vim)
-    { 
-        'itchyny/calendar.vim',
-        config = function()
-            vim.cmd("source ~/.cache/calendar.vim/credentials.vim")
-            vim.g.calendar_google_calendar = 1
-            vim.g.calendar_google_task = 1
-        end
-    },
-
     -- [GitHub - lukas-reinekeindent-blankline.nvim Indent guides for Neovim](https://github.com/lukas-reineke/indent-blankline.nvim)
     {
         "lukas-reineke/indent-blankline.nvim",
