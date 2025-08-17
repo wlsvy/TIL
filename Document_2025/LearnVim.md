@@ -686,6 +686,43 @@ vim.keymap.set({'n', 'v'}, '<Leader>m', function ()
   require('telescope').extensions.macroni.saved_macros()
 end)
 
+
+_G.gemini_prompt_preset_default = [[
+
+** 전체적으로 표현 방식은**
+
+* 표로 정리 가능하면 표 사용 (빠르게 살펴보기 위해)
+* 적당한 이모지 많이 넣어줘
+* 개조식 문장을 사용해줘. 읽기 쉽게 ]]
+
+_G.gemini_prompt_preset_youtube = [[
+
+내용 정리해줘.
+** 전체적으로 표현 방식은**
+
+* 표로 정리 가능하면 표 사용 (빠르게 살펴보기 위해)
+* 적당한 이모지 많이 넣어줘
+* 개조식 문장을 사용해줘. 읽기 쉽게
+
+**아래 순서로 대답해줘**
+
+1. 제작자의 의도와 주요 부분을 쭉 나열해주고,
+2. 내용을 뒷받침하는 사례가 있다면 중요하지 않아도 괜찮으니 가급적 나열
+3. 주요 구간의 실제 자막 텍스트 출력 - 맞춤법 틀려도 괜찮고 원문 그대로]]
+
+function append_text_to_clipboard_for_aiprompt(text)
+
+  local prevClipboard = vim.fn.getreg('+')
+  local newText = prevClipboard .. text
+
+  -- 찌꺼기 문자 제거
+  newText = string.gsub(newText, 'þX', '')
+  vim.fn.setreg('+', newText)
+  
+  vim.notify("✅ 클립보드가 수정되었습니다.")
+end
+
+
 require('macroni').setup {
     macros = {
       make_todo_list_item = {
@@ -743,13 +780,13 @@ require('macroni').setup {
       },
 
       gemini_prompt_preset_00 = {
-          macro = ":let @+ .= \"표로 정리할 수 있으면 표 사용해줘, 적당한 이모지 많이 넣어줘. 표현은 개조식 문장으로.\"<CR>",
+          macro = ":lua append_text_to_clipboard_for_aiprompt(_G.gemini_prompt_preset_default)<CR>",
           mode = {'n'},
           desc = "표로 정리할 수 있으면 표 사용해줘, 적당한 이모지 많이 넣어줘. 표현은 개조식 문장으로. ",
       },
 
       gemini_prompt_preset_00_youtube = {
-          macro = ":let @+ .= \"표로 정리할 수 있으면 표 사용해줘, 적당한 이모지 많이 넣어줘, 표현은 개조식 문장으로, \\n 대답할 때에는 \\n1. 제작자의 의도와 주요 부분을 쭉 나열,  \\n2. 내용을 뒷받침하는 사례 예시가 있다면 중요도에 관계없이 나열.  \\n3. 주요 구간의 실제 자막 텍스트 출력- 맞춤법 틀려도 괜찮으니 원문 그대로.\"<CR>",
+          macro = ":lua append_text_to_clipboard_for_aiprompt(_G.gemini_prompt_preset_youtube)<CR>",
           mode = {'n'},
           desc = "표로 정리할 수 있으면 표 사용해줘, 적당한 이모지 많이 넣어줘, 표현은 개조식 문장으로, \\n 대답할 때에는 1. 제작자의 의도와 주요 부분을 쭉 나열, 2. 내용을 뒷받침하는 사례 예시가 있다면 중요도에 관계없이 나열. 3. 주요 구간의 실제 자막 텍스트 출력- 맞춤법 틀려도 괜찮으니 원문 그대로.",
       },
