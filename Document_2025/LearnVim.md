@@ -714,12 +714,9 @@ function append_text_to_clipboard_for_aiprompt(text)
 
   local prevClipboard = vim.fn.getreg('+')
   local newText = prevClipboard .. text
-
-  -- 찌꺼기 문자 제거
-  newText = string.gsub(newText, 'þX', '')
   vim.fn.setreg('+', newText)
   
-  vim.notify("✅ 클립보드가 수정되었습니다.")
+  vim.notify("✅ 클립보드가 수정되었습니다.".."\n"..newText)
 end
 
 
