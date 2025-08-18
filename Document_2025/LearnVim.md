@@ -419,17 +419,32 @@ require("lazy").setup({
     {"ryanoasis/vim-devicons", requires = "preservim/nerdtree"}, -- [ryanoasis/vim-devicons: Adds file type icons to Vim plugins such as: NERDTree, vim-airline, CtrlP, unite, Denite, lightline, vim-startify and many more](https://github.com/ryanoasis/vim-devicons) 
     { "neoclide/coc.nvim", branch= "release"},
 
-    -- [Omnisharp | LazyVim](https://www.lazyvim.org/extras/lang/omnisharp)
-    -- C#(omnisharp) LSP
-    { "Hoffs/omnisharp-extended-lsp.nvim", lazy = true },
-    -- mason
+    -- [williamboman/mason-lspconfig.nvim: Extension to mason.nvim that makes it easier to use lspconfig with mason.nvim.](https://github.com/williamboman/mason-lspconfig.nvim)
     {
         "williamboman/mason.nvim",
-        opts = { ensure_installed = { "csharpier", "netcoredbg" } },
+        "williamboman/mason-lspconfig.nvim",
+        "neovim/nvim-lspconfig",
     },
-    --menu [NvChadmenu Menu ui for neovim ( supports nested menus ) made using volt](https://github.com/NvChad/menu)
-    { "nvchad/volt" , lazy = true },
-    { "nvchad/menu" , lazy = true },
+
+    {
+        "hrsh7th/nvim-cmp",
+        dependencies = {
+            "hrsh7th/cmp-nvim-lsp", -- LSP를 자동완성 소스로 사용
+            "hrsh7th/cmp-buffer",   -- 현재 버퍼의 텍스트를 소스로 사용
+            "hrsh7th/cmp-path",     -- 파일 경로를 소스로 사용
+        },
+        config = function()
+            local cmp = require("cmp")
+            cmp.setup({
+                -- ... (스니펫, UI 설정 등) ...
+                sources = cmp.config.sources({
+                    { name = "nvim_lsp" }, -- LSP 소스 등록
+                    { name = "buffer" },
+                    { name = "path" },
+                }),
+            })
+        end,
+    },
 
     -- [junegunn/fzf: :cherry_blossom: A command-line fuzzy finder](https://github.com/junegunn/fzf)
     { "junegunn/fzf", },
@@ -638,11 +653,34 @@ vim.api.nvim_set_keymap('n', '<leader>q', ':Telescope commands<CR>', opts) -- �
 --mason
 require("mason").setup()
 
--- OmnisharpExtended
-vim.api.nvim_set_keymap('n', 'gd', "<cmd>lua require('omnisharp_extended').lsp_definition()<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>D', "<cmd>lua require('omnisharp_extended').lsp_type_definition()<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', 'gr', "<cmd>lua require('omnisharp_extended').lsp_references()<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', 'gi', "<cmd>lua require('omnisharp_extended').lsp_implementation()<CR>", { noremap = true, silent = true })
+local on_attach = function(client, bufnr)
+  -- 아래 키맵들은 이 파일에 연결된 LSP 서버가 지원하는 경우에만 작동합니다.
+  local opts = { buffer = bufnr, noremap = true, silent = true }
+
+  -- 리팩토링 및 주요 기능 키맵
+  vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
+  vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
+  vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
+  vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
+  vim.keymap.set('n', 'rn', vim.lsp.buf.rename, opts)
+  vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, opts)
+  vim.keymap.set('n', '<leader>f', function() vim.lsp.buf.format { async = true } end, opts)
+
+  -- 진단(오류) 관련 키맵
+  vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
+  vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
+end
+
+-- 각 LSP 서버를 설정할 때 on_attach 함수를 연결해줍니다-- .
+-- require('lspconfig').omnisharp.setup({
+--   on_attach = on_attach,
+--   -- ... other settings
+-- })
+
+require('lspconfig').pyright.setup({
+  on_attach = on_attach,
+  -- ... other settings
+})
 
 -- menu
 -- Keyboard users
