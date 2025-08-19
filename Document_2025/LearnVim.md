@@ -394,21 +394,6 @@ require("lazy").setup({
         "nvim-telescope/telescope-file-browser.nvim",
         dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" }
     },
-    -- 코드 분석 플러그인
-    {
-        "jose-elias-alvarez/null-ls.nvim",
-        requires = { "nvim-lua/plenary.nvim" },
-        config = function()
-            local null_ls = require("null-ls")
-            null_ls.setup({
-                sources = {
-                    null_ls.builtins.diagnostics.eslint,
-                    null_ls.builtins.diagnostics.stylelint,
-                    null_ls.builtins.formatting.prettier,
-                },
-            })
-        end,
-    },
     { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
     { "folke/which-key.nvim", requires = {{"which-key"}}, },
     { "akinsho/toggleterm.nvim", },
