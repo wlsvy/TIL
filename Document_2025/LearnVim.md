@@ -821,6 +821,12 @@ require('macroni').setup {
           desc = ":messages"
       },
 
+      -- 무명레지스터에 등록 후 붙여넣는 방식
+      add_line_summarized_by_gemini = {
+          macro = ":let @@ = '**Summarized By Gemini**'<CR>p",
+          mode = {'n'},
+          desc = ":let @@ = '**Summarized By Gemini**'<CR>p"
+      },
     },
   }
 
