@@ -100,6 +100,22 @@ or
 
 - `==`: 라인 정렬
 
+**터미널 관련**
+
+- 터미널 열기: `:term`
+- 터미널 모드 -> Normal 모드 : `<C-\><C-n>`
+
+- 터미널 shell 설정 (ex: powershell)
+  - vim script : `set shell=powershell`
+  - lua : `vim.o.shell = 'powershell'`
+
+혹은 shell 경로 지정 가능
+
+```lua
+vim.o.shell = 'C:/Program Files/PowerShell/7/pwsh.exe'
+-- Lua에서는 경로 구분자로 슬래시(/)를 사용하는 것이 일반적입니다.
+```
+
 **Macro**
 
 [Practical Vim 팁 요약 시리즈 - Macros !--- @n0lb00's Blog--](https://nolboo.kim/blog/2017/02/10/practical-vim/)
