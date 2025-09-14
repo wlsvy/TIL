@@ -418,7 +418,8 @@ require("lazy").setup({
     -- 일부 폰트는 플러그인에서 활용하는 아이콘들을 지원하지 않아서 '?' 물음표 박스가 뜨는 경우가 있음. chatGPT 한테 물어보니까 NerdFont 쓰라고 해서 그거 쓰니까 해결되더라 
     { "preservim/nerdtree", }, -- [preservim/nerdtree: A tree explorer plugin for vim.](https://github.com/preservim/nerdtree)
     {"ryanoasis/vim-devicons", requires = "preservim/nerdtree"}, -- [ryanoasis/vim-devicons: Adds file type icons to Vim plugins such as: NERDTree, vim-airline, CtrlP, unite, Denite, lightline, vim-startify and many more](https://github.com/ryanoasis/vim-devicons) 
-    { "neoclide/coc.nvim", branch= "release"},
+    {"nvim-mini/mini.icons"}, -- [GitHub - nvim-mini/mini.icons: Icon provider. Part of 'mini.nvim' library.](https://github.com/nvim-mini/mini.icons)
+    { "nvim-tree/nvim-web-devicons", opts = {} }, -- [GitHub - nvim-tree/nvim-web-devicons: Provides Nerd Font icons (glyphs) for use by neovim plugins](https://github.com/nvim-tree/nvim-web-devicons)
 
     -- [williamboman/mason-lspconfig.nvim: Extension to mason.nvim that makes it easier to use lspconfig with mason.nvim.](https://github.com/williamboman/mason-lspconfig.nvim)
     {
@@ -547,16 +548,249 @@ require("lazy").setup({
 
     -- [snacks.nvim/docs/image.md at main · folke/snacks.nvim](https://github.com/folke/snacks.nvim/blob/main/docs/image.md)
     {
-      "folke/snacks.nvim",
-      ---@type snacks.Config
-      opts = {
-        image = {
-          -- your image configuration comes here
-          -- or leave it empty to use the default settings
-          -- refer to the configuration section below
-        }
-      }
+        "folke/snacks.nvim",
+        ---@type snacks.Config
+        opts = {
+            -- your configuration comes here
+            -- or leave it empty to use the default settings
+            -- refer to the configuration section below
+            bigfile = { enabled = true },
+            dashboard = { 
+                enabled = true, 
+                sections = {
+                    { section = "header" },
+                    { icon = " ", title = "Keymaps", section = "keys", indent = 2, padding = 1 },
+                    { icon = " ", title = "Recent Files", section = "recent_files", indent = 2, padding = 1 },
+                    { icon = " ", title = "Projects", section = "projects", indent = 2, padding = 1 },
+                    { section = "startup" },
+                },
+            },
+            explorer = { enabled = true },
+            indent = { enabled = true },
+            input = { enabled = true },
+            picker = { enabled = true },
+            notifier = { enabled = true },
+            quickfile = { enabled = true },
+            scope = { enabled = true },
+            scroll = { enabled = true },
+            statuscolumn = { enabled = true },
+            words = { enabled = true },
+            lazygit = { },
+            image = {
+                doc = {
+                    -- enable image viewer for documents
+                    -- a treesitter parser must be available for the enabled languages.
+                    enabled = true,
+                    -- render the image inline in the buffer
+                    -- if your env doesn't support unicode placeholders, this will be disabled
+                    -- takes precedence over `opts.float` on supported terminals
+                    inline = true,
+                    -- render the image in a floating window
+                    -- only used if `opts.inline` is disabled
+                    float = true,
+                    max_width = 80,
+                    max_height = 40,
+                    -- Set to `true`, to conceal the image text when rendering inline.
+                    -- (experimental)
+                    ---@param lang string tree-sitter language
+                    ---@param type snacks.image.Type image type
+                    conceal = function(lang, type)
+                        -- only conceal math expressions
+                        return type == "math"
+                    end,
+                },
+            },
+        },
+        priority=1000,
     },
+
+    -- [GitHub - OXY2DEV/markview.nvim: A hackable markdown, Typst, latex, html(inline) & YAML previewer for Neovim](https://github.com/OXY2DEV/markview.nvim)
+    {
+        "OXY2DEV/markview.nvim",
+        lazy = false,
+
+        -- For `nvim-treesitter` users.
+        priority = 49,
+
+        config = function()
+            require("markview").setup({
+                preview = {
+                    icon_provider = "internal", -- "mini" or "devicons"
+                },
+                markdown = {
+                    -- [Markdown · OXY2DEV/markview.nvim Wiki · GitHub](https://github.com/OXY2DEV/markview.nvim/wiki/Markdown)
+                    enable = true,
+                    block_quotes = {
+                        enable = true,
+                        wrap = true,
+
+                        default = {
+                            border = "▋",
+                            hl = "MarkviewBlockQuoteDefault"
+                        },
+
+                        ["ABSTRACT"] = {
+                            preview = "󱉫 Abstract",
+                            hl = "MarkviewBlockQuoteNote",
+
+                            title = true,
+                            icon = "󱉫",
+
+                        },
+                        ["SUMMARY"] = {
+                            hl = "MarkviewBlockQuoteNote",
+                            preview = "󱉫 Summary",
+
+                            title = true,
+                            icon = "󱉫",
+                        },
+                    },
+                    code_blocks = {
+                        enable = true,
+
+                        style = "block",
+
+                        label_direction = "right",
+
+                        border_hl = "MarkviewCode",
+                        info_hl = "MarkviewCodeInfo",
+
+                        min_width = 60,
+                        pad_amount = 2,
+                        pad_char = " ",
+
+                        sign = true,
+
+                        default = {
+                            block_hl = "MarkviewCode",
+                            pad_hl = "MarkviewCode"
+                        },
+
+                        ["diff"] = {
+                            block_hl = function (_, line)
+                                if line:match("^%+") then
+                                    return "MarkviewPalette4";
+                                elseif line:match("^%-") then
+                                    return "MarkviewPalette1";
+                                else
+                                    return "MarkviewCode";
+                                end
+                            end,
+                            pad_hl = "MarkviewCode"
+                        }
+                    },
+
+                    headings = {
+                        enable = true,
+
+                        heading_1 = {
+                            style = "icon",
+                            sign = "󰌕 ", sign_hl = "MarkviewHeading1Sign",
+
+                            icon = "󰼏  ", hl = "MarkviewHeading1",
+                        },
+                        heading_2 = {
+                            style = "icon",
+                            sign = "󰌖 ", sign_hl = "MarkviewHeading2Sign",
+
+                            icon = "󰎨  ", hl = "MarkviewHeading2",
+                        },
+                        heading_3 = {
+                            style = "icon",
+
+                            icon = "󰼑  ", hl = "MarkviewHeading3",
+                        },
+                        heading_4 = {
+                            style = "icon",
+
+                            icon = "󰎲  ", hl = "MarkviewHeading4",
+                        },
+                        heading_5 = {
+                            style = "icon",
+
+                            icon = "󰼓  ", hl = "MarkviewHeading5",
+                        },
+                        heading_6 = {
+                            style = "icon",
+
+                            icon = "󰎴  ", hl = "MarkviewHeading6",
+                        },
+
+                        setext_1 = {
+                            style = "decorated",
+
+                            sign = "󰌕 ", sign_hl = "MarkviewHeading1Sign",
+                            icon = "  ", hl = "MarkviewHeading1",
+                            border = "▂"
+                        },
+                        setext_2 = {
+                            style = "decorated",
+
+                            sign = "󰌖 ", sign_hl = "MarkviewHeading2Sign",
+                            icon = "  ", hl = "MarkviewHeading2",
+                            border = "▁"
+                        },
+
+                        shift_width = 1,
+
+                        org_indent = false,
+                        org_indent_wrap = true,
+                        org_shift_char = " ",
+                        org_shift_width = 1,
+                    },
+
+                    tables = {
+                        enable = false,
+                        strict = true,
+
+                        col_min_width = 10,
+                        block_decorator = true,
+                        use_virt_lines = false,
+
+                        parts = {
+                            top = { "╭", "─", "╮", "┬" },
+                            header = { "│", "│", "│" },
+                            separator = { "├", "─", "┤", "┼" },
+                            row = { "│", "│", "│" },
+                            bottom = { "╰", "─", "╯", "┴" },
+
+                            overlap = { "┝", "━", "┥", "┿" },
+
+                            align_left = "╼",
+                            align_right = "╾",
+                            align_center = { "╴", "╶" }
+                        },
+
+                        hl = {
+                            top = { "TableHeader", "TableHeader", "TableHeader", "TableHeader" },
+                            header = { "TableHeader", "TableHeader", "TableHeader" },
+                            separator = { "TableHeader", "TableHeader", "TableHeader", "TableHeader" },
+                            row = { "TableBorder", "TableBorder", "TableBorder" },
+                            bottom = { "TableBorder", "TableBorder", "TableBorder", "TableBorder" },
+
+                            overlap = { "TableBorder", "TableBorder", "TableBorder", "TableBorder" },
+
+                            align_left = "TableAlignLeft",
+                            align_right = "TableAlignRight",
+                            align_center = { "TableAlignCenter", "TableAlignCenter" }
+                        }
+                    },
+                },
+
+            })
+        end
+    },
+
+    -- [GitHub - neo451/feed.nvim: Neovim feed reader, rss, atom and jsonfeed, all in lua](https://github.com/neo451/feed.nvim)
+    {
+        "neo451/feed.nvim",
+        dependencies = { "OXY2DEV/markview.nvim", "nvim-lua/plenary.nvim" },
+        cmd = "Feed",
+        ---@module 'feed'
+        ---@type feed.config
+        opts = {},
+    },
+
 
 })
 
