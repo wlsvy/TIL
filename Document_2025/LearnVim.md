@@ -876,14 +876,18 @@ require("telescope").load_extension "file_browser"
 local builtin = require('telescope.builtin')
 local opts = { noremap = true, silent = true }
 
--- telescope
-vim.api.nvim_set_keymap('n', '<C-p>', ':Telescope file_browser<CR>', opts) -- 파일 찾기 (Ctrl+p)
-vim.api.nvim_set_keymap('n', '<C-f>', ':Telescope current_buffer_fuzzy_find<CR>', opts) -- 현재 파일 텍스트 검색 (Ctrl+f)
-vim.api.nvim_set_keymap('n', '<leader>ff', ':Telescope live_grep<CR>', { noremap = true, silent = true }) -- live-grep
-vim.api.nvim_set_keymap('n', '<leader><C-f>', '<cmd>lua require("telescope.builtin").live_grep()<CR>', opts) -- 전체 텍스트 검색 (Ctrl+f)
+-- telescope & Snacks
+vim.api.nvim_set_keymap('n', '<C-p>', ':lua Snacks.exporer()<CR>', opts) -- 파일 찾기 
+vim.api.nvim_set_keymap('n', '<leader><leader>p', ':lua Snacks.picker.pickers()<CR>', opts) -- Snacks.picker 리스트
+vim.api.nvim_set_keymap('n', '<C-f>', ':Telescope current_buffer_fuzzy_find<CR>', opts) -- 현재 파일 텍스트 검색 
+vim.api.nvim_set_keymap('n', '<leader>b', '<cmd>lua require("telescope.builtin").buffers()<CR>', opts) -- 버퍼 목록 보기 
+vim.api.nvim_set_keymap('n', '<leader>q', ':lua Snacks.picker.autocmd()<CR>', opts) -- 명령어 탐색 키맵핑
+vim.api.nvim_set_keymap('n', '<leader>Q', ':lua Snacks.picker.command_history()<CR>', opts) -- 명령어 히스토리
+vim.api.nvim_set_keymap('n', '<leader>t', ':lua Snacks.picker.files()<CR>', { noremap = true, silent = true }) -- find_files
+vim.api.nvim_set_keymap('n', '<leader>T', ':lua Snacks.picker.treesitter()<CR>', opts) -- treesitter
+vim.api.nvim_set_keymap('n', '<leader>g', ':lua Snacks.picker.grep()<CR>', opts) -- grep / text 검색
+vim.api.nvim_set_keymap('n', '<leader>G', ':lua Snacks.picker.grep_word()<CR>', opts) -- grep_word / 정확한 단어 검색
 vim.api.nvim_set_keymap('n', '<leader><Tab>', ':Telescope oldfiles<CR>', opts) -- 최근 파일
-vim.api.nvim_set_keymap('n', '<C-b>', '<cmd>lua require("telescope.builtin").buffers()<CR>', opts) -- 버퍼 목록 보기 (Ctrl+b)
-vim.api.nvim_set_keymap('n', '<leader>q', ':Telescope commands<CR>', opts) -- 명령어 탐색 키맵핑
 
 --mason
 require("mason").setup()
@@ -930,9 +934,6 @@ vim.keymap.set("n", "<RightMouse>", function()
   local options = vim.bo.ft == "NvimTree" and "nvimtree" or "default"
   require("menu").open(options, { mouse = true })
 end, {})
-
--- fzf: fuzzy finder
-vim.api.nvim_set_keymap('n', '<leader>t', "<cmd>FZF<CR>", { noremap = true, silent = true })
 
 -- easymotion
 -- <Leader>f{char} to move to {char}
