@@ -881,7 +881,7 @@ vim.api.nvim_set_keymap('n', '<C-p>', ':lua Snacks.exporer()<CR>', opts) -- 파�
 vim.api.nvim_set_keymap('n', '<leader><leader>p', ':lua Snacks.picker.pickers()<CR>', opts) -- Snacks.picker 리스트
 vim.api.nvim_set_keymap('n', '<C-f>', ':Telescope current_buffer_fuzzy_find<CR>', opts) -- 현재 파일 텍스트 검색 
 vim.api.nvim_set_keymap('n', '<leader>b', '<cmd>lua require("telescope.builtin").buffers()<CR>', opts) -- 버퍼 목록 보기 
-vim.api.nvim_set_keymap('n', '<leader>q', ':lua Snacks.picker.autocmd()<CR>', opts) -- 명령어 탐색 키맵핑
+vim.api.nvim_set_keymap('n', '<leader>q', ':lua Snacks.picker.autocmds()<CR>', opts) -- 명령어 탐색 키맵핑
 vim.api.nvim_set_keymap('n', '<leader>Q', ':lua Snacks.picker.command_history()<CR>', opts) -- 명령어 히스토리
 vim.api.nvim_set_keymap('n', '<leader>t', ':lua Snacks.picker.files()<CR>', { noremap = true, silent = true }) -- find_files
 vim.api.nvim_set_keymap('n', '<leader>T', ':lua Snacks.picker.treesitter()<CR>', opts) -- treesitter
