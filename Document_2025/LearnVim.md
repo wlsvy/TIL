@@ -411,6 +411,9 @@ require("lazy").setup({
         dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" }
     },
     { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
+    { "marko-cerovac/material.nvim", name = "material", priority = 1000 },
+    { "rmehri01/onenord.nvim", name = "onenord", priority = 1000 },
+    { "sainnhe/edge", name = "edge", priority = 1000 },
     { "folke/which-key.nvim", requires = {{"which-key"}}, },
     { "akinsho/toggleterm.nvim", },
     { "img-paste-devs/img-paste.vim" }, -- paste image in clipboard
@@ -503,25 +506,10 @@ require("lazy").setup({
         },
     },
 
-    -- [itchynylightline.vim A light and configurable statuslinetabline plugin for Vim](https://github.com/itchyny/lightline.vim)
-    { 
-        'itchyny/lightline.vim', 
-        config = function()
-            vim.g.lightline = {
-                colorscheme = "PaperColor",
-                active = {
-                    left = {
-                        {'mode', 'paste'},
-                        {'readonly', 'filename', 'modified' }
-                    },
-                    right = {
-                        { 'lineinfo' },
-                        { 'percent' },
-                        {'filetype', 'fileencoding'} 
-                    }
-                }
-            }
-        end
+    -- [nvim-lualinelualine.nvim A blazing fast and easy to configure neovim statusline plugin written in pure lua.](https://github.com/nvim-lualine/lualine.nvim)
+    {
+        'nvim-lualine/lualine.nvim',
+        dependencies = { 'nvim-tree/nvim-web-devicons' },
     },
 
     -- [GitHub - lukas-reinekeindent-blankline.nvim Indent guides for Neovim](https://github.com/lukas-reineke/indent-blankline.nvim)
@@ -1163,6 +1151,60 @@ end, {})
 vim.cmd.colorscheme("catppuccin")
 vim.o.background = "light"
 
+require('lualine').setup {
+  options = {
+    icons_enabled = true,
+    theme = 'ayu_light',
+    component_separators = { left = '', right = ''},
+    section_separators = { left = '', right = ''},
+    disabled_filetypes = {
+      statusline = {},
+      winbar = {},
+    },
+    ignore_focus = {},
+    always_divide_middle = true,
+    always_show_tabline = true,
+    globalstatus = false,
+    refresh = {
+      statusline = 1000,
+      tabline = 1000,
+      winbar = 1000,
+      refresh_time = 16, -- ~60fps
+      events = {
+        'WinEnter',
+        'BufEnter',
+        'BufWritePost',
+        'SessionLoadPost',
+        'FileChangedShellPost',
+        'VimResized',
+        'Filetype',
+        'CursorMoved',
+        'CursorMovedI',
+        'ModeChanged',
+      },
+    }
+  },
+  sections = {
+    lualine_a = {'mode'},
+    lualine_b = {'branch', 'diff', 'diagnostics'},
+    lualine_c = {'filename'},
+    lualine_x = {'encoding', 'fileformat', 'filetype'},
+    lualine_y = {'progress'},
+    lualine_z = {'location'}
+  },
+  inactive_sections = {
+    lualine_a = {},
+    lualine_b = {},
+    lualine_c = {'filename'},
+    lualine_x = {'location'},
+    lualine_y = {},
+    lualine_z = {}
+  },
+  tabline = {},
+  winbar = {},
+  inactive_winbar = {},
+  extensions = {}
+}
 local highlight = {
     "RainbowRed",
     "RainbowYellow",
