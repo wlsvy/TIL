@@ -1110,16 +1110,6 @@ require("catppuccin").setup({
           -- 텍스트 색상(text)을 더 진하게 변경하여 가독성 향상
           -- (기본값: #4c4f69)
           text = "#43465A",
-
-          -- Overlay 색상들을 골드 계열로 변경
-          -- (기본값: #acb0be, #9ca0b0, #8c8fa1)
-          overlay2 = "#DAB475", -- 가장 바깥쪽 UI (골드)
-          overlay1 = "#E0C085", -- 중간 UI (라이트 골드)
-          overlay0 = "#EBD09B", -- 가장 안쪽 UI (소프트 골드)
-
-          -- 선택 영역의 배경색을 더 밝고 부드러운 하늘색 계열로 변경
-          -- (기본값: #acb0be - 회색빛이 도는 overlay0 색상)
-          selection = "#C9DEF2",
         },
     },
     custom_highlights = {},
