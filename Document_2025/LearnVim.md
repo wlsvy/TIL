@@ -109,6 +109,9 @@ or
   - vim script : `set shell=powershell`
   - lua : `vim.o.shell = 'powershell'`
 
+- 터미널 명령 실행 후 stdout 을 가져오기
+  - ex: `reader ! git --version` : git 버전 정보를 현재 버퍼에 입력한다.
+
 혹은 shell 경로 지정 가능
 
 ```lua
