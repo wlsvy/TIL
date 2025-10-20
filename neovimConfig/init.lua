@@ -24,18 +24,16 @@ vim.cmd("filetype plugin indent on")
 -- Leader key
 vim.g.mapleader = " " -- Space as the leader key
 
-
--- Normal 모드에서 커서 위치 기준으로 NewLine
-vim.keymap.set("n", "<S-CR>", "a<CR><Esc>", { noremap = true, silent = true })
-
 -- Insert 모드에서 Ctrl + (h|j|k|l)가 노멀 모드에서 화살표 키와 동일하게 동작하도록 설정
 vim.api.nvim_set_keymap('i', '<C-h>', '<Left>', {noremap = true, silent = true})
 vim.api.nvim_set_keymap('i', '<C-j>', '<Down>', {noremap = true, silent = true})
 vim.api.nvim_set_keymap('i', '<C-k>', '<Up>', {noremap = true, silent = true})
 vim.api.nvim_set_keymap('i', '<C-l>', '<Right>', {noremap = true, silent = true})
 
--- insert 모드에서 Ctrl + w -> 단어 선택
-vim.api.nvim_set_keymap('i', '<C-w>', '<ESC>viw', {noremap = true, silent = true})
+-- <C-b> (Backward)를 단어 단위 '뒤로' 이동으로 설정
+-- <C-f> (Forward)를 단어 단위 '앞으로' 이동으로 설정
+vim.api.nvim_set_keymap('i', '<C-b>', '<C-Left>', {noremap = true, silent = true})
+vim.api.nvim_set_keymap('i', '<C-f>', '<C-Right>', {noremap = true, silent = true})
 
 -- Insert/Normal/Visual 모드에서 Alt + j/k를 사용하여 라인을 아래/위로 이동시키기
 vim.api.nvim_set_keymap('i', '<A-j>', '<Esc>:m .+1<CR>gi', { noremap = true, silent = true })
@@ -82,6 +80,12 @@ function ToggleTextWrap() -- 텍스트 줄 바꿈 토글하는 함수 정의
     end
 end
 
+vim.api.nvim_create_user_command( -- 명령어 등록
+    'ToggleTextWrap',
+    'lua ToggleTextWrap()',
+    { nargs = 0 }
+)
+
 -- Markdown 파일에서만 적용되는 하이라이트 설정
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "markdown",
@@ -94,11 +98,6 @@ vim.api.nvim_create_autocmd("FileType", {
   end
 })
 
-vim.api.nvim_create_user_command( -- 명령어 등록
-    'ToggleTextWrap',
-    'lua ToggleTextWrap()',
-    { nargs = 0 }
-)
 -- 'lazy.nvim' 설치 및 경로 설정
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
@@ -118,6 +117,12 @@ require("lazy").setup({
     {
         "nvim-treesitter/nvim-treesitter",
         run = ":TSUpdate",
+        dependencies = { "OXY2DEV/markview.nvim",},
+        opts = { 
+            ensure_installed = { "c", "lua", "markdown", "markdown_inline", "query", "vim", "vimdoc", "c_sharp" ,"python" },
+            indent = { enable = true },
+            folding = { enable = true, },
+        },
     },
     -- Telescope
     {
@@ -128,6 +133,20 @@ require("lazy").setup({
         "nvim-telescope/telescope-file-browser.nvim",
         dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" }
     },
+    {
+        "stevearc/aerial.nvim",
+        config = function() 
+            require("aerial").setup({
+                on_attach = function(bufnr)
+                    -- Jump forwards/backwards with '{' and '}'
+                    vim.api.nvim_set_keymap("n", "{", "<cmd>AerialPrev<CR>", { buffer = bufnr })
+                    vim.api.nvim_set_keymap("n", "}", "<cmd>AerialNext<CR>", { buffer = bufnr })
+                end,
+
+            })
+        end
+    },
+
     { "folke/which-key.nvim", requires = {{"which-key"}}, },
     { "akinsho/toggleterm.nvim", },
     { "img-paste-devs/img-paste.vim" }, -- paste image in clipboard
@@ -145,6 +164,26 @@ require("lazy").setup({
         "williamboman/mason.nvim",
         "williamboman/mason-lspconfig.nvim",
         "neovim/nvim-lspconfig",
+        config = function()
+            require("mason-lspconfig").setup_handlers {
+                -- 기본 설정 핸들러
+                function(server_name)
+                    require("lspconfig")[server_name].setup {}
+                end,
+                -- 특정 LSP에 대한 커스텀 설정을 하고 싶다면 여기에 추가
+                ["lua_ls"] = function()
+                    require("lspconfig").lua_ls.setup {
+                        settings = {
+                            Lua = {
+                                diagnostics = {
+                                    globals = { "vim" },
+                                },
+                            },
+                        },
+                    }
+                end
+            }
+        end
     },
 
     {
@@ -153,6 +192,8 @@ require("lazy").setup({
             "hrsh7th/cmp-nvim-lsp", -- LSP를 자동완성 소스로 사용
             "hrsh7th/cmp-buffer",   -- 현재 버퍼의 텍스트를 소스로 사용
             "hrsh7th/cmp-path",     -- 파일 경로를 소스로 사용
+            'L3MON4D3/LuaSnip',
+            'saadparwaiz1/cmp_luasnip',
         },
         config = function()
             local cmp = require("cmp")
@@ -162,6 +203,40 @@ require("lazy").setup({
                     { name = "nvim_lsp" }, -- LSP 소스 등록
                     { name = "buffer" },
                     { name = "path" },
+                    { name = "luasnip" },
+                }),
+
+                snippet = {
+                    expand = function(args)
+                        luasnip.lsp_expand(args.body)
+                    end,
+                },
+
+                -- 키매핑 설정 (Tab, Enter 등으로 자동완성 선택)
+                mapping = cmp.mapping.preset.insert({
+                    ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+                    ['<C-f>'] = cmp.mapping.scroll_docs(4),
+                    ['<C-Space>'] = cmp.mapping.complete(),
+                    ['<C-e>'] = cmp.mapping.abort(),
+                    ['<CR>'] = cmp.mapping.confirm({ select = true }),
+                    ['<Tab>'] = cmp.mapping(function(fallback)
+                        if cmp.visible() then
+                            cmp.select_next_item()
+                        elseif luasnip.expand_or_jumpable() then
+                            luasnip.expand_or_jump()
+                        else
+                            fallback()
+                        end
+                    end, { 'i', 's' }),
+                    ['<S-Tab>'] = cmp.mapping(function(fallback)
+                        if cmp.visible() then
+                            cmp.select_prev_item()
+                        elseif luasnip.jumpable(-1) then
+                            luasnip.jump(-1)
+                        else
+                            fallback()
+                        end
+                    end, { 'i', 's' }),
                 }),
             })
         end,
@@ -173,326 +248,364 @@ require("lazy").setup({
 
     { "godlygeek/tabular" },
 
-    -- [easymotion/vim-easymotion: Vim motions on speed!](https://github.com/easymotion/vim-easymotion)
-    { "easymotion/vim-easymotion"},
+    -- [GitHub - hadronized/hop.nvim: Neovim motions on speed!](https://github.com/hadronized/hop.nvim)
+    {
+        "hadronized/hop.nvim",
+        config = function()
+            -- you can configure Hop the way you like here; see :h hop-config
+            local hop = require('hop')
+            local directions = require('hop.hint').HintDirection
+
+            hop.setup ({
+                keys = 'etovxqpdygfblzhckisuran',
+                case_insensitive = false,
+                multi_windows = true,
+            })
+
+            vim.keymap.set('', 'f', function()
+                hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = true })
+            end, {remap=true})
+            vim.keymap.set('', 'F', function()
+                hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = true })
+            end, {remap=true})
+            vim.keymap.set('', 't', function()
+                hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = true, hint_offset = -1 })
+            end, {remap=true})
+            vim.keymap.set('', 'T', function()
+                hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = true, hint_offset = 1 })
+            end, {remap=true})
+
+            vim.keymap.set('', '<leader><leader>l', function()
+                hop.hint_lines_skip_whitespace({ multi_windows = true })
+            end, {remap=true})
+            vim.keymap.set('', '<leader><leader>w', function()
+                hop.hint_words({ current_line_only = true, })
+            end, {remap=true})
+            vim.keymap.set('', '<leader><leader>W', function()
+                hop.hint_words({ current_line_only = false, })
+            end, {remap=true})
+
+            vim.keymap.set('', '<leader><leader>p', function()
+                hop.hint_patterns()
+            end, {remap=true})
+
+        end
+    },
 
     -- [atiladefreitaslazyclip The laziest clipboard manager for Neovim](https://github.com/atiladefreitas/lazyclip)
     { "atiladefreitas/lazyclip",
-    config = function()
-        require("lazyclip").setup({
-            -- your custom config here (optional)
-        })
-    end,
-    keys = {
-        { "Cw", desc = "Open Clipboard Manager" },
-    },
-    -- Optional: Load plugin when yanking text
-    event = { "TextYankPost" },
-},
-
--- [echasnovskimini.icons Icon provider. Part of 'mini.nvim' library.](https://github.com/echasnovski/mini.icons)
-{ 'echasnovski/mini.nvim', version = '*' },
-
--- [rcarriganvim-notify A fancy, configurable, notification manager for NeoVim](https://github.com/rcarriga/nvim-notify)
-{ 'rcarriga/nvim-notify'},
-
--- [folkenoice.nvim 💥 Highly experimental plugin that completely replaces the UI for messages, cmdline and the popupmenu.](https://github.com/folke/noice.nvim)
-{
-    "folke/noice.nvim",
-    event = "VeryLazy",
-    opts = {
-        -- add any options here
-    },
-    dependencies = {
-        -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
-        "MunifTanjim/nui.nvim",
-        -- OPTIONAL:
-        --   `nvim-notify` is only needed, if you want to use the notification view.
-        --   If not available, we use `mini` as the fallback
-        "rcarriga/nvim-notify",
-    },
-},
-
--- [jesseleitenvim-macroni 🤌 Save your macros for future use](https://github.com/jesseleite/nvim-macroni)
-{
-    'jesseleite/nvim-macroni',
-    opts = {
-        -- All of your `setup(opts)` and saved macros will go here
-    },
-},
-
--- [nvim-lualinelualine.nvim A blazing fast and easy to configure neovim statusline plugin written in pure lua.](https://github.com/nvim-lualine/lualine.nvim)
-{
-    'nvim-lualine/lualine.nvim',
-    dependencies = { 'nvim-tree/nvim-web-devicons' },
-},
-
--- [GitHub - lukas-reinekeindent-blankline.nvim Indent guides for Neovim](https://github.com/lukas-reineke/indent-blankline.nvim)
-{
-    "lukas-reineke/indent-blankline.nvim",
-    main = "ibl",
-    ---@module "ibl"
-    ---@type ibl.config
-    opts = {},
-},
-
--- [GitHub - RRethyvim-illuminate illuminate.vim - (Neo)Vim plugin for automatically highlighting other uses of the word under the cursor using either LSP, Tree-sitter, or regex matching.](https://github.com/RRethy/vim-illuminate)
-{
-    "RRethy/vim-illuminate",
-    config = function()
-        require("illuminate").configure({
-            delay = 100, -- 하이라이트 적용 시간 (ms)
-            under_cursor = true, -- 커서 아래 단어 강조
-            filetypes_denylist = { "NvimTree", "TelescopePrompt" } -- 특정 파일 타입 제외
-        })
-    end
-},
-
--- [snacks.nvim/docs/image.md at main · folke/snacks.nvim](https://github.com/folke/snacks.nvim/blob/main/docs/image.md)
-{
-    "folke/snacks.nvim",
-    ---@type snacks.Config
-    opts = {
-        -- your configuration comes here
-        -- or leave it empty to use the default settings
-        -- refer to the configuration section below
-        bigfile = { enabled = true },
-        dashboard = { 
-            enabled = true, 
-            sections = {
-                { section = "header" },
-                { icon = " ", title = "Keymaps", section = "keys", indent = 2, padding = 1 },
-                { icon = " ", title = "Recent Files", section = "recent_files", indent = 2, padding = 1 },
-                { icon = " ", title = "Projects", section = "projects", indent = 2, padding = 1 },
-                { section = "startup" },
-            },
+        config = function()
+            require("lazyclip").setup({
+                -- your custom config here (optional)
+            })
+        end,
+        keys = {
+            { "Cw", desc = "Open Clipboard Manager" },
         },
-        explorer = { enabled = true },
-        indent = { enabled = true },
-        input = { enabled = true },
-        picker = { enabled = true },
-        notifier = { enabled = true },
-        quickfile = { enabled = true },
-        scope = { enabled = true },
-        scroll = { enabled = true },
-        statuscolumn = { enabled = true },
-        words = { enabled = true },
-        lazygit = { },
-        image = {
-            doc = {
-                -- enable image viewer for documents
-                -- a treesitter parser must be available for the enabled languages.
-                enabled = true,
-                -- render the image inline in the buffer
-                -- if your env doesn't support unicode placeholders, this will be disabled
-                -- takes precedence over `opts.float` on supported terminals
-                inline = true,
-                -- render the image in a floating window
-                -- only used if `opts.inline` is disabled
-                float = true,
-                max_width = 80,
-                max_height = 40,
-                backend = 'iterm',
-                -- Set to `true`, to conceal the image text when rendering inline.
-                -- (experimental)
-                ---@param lang string tree-sitter language
-                ---@param type snacks.image.Type image type
-                conceal = function(lang, type)
-                    -- only conceal math expressions
-                    return type == "math"
-                end,
-            },
+        -- Optional: Load plugin when yanking text
+        event = { "TextYankPost" },
+    },
+
+    -- [rcarriganvim-notify A fancy, configurable, notification manager for NeoVim](https://github.com/rcarriga/nvim-notify)
+    { 'rcarriga/nvim-notify'},
+
+    -- [folkenoice.nvim 💥 Highly experimental plugin that completely replaces the UI for messages, cmdline and the popupmenu.](https://github.com/folke/noice.nvim)
+    {
+        "folke/noice.nvim",
+        event = "VeryLazy",
+        opts = {
+            -- add any options here
+        },
+        dependencies = {
+            -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+            "MunifTanjim/nui.nvim",
+            -- OPTIONAL:
+            --   `nvim-notify` is only needed, if you want to use the notification view.
+            --   If not available, we use `mini` as the fallback
+            "rcarriga/nvim-notify",
         },
     },
-    priority=1000,
-},
 
--- [GitHub - OXY2DEV/markview.nvim: A hackable markdown, Typst, latex, html(inline) & YAML previewer for Neovim](https://github.com/OXY2DEV/markview.nvim)
-{
-    "OXY2DEV/markview.nvim",
-    lazy = false,
+    -- [jesseleitenvim-macroni 🤌 Save your macros for future use](https://github.com/jesseleite/nvim-macroni)
+    {
+        'jesseleite/nvim-macroni',
+        opts = {
+            -- All of your `setup(opts)` and saved macros will go here
+        },
+    },
 
-    -- For `nvim-treesitter` users.
-    priority = 49,
+    -- [nvim-lualinelualine.nvim A blazing fast and easy to configure neovim statusline plugin written in pure lua.](https://github.com/nvim-lualine/lualine.nvim)
+    {
+        'nvim-lualine/lualine.nvim',
+        dependencies = { 'nvim-tree/nvim-web-devicons' },
+    },
 
-    config = function()
-        require("markview").setup({
-            preview = {
-                icon_provider = "internal", -- "mini" or "devicons"
-            },
-            markdown = {
-                -- [Markdown · OXY2DEV/markview.nvim Wiki · GitHub](https://github.com/OXY2DEV/markview.nvim/wiki/Markdown)
-                enable = true,
-                block_quotes = {
-                    enable = true,
-                    wrap = true,
+    -- [GitHub - lukas-reinekeindent-blankline.nvim Indent guides for Neovim](https://github.com/lukas-reineke/indent-blankline.nvim)
+    {
+        "lukas-reineke/indent-blankline.nvim",
+        main = "ibl",
+        ---@module "ibl"
+        ---@type ibl.config
+        opts = {},
+    },
 
-                    default = {
-                        border = "▋",
-                        hl = "MarkviewBlockQuoteDefault"
-                    },
+    -- [GitHub - RRethyvim-illuminate illuminate.vim - (Neo)Vim plugin for automatically highlighting other uses of the word under the cursor using either LSP, Tree-sitter, or regex matching.](https://github.com/RRethy/vim-illuminate)
+    {
+        "RRethy/vim-illuminate",
+        config = function()
+            require("illuminate").configure({
+                delay = 100, -- 하이라이트 적용 시간 (ms)
+                under_cursor = true, -- 커서 아래 단어 강조
+                filetypes_denylist = { "NvimTree", "TelescopePrompt" } -- 특정 파일 타입 제외
+            })
+        end
+    },
 
-                    ["ABSTRACT"] = {
-                        preview = "󱉫 Abstract",
-                        hl = "MarkviewBlockQuoteNote",
-
-                        title = true,
-                        icon = "󱉫",
-
-                    },
-                    ["SUMMARY"] = {
-                        hl = "MarkviewBlockQuoteNote",
-                        preview = "󱉫 Summary",
-
-                        title = true,
-                        icon = "󱉫",
-                    },
-                },
-                code_blocks = {
-                    enable = true,
-
-                    style = "block",
-
-                    label_direction = "right",
-
-                    border_hl = "MarkviewCode",
-                    info_hl = "MarkviewCodeInfo",
-
-                    min_width = 60,
-                    pad_amount = 2,
-                    pad_char = " ",
-
-                    sign = true,
-
-                    default = {
-                        block_hl = "MarkviewCode",
-                        pad_hl = "MarkviewCode"
-                    },
-
-                    ["diff"] = {
-                        block_hl = function (_, line)
-                            if line:match("^%+") then
-                                return "MarkviewPalette4";
-                            elseif line:match("^%-") then
-                                return "MarkviewPalette1";
-                            else
-                                return "MarkviewCode";
-                            end
-                        end,
-                        pad_hl = "MarkviewCode"
-                    }
-                },
-
-                headings = {
-                    enable = true,
-
-                    heading_1 = {
-                        style = "icon",
-                        sign = "󰌕 ", sign_hl = "MarkviewHeading1Sign",
-
-                        icon = "󰼏  ", hl = "MarkviewHeading1",
-                    },
-                    heading_2 = {
-                        style = "icon",
-                        sign = "󰌖 ", sign_hl = "MarkviewHeading2Sign",
-
-                        icon = "󰎨  ", hl = "MarkviewHeading2",
-                    },
-                    heading_3 = {
-                        style = "icon",
-
-                        icon = "󰼑  ", hl = "MarkviewHeading3",
-                    },
-                    heading_4 = {
-                        style = "icon",
-
-                        icon = "󰎲  ", hl = "MarkviewHeading4",
-                    },
-                    heading_5 = {
-                        style = "icon",
-
-                        icon = "󰼓  ", hl = "MarkviewHeading5",
-                    },
-                    heading_6 = {
-                        style = "icon",
-
-                        icon = "󰎴  ", hl = "MarkviewHeading6",
-                    },
-
-                    setext_1 = {
-                        style = "decorated",
-
-                        sign = "󰌕 ", sign_hl = "MarkviewHeading1Sign",
-                        icon = "  ", hl = "MarkviewHeading1",
-                        border = "▂"
-                    },
-                    setext_2 = {
-                        style = "decorated",
-
-                        sign = "󰌖 ", sign_hl = "MarkviewHeading2Sign",
-                        icon = "  ", hl = "MarkviewHeading2",
-                        border = "▁"
-                    },
-
-                    shift_width = 1,
-
-                    org_indent = false,
-                    org_indent_wrap = true,
-                    org_shift_char = " ",
-                    org_shift_width = 1,
-                },
-
-                tables = {
-                    enable = false,
-                    strict = true,
-
-                    col_min_width = 10,
-                    block_decorator = true,
-                    use_virt_lines = false,
-
-                    parts = {
-                        top = { "╭", "─", "╮", "┬" },
-                        header = { "│", "│", "│" },
-                        separator = { "├", "─", "┤", "┼" },
-                        row = { "│", "│", "│" },
-                        bottom = { "╰", "─", "╯", "┴" },
-
-                        overlap = { "┝", "━", "┥", "┿" },
-
-                        align_left = "╼",
-                        align_right = "╾",
-                        align_center = { "╴", "╶" }
-                    },
-
-                    hl = {
-                        top = { "TableHeader", "TableHeader", "TableHeader", "TableHeader" },
-                        header = { "TableHeader", "TableHeader", "TableHeader" },
-                        separator = { "TableHeader", "TableHeader", "TableHeader", "TableHeader" },
-                        row = { "TableBorder", "TableBorder", "TableBorder" },
-                        bottom = { "TableBorder", "TableBorder", "TableBorder", "TableBorder" },
-
-                        overlap = { "TableBorder", "TableBorder", "TableBorder", "TableBorder" },
-
-                        align_left = "TableAlignLeft",
-                        align_right = "TableAlignRight",
-                        align_center = { "TableAlignCenter", "TableAlignCenter" }
-                    }
+    -- [snacks.nvim/docs/image.md at main · folke/snacks.nvim](https://github.com/folke/snacks.nvim/blob/main/docs/image.md)
+    {
+        "folke/snacks.nvim",
+        ---@type snacks.Config
+        opts = {
+            -- your configuration comes here
+            -- or leave it empty to use the default settings
+            -- refer to the configuration section below
+            bigfile = { enabled = true },
+            dashboard = { 
+                enabled = true, 
+                sections = {
+                    { section = "header" },
+                    { icon = " ", title = "Keymaps", section = "keys", indent = 2, padding = 1 },
+                    { icon = " ", title = "Recent Files", section = "recent_files", indent = 2, padding = 1 },
+                    { icon = " ", title = "Projects", section = "projects", indent = 2, padding = 1 },
+                    { section = "startup" },
                 },
             },
+            explorer = { enabled = true },
+            indent = { enabled = true },
+            input = { enabled = true },
+            picker = { enabled = true },
+            notifier = { enabled = true },
+            quickfile = { enabled = true },
+            scope = { enabled = true },
+            scroll = { enabled = true },
+            statuscolumn = { enabled = true },
+            words = { enabled = true },
+            lazygit = { },
+            image = {
+                doc = {
+                    -- enable image viewer for documents
+                    -- a treesitter parser must be available for the enabled languages.
+                    enabled = true,
+                    -- render the image inline in the buffer
+                    -- if your env doesn't support unicode placeholders, this will be disabled
+                    -- takes precedence over `opts.float` on supported terminals
+                    inline = true,
+                    -- render the image in a floating window
+                    -- only used if `opts.inline` is disabled
+                    float = true,
+                    max_width = 80,
+                    max_height = 40,
+                    backend = 'iterm',
+                    -- Set to `true`, to conceal the image text when rendering inline.
+                    -- (experimental)
+                    ---@param lang string tree-sitter language
+                    ---@param type snacks.image.Type image type
+                    conceal = function(lang, type)
+                        -- only conceal math expressions
+                        return type == "math"
+                    end,
+                },
+            },
+        },
+        priority=1000,
+    },
 
-        })
-    end
-},
+    -- [GitHub - OXY2DEV/markview.nvim: A hackable markdown, Typst, latex, html(inline) & YAML previewer for Neovim](https://github.com/OXY2DEV/markview.nvim)
+    {
+        "OXY2DEV/markview.nvim",
+        lazy = false,
 
--- [GitHub - neo451/feed.nvim: Neovim feed reader, rss, atom and jsonfeed, all in lua](https://github.com/neo451/feed.nvim)
-{
-    "neo451/feed.nvim",
-    dependencies = { "OXY2DEV/markview.nvim", "nvim-lua/plenary.nvim" },
-    cmd = "Feed",
-    ---@module 'feed'
-    ---@type feed.config
-    opts = {},
-},
+        -- For `nvim-treesitter` users.
+        priority = 49,
+
+        config = function()
+            require("markview").setup({
+                preview = {
+                    icon_provider = "internal", -- "mini" or "devicons"
+                },
+                markdown = {
+                    -- [Markdown · OXY2DEV/markview.nvim Wiki · GitHub](https://github.com/OXY2DEV/markview.nvim/wiki/Markdown)
+                    enable = true,
+                    block_quotes = {
+                        enable = true,
+                        wrap = true,
+
+                        default = {
+                            border = "▋",
+                            hl = "MarkviewBlockQuoteDefault"
+                        },
+
+                        ["ABSTRACT"] = {
+                            preview = "󱉫 Abstract",
+                            hl = "MarkviewBlockQuoteNote",
+
+                            title = true,
+                            icon = "󱉫",
+
+                        },
+                        ["SUMMARY"] = {
+                            hl = "MarkviewBlockQuoteNote",
+                            preview = "󱉫 Summary",
+
+                            title = true,
+                            icon = "󱉫",
+                        },
+                    },
+                    code_blocks = {
+                        enable = true,
+
+                        style = "block",
+
+                        label_direction = "right",
+
+                        border_hl = "MarkviewCode",
+                        info_hl = "MarkviewCodeInfo",
+
+                        min_width = 60,
+                        pad_amount = 2,
+                        pad_char = " ",
+
+                        sign = true,
+
+                        default = {
+                            block_hl = "MarkviewCode",
+                            pad_hl = "MarkviewCode"
+                        },
+
+                        ["diff"] = {
+                            block_hl = function (_, line)
+                                if line:match("^%+") then
+                                    return "MarkviewPalette4";
+                                elseif line:match("^%-") then
+                                    return "MarkviewPalette1";
+                                else
+                                    return "MarkviewCode";
+                                end
+                            end,
+                            pad_hl = "MarkviewCode"
+                        }
+                    },
+
+                    headings = {
+                        enable = true,
+
+                        heading_1 = {
+                            style = "icon",
+                            sign = "󰌕 ", sign_hl = "MarkviewHeading1Sign",
+
+                            icon = "󰼏  ", hl = "MarkviewHeading1",
+                        },
+                        heading_2 = {
+                            style = "icon",
+                            sign = "󰌖 ", sign_hl = "MarkviewHeading2Sign",
+
+                            icon = "󰎨  ", hl = "MarkviewHeading2",
+                        },
+                        heading_3 = {
+                            style = "icon",
+
+                            icon = "󰼑  ", hl = "MarkviewHeading3",
+                        },
+                        heading_4 = {
+                            style = "icon",
+
+                            icon = "󰎲  ", hl = "MarkviewHeading4",
+                        },
+                        heading_5 = {
+                            style = "icon",
+
+                            icon = "󰼓  ", hl = "MarkviewHeading5",
+                        },
+                        heading_6 = {
+                            style = "icon",
+
+                            icon = "󰎴  ", hl = "MarkviewHeading6",
+                        },
+
+                        setext_1 = {
+                            style = "decorated",
+
+                            sign = "󰌕 ", sign_hl = "MarkviewHeading1Sign",
+                            icon = "  ", hl = "MarkviewHeading1",
+                            border = "▂"
+                        },
+                        setext_2 = {
+                            style = "decorated",
+
+                            sign = "󰌖 ", sign_hl = "MarkviewHeading2Sign",
+                            icon = "  ", hl = "MarkviewHeading2",
+                            border = "▁"
+                        },
+
+                        shift_width = 1,
+
+                        org_indent = false,
+                        org_indent_wrap = true,
+                        org_shift_char = " ",
+                        org_shift_width = 1,
+                    },
+
+                    tables = {
+                        enable = false,
+                        strict = true,
+
+                        col_min_width = 10,
+                        block_decorator = true,
+                        use_virt_lines = false,
+
+                        parts = {
+                            top = { "╭", "─", "╮", "┬" },
+                            header = { "│", "│", "│" },
+                            separator = { "├", "─", "┤", "┼" },
+                            row = { "│", "│", "│" },
+                            bottom = { "╰", "─", "╯", "┴" },
+
+                            overlap = { "┝", "━", "┥", "┿" },
+
+                            align_left = "╼",
+                            align_right = "╾",
+                            align_center = { "╴", "╶" }
+                        },
+
+                        hl = {
+                            top = { "TableHeader", "TableHeader", "TableHeader", "TableHeader" },
+                            header = { "TableHeader", "TableHeader", "TableHeader" },
+                            separator = { "TableHeader", "TableHeader", "TableHeader", "TableHeader" },
+                            row = { "TableBorder", "TableBorder", "TableBorder" },
+                            bottom = { "TableBorder", "TableBorder", "TableBorder", "TableBorder" },
+
+                            overlap = { "TableBorder", "TableBorder", "TableBorder", "TableBorder" },
+
+                            align_left = "TableAlignLeft",
+                            align_right = "TableAlignRight",
+                            align_center = { "TableAlignCenter", "TableAlignCenter" }
+                        }
+                    },
+                },
+
+            })
+        end
+    },
+
+    -- [GitHub - neo451/feed.nvim: Neovim feed reader, rss, atom and jsonfeed, all in lua](https://github.com/neo451/feed.nvim)
+    {
+        "neo451/feed.nvim",
+        dependencies = { "OXY2DEV/markview.nvim", "nvim-lua/plenary.nvim" },
+        cmd = "Feed",
+        ---@module 'feed'
+        ---@type feed.config
+        opts = {},
+    },
 
 
 })
@@ -605,6 +718,9 @@ vim.api.nvim_set_keymap('n', '<leader><Tab>', ':Telescope oldfiles<CR>', opts) -
 
 --mason
 require("mason").setup()
+require("mason-lspconfig").setup{
+    ensure_installed = { "lua_ls",},
+}
 
 local on_attach = function(client, bufnr)
   -- 아래 키맵들은 이 파일에 연결된 LSP 서버가 지원하는 경우에만 작동합니다.
@@ -625,19 +741,10 @@ local on_attach = function(client, bufnr)
 end
 
 -- 각 LSP 서버를 설정할 때 on_attach 함수를 연결해줍니다-- .
--- require('lspconfig').omnisharp.setup({
---   on_attach = on_attach,
---   -- ... other settings
--- })
-
 require('lspconfig').pyright.setup({
   on_attach = on_attach,
   -- ... other settings
 })
-
--- 자동 완성 트리거
-vim.api.nvim_set_keymap('i', '<Tab>', 'pumvisible() ? "\\<C-n>" : "\\<Tab>"', { noremap = true, expr = true })
-vim.api.nvim_set_keymap('i', '<S-Tab>', 'pumvisible() ? "\\<C-p>" : "\\<S-Tab>"', { noremap = true, expr = true })
 
 -- [jesseleitenvim-macroni 🤌 Save your macros for future use](https://github.com/jesseleite/nvim-macroni)
 vim.keymap.set({'n', 'v'}, '<Leader>m', function ()
