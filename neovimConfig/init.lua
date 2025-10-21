@@ -112,6 +112,9 @@ vim.opt.rtp:prepend(lazypath)
 
 -- 플러그인 설정
 require("lazy").setup({
+
+    { import = "plugins" },
+
     -- Treesitter
     {
         "nvim-treesitter/nvim-treesitter",
@@ -149,8 +152,6 @@ require("lazy").setup({
     { "folke/which-key.nvim", requires = {{"which-key"}}, },
     { "akinsho/toggleterm.nvim", },
     { "img-paste-devs/img-paste.vim" }, -- paste image in clipboard
-
-    { import = "plugins" },
 
     -- 일부 폰트는 플러그인에서 활용하는 아이콘들을 지원하지 않아서 '?' 물음표 박스가 뜨는 경우가 있음. chatGPT 한테 물어보니까 NerdFont 쓰라고 해서 그거 쓰니까 해결되더라 
     { "preservim/nerdtree", }, -- [preservim/nerdtree: A tree explorer plugin for vim.](https://github.com/preservim/nerdtree)
@@ -246,50 +247,6 @@ require("lazy").setup({
     { "junegunn/fzf.vim", },
 
     { "godlygeek/tabular" },
-
-    -- [GitHub - hadronized/hop.nvim: Neovim motions on speed!](https://github.com/hadronized/hop.nvim)
-    {
-        "hadronized/hop.nvim",
-        config = function()
-            -- you can configure Hop the way you like here; see :h hop-config
-            local hop = require('hop')
-            local directions = require('hop.hint').HintDirection
-
-            hop.setup ({
-                keys = 'etovxqpdygfblzhckisuran',
-                case_insensitive = false,
-                multi_windows = true,
-            })
-
-            vim.keymap.set('', 'f', function()
-                hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = true })
-            end, {remap=true})
-            vim.keymap.set('', 'F', function()
-                hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = true })
-            end, {remap=true})
-            vim.keymap.set('', 't', function()
-                hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = true, hint_offset = -1 })
-            end, {remap=true})
-            vim.keymap.set('', 'T', function()
-                hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = true, hint_offset = 1 })
-            end, {remap=true})
-
-            vim.keymap.set('', '<leader><leader>l', function()
-                hop.hint_lines_skip_whitespace({ multi_windows = true })
-            end, {remap=true})
-            vim.keymap.set('', '<leader><leader>w', function()
-                hop.hint_words({ current_line_only = true, })
-            end, {remap=true})
-            vim.keymap.set('', '<leader><leader>W', function()
-                hop.hint_words({ current_line_only = false, })
-            end, {remap=true})
-
-            vim.keymap.set('', '<leader><leader>p', function()
-                hop.hint_patterns()
-            end, {remap=true})
-
-        end
-    },
 
     -- [atiladefreitaslazyclip The laziest clipboard manager for Neovim](https://github.com/atiladefreitas/lazyclip)
     { "atiladefreitas/lazyclip",
