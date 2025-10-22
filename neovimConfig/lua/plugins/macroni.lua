@@ -119,9 +119,15 @@ return {
 
                 -- 무명레지스터에 등록 후 붙여넣는 방식
                 add_line_summarized_by_gemini = {
-                    macro = ":let @@ = '**Summarized By Gemini**'<CR>p",
+                    macro = ":let @@ = '**Summarized By Gemini**'<CR>",
                     mode = {'n'},
-                    desc = ":let @@ = '**Summarized By Gemini**'<CR>p"
+                    desc = ":let @@ = '**Summarized By Gemini**'<CR>"
+                },
+
+                put_current_absolute_file_path = {
+                    macro = ":put = expand('%:p')<CR>",
+                    mode = {'n'},
+                    desc = ":put = expand('%:p')<CR>"
                 },
             },
         }

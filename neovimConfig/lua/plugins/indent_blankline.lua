@@ -40,5 +40,11 @@ return {
             scope = { enabled = false },
         }
 
+        require("ibl").overwrite {
+            exclude = {
+                filetypes = { 'dashboard' }
+            }
+        }
+
     end
 }
