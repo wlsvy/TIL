@@ -12,9 +12,13 @@ return {
     },
     config = function()
 
+        -- macOS: ~/.local/share/nvim
+        -- Windows: ~/AppData/Local/nvim-data
+        local data_path = vim.fn.stdpath('data')
+
         require("nvim-possession").setup({
             sessions = {
-                sessions_path = vim.fn.stdpath("data") .. "\\session\\", -- folder to look for sessions, must be a valid existing path
+                sessions_path = vim.fs.joinpath(data_path, 'session', ''), -- folder to look for sessions, must be a valid existing path
                 sessions_variable = "nvim_possession_sessions", -- defines vim.g[sessions_variable] when a session is loaded
                 sessions_icon = '🦆', -- string: shows icon both in the prompt and in the statusline
                 -- sessions_prompt = ... -- fzf prompt string

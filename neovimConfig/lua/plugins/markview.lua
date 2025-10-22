@@ -11,6 +11,8 @@ return {
         require("markview").setup({
             preview = {
                 icon_provider = "internal", -- "mini" or "devicons"
+                filetypes = { "markdown", "codecompanion" },
+                ignore_buftypes = {},
             },
             markdown = {
                 -- [Markdown · OXY2DEV/markview.nvim Wiki · GitHub](https://github.com/OXY2DEV/markview.nvim/wiki/Markdown)
