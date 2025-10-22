@@ -5,6 +5,7 @@ return {
 
     -- For `nvim-treesitter` users.
     priority = 49,
+    dependencies = {"nvim-mini/mini.icons"},
 
     config = function()
         require("markview").setup({
@@ -171,6 +172,16 @@ return {
                 },
             },
 
+        })
+
+        vim.api.nvim_create_autocmd("User", {
+            pattern = "MarkviewAttach",
+            callback = function (event)
+                --- This will have all the data you need.
+                local data = event.data;
+
+                vim.print(data);
+            end
         })
 
         -- Markdown 파일에서만 적용되는 하이라이트 설정
