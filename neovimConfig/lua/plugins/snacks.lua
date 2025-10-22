@@ -7,8 +7,8 @@ return {
         -- or leave it empty to use the default settings
         -- refer to the configuration section below
         bigfile = { enabled = true },
-        dashboard = { 
-            enabled = true, 
+        dashboard = {
+            enabled = true,
             sections = {
                 { section = "header" },
                 { icon = " ", title = "Keymaps", section = "keys", indent = 2, padding = 1 },

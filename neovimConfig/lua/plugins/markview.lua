@@ -81,33 +81,33 @@ return {
                         style = "icon",
                         sign = "󰌕 ", sign_hl = "MarkviewHeading1Sign",
 
-                        icon = "󰼏  ", hl = "MarkviewHeading1",
+                        icon = "I  ", hl = "MarkviewHeading1",
                     },
                     heading_2 = {
                         style = "icon",
                         sign = "󰌖 ", sign_hl = "MarkviewHeading2Sign",
 
-                        icon = "󰎨  ", hl = "MarkviewHeading2",
+                        icon = "II  ", hl = "MarkviewHeading2",
                     },
                     heading_3 = {
                         style = "icon",
 
-                        icon = "󰼑  ", hl = "MarkviewHeading3",
+                        icon = "III  ", hl = "MarkviewHeading3",
                     },
                     heading_4 = {
                         style = "icon",
 
-                        icon = "󰎲  ", hl = "MarkviewHeading4",
+                        icon = "IV  ", hl = "MarkviewHeading4",
                     },
                     heading_5 = {
                         style = "icon",
 
-                        icon = "󰼓  ", hl = "MarkviewHeading5",
+                        icon = "V  ", hl = "MarkviewHeading5",
                     },
                     heading_6 = {
                         style = "icon",
 
-                        icon = "󰎴  ", hl = "MarkviewHeading6",
+                        icon = "VI  ", hl = "MarkviewHeading6",
                     },
 
                     setext_1 = {
