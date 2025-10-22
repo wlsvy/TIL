@@ -58,7 +58,7 @@ return {
 
     config = function()
 
-        vim.api.nvim_set_keymap('n', '<leadek>;', ':lua Snacks.explorer()<CR>', { noremap = true, silent = true }) -- 파일 찾기 
+        vim.api.nvim_set_keymap('n', '<leader>;', ':lua Snacks.explorer()<CR>', { noremap = true, silent = true }) -- 파일 찾기 
         vim.api.nvim_set_keymap('n', '<C-p>', ':lua Snacks.picker.pickers()<CR>', { noremap = true, silent = true }) -- Snacks.picker 리스트
         vim.api.nvim_set_keymap('n', '<C-f>', ':lua Snacks.picker.lines()<CR>', { noremap = true, silent = true }) -- 버퍼 목록 보기 
         vim.api.nvim_set_keymap('n', '<leader>b', ':lua Snacks.picker.grep_buffers()<CR>', { noremap = true, silent = true }) -- 현재 파일 텍스트 검색 
