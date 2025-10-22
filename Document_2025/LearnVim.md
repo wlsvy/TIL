@@ -181,6 +181,8 @@ vim.o.shell = 'C:/Program Files/PowerShell/7/pwsh.exe'
 | `expand('%:h')`     | 현재 파일의 디렉토리 경로           | `/home/user/project`                  |
 | `expand('<cfile>')` | 커서 아래에 있는 파일 경로          | `./myfile.txt`                        |
 
+- `<cmd>put = expand('%:p')<CR>`: ex) 현재 파일 절대 경로를 열린 버퍼에 입력
+
 ---
 
 | **명령어**                 | **설명**                                                | **예시**                                                      |
