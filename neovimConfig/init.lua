@@ -103,27 +103,10 @@ require("lazy").setup({
 
     { import = "plugins" },
 
-    { "img-paste-devs/img-paste.vim" }, -- paste image in clipboard
 })
 
--- 현재 init.lua의 디렉토리 위치를 가져오는 방법
-local function get_current_directory()
-  local str = debug.getinfo(1, "S").source:sub(2)
-  
-  -- 운영체제에 따른 경로 구분 처리
-  if vim.loop.os_uname().sysname == "Windows_NT" then
-    return str:match("(.*\\)")  -- Windows에서는 백슬래시(\) 사용
-  else
-    return str:match("(.*/)")   -- Unix 계열에서는 슬래시(/) 사용
-  end
-end
-
-local current_directory = get_current_directory()
 local is_windows = vim.loop.os_uname().sysname == "Windows_NT"
 local is_macos = vim.fn.has("macunix") == 1
-
--- 결과 확인용 출력 (디버깅에 사용 가능)
--- print("init.lua Directory: " .. current_directory)
 
 if is_windows then -- Windows 특정 설정
      require('windows-settings')
@@ -134,13 +117,4 @@ elseif is_macos then -- macOS 특정 설정
 else
     print("any predefined os found...")
 end
-
--- Set the image directory and image name (if you want to change the defaults)
-vim.g.mdip_imgdir = 'img'
-vim.g.mdip_imgname = 'image'
-
--- Define the :mdip command to call the MarkdownClipboardImage function
-vim.api.nvim_create_user_command('Mdip', function()
-    vim.cmd('call mdip#MarkdownClipboardImage()')
-end, {})
 
