@@ -21,20 +21,20 @@ return {
                         key = 'f',
                     },
                     {
-                        desc = ' Apps',
+                        desc = ' Sessions',
                         group = 'DiagnosticHint',
-                        action = 'Telescope app',
-                        key = 'a',
-                    },
-                    {
-                        desc = ' dotfiles',
-                        group = 'Number',
-                        action = 'Telescope dotfiles',
-                        key = 'd',
+                        action = 'lua require("nvim-possession").list()',
+                        key = 's',
                     },
                 },
                 packages = { enable = true }, -- show how many plugins neovim loaded
-                project = { enable = true, limit = 8, icon = 'your icon', label = '', action = 'Telescope find_files cwd=' },
+                mru = {
+                    enable = true,
+                    limit = 10,
+                    icon = '  ',
+                    label = 'Recent',
+                    cwd_only = false -- 현재 디렉터리가 아닌, nvim 전체의 최근 파일을 보여줌
+                },
             },       
         }
     end,

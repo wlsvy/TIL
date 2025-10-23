@@ -59,13 +59,9 @@ return {
     config = function()
 
         vim.api.nvim_set_keymap('n', '<leader>;', ':lua Snacks.explorer()<CR>', { noremap = true, silent = true }) -- 파일 찾기 
-        vim.api.nvim_set_keymap('n', '<C-p>', ':lua Snacks.picker.pickers()<CR>', { noremap = true, silent = true }) -- Snacks.picker 리스트
         vim.api.nvim_set_keymap('n', '<C-f>', ':lua Snacks.picker.lines()<CR>', { noremap = true, silent = true }) -- 버퍼 목록 보기 
         vim.api.nvim_set_keymap('n', '<leader>b', ':lua Snacks.picker.grep_buffers()<CR>', { noremap = true, silent = true }) -- 현재 파일 텍스트 검색 
         vim.api.nvim_set_keymap('n', '<leader>q', ':lua Snacks.picker.autocmds()<CR>', { noremap = true, silent = true }) -- 명령어 탐색 키맵핑
-        vim.api.nvim_set_keymap('n', '<leader>Q', ':lua Snacks.picker.command_history()<CR>', { noremap = true, silent = true }) -- 명령어 히스토리
-        vim.api.nvim_set_keymap('n', '<leader>t', ':lua Snacks.picker.files()<CR>', { noremap = true, silent = true }) -- find_files
-        vim.api.nvim_set_keymap('n', '<leader>T', ':lua Snacks.picker.treesitter()<CR>', { noremap = true, silent = true }) -- treesitter
         vim.api.nvim_set_keymap('n', '<leader>g', ':lua Snacks.picker.grep()<CR>', { noremap = true, silent = true }) -- grep / text 검색
         vim.api.nvim_set_keymap('n', '<leader>G', ':lua Snacks.picker.grep_word()<CR>', { noremap = true, silent = true }) -- grep_word / 정확한 단어 검색
 
