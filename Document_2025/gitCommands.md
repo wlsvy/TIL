@@ -248,6 +248,8 @@ diff
   - `--name-only` : Show only names of changed files. 
   - `--cached`: This form is to view the changes you staged for the next commit relative to the named <commit>
     - 현재 스테이지 상태의 파일 diff 를 체크하고 싶다면 `git diff --cached`
+  - `--unified` : Generate diffs with <n> lines of context instead of the usual three. Implies --patch.
+    - ex: `git diff --unified=5` 혹은 `git diff -U5`
   
 status
 
