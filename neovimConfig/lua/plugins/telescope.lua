@@ -81,6 +81,7 @@ return  {
             vim.api.nvim_set_keymap('n', '<leader>fh', '<cmd>Telescope help_tags<CR>', { noremap = true, silent = true })
             vim.api.nvim_set_keymap('n', '<leader><Tab>', '<cmd>Telescope oldfiles<CR>', { noremap = true, silent = true })
             vim.api.nvim_set_keymap('n', '<leader>fk', '<cmd>Telescope keymaps<CR>', { noremap = true, silent = true })
+            vim.api.nvim_set_keymap('n', '<leader>fr', '<cmd>Telescope registers<CR>', { noremap = true, silent = true })
 
         end
     },
