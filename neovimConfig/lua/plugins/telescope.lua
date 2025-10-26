@@ -94,5 +94,13 @@ return  {
             -- you need to call load_extension, somewhere after setup function:
             require("telescope").load_extension "file_browser"
         end
+    },
+    {
+        'LukasPietzschmann/telescope-tabs',
+        dependencies = { "nvim-telescope/telescope.nvim" },
+
+        config = function()
+            vim.api.nvim_set_keymap('n', '<leader>ft', "<cmd>lua require('telescope-tabs').list_tabs()<CR>", { noremap = true, silent = true })
+        end
     }
 }
