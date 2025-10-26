@@ -4,7 +4,7 @@ return {
     lazy = false,
 
     -- For `nvim-treesitter` users.
-    priority = 49,
+    priority = 1001,
     dependencies = {"nvim-mini/mini.icons"},
 
     config = function()
@@ -197,5 +197,7 @@ return {
                   ]]
             end
         })
+
+        vim.api.nvim_set_keymap("n", "<leader>v", "<cmd>Markview<CR>", { noremap = true, silent = true })
     end
 }

@@ -129,6 +129,12 @@ return {
                     mode = {'n'},
                     desc = ":put = expand('%:p')<CR>"
                 },
+
+                refresh_all_windows_in_tab = {
+                    macro = ":windo e!<CR>",
+                    mode = {'n'},
+                    desc = ":windo e!<CR>"
+                },
             },
         }
     end
