@@ -15,7 +15,7 @@ return {
                 end
             end,
 
-            shade_terminals = true, -- NOTE: this option takes priority over highlights specified so if you specify Normal highlights you should set this to false
+            shade_terminals = false, -- NOTE: this option takes priority over highlights specified so if you specify Normal highlights you should set this to false
             direction = 'float', -- 'vertical' | 'horizontal' | 'tab' | 'float',
             shell = vim.o.shell,
 
