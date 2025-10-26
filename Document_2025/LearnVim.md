@@ -275,6 +275,23 @@ Neovim의 `normal` 명령어는 **Ex 모드(`:`)에서 일반 모드(Normal Mode
 |                 | **`:marks`**       | 설정된 모든 마크를 보여줍니다.                                                                                                                                                                                                                                                   |
 | **파일 열 때**  | 설정 필요          | `.vimrc` 또는 `init.lua` 파일에 설정을 추가하여, 파일을 다시 열었을 때 마지막으로 편집했던 위치로 자동으로 이동하게 할 수 있습니다. \<br\> (`.vimrc` 예시 참조: `augroup remember_cursor ...`) \<br\> (`init.lua` 예시 참조: `vim.api.nvim_create_autocmd("BufReadPost", ...)`). |
 
+**Do 계열 명령어**
+
+| 명령어       | 대상 범위 (Scope)               | 사용 예시             | 설명                                                                        |
+| :---         | :---                            | :---                  | :---                                                                        |
+| **`:windo`** | 현재 탭의 **모든 창** (Splits)  | `:windo e!`           | 현재 탭의 모든 분할 창에서 파일을 다시 로드합니다. |
+| **`:tabdo`** | **모든 탭** (Tabs)              | `:tabdo w`            | 열려있는 모든 탭을 순회하며 저장합니다.                                     |
+| **`:bufdo`** | (메모리에 로드된) **모든 버퍼** | `:bufdo %s/foo/bar/g` | 열려있는 모든 버퍼의 전체 내용에서 'foo'를 'bar'로 치환합니다.              |
+| **`:argdo`** | `:args` 목록의 **모든 파일**    | `:argdo wq`           | Vim 시작 시 `vim *.txt`처럼 열었던 모든 파일을 저장하고 닫습니다.           |
+| **`:cdo`**   | **Quickfix** 리스트의 모든 항목 | `:cdo s/error/fix/`   | Quickfix 창에 나열된 모든 위치에서 'error'를 'fix'로 바꿉니다.              |
+| **`:ldo`**   | **Location** 리스트의 모든 항목 | `:ldo s/old/new/`     | Location 창(창 전용 Quickfix)의 모든 위치를 수정합니다.                     |
+
+* 이 명령어들은 중첩해서 사용할 수 있습니다.
+  * ex) **모든 탭(`:tabdo`)**의 **모든 창(`:windo`)**에서 `:e!` 실행:
+    ```vim
+    :tabdo windo e!
+    ```
+
 **특수문자digraphs**
 
 `Ctrl+K`를 누른 뒤, 표의 **'입력 키'**에 해당하는 두 글자를 차례로 입력하면 해당 **'문자'**가 나옵니다.
