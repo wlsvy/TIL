@@ -35,6 +35,7 @@ return {
                     label = 'Recent',
                     cwd_only = false -- 현재 디렉터리가 아닌, nvim 전체의 최근 파일을 보여줌
                 },
+
             },       
         }
     end,

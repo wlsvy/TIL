@@ -30,10 +30,9 @@ return {
                 inline = true,
                 -- render the image in a floating window
                 -- only used if `opts.inline` is disabled
-                float = true,
+                float = false,
                 max_width = 80,
                 max_height = 40,
-                backend = 'iterm',
                 -- Set to `true`, to conceal the image text when rendering inline.
                 -- (experimental)
                 ---@param lang string tree-sitter language
@@ -49,10 +48,9 @@ return {
 
     config = function()
 
-        vim.api.nvim_set_keymap('n', '<leader>;', ':lua Snacks.explorer()<CR>', { noremap = true, silent = true }) -- 파일 찾기 
+        vim.api.nvim_set_keymap('n', '<leader>s;', ':lua Snacks.explorer()<CR>', { noremap = true, silent = true }) -- 파일 찾기 
+        vim.api.nvim_set_keymap('n', '<leader>t', ':lua Snacks.picker.files()<CR>', { noremap = true, silent = true }) -- 파일 찾기 
         vim.api.nvim_set_keymap('n', '<C-f>', ':lua Snacks.picker.lines()<CR>', { noremap = true, silent = true }) -- 버퍼 목록 보기 
-        vim.api.nvim_set_keymap('n', '<leader>b', ':lua Snacks.picker.grep_buffers()<CR>', { noremap = true, silent = true }) -- 현재 파일 텍스트 검색 
-        vim.api.nvim_set_keymap('n', '<leader>q', ':lua Snacks.picker.autocmds()<CR>', { noremap = true, silent = true }) -- 명령어 탐색 키맵핑
         vim.api.nvim_set_keymap('n', '<leader>g', ':lua Snacks.picker.grep()<CR>', { noremap = true, silent = true }) -- grep / text 검색
         vim.api.nvim_set_keymap('n', '<leader>G', ':lua Snacks.picker.grep_word()<CR>', { noremap = true, silent = true }) -- grep_word / 정확한 단어 검색
 

@@ -31,6 +31,26 @@ return  {
                 pickers = {
                     -- 기본 픽커 설정
                     find_files = {
+                        mappings = {
+                            ["i"] = {
+                                ["<C-s>"] = "select_vertical"
+                            },
+                            ["n"] = {
+                                ["<C-s>"] = "select_vertical"
+                            },
+                        },
+                    },
+                    buffers = {
+                        mappings = {
+                            ["i"] = {
+                                ["<C-s>"] = "select_vertical",
+                                ["<C-q>"] = "delete_buffer",
+                            },
+                            ["n"] = {
+                                ["<C-s>"] = "select_vertical",
+                                ["<C-q>"] = "delete_buffer",
+                            },
+                        },
                     },
                     live_grep = {
                         theme = "ivy",
@@ -48,14 +68,6 @@ return  {
                         theme = "ivy",
                         -- disables netrw and use telescope-file-browser in its place
                         hijack_netrw = true,
-                        mappings = {
-                            ["i"] = {
-                                -- your custom insert mode mappings
-                            },
-                            ["n"] = {
-                                -- your custom normal mode mappings
-                            },
-                        },
                     },
                 }
             }
