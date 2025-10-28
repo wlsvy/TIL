@@ -103,5 +103,51 @@ return  {
         config = function()
             vim.api.nvim_set_keymap('n', '<leader>ft', "<cmd>lua require('telescope-tabs').list_tabs()<CR>", { noremap = true, silent = true })
         end
+    },
+    {
+        "jvgrootveld/telescope-zoxide",
+        dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim", "nvim-lua/popup.nvim" },
+
+        config = function()
+
+            vim.api.nvim_set_keymap('n', '<leader>fz', '<cmd>Telescope zoxide list<CR>', { noremap = true, silent = true })
+
+            -- Useful for easily creating commands
+            local z_utils = require("telescope._extensions.zoxide.utils")
+
+            require('telescope').setup{
+                -- (other Telescope configuration...)
+                extensions = {
+                    zoxide = {
+                        prompt_title = "[ Zoxide List ]",
+                        list_command = "zoxide query -ls",
+                        mappings = {
+                            default = {
+                                action = function(selection)
+                                    vim.cmd.cd(selection.path)
+                                end,
+                                after_action = function(selection)
+                                    vim.notify("Directory changed to " .. selection.path)
+                                end,
+                            },
+                            ["<C-s>"] = { action = z_utils.create_basic_command("split") },
+                            ["<C-v>"] = { action = z_utils.create_basic_command("vsplit") },
+                            ["<C-e>"] = { action = z_utils.create_basic_command("edit") },
+                            ["<C-f>"] = {
+                                keepinsert = true,
+                                action = function(selection)
+                                    builtin.find_files({ cwd = selection.path })
+                                end,
+                            },
+                            ["<C-t>"] = {
+                                action = function(selection)
+                                    vim.cmd.tcd(selection.path)
+                                end,
+                            },
+                        }
+                    }
+                }
+            }
+        end
     }
 }
