@@ -1,7 +1,7 @@
 -- [GitHub - 3rd/image.nvim: 🖼️ Bringing images to Neovim.](https://github.com/3rd/image.nvim)
 return {
     '3rd/image.nvim',
-    cond = vim.fn.has('macunix') = 1,
+    cond = vim.fn.has('macunix') == 1,
     config = function()
         require("image").setup({
             backend = "kitty", -- or "ueberzug" or "sixel"
