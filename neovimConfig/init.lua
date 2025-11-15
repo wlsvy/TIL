@@ -79,11 +79,7 @@ function ToggleTextWrap() -- 텍스트 줄 바꿈 토글하는 함수 정의
     end
 end
 
-vim.api.nvim_create_user_command( -- 명령어 등록
-    'ToggleTextWrap',
-    'lua ToggleTextWrap()',
-    { nargs = 0 }
-)
+vim.api.nvim_set_keymap('n', '<leader>vw', ":lua ToggleTextWrap()<CR>", { noremap = true, silent = true }) 
 
 -- 'lazy.nvim' 설치 및 경로 설정
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
