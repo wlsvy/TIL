@@ -198,6 +198,6 @@ return {
             end
         })
 
-        vim.api.nvim_set_keymap("n", "<leader>v", "<cmd>Markview<CR>", { noremap = true, silent = true })
+        vim.api.nvim_set_keymap("n", "<leader>vm", "<cmd>Markview<CR>", { noremap = true, silent = true })
     end
 }
