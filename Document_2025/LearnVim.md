@@ -129,6 +129,26 @@ vim.o.shell = 'C:/Program Files/PowerShell/7/pwsh.exe'
 - `@{register}` : 특정 레지스터의 내용을 실행(`:h @`), 예를 들어 `@a` 으로 a 레지스터의 기록된 매크로 실행 가능
   - 반복 실행은 `10@a` 같은 명령어로 수행 가능
 
+**File Encoding**
+
+- `set fileencoding?` : 현재 파일 인코딩 확인
+- `set fileencoding=<encoding>` : 현재 파일의 인코딩을 설정합니다. (저장 시 적용)
+  * `set fileencoding=utf-8`
+  * `set fileencoding=euc-kr`
+
+- `e ++encoding=<encoding> <filepath>` : 파일 경로를 특정 인코딩으로 열기
+  * `e ++encoding=euc-kr <filepath>` : utf8 이 아닌 한글 텍스트 파일은 이걸로 열어볼 수 있다.
+  * `e ++encoding=utf-8 <filepath>`
+
+- `:set fileencodings?` : Neovim이 파일을 열 때 시도하는 인코딩 목록을 확인합니다.
+- `:set fileencodings=ucs-bom,utf-8,euc-kr,latin1` : 파일 열기 시도 순서를 설정합니다.
+  * 일반적으로 `ucs-bom` (BOM이 있는 UTF), `utf-8`, `euc-kr` (또는 해당 지역 인코딩), `latin1` (기본값) 순으로 설정하여 파일을 정확하게 인식하도록 합니다.
+  * `fileencodings`는 파일을 *읽을 때* 사용하는 인코딩 목록이며, `fileencoding`은 현재 버퍼의 인코딩이자 파일을 *저장할 때* 사용할 인코딩입니다.
+
+- `:w ++enc=<encoding>` : 현재 파일을 다른 인코딩으로 저장합니다.
+  * `:w ++enc=euc-kr`
+  * `:w ++enc=utf-8`
+
 ## neovim
 
 ### Neovim 파일 경로 정보
