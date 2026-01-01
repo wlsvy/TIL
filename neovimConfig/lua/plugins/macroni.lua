@@ -82,9 +82,9 @@ return {
                 },
 
                 write_date_with_markdown_caption = {
-                    macro = ":execute \"normal i\" . strftime(\"## %y.%m.%d\")<CR>",
+                    macro = ":execute \"normal i\" . strftime(\"# %y.%m.%d\")<CR>",
                     mode = {'n'},
-                    desc = ":execute \"normal i\" . strftime(\"## %y.%m.%d\")<CR>",
+                    desc = ":execute \"normal i\" . strftime(\"# %y.%m.%d\")<CR>",
                 },
 
                 copy_multiline_with_any_keyword = {
