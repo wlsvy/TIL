@@ -723,4 +723,62 @@ Git은 저장소에서 여러 개의 개별 객체 파일이 쌓일 때, 이를 
 
 Git은 160비트 길이의 **SHA-1** 해시 알고리즘을 사용합니다. 생성 가능한 해시의 가짓수는 $2^{160}$개로, 약 **1.46 x 10^48**개입니다.
 
+## EOL ( End Of Line) 정책 관련
 
+UNIX(Linux, macOS)와 Windows 사용자가 섞여 있는 개발 환경에서 라인 엔딩(Line Ending) 규칙을 명확히 정하지 않으면, **Git 형상 관리, 빌드 스크립트 실행, 코드 품질 검사** 등 다양한 영역에서 치명적인 이슈가 발생합니다.
+
+### 1. "Git Diff 지옥"과 불필요한 변경 감지
+
+가장 흔하게 발생하는 이슈입니다. 실제 코드는 한 줄도 바꾸지 않았는데, 파일 전체가 변경된 것으로 인식됩니다.
+
+* **증상:**
+* Windows 사용자가 파일을 열고 저장만 했는데, `git diff`를 보면 **파일의 모든 줄이 수정**된 것으로 뜹니다.
+* 이는 파일 내용이 LF(`\n`)에서 CRLF(`\r\n`)로 바뀌었기 때문입니다.
+
+* **문제점:**
+* **코드 리뷰 불가능:** 실제 변경 사항을 찾기 위해 수천 줄의 diff를 뒤져야 합니다.
+* **Merge Conflict:** 서로 다른 OS 사용자가 같은 파일을 건드리면, 내용이 충돌하지 않아도 라인 엔딩 차이로 인해 충돌이 발생합니다.
+* **Blame 정보 오염:** `git blame`을 했을 때, 실제 로직 작성자가 아니라 줄바꿈을 바꾼 사람이 최종 수정자로 기록됩니다.
+
+### 2. 쉘 스크립트 실행 오류 (가장 치명적)
+
+서버 배포나 Docker 환경에서 자주 발생하는 문제입니다.
+
+* **증상:**
+* Windows에서 작성한 `.sh` (Bash 스크립트) 파일을 Linux 서버나 Docker 컨테이너에서 실행할 때 에러가 발생합니다.
+* 에러 메시지 예시:
+
+```bash
+/bin/bash^M: bad interpreter: No such file or directory
+
+```
+
+```bash
+syntax error near unexpected token `$'do\r''
+
+```
+
+* **원인:**
+* Linux 쉘은 줄바꿈을 LF(`\n`)로 인식합니다.
+* CRLF(`\r\n`)로 저장된 파일은 Linux가 `\r`(Carriage Return) 문자를 명령어의 일부나 파일 경로의 일부로 인식해버립니다. (위 에러의 `^M`이 `\r`을 의미합니다.)
+
+### 해결 방안: `.gitattributes` 설정 (표준)
+
+개별 개발자의 Git 설정(`core.autocrlf`)에 의존하면 실수가 발생하기 쉽습니다. 프로젝트 루트에 `.gitattributes` 파일을 만들어 **저장소 레벨에서 강제**하는 것이 가장 확실한 방법입니다.
+
+**추천 `.gitattributes` 설정:**
+
+```gitattributes
+# 모든 텍스트 파일은 저장소에는 LF로 저장하고, 
+# 체크아웃 시에는 OS에 맞춰 변환(Windows는 CRLF, Mac/Linux는 LF)
+* text=auto
+
+# 쉘 스크립트는 OS 상관없이 무조건 LF로 유지 (Windows에서도 LF로 받아짐)
+*.sh text eol=lf
+*.bash text eol=lf
+
+# 윈도우 배치 파일은 무조건 CRLF 유지
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+```
