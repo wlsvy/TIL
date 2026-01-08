@@ -13,7 +13,16 @@ return {
             -- ... (스니펫, UI 설정 등) ...
             sources = cmp.config.sources({
                 { name = "nvim_lsp" }, -- LSP 소스 등록
-                { name = "buffer" },
+                { 
+                    name = "buffer" ,
+                    option = {
+                        -- 모든 버퍼를 가져오는 함수를 지정
+                        get_bufnrs = function()
+                            -- 현재 열려있는 모든 버퍼 목록을 반환
+                            return vim.api.nvim_list_bufs()
+                        end
+                    }
+                },
                 { name = "path" },
                 { name = "luasnip" },
             }),
