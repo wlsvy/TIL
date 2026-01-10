@@ -15,7 +15,7 @@ return {
                     powershell = { command = { "pwsh" } },
                 },
                 -- REPL 터미널이 열릴 위치 (오른쪽 40% 너비)
-                repl_open_cmd = view.split.vertical.right("40%"),
+                repl_open_cmd = view.split.vertical.rightbelow("40%"),
             },
             -- 단축키 설정
             keymaps = {

@@ -9,6 +9,8 @@ return {
     },
     config = function()
         local cmp = require("cmp")
+        local luasnip = require("luasnip")
+
         cmp.setup({
             -- ... (스니펫, UI 설정 등) ...
             sources = cmp.config.sources({
@@ -16,6 +18,9 @@ return {
                 { 
                     name = "buffer" ,
                     option = {
+                        --  점(.)과 골뱅이(@)가 포함된 단어도 하나로 인식하도록 설정
+                        keyword_pattern = [[\%(\k\|[.@]\)\+]],
+
                         -- 모든 버퍼를 가져오는 함수를 지정
                         get_bufnrs = function()
                             -- 현재 열려있는 모든 버퍼 목록을 반환
