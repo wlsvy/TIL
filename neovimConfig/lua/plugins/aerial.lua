@@ -23,8 +23,8 @@ return {
 
             on_attach = function(bufnr)
                 vim.api.nvim_set_keymap("n", "<leader>a", "<cmd>AerialToggle right<CR>", { noremap = true, silent = true })
-                vim.api.nvim_set_keymap("n", "<leader>h", "<cmd>AerialPrev<CR>", { noremap = true, silent = true })
-                vim.api.nvim_set_keymap("n", "<leader>l", "<cmd>AerialNext<CR>", { noremap = true, silent = true })
+                vim.api.nvim_set_keymap("n", "<leader><leader>h", "<cmd>AerialPrev<CR>", { noremap = true, silent = true })
+                vim.api.nvim_set_keymap("n", "<leader><leader>l", "<cmd>AerialNext<CR>", { noremap = true, silent = true })
                 vim.api.nvim_set_keymap("n", "<leader>A", "<cmd>AerialNavToggle<CR>", { noremap = true, silent = true })
             end,
 
