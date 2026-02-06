@@ -22,7 +22,7 @@ return {
             hop.hint_words({ current_line_only = false, })
         end, {remap=true})
 
-        vim.keymap.set('', '<leader>p', function()
+        vim.keymap.set('', '<leader>P', function()
             hop.hint_patterns()
         end, {remap=true})
 
