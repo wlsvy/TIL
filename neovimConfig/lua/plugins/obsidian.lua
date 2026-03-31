@@ -16,15 +16,5 @@ return {
     "nvim-lua/plenary.nvim",
 
     -- see below for full list of optional dependencies 👇
-  },
-  opts = {
-    workspaces = {
-      {
-        name = "SpicyToy",
-        path = "~/Desktop/Workspace/SpicyToy",
-      },
-    },
-
-    -- see below for full list of options 👇
-  },
+  }
 }
