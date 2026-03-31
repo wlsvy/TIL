@@ -457,23 +457,23 @@ pick 7c65355 Task 1/3
 pick 2639543 Task 2/3
 pick d442427 Task 3/3
 
-# Rebase 2260a88..d442427 onto 2260a88
-#
-# Commands:
-#  p, pick = use commit
-#  r, reword = use commit, but edit the commit message
-#  e, edit = use commit, but stop for amending
-#  s, squash = use commit, but meld into previous commit
-#  f, fixup = like "squash", but discard this commit`s log message
-#  x, exec = run command (the rest of the line) using shell
-#
-# These lines can be re-ordered; they are executed from top to bottom.
-#
-# If you remove a line here THAT COMMIT WILL BE LOST.
-#
-# However, if you remove everything, the rebase will be aborted.
-#
-# Note that empty commits are commented out  
+* Rebase 2260a88..d442427 onto 2260a88
+*
+* Commands:
+*  p, pick = use commit
+*  r, reword = use commit, but edit the commit message
+*  e, edit = use commit, but stop for amending
+*  s, squash = use commit, but meld into previous commit
+*  f, fixup = like "squash", but discard this commit`s log message
+*  x, exec = run command (the rest of the line) using shell
+*
+* These lines can be re-ordered; they are executed from top to bottom.
+*
+* If you remove a line here THAT COMMIT WILL BE LOST.
+*
+* However, if you remove everything, the rebase will be aborted.
+*
+* Note that empty commits are commented out  
 ```
 
 예를 들어 순서 변경 및 Squash 수행하도록 메세지를 변경하고 싶다면 아래처럼 수정한다.
@@ -545,6 +545,75 @@ $ git tag foo           (3)
 3. creates a new tag foo, which refers to commit f, leaving HEAD detached.
 
 - 출처 [git : detached Head](https://git-scm.com/docs/git-checkout#_detached_head)
+
+## gitignore
+
+- [Git - gitignore Documentation](https://git-scm.com/docs/gitignore)
+
+- Patterns read from `$GIT_DIR/info/exclude`
+  - `.git/info/exclude` 에 명시된 패턴도 `.gitignore` 와 동일하게 추적하지 않는다.
+  - 개인 로컬 단위에서 exclude 지정이 필요하다면 위 방식을 사용해볼 수 있다.
+
+## update-index
+
+- [Git - git-update-index Documentation](https://git-scm.com/docs/git-update-index)
+
+`git update-index`는 사용자가 직접 호출하기보다는 Git 내부적으로 호출되는 경우가 많은 로우 레벨(Plumbing) 명령어입니다. 하지만 시니어 개발자나 DevOps 환경에서는 특정 상황을 해결하기 위해 다음 옵션들이 가장 빈번하게 사용됩니다.
+
+이 옵션들은 주로 **"실수로 커밋하면 안 되는 파일 관리"**와 **"OS 간 권한 문제 해결"**이라는 두 가지 큰 줄기에서 가장 많이 쓰입니다. 해당 명령어들을 Alias로 등록해두면 워크플로우가 훨씬 매끄러워집니다.
+
+1. **`--skip-worktree`**: 로컬 설정 유지 (실무 활용도 1위)
+  * `--no-skip-worktree`: 로컬 설정 유지 해제
+2. **`--chmod=+x`**: 실행 권한 수정 (배포 스크립트 작성 시 필수)
+3. **`--assume-unchanged`**: 대규모 저장소 성능 최적화
+
+### 1. `--[no-]skip-worktree` (가장 빈번)
+앞서 대화 나눈 것처럼, 원격에 이미 존재하는 설정 파일의 로컬 수정을 Git이 무시하게 할 때 사용합니다.
+* **용도:** 로컬 전용 DB 커넥션 정보, API 키 유지 등.
+* **명령어:** `git update-index --skip-worktree <file>`
+* 저장소 내부의 인덱스(Index, .git/index) 바이너리 파일에 각 파일의 **메타데이터 플래그(Flag)**로 저장됩니다.
+
+
+* --skip-worktree 로 변경된 인덱스만 확인하는 법: `git ls-files -v` 로 index 플래그 확인가능
+
+| 기호    | 의미                 | 연관 플래그 / 명령어                                                  |
+| :---:   | :---                 | :---                                                                  |
+| **`H`** | **Cached**           | 정상적으로 추적(Tracked) 중인 파일 (가장 일반적)                      |
+| **`S`** | **Skip-worktree**    | `--skip-worktree` 설정됨 (로컬 수정 무시)                             |
+| **`h`** | **Assume-unchanged** | `--assume-unchanged` 설정됨 (성능 최적화용 무시)                      |
+| **`M`** | **Unmerged**         | 충돌(Conflict)이 발생하여 병합이 필요한 상태                          |
+| **`R`** | **Removed/Deleted**  | 작업 트리에서 삭제되었지만 인덱스에는 남아있는 상태                   |
+| **`C`** | **Modified/Changed** | 인덱스에 등록된 내용과 작업 트리의 내용이 다른 상태                   |
+| **`K`** | **Killed**           | 파일 시스템의 경로 충돌(예: 디렉토리 vs 파일)로 인해 제거 대상인 상태 |
+| **`?`** | **Untracked**        | Git이 추적하고 있지 않은 파일 (`-o` 옵션 사용 시)                     |
+
+```sh
+jinpyo.kim@DV-jinpyokim MINGW64 /d/mm (Fix_DirectChatBeginnerMark_jinpyo.kim_260331)
+$ git update-index --skip-worktree Sources/MM_Lite.sln
+
+jinpyo.kim@DV-jinpyokim MINGW64 /d/mm (Fix_DirectChatBeginnerMark_jinpyo.kim_260331)
+$ git ls-files -v | grep "^S "
+S Sources/MM_Lite.sln
+```
+
+### 2. `--[no-]assume-unchanged`
+`skip-worktree`와 비슷해 보이지만, 목적이 다릅니다. 이는 파일이 **절대 바뀌지 않을 것이라고 Git을 속여서** 파일 상태 체크 비용을 줄이는 데 목적이 있습니다.
+* **용도:** 대규모 프로젝트에서 SDK 내부 파일 등 수정될 리 없는 파일들을 무시하여 `git status` 속도를 높일 때.
+* **차이:** `skip-worktree`는 사용자 편의를 위한 '설정 유지' 목적이고, 이는 성능 최적화 목적입니다.
+
+### 3. `--chmod=(+|-)x`
+파일의 실행 권한을 변경할 때 사용합니다. Windows 환경에서 작성한 스크립트를 리눅스 서버에서 실행 가능하게 배포해야 할 때 유용합니다.
+* **용도:** 로컬 파일의 내용은 바꾸지 않고 Git 인덱스 상의 **실행 권한(Executable bit)**만 수정하고 싶을 때.
+* **명령어:** `git update-index --chmod=+x script.sh`
+
+### 4. `--refresh` / `--really-refresh`
+인덱스와 작업 디렉토리 간의 상태가 꼬였을 때, Git에게 "파일들을 다시 다 훑어서 인덱스를 최신화해라"라고 명령합니다.
+* **용도:** 파일 내용은 같은데 타임스탬프만 바뀌어서 `git status`에 불필요하게 파일이 뜰 때 이를 강제로 일치시킵니다.
+* **명령어:** `git update-index --really-refresh`
+
+### 5. `--add` / `--remove`
+파일을 인덱스에 추가하거나 제거합니다. 보통 `git add`나 `git rm`을 사용하지만, 스크립트 내에서 더 정밀하게 제어하고 싶을 때 사용합니다.
+* **특징:** `git add`는 내부적으로 `update-index --add`를 호출하는 하이 레벨 명령어입니다.
 
 ## Ref Log
 
