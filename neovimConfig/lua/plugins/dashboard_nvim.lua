@@ -26,6 +26,18 @@ return {
                         action = 'lua require("nvim-possession").list()',
                         key = 's',
                     },
+                    {
+                        desc = '💤lazy',
+                        group = 'DiagnosticHint',
+                        action = 'Lazy',
+                        key = 'l',
+                    },
+                    {
+                        desc = '💨zoxide',
+                        group = 'DiagnosticHint',
+                        action = 'Telescope zoxide list',
+                        key = 'z',
+                    },
                 },
                 packages = { enable = true }, -- show how many plugins neovim loaded
                 mru = {
