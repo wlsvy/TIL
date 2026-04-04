@@ -104,11 +104,13 @@ return  {
         end
     },
     {
+        -- [LukasPietzschmann/telescope-tabs: Fly through your tabs in NeoVim ✈️](https://github.com/LukasPietzschmann/telescope-tabs)
         'LukasPietzschmann/telescope-tabs',
         dependencies = { "nvim-telescope/telescope.nvim" },
 
         config = function()
             vim.api.nvim_set_keymap('n', '<leader>ft', "<cmd>lua require('telescope-tabs').list_tabs()<CR>", { noremap = true, silent = true })
+            vim.api.nvim_set_keymap('n', '<leader>fT', "<cmd>lua require('telescope-tabs').go_to_previous()<CR>", { noremap = true, silent = true })
         end
     },
     {
