@@ -12,18 +12,19 @@ return {
         indent = { enabled = true },
         input = { enabled = true },
         picker = { enabled = true },
-        notifier = { enabled = true },
+        notifier = { enabled = false },
         quickfile = { enabled = true },
         scope = { enabled = true },
         scroll = { enabled = true },
         statuscolumn = { enabled = true },
         words = { enabled = true },
-        lazygit = { },
+        lazygit = { enabled = false },
         image = { enabled = false, },
     },
     priority=1000,
 
     config = function()
+        require('snacks').setup()
 
         vim.api.nvim_set_keymap('n', '<leader>s;', ':lua Snacks.explorer()<CR>', { noremap = true, silent = true }) -- 파일 찾기 
         vim.api.nvim_set_keymap('n', '<leader>t', ':lua Snacks.picker.files()<CR>', { noremap = true, silent = true }) -- 파일 찾기 

@@ -23,7 +23,7 @@ return {
                     {
                         desc = ' Sessions',
                         group = 'DiagnosticHint',
-                        action = 'lua require("nvim-possession").list()',
+                        action = 'lua require("telescope").extensions.resession.resession()',
                         key = 's',
                     },
                     {

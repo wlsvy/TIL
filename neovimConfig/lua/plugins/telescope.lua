@@ -2,6 +2,7 @@ return  {
     {
         "nvim-telescope/telescope.nvim",
         requires = { { "nvim-lua/plenary.nvim" } },
+        dependencies = {"scottmckendry/pick-resession.nvim"},
 
         config = function()
 
@@ -68,6 +69,11 @@ return  {
                         theme = "ivy",
                         -- disables netrw and use telescope-file-browser in its place
                         hijack_netrw = true,
+                    },
+                    resession = {
+                        prompt_title = "Find Sessions", -- telescope prompt title
+                        dir = "session", -- directory where resession stores sessions
+                        layout = nil -- telescope picker layout, defaults to dropdown if not set
                     },
                 }
             }
