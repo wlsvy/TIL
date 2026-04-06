@@ -6,6 +6,7 @@ return {
         "hrsh7th/cmp-path",     -- 파일 경로를 소스로 사용
         'L3MON4D3/LuaSnip',
         'saadparwaiz1/cmp_luasnip',
+        "folke/lazydev.nvim",
     },
     config = function()
         local cmp = require("cmp")
@@ -15,7 +16,7 @@ return {
             -- ... (스니펫, UI 설정 등) ...
             sources = cmp.config.sources({
                 { name = "nvim_lsp" }, -- LSP 소스 등록
-                { 
+                {
                     name = "buffer" ,
                     option = {
                         --  점(.)과 골뱅이(@)가 포함된 단어도 하나로 인식하도록 설정
@@ -30,6 +31,10 @@ return {
                 },
                 { name = "path" },
                 { name = "luasnip" },
+                {
+                    name = "lazydev", 
+                    group_index = 0, -- set group index to 0 to skip loading LuaLS completions
+                }
             }),
 
             snippet = {
