@@ -1,17 +1,6 @@
-**2026 / Learn Vim**
+**2026 / TerminalUserTools**
 
-**Modes in Vim**
-
-![](img/2024-05-29-21-54-51.png)
-
-![](img/2024-05-29-21-55-46.png)
-
-**Word(W)**
-
-- w (word) : jump to the beginning of the next word
-- b (back) : jump to the beginning of a word backwards
-- e (end) : jump to the end of a word
-- ge : jump to the end of a word backwards
+# Vim & NeoVim
 
 **Insert 모드에서 사용할 수 있는 주요 동작**
 
