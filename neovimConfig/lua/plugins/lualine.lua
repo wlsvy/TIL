@@ -51,9 +51,9 @@ return {
             ]]
             sections = {
                 lualine_a = {'mode'},
-                lualine_b = {'hostname', 'branch', 'diff', 'diagnostics' },
-                lualine_c = { cwdGetter, 'filename', 'filesize'},
-                lualine_x = { 'encoding', 'fileformat', 'filetype', 'lsp_status' },
+                lualine_b = {'filename', 'branch', },
+                lualine_c = { cwdGetter,  'diagnostics' },
+                lualine_x = { 'encoding', 'fileformat', 'filetype', 'diff', 'filesize', 'lsp_status' },
                 lualine_y = {'progress'},
                 lualine_z = {
                     'location',
