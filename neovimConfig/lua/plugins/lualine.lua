@@ -4,6 +4,12 @@ return {
     dependencies = { 'nvim-tree/nvim-web-devicons' },
 
     config = function()
+
+        local cwdGetter = function()
+            return vim.fn.getcwd()
+        end
+
+
         require('lualine').setup {
             options = {
                 icons_enabled = true,
@@ -45,9 +51,9 @@ return {
             ]]
             sections = {
                 lualine_a = {'mode'},
-                lualine_b = {'branch', 'diff', 'diagnostics'},
-                lualine_c = {'filename'},
-                lualine_x = {'encoding', 'fileformat', 'filetype'},
+                lualine_b = {'hostname', 'branch', 'diff', 'diagnostics' },
+                lualine_c = { cwdGetter, 'filename', 'filesize'},
+                lualine_x = { 'encoding', 'fileformat', 'filetype', 'lsp_status' },
                 lualine_y = {'progress'},
                 lualine_z = {
                     'location',
