@@ -2,7 +2,6 @@ return {
     "neovim/nvim-lspconfig",
 
     config = function()
-
         vim.notify("LSP config function started!", vim.log.levels.INFO, { title = "LazyVim" })
 
         local on_attach = function(client, bufnr)
@@ -13,22 +12,17 @@ return {
             vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
             vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
             vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
-            vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
+            -- vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
             vim.keymap.set('n', 'rn', vim.lsp.buf.rename, opts)
             vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, opts)
-            vim.keymap.set('n', '<leader>f', function() vim.lsp.buf.format { async = true } end, opts)
+            vim.keymap.set('n', 'grf', function() vim.lsp.buf.format { async = true } end, opts)
 
             -- 진단 키맵 (누락된 부분 추가)
             vim.keymap.set('n', '<leader>de', vim.diagnostic.open_float, opts)
             vim.keymap.set('n', '<leader>dq', vim.diagnostic.setloclist, opts)
-            
-            -- C# 전용 키맵 (OmniSharp)
-            if client.name == "omnisharp" then
-                vim.keymap.set('n', '<leader>ru', '<cmd>OmniSharpRunTest<cr>', opts)
-                vim.keymap.set('n', '<leader>rf', '<cmd>OmniSharpRunTestsInFile<cr>', opts)
-            end
+
         end
-        
+
         -- 기본 capabilities 설정
         local capabilities = vim.lsp.protocol.make_client_capabilities()
         if pcall(require, 'cmp_nvim_lsp') then
@@ -87,7 +81,7 @@ return {
                 Lua = {
                     runtime = { version = 'LuaJIT' },
                     diagnostics = { globals = { 'vim' } },
-                    workspace = { 
+                    workspace = {
                         library = vim.api.nvim_get_runtime_file("", true),
                         checkThirdParty = false,
                     },
@@ -104,6 +98,5 @@ return {
             update_in_insert = false,
             severity_sort = true,
         })
-
     end
 }
