@@ -193,13 +193,53 @@ vim.o.shell = 'C:/Program Files/PowerShell/7/pwsh.exe'
 
 ---
 
+### filename modifier
+
+##### 1. 경로 관련
+- **`:p`** - **Full Path** (절대 경로로 변환)
+- **`:~`** - **Home** (홈 디렉토리를 `~`로 축약)
+- **`:h`** - **Head** (디렉토리 부분만, 파일명 제외)
+- **`:t`** - **Tail** (파일명만, 경로 제외)
+
+##### 2. 파일명 관련
+- **`:r`** - **Root** (확장자 제거, 루트 파일명)
+- **`:e`** - **Extension** (확장자만)
+
+##### 3. 상대 경로 관련
+- **`:.`** - **Relative to current** (현재 작업 디렉토리 기준 상대 경로)
+- **`:~:.`** - **Smart relative** (홈 디렉토리와 현재 디렉토리 모두 고려한 최적 경로)
+
+##### 4. 특수 Modifier
+- **`:S`** - **Shell escape** (쉘에서 안전하게 사용할 수 있도록 이스케이프)
+- **`:gs?/?\\?`** - **Global substitute** (경로 구분자 변경, Windows용)
+
+#### **Modifier 조합 예시**
+
 | **표현식**          | **설명**                            | **예시**                              |
 | ------------------- | ----------------------------------- | ------------------------------------- |
-| `expand('%')`       | 현재 파일 이름 (상대 경로)          | `test.txt`                            |
-| `expand('%:p')`     | 현재 파일의 절대 경로               | `/home/user/project/test.txt`         |
+| `expand('%')`       | 현재 파일 이름 (상대 경로)          | `src/test.txt`                        |
+| `expand('%:p')`     | 현재 파일의 절대 경로               | `/home/user/project/src/test.txt`     |
 | `expand('%:t')`     | 파일 이름만 (경로 제외)             | `test.txt`                            |
-| `expand('%:h')`     | 현재 파일의 디렉토리 경로           | `/home/user/project`                  |
+| `expand('%:r')`     | 확장자 제거한 파일명                | `src/test`                            |
+| `expand('%:e')`     | 확장자만                            | `txt`                                 |
+| `expand('%:h')`     | 현재 파일의 디렉토리 경로           | `src`                                 |
+| `expand('%:h:h')`   | 상위 디렉토리 경로 (중첩 가능)      | `.` (프로젝트 루트)                   |
+| `expand('%:p:h')`   | 절대 경로의 디렉토리 부분           | `/home/user/project/src`              |
+| `expand('%:p:t')`   | 절대 경로의 파일명 부분             | `test.txt`                            |
+| `expand('%:p:r')`   | 절대 경로에서 확장자 제거           | `/home/user/project/src/test`         |
+| `expand('%:t:r')`   | 파일명에서 확장자 제거              | `test`                                |
+| `expand('%:~')`     | 홈 디렉토리를 ~ 로 축약             | `~/project/src/test.txt`              |
+| `expand('%:.')`     | 현재 작업 디렉토리 기준 상대 경로   | `./src/test.txt`                      |
+| `expand('%:~:.')`   | 최적화된 상대 경로                  | `src/test.txt` 또는 `~/project/...`   |
+
+#### **특수 키워드**
+
+| **키워드**          | **설명**                            | **예시**                              |
+| ------------------- | ----------------------------------- | ------------------------------------- |
 | `expand('<cfile>')` | 커서 아래에 있는 파일 경로          | `./myfile.txt`                        |
+| `expand('<cword>')` | 커서 아래 단어 (word)               | `function_name`                       |
+| `expand('<cWORD>')` | 커서 아래 WORD (공백으로 구분)      | `path/to/file.txt`                    |
+| `expand('<sfile>')` | 현재 스크립트 파일 경로             | `/path/to/script.vim`                 |
 
 - `<cmd>put = expand('%:p')<CR>`: ex) 현재 파일 절대 경로를 열린 버퍼에 입력
 
