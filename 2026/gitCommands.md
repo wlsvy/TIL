@@ -632,9 +632,36 @@ git reflog exists <ref>
 
 ## FSCK
 
-git-fsck - Verifies the connectivity and validity of the objects in the database
+**fsck**(File System Check): Git 저장소의 **객체 데이터베이스 무결성**을 검증
 
-- 출처 [git : fsck](https://git-scm.com/docs/git-fsck)
+> git-fsck - Verifies the connectivity and validity of the objects in the database
+
+* [git : fsck](https://git-scm.com/docs/git-fsck)
+
+### 3. 검출 가능한 문제들
+
+- **객체 연결성/유효성 검증**: 커밋, 트리, 블롭 객체 간의 참조 관계 확인. SHA-1 해시값과 실제 객체 내용의 일치성 검증
+- **객체 유효성 검사**: 
+  - **missing blob**: 파일 내용 객체 누락
+  - **missing tree**: 디렉토리 구조 객체 누락  
+  - **missing commit**: 커밋 객체 누락
+  - **broken link**: 잘못된 객체 참조
+- **고아 객체 탐지**: 어떤 참조로도 도달할 수 없는 객체 식별
+  - **unreachable**: 도달 불가능한 고아 객체
+
+```bash
+# 기본 검사 (빠른 검사)
+git fsck
+
+# 전체 검사 (모든 객체 검증)
+git fsck --full
+
+# 연결되지 않은 객체도 표시
+git fsck --unreachable
+
+# 태그 서명 검증 포함
+git fsck --tags
+```
 
 ## Blame
 
@@ -745,7 +772,23 @@ Git은 저장소에서 여러 개의 개별 객체 파일이 쌓일 때, 이를 
     Run tasks to optimize Git repository data,
     speeding up other Git commands and reducing storage requirements for the repository.
 
-- 메인터넌스 task 종류
+
+| 작업 | 목적 | 주요 기능 | 주의사항 |
+|------|------|-----------|----------|
+| **commit-graph** | 커밋 그래프 최적화 | • 커밋 그래프 파일을 점진적으로 업데이트<br>• 동시 실행 중인 Git 프로세스와 안전하게 병행 가능 | 기존 `.graph` 파일은 지연 삭제됨 |
+| **prefetch** | 원격 객체 미리 가져오기 | • 모든 등록된 원격 저장소에서 객체 미리 다운로드<br>• `refs/prefetch/` 경로에 저장하여 기존 브랜치 보호<br>• 실제 fetch 시 속도 향상 | `remote.<name>.skipFetchAll`로 특정 원격 제외 가능 |
+| **gc** | 가비지 컬렉션 | • 불필요한 파일 정리 및 저장소 최적화<br>• 모든 Git 객체를 단일 팩 파일로 재포장 | **대용량 저장소에서 비용이 많이 듦**<br>오래된 데이터 삭제로 인한 중단 가능성 |
+| **loose-objects** | 느슨한 객체 정리 | • 느슨한 객체를 팩 파일로 이동<br>• 2단계 프로세스로 경쟁 상태 방지<br>• 배치 크기 제한 (5만 개 객체) | **gc 작업과 동시 활성화 비권장** |
+| **incremental-repack** | 점진적 재포장 | • multi-pack-index 기능으로 객체 디렉토리 재포장<br>• 작은 팩 파일들을 큰 팩 파일로 병합<br>• 2단계 프로세스 (expire → repack) | 배치 크기 설정 가능 (기본값 0은 전체 병합) |
+| **pack-refs** | 참조 파일 압축 | • 느슨한 참조 파일들을 단일 파일로 수집<br>• 다수 참조 순회 작업 속도 향상 | - |
+
+### 작업 선택 가이드
+
+- **일반적인 최적화**: `commit-graph`, `prefetch`, `pack-refs`
+- **저장 공간 절약**: `loose-objects` 또는 `gc` (둘 중 하나만)
+- **대용량 저장소**: `incremental-repack` (gc보다 덜 부담스러움)
+
+Git maintenance는 저장소 크기와 사용 패턴에 따라 적절한 작업 조합을 선택하는 것이 중요하며, 특히 `loose-objects`와 `gc`는 동시 사용을 피해야 합니다.
 
 **commit-graph**
 
