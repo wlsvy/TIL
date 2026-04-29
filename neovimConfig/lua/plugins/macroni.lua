@@ -135,6 +135,19 @@ return {
                     mode = {'n'},
                     desc = ":windo e!<CR>"
                 },
+
+                codecompanion_chat_toggle = {
+                    macro = ":CodeCompanionChat Toggle<CR>",
+                    mode = {'n'},
+                    desc = ":CodeCompanionChat Toggle<CR>"
+                },
+
+                codecompanion_chat = {
+                    macro = ":CodeCompanionChat<CR>",
+                    mode = {'n', 'v'},
+                    desc = ":CodeCompanionChat<CR>"
+                },
+
             },
         }
     end

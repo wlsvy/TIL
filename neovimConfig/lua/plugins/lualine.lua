@@ -6,9 +6,26 @@ return {
     config = function()
 
         local cwdGetter = function()
-            return vim.fn.getcwd()
+            return '🏠'..vim.fn.getcwd()
         end
 
+        local relativePathGetter = function()
+            local current_file = vim.fn.expand('%:p')
+            if current_file == '' then
+                return '📁'
+            end
+
+            -- CWD를 제외한 상대 경로 계산
+            local relative_path = vim.fn.fnamemodify(current_file, ':~:.')
+            -- 파일명만 있는 경우 (현재 디렉토리) 빈 문자열 반환
+            if relative_path == vim.fn.expand('%:t') then
+                return '📁'
+            end
+
+            -- 디렉토리 경로만 반환 (파일명 제외)
+            local dir_path = vim.fn.fnamemodify(relative_path, ':h')
+            return dir_path ~= '.' and '📁 ' .. dir_path or '📁 '
+        end
 
         require('lualine').setup {
             options = {
@@ -52,8 +69,8 @@ return {
             sections = {
                 lualine_a = {'mode'},
                 lualine_b = {'filename', 'branch', },
-                lualine_c = { cwdGetter,  'diagnostics' },
-                lualine_x = { 'encoding', 'fileformat', 'filetype', 'diff', 'filesize', 'lsp_status' },
+                lualine_c = { relativePathGetter,   'diagnostics' },
+                lualine_x = { cwdGetter, 'encoding', 'fileformat', 'filetype', 'diff', 'filesize', 'lsp_status' },
                 lualine_y = {'progress'},
                 lualine_z = {
                     'location',
