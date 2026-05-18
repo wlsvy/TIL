@@ -5,7 +5,7 @@ return {
         "nvim-lua/plenary.nvim",
         "nvim-treesitter/nvim-treesitter",
     },
-    cond = vim.fn.has('macunix') == 1, -- mac 에서 실행
+    -- cond = vim.fn.has('macunix') == 1, -- mac 에서 실행
     opts = {
         -- NOTE: The log_level is in `opts.opts`
         opts = {

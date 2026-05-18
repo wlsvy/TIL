@@ -148,6 +148,12 @@ return {
                     desc = ":CodeCompanionChat<CR>"
                 },
 
+                codecompanion_cli = {
+                    macro = ":CodeCompanionCLI<CR>",
+                    mode = {'n'},
+                    desc = ":CodeCompanionCLI<CR>"
+                },
+
             },
         }
     end
