@@ -90,6 +90,12 @@ return {
                         position = "right", -- left|right|top|bottom (nil will default depending on
                     }
                 },
+                cli = {
+                    window ={
+                        sticky = true,
+                    },
+                },
+
             },
         })
     end
