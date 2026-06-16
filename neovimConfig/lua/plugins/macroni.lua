@@ -154,6 +154,29 @@ return {
                     desc = ":CodeCompanionCLI<CR>"
                 },
 
+                change_nvim_cmp_buffer_source_all = {
+                    macro = ":CmpBuffer ALL<CR>",
+                    mode = {'n'},
+                    desc = ":CmpBuffer ALL<CR>"
+                },
+
+                change_nvim_cmp_buffer_source_current = {
+                    macro = ":CmpBuffer CURRENT<CR>",
+                    mode = {'n'},
+                    desc = ":CmpBuffer CURRENT<CR>"
+                },
+
+                change_nvim_cmp_buffer_source_tabpage = {
+                    macro = ":CmpBuffer TABPAGE<CR>",
+                    mode = {'n'},
+                    desc = ":CmpBuffer TABPAGE<CR>"
+                },
+
+                change_nvim_cmp_buffer_source_none = {
+                    macro = ":CmpBuffer NONE<CR>",
+                    mode = {'n'},
+                    desc = ":CmpBuffer NONE<CR>"
+                },
             },
         }
     end
