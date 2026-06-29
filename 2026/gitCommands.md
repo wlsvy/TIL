@@ -185,7 +185,24 @@ For a specific file use:
 
 - [stackOverflow](https://stackoverflow.com/questions/52704/how-do-i-discard-unstaged-changes-in-git)
 
-- `git checkout <commit-hash> -- <file-path>` : 특정 파일을 해당 커밋의 상태로 되돌리기
+## 특정 파일을 해당 커밋의 상태로 되돌리기
+
+### git restore  사용 (Git 2.23 이상 권장)
+
+가장 직관적이고 권장되는 방식입니다.
+
+`git restore --source=<커밋해시> -- <파일경로>`
+
+- 예시 (특정 파일 하나만 롤백): `git restore --source=a1b2c3d -- src/main.js`
+- 예시 (여러 파일 동시에 롤백): `git restore --source=a1b2c3d -- src/main.js src/utils.js`
+
+### git checkout  사용 (구버전 Git 포함 공통)
+
+전통적으로 많이 사용되던 방식입니다.
+
+`git checkout <커밋해시> -- <파일경로>`
+
+- 예시: `git checkout a1b2c3d -- src/main.js`
 
 ## List All Branches, Delete Branch
 
