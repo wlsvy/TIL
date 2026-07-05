@@ -5,7 +5,7 @@ return {
         "nvim-treesitter/nvim-treesitter",
         "nvim-tree/nvim-web-devicons"
     },
-    config = function() 
+    config = function()
         require("aerial").setup({
 
             backends = { "treesitter", "lsp", "markdown", },
@@ -25,7 +25,7 @@ return {
                 vim.api.nvim_set_keymap("n", "<leader>a", "<cmd>AerialToggle right<CR>", { noremap = true, silent = true })
                 vim.api.nvim_set_keymap("n", "<leader><leader>h", "<cmd>AerialPrev<CR>", { noremap = true, silent = true })
                 vim.api.nvim_set_keymap("n", "<leader><leader>l", "<cmd>AerialNext<CR>", { noremap = true, silent = true })
-                vim.api.nvim_set_keymap("n", "<leader>A", "<cmd>AerialNavToggle<CR>", { noremap = true, silent = true })
+                -- vim.api.nvim_set_keymap("n", "<leader>A", "<cmd>AerialNavToggle<CR>", { noremap = true, silent = true })
             end,
 
         })
