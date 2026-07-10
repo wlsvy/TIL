@@ -449,6 +449,52 @@ Col 1, Line 42, Word 318, Char 1842, Byte 1892 of 9801
 - 비주얼 모드에서 사용하면 **선택 영역**에 대한 통계를 보여줌 (선택된 라인 수, 단어 수, 문자 수 등)
 - 파일 크기 확인, 문서 작성 중 단어 수 체크 등에 유용
 
+## Folding (foldmethod)
+
+| 값 | 동작 |
+|----|------|
+| `manual` | 직접 `zf` 로 fold 생성 |
+| `indent` | 들여쓰기 기준 |
+| `expr` | `foldexpr` 로 커스텀 로직 |
+| `marker` | `{{{` / `}}}` 마커 기준 |
+| `syntax` | 문법 그룹 기준 (느릴 수 있음) |
+| `treesitter` | TS 파서 기준 (neovim 0.10+) |
+
+**키 참고**
+
+- `za` — 토글, `zM` / `zR` — 모두 닫기 / 열기, `zc` / `zo` — 닫기 / 열기
+
+### 파일 타입별 추천
+
+| 파일 | 추천 | 이유 |
+|------|------|------|
+| **Markdown** | `treesitter` | 헤딩 기준 fold. 없으면 `indent` fallback |
+| **C#** | `treesitter` | 클래스·메서드 블록 정확하게 인식 |
+| **HTML** | `indent` | TS fold가 어트리뷰트 때문에 깨지는 경우 많음 |
+| **XML** | `indent` | 태그 중첩 구조가 들여쓰기와 1:1 대응 |
+
+```lua
+-- ftplugin/markdown.lua
+vim.opt_local.foldmethod = "expr"
+vim.opt_local.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+vim.opt_local.foldlevel = 99  -- 기본 펼침
+
+-- ftplugin/cs.lua
+vim.opt_local.foldmethod = "expr"
+vim.opt_local.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+vim.opt_local.foldlevel = 2   -- 메서드까지 펼침
+
+-- ftplugin/html.lua
+vim.opt_local.foldmethod = "indent"
+vim.opt_local.foldlevel = 2
+
+-- ftplugin/xml.lua
+vim.opt_local.foldmethod = "indent"
+vim.opt_local.foldlevel = 1   -- 최상위 노드만 펼침
+```
+
+C# treesitter 파서 설치: `:TSInstall c_sharp`
+
 # nvim-surround
 
 - [nvim-surround/doc/nvim-surround.txt at main · kylechui/nvim-surround · GitHub](https://github.com/kylechui/nvim-surround/blob/main/doc/nvim-surround.txt)
