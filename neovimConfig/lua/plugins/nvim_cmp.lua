@@ -50,6 +50,12 @@ return {
         local cmp = require("cmp")
         local luasnip = require("luasnip")
 
+        -- mkdnflow setup
+        -- [jakewvincent/mkdnflow.nvim: Fluent navigation and management of markdown notebooks](https://github.com/jakewvincent/mkdnflow.nvim#-commands-mappings)
+        require('mkdnflow').setup({
+            modules = { completion = true },
+        })
+
         cmp.setup({
             -- ... (스니펫, UI 설정 등) ...
             sources = cmp.config.sources({
@@ -82,9 +88,10 @@ return {
                 { name = "path" },
                 { name = "luasnip" },
                 {
-                    name = "lazydev", 
+                    name = "lazydev",
                     group_index = 0, -- set group index to 0 to skip loading LuaLS completions
-                }
+                },
+                { name = 'mkdnflow' },
             }),
 
             snippet = {
@@ -119,6 +126,14 @@ return {
                     end
                 end, { 'i', 's' }),
             }),
+            formatting = {
+                format = function(entry, vim_item)
+                    vim_item.menu = ({
+                        mkdnflow = '[Mkdnflow]',
+                    })[entry.source.name]
+                    return vim_item
+                end
+            }
         })
     end,
 }
