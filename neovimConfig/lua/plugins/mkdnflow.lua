@@ -9,6 +9,8 @@ return {
                 MkdnCreateLinkFromClipboard = false,
                 MkdnFoldSection = { 'n', '<leader>vf' },
                 MkdnUnfoldSection = { 'n', '<leader>vF' },
+                MkdnNewListItemBelowInsert = false,
+                MkdnNewListItemAboveInsert = false,
             },
 
             path_resolution = {
