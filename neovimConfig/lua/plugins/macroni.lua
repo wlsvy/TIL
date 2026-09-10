@@ -39,6 +39,7 @@ return {
     'jesseleite/nvim-macroni',
 
     config = function()
+
         vim.keymap.set({'n', 'v'}, '<Leader>m', function ()
             require('telescope').extensions.macroni.saved_macros()
         end)
@@ -73,12 +74,6 @@ return {
                     macro = ":\'<,\'>s/^1/\\=line(\'.\') + 1 - line(\"\'<\")/g<CR>",
                     mode = {'n', 'v'},
                     desc = ":\'<,\'>s/^1/\\=line(\'.\') + 1 - line(\"\'<\")/g<CR>",
-                },
-
-                copy_current_file_path_to_clipboard = {
-                    macro = ":let @+ = expand(\'%\')<CR>",
-                    mode = {'n', 'v'},
-                    desc = ":let @+ = expand(\'%\')<CR>",
                 },
 
                 write_date_with_markdown_caption = {
@@ -122,6 +117,18 @@ return {
                     macro = ":put = '**Summarized By Gemini**'<CR>",
                     mode = {'n'},
                     desc = ":let @@ = '**Summarized By Gemini**'<CR>"
+                },
+
+                copy_current_file_path_to_clipboard = {
+                    macro = ":let @+ = expand(\'%\')<CR>",
+                    mode = {'n', 'v'},
+                    desc = ":let @+ = expand(\'%\')<CR>",
+                },
+
+                copy_current_absolute_file_path = {
+                    macro = ":let @+ = expand('%:p')<CR>",
+                    mode = {'n'},
+                    desc = ":let @+ = expand('%:p')<CR>"
                 },
 
                 put_current_absolute_file_path = {
@@ -177,6 +184,15 @@ return {
                     mode = {'n'},
                     desc = ":CmpBuffer NONE<CR>"
                 },
+
+                space_around_tilde_character = {
+                    -- vim command :'<,'>s/\(\S\)\~/(\S\)\1 \~ \2/g<CR>
+                    
+                    macro = ":'<,'>s/\\(\\S\\)\\~\\(\\S\\)/\\1 \\~ \\2/g<CR>",
+                    mode = {'n'},
+                    desc = ":'<,'>s/\\(\\S\\)\\~\\(\\S\\)/\\1 \\~ \\2/g<CR>"
+                },
+
             },
         }
     end
