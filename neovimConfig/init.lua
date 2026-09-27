@@ -67,6 +67,27 @@ vim.api.nvim_set_keymap('n', '<A-Down>', ':horizontal resize -7<CR>', { noremap 
 -- terminal
 vim.api.nvim_set_keymap('t', '<ESC>', "<C-\\><C-n>", { noremap = true, silent = true }) 
 
+-- win border
+
+-- floating window 기본 보더 설정
+vim.api.nvim_set_hl(0, "floatborder", { fg = "#ffffff", bg = "none" })
+
+-- 윈도우 분할선 하이라이트 설정
+vim.api.nvim_set_hl(0, "WinSeparator", { fg = "#444444", bg = "NONE" })
+
+-- 상태라인과 윈도우 간 여백 효과
+vim.o.laststatus = 3 -- 글로벌 상태라인 사용
+vim.o.cmdheight = 1
+
+-- 윈도우 패딩 효과 (사이드바 여백)
+vim.o.numberwidth = 4 -- 라인 번호 영역 너비
+vim.o.signcolumn = "yes:2" -- 사인 컬럼 고정 표시 (2칸)
+vim.o.foldcolumn = "1" -- 폴드 컬럼 표시
+
+-- 커서 주변 여백 (스크롤 오프셋)
+-- vim.o.scrolloff = 8 -- 세로 여백
+-- vim.o.sidescrolloff = 8 -- 가로 여백
+
 -- text wrap toggle
 function ToggleTextWrap() -- 텍스트 줄 바꿈 토글하는 함수 정의
     vim.o.wrap = not vim.o.wrap
@@ -109,12 +130,21 @@ local is_windows = vim.loop.os_uname().sysname == "Windows_NT"
 local is_macos = vim.fn.has("macunix") == 1
 
 if is_windows then -- Windows 특정 설정
-     require('windows-settings')
-     print("windows Os Recognized...")
+    require('windows-settings')
+
+    require('marbles.marbles').setup({
+        openssl_path = "C:\\ProgramData\\chocolatey\\bin\\openssl.exe"
+    })
+
+    print("windows Os Recognized...")
 elseif is_macos then -- macOS 특정 설정
-     require('macos-settings')
-     print("mac OS Recognized...")
+    require('macos-settings')
+
+    require('marbles.marbles').setup({
+        openssl_path = '/opt/homebrew/opt/openssl/bin/openssl'
+    })
+
+    print("mac OS Recognized...")
 else
     print("any predefined os found...")
 end
-
