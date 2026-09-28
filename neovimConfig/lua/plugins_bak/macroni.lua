@@ -197,6 +197,11 @@ return {
                     desc = ":MarblesMenu<CR>"
                 },
 
+                put_horizontal_ellipsis = {
+                    macro = "i<C-v>u2026<ESC>",
+                    mode = {'n'},
+                    desc = "i<C-v>u2026<ESC>"
+                },
             },
         }
     end
