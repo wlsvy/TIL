@@ -133,7 +133,7 @@ if is_windows then -- Windows 특정 설정
     require('windows-settings')
 
     require('marbles.marbles').setup({
-        openssl_path = "C:\\ProgramData\\chocolatey\\bin\\openssl.exe"
+        openssl_path = "C:\\Program Files\\OpenSSL-Win64\\bin\\openssl.exe"
     })
 
     print("windows Os Recognized...")
