@@ -89,7 +89,7 @@ or
 
 - `==`: 라인 정렬
 
-**터미널 관련**
+### 터미널 관련 (term)
 
 - 터미널 열기: `:term`
 - 터미널 모드 -> Normal 모드 : `<C-\><C-n>`
@@ -108,7 +108,7 @@ vim.o.shell = 'C:/Program Files/PowerShell/7/pwsh.exe'
 -- Lua에서는 경로 구분자로 슬래시(/)를 사용하는 것이 일반적입니다.
 ```
 
-**Macro**
+### Macro
 
 [Practical Vim 팁 요약 시리즈 - Macros !--- @n0lb00's Blog--](https://nolboo.kim/blog/2017/02/10/practical-vim/)
 
@@ -118,7 +118,7 @@ vim.o.shell = 'C:/Program Files/PowerShell/7/pwsh.exe'
 - `@{register}` : 특정 레지스터의 내용을 실행(`:h @`), 예를 들어 `@a` 으로 a 레지스터의 기록된 매크로 실행 가능
   - 반복 실행은 `10@a` 같은 명령어로 수행 가능
 
-**File Encoding**
+### File Encoding
 
 - `set fileencoding?` : 현재 파일 인코딩 확인
 - `set fileencoding=<encoding>` : 현재 파일의 인코딩을 설정합니다. (저장 시 적용)
@@ -138,16 +138,27 @@ vim.o.shell = 'C:/Program Files/PowerShell/7/pwsh.exe'
   * `:w ++enc=euc-kr`
   * `:w ++enc=utf-8`
 
-**File Type**
+### File Type
 
 - `set filetype=ps1` : 현재 파일 타입 수정
   - filetype -> ft : `set ft=ps1`
 
-**Local CD**
+### Local CD
 
 * `:lcd [경로]`는 Neovim의 **현재 창(window)에만** 한정하여 작업 디렉토리를 변경하는 명령어입니다.
 * Neovim 전체에 영향을 주는 `:cd`와 달리, 다른 창에 열린 프로젝트에 영향을 주지 않아 여러 프로젝트를 동시에 관리할 때 안전합니다.
 * 무명 버퍼(unnamed buffer)에서 경로 자동 완성을 사용할 때, 이 명령어로 프로젝트 루트를 지정하면 경로 추천이 올바르게 동작합니다.
+
+### cursor & selection
+
+- [Incremental selection in Neovim 0.12 : r/neovim](https://www.reddit.com/r/neovim/comments/1s9q0pi/incremental_selection_in_neovim_012/)
+
+| 모드 | 명령어 | 설명 |
+| --- | --- | --- |
+| `v` | `an` | 부모 노드 선택 |
+| `v` | `in` | 자식 노드 선택 |
+| `v` | `]n` | 이전 노드 선택 |
+| `v` | `[n` | 다음 노드 선택 |
 
 ### 분할된 창 관리 (Window Splits)
 
@@ -222,8 +233,6 @@ vim.o.shell = 'C:/Program Files/PowerShell/7/pwsh.exe'
 
 - `<C-w>_` + `<C-w>|` 조합: 현재 창을 최대화 → `<C-w>=`로 복원
 - `<C-w>T`: 현재 창을 새 탭으로 분리하여 zoom처럼 사용, 탭 닫으면(`:tabclose`) 원래 레이아웃 복귀
-
-## neovim
 
 ### Neovim 파일 경로 정보
 
