@@ -19,7 +19,7 @@ return {
         }
 
         -- 버퍼 소스 설정을 위한 함수들
-        local current_cmp_source_frombuffer_mode = BufferMode.CurrentBuffer
+        local current_cmp_source_frombuffer_mode = BufferMode.CURRENT
 
         vim.api.nvim_create_user_command('CmpBuffer', function(opts)
 
@@ -49,6 +49,26 @@ return {
 
         local cmp = require("cmp")
         local luasnip = require("luasnip")
+        cmp.register_source("korean", require("cmp_korean"))
+
+        -- buffer, korean 소스가 같은 :CmpBuffer 모드를 따르도록 공유
+        local function get_bufnrs()
+            if current_cmp_source_frombuffer_mode == BufferMode.ALL then
+                -- 현재 열려있는 모든 버퍼 목록을 반환
+                return vim.api.nvim_list_bufs()
+            elseif current_cmp_source_frombuffer_mode == BufferMode.TABPAGE then
+                -- 현재 탭의 모든 윈도우에서 버퍼 ID 수집
+                local buffers = {}
+                for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
+                    table.insert(buffers, vim.api.nvim_win_get_buf(win))
+                end
+                return buffers
+            elseif current_cmp_source_frombuffer_mode == BufferMode.CURRENT then
+                return {vim.api.nvim_get_current_buf()}
+            else
+                return {}
+            end
+        end
 
         -- mkdnflow setup
         -- [jakewvincent/mkdnflow.nvim: Fluent navigation and management of markdown notebooks](https://github.com/jakewvincent/mkdnflow.nvim#-commands-mappings)
@@ -65,26 +85,10 @@ return {
                     option = {
                         --  점(.)과 골뱅이(@)가 포함된 단어도 하나로 인식하도록 설정
                         keyword_pattern = [[\%(\k\|[.@]\)\+]],
-                        get_bufnrs = function()
-                            if current_cmp_source_frombuffer_mode == BufferMode.ALL then
-                                -- 현재 열려있는 모든 버퍼 목록을 반환
-                                return vim.api.nvim_list_bufs()
-                            elseif current_cmp_source_frombuffer_mode == BufferMode.TABPAGE then
-                                -- 현재 탭의 모든 윈도우에서 버퍼 ID 수집
-                                local buffers = {}
-                                for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
-                                    table.insert(buffers, vim.api.nvim_win_get_buf(win))
-                                end
-                                return buffers
-                            elseif current_cmp_source_frombuffer_mode == BufferMode.CURRENT then
-                                return {vim.api.nvim_get_current_buf()}
-                            elseif current_cmp_source_frombuffer_mode == BufferMode.NONE then
-                            else
-                                return {}
-                            end
-                        end
+                        get_bufnrs = get_bufnrs,
                     }
                 },
+                { name = "korean", option = { get_bufnrs = get_bufnrs } },
                 { name = "path" },
                 { name = "luasnip" },
                 {
