@@ -53,6 +53,9 @@ vim.api.nvim_set_keymap('v', '<leader>p', '"+p', { noremap = true, silent = true
 -- terminal
 vim.api.nvim_set_keymap('t', '<ESC>', "<C-\\><C-n>", { noremap = true, silent = true }) 
 
+-- 현재 창 최대화 토글
+vim.keymap.set({ "n", "i", "v", "t" }, "<A-S-z>", function() Snacks.zen.zoom() end, { silent = true })
+
 -- win border
 
 -- floating window 기본 보더 설정
