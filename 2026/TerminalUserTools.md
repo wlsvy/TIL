@@ -1071,98 +1071,223 @@ tmux의 모든 단축키는 Prefix 키 입력 후 명령어를 누릅니다.
 
 ## **세션 (Session)**
 
-┌───────────────────────────┬───────────────────────────────┐
-│          명령어           │             설명              │
-├───────────────────────────┼───────────────────────────────┤
-│ tmux                      │ 새 세션 시작                  │
-├───────────────────────────┼───────────────────────────────┤
-│ tmux new -s 이름          │ 이름 지정해서 새 세션 시작    │
-├───────────────────────────┼───────────────────────────────┤
-│ tmux ls                   │ 세션 목록 확인                │
-├───────────────────────────┼───────────────────────────────┤
-│ tmux attach -t 이름       │ 세션 재접속                   │
-├───────────────────────────┼───────────────────────────────┤
-│ tmux kill-session -t 이름 │ 세션 종료                     │
-├───────────────────────────┼───────────────────────────────┤
-│ Prefix + d                │ 세션에서 detach (세션은 유지) │
-├───────────────────────────┼───────────────────────────────┤
-│ Prefix + $                │ 세션 이름 변경                │
-├───────────────────────────┼───────────────────────────────┤
-│ Prefix + s                │ 세션 목록 보기 (인터랙티브)   │
-└───────────────────────────┴───────────────────────────────┘
+| 명령어 | 설명 |
+| --- | --- |
+| `tmux` | 새 세션을 시작합니다. |
+| `tmux new -s 이름` | 이름을 지정해서 새 세션을 시작합니다. |
+| `tmux ls` | 세션 목록을 확인합니다. |
+| `tmux attach -t 이름` | 세션에 재접속합니다. |
+| `tmux kill-session -t 이름` | 세션을 종료합니다. |
+| `Prefix + d` | 세션에서 detach합니다. 세션은 유지됩니다. |
+| `Prefix + $` | 세션 이름을 변경합니다. |
+| `Prefix + s` | 세션 목록을 인터랙티브하게 봅니다. |
 
 ## **윈도우 (Window)**
 
-┌───────────────┬─────────────────────────┐
-│    단축키     │          설명           │
-├───────────────┼─────────────────────────┤
-│ Prefix + c    │ 새 윈도우 생성          │
-├───────────────┼─────────────────────────┤
-│ Prefix + ,    │ 윈도우 이름 변경        │
-├───────────────┼─────────────────────────┤
-│ Prefix + w    │ 윈도우 목록 보기        │
-├───────────────┼─────────────────────────┤
-│ Prefix + n    │ 다음 윈도우             │
-├───────────────┼─────────────────────────┤
-│ Prefix + p    │ 이전 윈도우             │
-├───────────────┼─────────────────────────┤
-│ Prefix + 숫자 │ 해당 번호 윈도우로 이동 │
-├───────────────┼─────────────────────────┤
-│ Prefix + &    │ 현재 윈도우 닫기        │
-└───────────────┴─────────────────────────┘
+| 단축키 | 설명 |
+| --- | --- |
+| `Prefix + c` | 새 윈도우를 생성합니다. |
+| `Prefix + ,` | 윈도우 이름을 변경합니다. |
+| `Prefix + w` | 윈도우 목록을 봅니다. |
+| `Prefix + n` | 다음 윈도우로 이동합니다. |
+| `Prefix + p` | 이전 윈도우로 이동합니다. |
+| `Prefix + 숫자` | 해당 번호의 윈도우로 이동합니다. |
+| `Prefix + &` | 현재 윈도우를 닫습니다. |
 
 ## **패널 (Pane)**
 
-┌─────────────────────┬─────────────────────────┐
-│       단축키        │          설명           │
-├─────────────────────┼─────────────────────────┤
-│ Prefix + %          │ 좌우 분할               │
-├─────────────────────┼─────────────────────────┤
-│ Prefix + "          │ 상하 분할               │
-├─────────────────────┼─────────────────────────┤
-│ Prefix + 방향키     │ 패널 간 이동            │
-├─────────────────────┼─────────────────────────┤
-│ Prefix + z          │ 현재 패널 전체화면 토글 │
-├─────────────────────┼─────────────────────────┤
-│ Prefix + x          │ 현재 패널 닫기          │
-├─────────────────────┼─────────────────────────┤
-│ Prefix + { / }      │ 패널 위치 앞뒤로 이동   │
-├─────────────────────┼─────────────────────────┤
-│ Prefix + q          │ 패널 번호 표시          │
-├─────────────────────┼─────────────────────────┤
-│ Prefix + Alt+방향키 │ 패널 크기 조절          │
-└─────────────────────┴─────────────────────────┘
+| 단축키 | 설명 |
+| --- | --- |
+| `Prefix + %` | 좌우로 분할합니다. |
+| `Prefix + "` | 상하로 분할합니다. |
+| `Prefix + 방향키` | 패널 간에 이동합니다. |
+| `Prefix + z` | 현재 패널의 전체 화면을 켜고 끕니다. |
+| `Prefix + x` | 현재 패널을 닫습니다. |
+| `Prefix + {` / `}` | 패널 위치를 앞뒤로 이동합니다. |
+| `Prefix + q` | 패널 번호를 표시합니다. |
+| `Prefix + Alt + 방향키` | 패널 크기를 조절합니다. |
 
 ## **복사 모드 (스크롤)**
 
-┌────────────────────┬──────────────────────────────┐
-│       단축키       │             설명             │
-├────────────────────┼──────────────────────────────┤
-│ Prefix + [         │ 복사 모드 진입 (스크롤 가능) │
-├────────────────────┼──────────────────────────────┤
-│ 방향키 / PgUp/PgDn │ 스크롤                       │
-├────────────────────┼──────────────────────────────┤
-│ q                  │ 복사 모드 종료               │
-└────────────────────┴──────────────────────────────┘
+| 단축키 | 설명 |
+| --- | --- |
+| `Prefix + [` | 복사 모드로 들어갑니다. 이 모드에서 스크롤할 수 있습니다. |
+| `방향키` / `PgUp` / `PgDn` | 스크롤합니다. |
+| `q` | 복사 모드를 종료합니다. |
 
 기본 설정 파일 예시 (~/.tmux.conf)
 
-# Prefix를 Ctrl+a로 변경 (선호도에 따라)
+## Prefix를 Ctrl+a로 변경 (선호도에 따라)
 unbind C-b
 set -g prefix C-a
 bind C-a send-prefix
 
-# 마우스 활성화
+## 마우스 활성화
 set -g mouse on
 
-# 윈도우 번호 1부터 시작
+## 윈도우 번호 1부터 시작
 set -g base-index 1
 
-# 256색 지원
+## 256색 지원
 set -g default-terminal "screen-256color"
 
-# 상태바 색상
+## 상태바 색상
 set -g status-bg colour235
 set -g status-fg colour136
 
 설정 변경 후 적용: Prefix + : → source-file ~/.tmux.conf
+
+
+# kitty
+
+kitty 0.50.0(macOS) 기준으로 정리했습니다. 설정 파일은 `~/.config/kitty/kitty.conf`입니다.
+
+kitty에서 "window"는 탭 안의 분할 창을 뜻하고, macOS 창은 "OS window"라고 부릅니다.
+
+## **내 설정 (kitty.conf)**
+
+```conf
+# mac: ~/.config/kitty/kitty.conf
+
+allow_remote_control yes
+macos_option_as_alt yes
+
+enabled_layouts splits,stack
+
+map cmd+d launch --location=vsplit --cwd=current
+map cmd+e launch --location=hsplit --cwd=current
+
+map cmd+alt+left  neighboring_window left
+map cmd+alt+right neighboring_window right
+map cmd+alt+up    neighboring_window up
+map cmd+alt+down  neighboring_window down
+
+map cmd+shift+z toggle_layout stack
+map cmd+shift+p command_palette
+```
+
+| 단축키 | 기능 | 설명 |
+| --- | --- | --- |
+| `Cmd + d` | `launch --location=vsplit` | 현재 경로에서 좌우로 분할합니다. |
+| `Cmd + e` | `launch --location=hsplit` | 현재 경로에서 상하로 분할합니다. |
+| `Cmd + Alt + 방향키` | `neighboring_window` | 해당 방향의 분할 창으로 이동합니다. |
+| `Cmd + Shift + z` | `toggle_layout stack` | 현재 창의 전체 화면 확대(stack 레이아웃)를 켜고 끕니다. |
+| `Cmd + Shift + p` | `command_palette` | 명령 팔레트를 엽니다. |
+
+| 옵션 | 설명 |
+| --- | --- |
+| `enabled_layouts splits,stack` | 두 레이아웃만 사용하며, 먼저 적은 splits가 기본 레이아웃이 됩니다. |
+| `macos_option_as_alt yes` | Option 키를 Alt로 사용합니다. 이 옵션은 설정 다시 읽기로 반영되지 않으므로 kitty를 재시작해야 합니다. |
+| `allow_remote_control yes` | 다른 프로그램이 창 내용 읽기와 텍스트 입력까지 포함해 kitty를 제어할 수 있습니다. SSH 연결을 통해서도 동작하므로 주의해야 합니다. |
+
+## **기본 단축키 (macOS)**
+
+**kitty_mod**
+
+`kitty_mod`는 기본 단축키에 쓰이는 수정키의 별칭이며, 기본값은 `Ctrl + Shift`입니다. 공식 문서와 `kitty.conf`의 `kitty_mod+t`는 `Ctrl + Shift + t`를 뜻합니다. 아래 표의 `Ctrl + Shift` 조합도 대부분 이 별칭으로 정의되어 있습니다.
+
+```conf
+# 기본값입니다. 값을 바꾸면 kitty_mod를 사용하는 기본 단축키가 모두 함께 바뀝니다.
+kitty_mod ctrl+shift
+
+# 직접 정의하는 단축키에도 사용할 수 있습니다.
+map kitty_mod+t new_tab
+```
+
+`Cmd` 조합은 `kitty_mod`와 별개로 정의된 macOS 전용 기본 단축키이므로, `kitty_mod` 값을 바꿔도 영향을 받지 않습니다.
+
+**창 (분할)**
+
+| 단축키 | 기능 | 설명 |
+| --- | --- | --- |
+| `Cmd + Enter` | `new_window` | 현재 레이아웃에 새 창을 엽니다. |
+| `Cmd + Shift + d` | `close_window` | 현재 분할 창만 닫습니다. |
+| `Cmd + 1~9` | `first_window` ~ `ninth_window` | N번째 창으로 이동합니다. 탭 이동이 아닙니다. |
+| `Cmd + r` | `start_resizing_window` | 창 크기 조절 모드로 들어갑니다. |
+| `Ctrl + Shift + F7` | `focus_visible_window` | 창 번호를 표시하고, 선택한 창으로 이동합니다. 창이 2개면 번호 없이 바로 이동합니다. |
+| `Ctrl + Shift + F8` | `swap_with_window` | 창 번호를 표시하고, 선택한 창과 위치를 바꿉니다. |
+| `Ctrl + Shift + l` | `next_layout` | 다음 레이아웃으로 전환합니다. |
+
+**탭 / OS 창**
+
+| 단축키 | 기능 | 설명 |
+| --- | --- | --- |
+| `Cmd + t` | `new_tab` | 새 탭을 엽니다. |
+| `Cmd + w` | `close_tab` | 탭 전체를 닫습니다. 탭 안의 분할 창도 모두 닫힙니다. |
+| `Cmd + Shift + ]` / `[` | `next_tab` / `previous_tab` | 다음 탭 / 이전 탭으로 이동합니다. |
+| `Cmd + Shift + i` | `set_tab_title` | 탭 제목을 변경합니다. |
+| `Cmd + n` | `new_os_window` | 새 OS 창을 엽니다. |
+| `Cmd + Shift + w` | `close_os_window` | OS 창을 닫습니다. |
+| `Ctrl + Cmd + f` | `toggle_fullscreen` | 전체 화면을 켜고 끕니다. |
+
+**스크롤 / 검색**
+
+| 단축키 | 기능 | 설명 |
+| --- | --- | --- |
+| `Cmd + 위/아래` | `scroll_line_up` / `scroll_line_down` | 한 줄씩 스크롤합니다. |
+| `Cmd + PgUp/PgDn` | `scroll_page_up` / `scroll_page_down` | 한 페이지씩 스크롤합니다. |
+| `Cmd + Home/End` | `scroll_home` / `scroll_end` | 스크롤백의 맨 위 / 맨 아래로 이동합니다. |
+| `Cmd + f` | `search_scrollback` | 스크롤백을 검색합니다. |
+| `Ctrl + Shift + h` | `show_scrollback` | 스크롤백을 페이저로 엽니다. |
+| `Ctrl + Shift + g` | `show_last_command_output` | 마지막 명령의 출력을 페이저로 엽니다. |
+| `Ctrl + Shift + z` / `x` | `scroll_to_prompt -1` / `scroll_to_prompt 1` | 이전 / 다음 프롬프트로 이동합니다. 셸 통합이 필요합니다. |
+
+**화면 / 힌트 / 설정**
+
+| 단축키 | 기능 | 설명 |
+| --- | --- | --- |
+| `Cmd + k` | `clear_terminal to_cursor active` | 커서까지의 화면을 지웁니다. |
+| `Cmd + Option + k` | `clear_terminal scrollback active` | 스크롤백을 지웁니다. |
+| `Cmd + Option + r` | `clear_terminal reset active` | 터미널을 초기화합니다. |
+| `Cmd + +` / `-` / `0` | `change_font_size` | 글꼴 크기를 키우거나 줄이거나 원래대로 되돌립니다. |
+| `Ctrl + Shift + e` | `open_url_with_hints` | 화면의 URL을 힌트로 선택해 엽니다. |
+| `Ctrl + Shift + p` 후 `f` | `kitten hints --type path --program -` | 화면의 파일 경로를 힌트로 선택해 프롬프트에 입력합니다. |
+| `Ctrl + Shift + u` | `kitten unicode_input` | 유니코드 문자를 입력합니다. |
+| `Cmd + ,` | `edit_config_file` | 설정 파일을 편집합니다. |
+| `Ctrl + Cmd + ,` | `load_config_file` | 설정 파일을 다시 읽습니다. |
+| `Cmd + Option + ,` | `debug_config` | 현재 적용된 설정을 확인합니다. |
+
+## **창 크기 조절 모드**
+
+`Cmd + r`로 들어가며, 화면에 조작 안내가 표시됩니다. 실제로는 레이아웃의 행이나 열을 조절하므로, 같은 행이나 열에 있는 다른 창의 크기도 함께 바뀝니다. 창 경계를 마우스로 드래그해도 조절할 수 있습니다.
+
+| 키 | 기능 | 설명 |
+| --- | --- | --- |
+| `W` / `N` | Wider / Narrower | 창을 넓히거나 좁힙니다. |
+| `T` / `S` | Taller / Shorter | 창을 높이거나 낮춥니다. |
+| `Alt` + 위 키 | Fractional resize | 남은 조절 단계의 일정 비율(기본 1/3)만큼 한 번에 움직입니다. |
+| `Ctrl` + 위 키 | Double step | 조절 폭을 2배로 늘립니다. |
+| `R` | Restore original sizes | 원래 크기로 되돌립니다. |
+| `1` / `2` | Window strategy / Edge strategy | 창 단위 조절(Window)과 경계 단위 조절(Edge) 방식을 선택합니다. |
+| `M` | Fractional modifier | 비율 조절에 쓰는 수정키를 Alt와 Shift 중에서 전환합니다. |
+| `F` | Fraction presets | 비율 조절의 비율을 선택합니다. |
+
+## **스크롤백 (Scrollback)**
+
+스크롤백은 화면 위로 밀려난 출력을 터미널이 메모리에 보관해 두는 기록입니다. 긴 명령의 앞부분 출력을 다시 볼 수 있는 것도 이 기록 덕분입니다.
+
+```conf
+# 보관할 줄 수이며, 기본값은 2000입니다.
+scrollback_lines 2000
+```
+
+값을 아주 크게 잡으면 성능이 떨어지고 RAM을 많이 사용합니다. 스크롤과 검색 단축키는 위의 **스크롤 / 검색** 표에 정리했습니다.
+
+## **창 번호 표시**
+
+`Ctrl + Shift + F7`을 누르면 각 창 위에 번호나 글자가 표시되고, 해당 키를 누르면 그 창으로 이동합니다. `Ctrl + Shift + F8`도 같은 방식으로 창 위치를 바꿉니다.
+
+- 창이 2개면 번호를 표시하지 않고 바로 다른 창으로 이동합니다.
+- 표시되는 문자는 `visual_window_select_characters` 옵션으로 바꿀 수 있습니다.
+- `kitty @ ls`의 `id`는 내부 식별자이므로 `Cmd + 1~9`의 순번과 다릅니다.
+
+## **주요 명령어**
+
+| 명령어 | 설명 |
+| --- | --- |
+| `kitten themes` | 테마를 미리 보고 변경합니다. `kitty.conf`의 `BEGIN_KITTY_THEME` 블록과 `current-theme.conf`가 이 결과물입니다. |
+| `kitten icat image.png` | 터미널에 이미지를 표시합니다. |
+| `kitten diff a.txt b.txt` | 두 파일의 차이를 나란히 표시합니다. |
+| `kitten ssh user@host` | 원격 서버에 셸 통합과 터미널 정보를 함께 전달해 접속합니다. |
+| `kitty @ ls` | 원격 제어로 창과 탭 구조를 JSON으로 출력합니다. `allow_remote_control` 설정이 필요합니다. |
+| `kitty @ set-font-size 14` | 원격 제어로 글꼴 크기를 변경합니다. |
