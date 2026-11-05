@@ -940,6 +940,25 @@ API 키는 `~/.zshrc`에 전용 환경 변수로 설정합니다. `ANTHROPIC_API
 export MINUET_ANTHROPIC_API_KEY="sk-ant-..."
 ```
 
+Claude Haiku 5.5는 thinking이 기본으로 켜져 있습니다. 응답이 thinking 블록으로 시작하면 minuet은 텍스트를 받지 못해 제안이 표시되지 않고 `Claude returns no text on streaming` 오류가 날 수 있으므로, thinking을 꺼 두었습니다.
+
+```lua
+provider_options = {
+    claude = {
+        api_key = "MINUET_ANTHROPIC_API_KEY",
+        optional = { thinking = { type = "disabled" } },
+    },
+},
+```
+
+제안이 표시되지 않을 때는 다음 순서로 확인합니다. noice.nvim이 `vim.notify`를 가로챌 수 있으므로, 로그를 `:messages`에서 보려면 임시로 재정의합니다. 재시작하면 원래대로 돌아갑니다.
+
+```vim
+:lua require('minuet').config.notify = 'debug'
+:lua vim.notify = function(m) print('notify: ' .. tostring(m)) end
+:verbose imap <M-]>
+```
+
 ### 단축키 (Insert 모드)
 
 macOS에서는 Alt 대신 Option을 누릅니다.
@@ -969,7 +988,7 @@ macOS에서는 Alt 대신 Option을 누릅니다.
 | 문맥 크기 | 16,000자이며, 약 4,000토큰입니다. |
 | Haiku 5.5 단가 | 100만 토큰당 입력 $0.10, 출력 $0.50입니다(프롬프트 10만 토큰 이하). |
 
-요청 1회의 비용은 최대 문맥 기준 약 $0.0005로 추정됩니다. 하루 100회 수동으로 쓰면 월(22일 기준) 약 $1, 자동 트리거로 하루 2,000회 쓰면 약 $22입니다. 실측이 아닌 계산치이며, thinking 토큰은 포함하지 않았습니다.
+요청 1회의 비용은 최대 문맥 기준 약 $0.0005로 추정됩니다. 하루 100회 수동으로 쓰면 월(22일 기준) 약 $1, 자동 트리거로 하루 2,000회 쓰면 약 $22입니다. 실측이 아닌 계산치이며, thinking을 끈 설정을 기준으로 합니다.
 
 월 사용 한도는 [Claude Console Billing](https://platform.claude.com/settings/billing)의 **Spend limits**에서 설정합니다. 이 한도는 조직 전체에 적용되므로, minuet만 제한하려면 전용 Workspace를 만들어 한도를 걸고 그 안에서 키를 발급합니다.
 
