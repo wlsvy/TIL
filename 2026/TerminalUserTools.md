@@ -266,6 +266,31 @@ vim.o.shell = 'C:/Program Files/PowerShell/7/pwsh.exe'
 - `<C-w>_` + `<C-w>|` 조합: 현재 창을 최대화 → `<C-w>=`로 복원
 - `<C-w>T`: 현재 창을 새 탭으로 분리하여 zoom처럼 사용, 탭 닫으면(`:tabclose`) 원래 레이아웃 복귀
 
+#### **창 이동·최대화 단축키 (내 설정)**
+
+Normal, Insert, Visual, Terminal 모드에서 모두 동작하도록 매핑했습니다.
+
+| 단축키 | 환경 | 동작 | 설정 파일 |
+| ------ | ---- | ---- | --------- |
+| `Cmd + Shift + h/j/k/l` | macOS | 분할 창을 왼쪽/아래/위/오른쪽으로 이동합니다. | `lua/macos-settings.lua` |
+| `Cmd + Shift + 방향키` | macOS | 분할 창을 해당 방향으로 이동합니다. | `lua/macos-settings.lua` |
+| `Alt + Shift + h/j/k/l` | Windows | 분할 창을 왼쪽/아래/위/오른쪽으로 이동합니다. | `lua/windows-settings.lua` |
+| `Alt + Shift + z` | 공통 | 현재 창을 최대화하고, 다시 누르면 원래 레이아웃으로 복원합니다. | `init.lua` |
+
+```lua
+-- macos-settings.lua (Windows는 <A-S-h> 형태의 키로 같은 동작을 매핑합니다)
+vim.keymap.set({ "n", "i", "v", "t" }, "<D-S-h>", "<Cmd>wincmd h<CR>", { silent = true })
+
+-- init.lua
+vim.keymap.set({ "n", "i", "v", "t" }, "<A-S-z>", function() Snacks.zen.zoom() end, { silent = true })
+```
+
+- `<D-…>`는 Command 키 또는 super 키를 뜻합니다. Windows에서는 Win 키에 해당하며, `Win + Shift + 방향키`처럼 OS가 먼저 처리하는 조합이 있어 Windows 매핑에는 Alt를 사용했습니다.
+- `Ctrl + Shift + z`는 kitty 기본 단축키(`scroll_to_prompt -1`)와 겹칩니다. 그래서 kitty 설정을 고치지 않아도 되는 `Alt + Shift + z`를 선택했습니다.
+- macOS에서는 kitty의 `macos_option_as_alt yes` 설정 덕분에 `Option + Shift + z`로 입력합니다.
+- `Snacks.zen.zoom()`은 같은 버퍼를 띄운 플로팅 창을 덮는 방식이므로, 아래의 레이아웃이 그대로 유지됩니다.
+- `:map`에서는 Neovim이 키 이름을 정규화하여 `<D-S-h>`를 `<D-H>`로, `<A-S-z>`를 `<M-Z>`로 표시합니다.
+
 ### Neovim 파일 경로 정보
 
 #### 1. ShaDa 파일 경로
@@ -833,6 +858,120 @@ A. 그 부분은 Neovim 프롬프트가 문자 i를 "직접 입력(insert) 기�
 --
 :redir @a | digraphs | redir END -- 레지스터 'a' 에 복사
 ```
+
+# Neovim AI 플러그인
+
+2026년 11월 기준으로 정리했습니다. 두 플러그인은 역할이 달라 함께 사용합니다.
+
+| 플러그인 | 역할 | 인증 |
+| -------- | ---- | ---- |
+| `claudecode.nvim` | 사이드바의 Claude Code에 작업을 맡기고 변경안을 검토합니다. | Claude Code 로그인을 사용하므로 구독으로 쓸 수 있습니다. |
+| `minuet-ai.nvim` | 타이핑 중 커서 위치의 코드를 완성합니다. | API 키가 필요하며 구독으로는 쓸 수 없습니다. |
+
+## **claudecode.nvim**
+
+- [coder/claudecode.nvim: Claude Code Neovim IDE Extension](https://github.com/coder/claudecode.nvim)
+
+Neovim이 WebSocket 서버가 되고, 사이드바의 Claude CLI가 클라이언트로 접속합니다. Claude는 독립된 프로세스이므로 버퍼 메모리를 공유하지 않고 소켓으로 통신합니다.
+
+```text
+Neovim                                      Claude CLI (사이드바 터미널)
+ selection.lua, 명령어  -- selection_changed -->  WebSocket 클라이언트
+ WebSocket 서버         -- at_mentioned ------->  파일은 직접 읽고 씀
+ tools/, diff.lua       <-- tools/call ---------
+```
+
+### 연결 과정
+
+1. 플러그인이 처음 로드될 때 `127.0.0.1`의 포트에 서버를 열고 인증 토큰을 만듭니다. 현재 설정은 지연 로딩이므로 `<leader>A…` 키나 `:ClaudeCode…` 명령을 처음 쓸 때 시작됩니다.
+2. `~/.claude/ide/<port>.lock`에 IDE 이름, 작업 폴더, PID, 인증 토큰을 기록합니다.
+3. `CLAUDE_CODE_SSE_PORT=<port>`, `ENABLE_IDE_INTEGRATION=true` 환경 변수와 함께 `claude`를 실행합니다.
+4. CLI가 `x-claude-code-ide-authorization` 헤더로 토큰을 보내면 서버가 검증합니다.
+
+### 버퍼 내용의 전달 경로
+
+버퍼 전체를 보내는 경로는 없고, 선택 영역 텍스트와 파일 경로·줄 범위만 전달됩니다.
+
+| 경로 | 시점 | 전달 내용 |
+| ---- | ---- | --------- |
+| `selection_changed` | 커서 이동, 모드 변경, 텍스트 변경 시 100ms 디바운스 후 자동으로 보냅니다. | 선택 텍스트, 파일 경로, 시작·끝 위치를 보냅니다. 선택이 없으면 텍스트는 비어 있습니다. |
+| `at_mentioned` | `<leader>Ab`, `<leader>As`로 직접 보낼 때입니다. | 파일 경로와 줄 범위만 보내고 텍스트는 보내지 않습니다. |
+| MCP 도구 호출 | Claude가 요청할 때입니다. | 선택 영역, 열린 파일 목록, 진단 정보 등을 돌려줍니다. |
+
+### 주요 단축키 (내 설정)
+
+| 단축키 | 동작 |
+| ------ | ---- |
+| `<leader>Ac` | Claude 터미널을 열거나 닫습니다. |
+| `<leader>Af` | Claude 터미널로 포커스를 옮깁니다. |
+| `<leader>Ar` / `<leader>AC` | 이전 세션을 골라 재개하거나, 마지막 세션을 이어 갑니다. |
+| `<leader>Am` | 모델을 선택합니다. |
+| `<leader>Ab` | 현재 파일을 컨텍스트로 추가합니다. |
+| `<leader>As` | Visual 모드에서 선택한 줄 범위를 보냅니다. |
+| `<leader>Aa` / `<leader>Ad` | Claude가 제안한 diff를 수락하거나 거부합니다. |
+
+### 주의 사항
+
+- `<leader>Ab`, `<leader>As`는 경로만 보내므로 Claude는 디스크의 내용을 볼 가능성이 높습니다. CLI 내부 동작이라 확인하지는 못했지만, 보내기 전에 `:w`를 하는 편이 안전합니다.
+- Visual 모드로 선택만 해도 텍스트가 Claude CLI로 전달됩니다.
+- Visual Block 선택은 정확한 사각형이 아니라 이어진 문자 범위로 근사해서 전달됩니다.
+
+## **minuet-ai.nvim**
+
+- [milanglacier/minuet-ai.nvim](https://github.com/milanglacier/minuet-ai.nvim)
+
+커서 앞뒤 코드를 LLM에 보내 완성 코드를 받아 표시하는 플러그인입니다. 별도 백그라운드 프로그램 없이 `curl`로 동작합니다.
+
+### 주요 기능
+
+- 제공자는 Claude, OpenAI, Gemini, Codestral, Ollama, llama.cpp와 OpenAI 호환 서비스를 지원합니다.
+- 표시 방식은 가상 텍스트, nvim-cmp, blink.cmp, 내장 완성, LSP 서버 방식을 지원합니다.
+- 여러 줄 제안을 줄 단위로 수락할 수 있습니다.
+- 응답을 스트리밍으로 표시하고, 입력에 맞춰 제안을 동기화해 불필요한 요청을 줄입니다.
+- `:Minuet duet` 명령으로 다음 편집 예측을 실험 기능으로 제공합니다.
+
+### 내 설정
+
+설정 파일은 `lua/plugins/minuet.lua`입니다. 제공자는 `claude`, 표시 방식은 가상 텍스트입니다. 버퍼 내용이 자동으로 전송되지 않도록 자동 트리거는 꺼 두었습니다.
+
+API 키는 `~/.zshrc`에 전용 환경 변수로 설정합니다. `ANTHROPIC_API_KEY`를 셸에 설정하면 Claude Code CLI도 그 키를 써서 구독 대신 API 요금이 청구될 수 있기 때문입니다.
+
+```bash
+export MINUET_ANTHROPIC_API_KEY="sk-ant-..."
+```
+
+### 단축키 (Insert 모드)
+
+macOS에서는 Alt 대신 Option을 누릅니다.
+
+| 단축키 | 동작 |
+| ------ | ---- |
+| `Alt + ]` / `Alt + [` | 완성을 수동으로 요청하거나 다음·이전 제안으로 이동합니다. |
+| `Alt + Shift + a` | 제안 전체를 수락합니다. |
+| `Alt + a` | 한 줄만 수락합니다. |
+| `Alt + e` | 제안을 닫습니다. |
+
+### 주요 명령어
+
+| 명령어 | 동작 |
+| ------ | ---- |
+| `:Minuet virtualtext toggle` | 현재 버퍼의 자동 트리거를 켜거나 끕니다. |
+| `:Minuet change_provider <name>` | 제공자를 바꿉니다. |
+| `:Minuet change_model` | 모델을 바꿉니다. |
+| `:Minuet duet predict` / `apply` / `dismiss` | 다음 편집을 예측하고, 적용하거나 닫습니다. |
+
+### 기본값과 비용
+
+| 항목 | 값 |
+| ---- | --- |
+| Claude 기본 모델 | `claude-haiku-5-5`입니다. |
+| 디바운스 / 요청 간격 | 400ms / 1000ms입니다. |
+| 문맥 크기 | 16,000자이며, 약 4,000토큰입니다. |
+| Haiku 5.5 단가 | 100만 토큰당 입력 $0.10, 출력 $0.50입니다(프롬프트 10만 토큰 이하). |
+
+요청 1회의 비용은 최대 문맥 기준 약 $0.0005로 추정됩니다. 하루 100회 수동으로 쓰면 월(22일 기준) 약 $1, 자동 트리거로 하루 2,000회 쓰면 약 $22입니다. 실측이 아닌 계산치이며, thinking 토큰은 포함하지 않았습니다.
+
+월 사용 한도는 [Claude Console Billing](https://platform.claude.com/settings/billing)의 **Spend limits**에서 설정합니다. 이 한도는 조직 전체에 적용되므로, minuet만 제한하려면 전용 Workspace를 만들어 한도를 걸고 그 안에서 키를 발급합니다.
 
 # Regex(정규식)
 
