@@ -202,6 +202,24 @@ return {
                     mode = {'n'},
                     desc = "i<C-v>u2026<ESC>"
                 },
+
+                image_clear = {
+                    macro = ":ImageClear<CR>",
+                    mode = {'n'},
+                    desc = ":ImageClear<CR> 이미지 잔상을 전부 지운다. 플러그인은 켜진 상태라 스크롤이나 버퍼 이동 시 다시 그려진다.",
+                },
+
+                image_reset = {
+                    macro = ":ImageReset<CR>",
+                    mode = {'n'},
+                    desc = ":ImageReset<CR> 이미지를 전부 지우고 현재 탭의 마크다운 창을 바로 다시 그린다.",
+                },
+
+                image_toggle = {
+                    macro = ":ImageToggle<CR>",
+                    mode = {'n'},
+                    desc = ":ImageToggle<CR> image.nvim을 끄거나 켠다. 꺼져 있으면 이미지가 그려지지 않으며, nvim 재시작 시 다시 켜진다.",
+                },
             },
         }
     end

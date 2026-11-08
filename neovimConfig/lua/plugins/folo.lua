@@ -5,5 +5,11 @@ return {
     name = 'folo',
     main = 'folo',
     cmd = { 'Folo', 'FoloUnread', 'FoloCategory', 'FoloStarred' },
-    opts = {},
+    opts = {
+        icons = {
+            domains = {
+                ["hankyung.com"] = { color = "#4c8bf5" }, -- blue, keeps the HA badge
+            },
+        },
+    },
 }
