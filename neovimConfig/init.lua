@@ -53,9 +53,6 @@ vim.api.nvim_set_keymap('v', '<leader>p', '"+p', { noremap = true, silent = true
 -- terminal
 vim.api.nvim_set_keymap('t', '<ESC>', "<C-\\><C-n>", { noremap = true, silent = true }) 
 
--- 현재 창 최대화 토글
-vim.keymap.set({ "n", "i", "v", "t" }, "<A-S-z>", function() Snacks.zen.zoom() end, { silent = true })
-
 -- win border
 
 -- floating window 기본 보더 설정
@@ -80,20 +77,17 @@ vim.o.foldcolumn = "1" -- 폴드 컬럼 표시
 -- text wrap toggle
 function ToggleTextWrap() -- 텍스트 줄 바꿈 토글하는 함수 정의
     vim.o.wrap = not vim.o.wrap
-    if vim.o.wrap then
-        -- wrap이 켜졌을 때 'j', 'k'를 'gj', 'gk'로 매핑
-        vim.api.nvim_set_keymap('n', 'j', 'gj', { noremap = true, silent = true })
-        vim.api.nvim_set_keymap('n', 'k', 'gk', { noremap = true, silent = true })
-        print("Text wrap enabled. Mapped 'j' to 'gj' and 'k' to 'gk'")
-    else
-        -- wrap이 꺼졌을 때 기본 'j', 'k'로 복원
-        vim.api.nvim_set_keymap('n', 'j', 'j', { noremap = true, silent = true })
-        vim.api.nvim_set_keymap('n', 'k', 'k', { noremap = true, silent = true })
-        print("Text wrap disabled. Restored default 'j' and 'k'")
-    end
+    vim.o.linebreak = vim.o.wrap   -- 단어 경계에서 접기
+    vim.o.breakindent = vim.o.wrap -- 접힌 줄도 들여쓰기 유지
+    print("Text wrap " .. (vim.o.wrap and "enabled" or "disabled"))
 end
+-- macroni의 :ToggleTextWrap용. visual 모드에서 붙는 '<,'> 범위를 받으려고 range = true
+vim.api.nvim_create_user_command('ToggleTextWrap', ToggleTextWrap, { range = true })
+vim.keymap.set('n', '<leader>vw', ToggleTextWrap, { silent = true })
 
-vim.api.nvim_set_keymap('n', '<leader>vw', ":lua ToggleTextWrap()<CR>", { noremap = true, silent = true }) 
+-- 숫자 없이 누르면 화면 줄(gj/gk), 숫자를 붙이면 실제 줄(5j 등) 단위로 이동. wrap이 꺼져 있으면 둘이 같음
+vim.keymap.set({'n','x'}, 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true })
+vim.keymap.set({'n','x'}, 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true })
 
 -- 'lazy.nvim' 설치 및 경로 설정
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
