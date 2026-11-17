@@ -2,7 +2,8 @@
 -- one spec: lazy merges specs that share a url
 -- folo auth: `folo login` or env FOLO_TOKEN / rss token: env RSS_TOKEN (keep secrets out of this file)
 local subdirs = {
-    { dir = 'folo/nvim', main = 'folo', opts = {} },
+    -- gmail auth: `gws auth login`
+    { dir = 'folo/nvim', main = 'folo', opts = { gmail = { enabled = true } } },
     { dir = 'rss/nvim-sample', main = 'rss_sample', opts = { url = vim.env.RSS_URL or 'http://127.0.0.1:8080' } },
 }
 
