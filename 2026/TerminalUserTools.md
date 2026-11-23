@@ -138,6 +138,24 @@ vim.o.shell = 'C:/Program Files/PowerShell/7/pwsh.exe'
   * `:w ++enc=euc-kr`
   * `:w ++enc=utf-8`
 
+### File Format (Line Ending)
+
+- `:set fileformat?` : 현재 파일의 라인 엔딩 확인 (`dos` = CRLF, `unix` = LF, `mac` = CR)
+  - fileformat -> ff : `set ff?`
+- `:set fileformat=dos | write` : CRLF로 바꿔 저장합니다.
+- `:edit ++fileformat=dos` : 파일을 dos 형식으로 다시 읽습니다. LF만 있는 줄도 줄 끝으로 인식합니다.
+
+- 화면에 `^M`이 보이는 이유
+  * 파일에 LF와 CRLF가 섞여 있으면 Neovim은 `unix`로 인식하고, CRLF 줄에 남은 CR이 `^M`으로 표시됩니다.
+  * 해결 (둘 중 하나)
+    * `:edit ++fileformat=dos | set fileformat=dos | write`
+    * `:%s/\r$//e | set fileformat=dos | write`
+  * `:s/\r/\r\n/g` 는 안 됩니다. 치환 문자열에서 `\r`은 줄바꿈, `\n`은 NUL(`^@`)로 들어가기 때문입니다.
+
+- 여러 파일 일괄 변환
+  * `:args **/*.cs | argdo edit ++fileformat=dos | set fileformat=dos | update`
+  * git 저장소라면 `.gitattributes`의 `eol` 설정이 checkout 시 라인 엔딩을 다시 바꿀 수 있습니다.
+
 ### File Type
 
 - `set filetype=ps1` : 현재 파일 타입 수정
@@ -1449,3 +1467,73 @@ scrollback_lines 2000
 | `kitten ssh user@host` | 원격 서버에 셸 통합과 터미널 정보를 함께 전달해 접속합니다. |
 | `kitty @ ls` | 원격 제어로 창과 탭 구조를 JSON으로 출력합니다. `allow_remote_control` 설정이 필요합니다. |
 | `kitty @ set-font-size 14` | 원격 제어로 글꼴 크기를 변경합니다. |
+
+# diffview.nvim
+
+- [sindrets/diffview.nvim · GitHub](https://github.com/sindrets/diffview.nvim)
+
+git 커밋 히스토리를 탐색하고, 특정 커밋이나 범위의 diff를 탭 하나에서 확인하는 플러그인입니다.
+
+```lua
+-- lazy.nvim
+{ "sindrets/diffview.nvim", cmd = { "DiffviewOpen", "DiffviewFileHistory" } }
+```
+
+## **주요 명령어**
+
+| 명령어 | 설명 |
+| --- | --- |
+| `:DiffviewOpen` | 작업 트리의 변경 사항(index 대비)을 표시합니다. |
+| `:DiffviewOpen HEAD~2` | 지정한 커밋과 작업 트리를 비교합니다. |
+| `:DiffviewOpen <a>..<b>` | 두 커밋 사이의 diff를 표시합니다. |
+| `:DiffviewOpen origin/main...HEAD` | merge-base 기준으로 현재 브랜치에서 바뀐 내용만 표시합니다. PR 리뷰에 유용합니다. |
+| `:DiffviewOpen <commit>^!` | 해당 커밋 하나의 변경 내용만 표시합니다. |
+| `:DiffviewFileHistory` | 저장소 전체 커밋 히스토리를 표시합니다. |
+| `:DiffviewFileHistory %` | 현재 파일의 커밋 히스토리만 표시합니다. |
+| `:'<,'>DiffviewFileHistory` | 비주얼 모드로 선택한 줄 범위의 히스토리를 표시합니다. |
+| `:DiffviewClose` | diffview 탭을 닫습니다. |
+| `:DiffviewToggleFiles` / `:DiffviewFocusFiles` | 파일 패널을 열고 닫거나 포커스합니다. |
+| `:DiffviewRefresh` | 변경 사항을 다시 읽습니다. |
+
+## **공통 단축키**
+
+| 단축키 | 설명 |
+| --- | --- |
+| `<Tab>` / `<S-Tab>` | 다음 / 이전 파일의 diff로 이동합니다. |
+| `gf` | 해당 파일을 이전 탭에서 엽니다. |
+| `<leader>e` | 파일 패널로 포커스합니다. |
+| `<leader>b` | 파일 패널을 열고 닫습니다. |
+| `g<C-x>` | diff 레이아웃(좌우/상하 등)을 전환합니다. |
+| `g?` | 현재 패널의 단축키 도움말을 표시합니다. |
+
+## **파일 패널 (`:DiffviewOpen`)**
+
+| 단축키 | 설명 |
+| --- | --- |
+| `<CR>` / `o` | 선택한 파일의 diff를 엽니다. |
+| `-` | 파일을 stage / unstage 합니다. |
+| `S` / `U` | 전체 stage / 전체 unstage 합니다. |
+| `X` | 파일 변경 사항을 되돌립니다. |
+| `R` | 파일 목록을 새로 고칩니다. |
+
+## **히스토리 패널 (`:DiffviewFileHistory`)**
+
+| 단축키 | 설명 |
+| --- | --- |
+| `<CR>` / `o` | 선택한 커밋의 diff를 엽니다. |
+| `zR` / `zM` | 모든 커밋의 파일 목록을 펼치거나 접습니다. |
+| `y` | 커밋 해시를 복사합니다. |
+| `L` | 커밋 로그(메시지 전체)를 표시합니다. |
+| `<C-A-d>` | 선택한 커밋을 `:DiffviewOpen`으로 엽니다. |
+| `g!` | 옵션 패널(author, grep, 범위 등 log 필터)을 엽니다. |
+
+## **머지 충돌 해결**
+
+충돌 중에 `:DiffviewOpen`을 실행하면 3-way diff(OURS / BASE / THEIRS)가 표시됩니다.
+
+| 단축키 | 설명 |
+| --- | --- |
+| `[x` / `]x` | 이전 / 다음 충돌로 이동합니다. |
+| `<leader>co` / `<leader>ct` | OURS / THEIRS 쪽을 선택합니다. |
+| `<leader>cb` / `<leader>ca` | BASE / 전부를 선택합니다. |
+| `dx` | 충돌 영역을 삭제합니다. |
